@@ -614,6 +614,11 @@ body.overlay-open {
     padding: 0;
   }
 
+  .home-cover {
+    min-height: 220px;
+    background-position: center top;
+  }
+
   .home-hero {
     padding-top: var(--home-topbar-height);
   }
