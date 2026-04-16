@@ -2,11 +2,12 @@ import { ROUTES } from '../../app/routes'
 
 export function renderNotFoundPage(): string {
   return `
-    <main class="fallback-page d-flex align-items-center justify-content-center py-5">
-      <div class="text-center">
-        <h1 class="h4 mb-3">Page not found</h1>
-        <a class="btn btn-primary" href="${ROUTES.LOGIN}">Go to Student Portal Login</a>
-      </div>
+    <main class="fallback-page">
+      <section class="fallback-card">
+        <p class="fallback-code">404</p>
+        <h1 class="fallback-title">Page not found</h1>
+        <a class="fallback-btn" href="${ROUTES.HOME}">Go to Homepage</a>
+      </section>
     </main>
   `
 }

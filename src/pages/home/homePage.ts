@@ -72,8 +72,8 @@ export function renderHomePage(): string {
           </div>
           <div class="home-overlay-accent-line"></div>
           <div class="home-search-center">
-            <form class="home-search-form" data-search-form>
-              <input type="search" name="q" placeholder="type keyword(s) here" aria-label="Search site" required />
+            <form class="home-search-form" data-search-form autocomplete="off">
+              <input type="search" name="q" placeholder="type keyword(s) here" aria-label="Search site" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" required />
               <button type="submit">Search</button>
             </form>
           </div>

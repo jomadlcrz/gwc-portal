@@ -5,6 +5,7 @@ export function setupHomeInteractions(root: HTMLElement): () => void {
   const openButtons = Array.from(root.querySelectorAll<HTMLElement>('[data-overlay-open]'))
   const closeButtons = Array.from(root.querySelectorAll<HTMLElement>('[data-overlay-close]'))
   const searchForm = root.querySelector<HTMLFormElement>('[data-search-form]')
+  const searchInput = root.querySelector<HTMLInputElement>('[data-search-form] input[name="q"]')
 
   createIcons({
     icons: {
@@ -42,6 +43,10 @@ export function setupHomeInteractions(root: HTMLElement): () => void {
     target.classList.add('is-open')
     target.setAttribute('aria-hidden', 'false')
     lockScroll()
+
+    if (name === 'search' && searchInput) {
+      requestAnimationFrame(() => searchInput.focus())
+    }
   }
 
   const onOpenClick = (event: Event): void => {

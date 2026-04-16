@@ -150,6 +150,52 @@ body.overlay-open {
 
 .fallback-page {
   min-height: 100dvh;
+  background: #ececee;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+}
+
+.fallback-card {
+  width: min(900px, 100%);
+  text-align: center;
+}
+
+.fallback-code {
+  margin: 0 0 0.5rem;
+  font-size: clamp(4rem, 9vw, 7rem);
+  line-height: 1;
+  font-weight: 800;
+  color: #091735;
+}
+
+.fallback-title {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.2;
+  font-weight: 700;
+  color: #091735;
+}
+
+.fallback-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  min-width: 260px;
+  border-radius: 8px;
+  padding: 0 1.4rem;
+  background: #081836;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.fallback-btn:hover,
+.fallback-btn:focus {
+  background: #122955;
+  color: #fff;
 }
 
 .home-page {
@@ -445,7 +491,7 @@ body.overlay-open {
 .home-overlay-close {
   width: 56px;
   height: 56px;
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  border: 0;
   background: transparent;
   color: #f4f6fa;
   border-radius: 999px;
@@ -456,8 +502,8 @@ body.overlay-open {
 
 .home-overlay-close:hover,
 .home-overlay-close:focus {
-  border-color: #f4d269;
   color: #f4d269;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .home-overlay-accent-line {
@@ -486,13 +532,15 @@ body.overlay-open {
   min-height: 84px;
   border: 0;
   border-radius: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   background: transparent;
   color: #d5d8df;
   text-align: center;
   font-size: clamp(2rem, 5vw, 4.4rem);
   font-weight: 400;
   padding: 0 0.5rem;
+  outline: none;
+  box-shadow: none;
+  appearance: none;
 }
 
 .home-search-form input::placeholder {
