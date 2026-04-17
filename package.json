@@ -1,5 +1,5 @@
 {
-  "name": "vite-vanilla",
+  "name": "gwc-portal",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -15,7 +15,9 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "@tailwindcss/vite": "^4.2.2",
     "bootstrap": "^5.3.8",
-    "lucide": "^1.8.0"
+    "lucide": "^1.8.0",
+    "tailwindcss": "^4.2.2"
   }
 }

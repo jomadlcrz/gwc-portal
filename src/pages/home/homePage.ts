@@ -2,33 +2,27 @@
 import gwcLogoWhite from '../../assets/gwc-logo-white.png'
 import coverImage from '../../assets/cover.jpg'
 import { ROUTES } from '../../app/routes'
+import { renderMainSiteHeader } from '../../components/siteHeader'
 
 export function renderHomePage(): string {
   return `
     <main class="home-page">
-      <header class="home-header">
-        <div class="home-header-inner">
-          <a href="${ROUTES.HOME}" class="home-brand text-decoration-none">
-            <img src="${gwcLogo}" alt="Golden West Colleges logo" class="home-brand-logo" />
-            <span class="home-brand-title home-brand-title-full">GOLDEN WEST COLLEGES, INC.</span>
-            <span class="home-brand-title home-brand-title-short">GWC, INC.</span>
-          </a>
-
-          <nav class="home-quick-menu" aria-label="Quick links">
-            <a href="#community" class="home-quick-item home-quick-item-icon-only" aria-label="Announcement">
-              <span class="home-quick-icon" aria-hidden="true"><i data-lucide="megaphone"></i></span>
-            </a>
-            <button type="button" class="home-quick-item" data-overlay-open="search">
-              <span class="home-quick-icon" aria-hidden="true"><i data-lucide="search"></i></span>
-              <span class="home-quick-label">SEARCH</span>
-            </button>
-            <button type="button" class="home-quick-item" data-overlay-open="menu">
-              <span class="home-quick-icon" aria-hidden="true"><i data-lucide="menu"></i></span>
-              <span class="home-quick-label">MENU</span>
-            </button>
-          </nav>
-        </div>
-      </header>
+      ${renderMainSiteHeader({
+        brandHref: ROUTES.HOME,
+        logoSrc: gwcLogo,
+        logoAlt: 'Golden West Colleges logo',
+        actions: [
+          {
+            type: 'link',
+            href: ROUTES.ANNOUNCEMENTS,
+            icon: 'megaphone',
+            ariaLabel: 'Announcement',
+            className: 'home-quick-item-icon-only',
+          },
+          { type: 'button', icon: 'search', label: 'SEARCH', attrs: 'data-overlay-open="search"' },
+          { type: 'button', icon: 'menu', label: 'MENU', attrs: 'data-overlay-open="menu"' },
+        ],
+      })}
 
       <section class="home-overlay" data-overlay="menu" aria-hidden="true">
         <div class="home-overlay-backdrop" data-overlay-close></div>
@@ -160,5 +154,8 @@ export function renderHomePage(): string {
     </main>
   `
 }
+
+
+
 
 

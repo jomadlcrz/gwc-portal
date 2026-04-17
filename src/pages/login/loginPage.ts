@@ -1,17 +1,13 @@
 import gwcLogo from '../../assets/gwc-logo-laurel.png'
+import { renderPortalHeader } from '../../components/siteHeader'
 
 export function renderLoginPage(): string {
   return `
     <main class="login-page">
-      <header class="portal-header">
-        <div class="portal-wave"></div>
-        <div class="portal-header-inner">
-          <img src="${gwcLogo}" alt="Golden West Colleges logo" class="portal-logo" />
-          <h1 class="portal-school-name">GOLDEN WEST COLLEGES, INC.</h1>
-          <p class="portal-title">STUDENT PORTAL</p>
-        </div>
-        <div class="portal-gold-line"></div>
-      </header>
+      ${renderPortalHeader({
+        logoSrc: gwcLogo,
+        logoAlt: 'Golden West Colleges logo',
+      })}
 
       <section class="portal-body">
         <div class="container">

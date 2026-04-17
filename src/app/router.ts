@@ -1,5 +1,6 @@
+import { renderAnnouncementsPage } from '../pages/announcements/announcementsPage'
+import { setupSiteInteractions } from '../components/siteInteractions'
 import { renderHomePage } from '../pages/home/homePage'
-import { setupHomeInteractions } from '../pages/home/homeInteractions'
 import { renderLoginPage } from '../pages/login/loginPage'
 import { renderNotFoundPage } from '../pages/not-found/notFoundPage'
 import { ROUTES } from './routes'
@@ -13,13 +14,20 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   if (pathname === ROUTES.HOME) {
     document.title = 'Golden West Colleges, Inc.'
     app.innerHTML = renderHomePage()
-    cleanupCurrentRoute = setupHomeInteractions(app)
+    cleanupCurrentRoute = setupSiteInteractions(app)
     return
   }
 
   if (pathname === ROUTES.LOGIN) {
     document.title = 'Student Portal Login | Golden West Colleges, Inc.'
     app.innerHTML = renderLoginPage()
+    return
+  }
+
+  if (pathname === ROUTES.ANNOUNCEMENTS) {
+    document.title = 'Announcements | Golden West Colleges, Inc.'
+    app.innerHTML = renderAnnouncementsPage()
+    cleanupCurrentRoute = setupSiteInteractions(app)
     return
   }
 

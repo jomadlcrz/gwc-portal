@@ -1,6 +1,6 @@
 import { createIcons, Megaphone, Menu, Search } from 'lucide'
 
-export function setupHomeInteractions(root: HTMLElement): () => void {
+export function setupSiteInteractions(root: HTMLElement): () => void {
   const overlays = Array.from(root.querySelectorAll<HTMLElement>('[data-overlay]'))
   const openButtons = Array.from(root.querySelectorAll<HTMLElement>('[data-overlay-open]'))
   const closeButtons = Array.from(root.querySelectorAll<HTMLElement>('[data-overlay-close]'))
