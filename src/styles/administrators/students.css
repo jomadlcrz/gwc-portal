@@ -164,34 +164,12 @@
   box-shadow: 0 0 0 0.1rem rgb(42 79 149 / 16%);
 }
 
-#students-manage-modal .form-control,
-#students-manage-modal .form-select {
-  border: 1px solid #8fa1bc;
-  border-radius: 0;
-  background-color: #fff;
-  color: #1e293b;
-}
-
-#students-manage-modal .form-floating > label {
-  color: #475569;
-}
-
-#students-manage-modal .form-control:focus,
-#students-manage-modal .form-select:focus {
-  border-color: #2a4f95;
-  box-shadow: 0 0 0 0.1rem rgb(42 79 149 / 16%);
-}
-
 #students-manage-modal .modal-dialog {
+  max-width: min(560px, 92vw);
+}
+
+#students-manage-modal.is-form-modal .modal-dialog {
   max-width: min(1100px, 94vw);
-}
-
-#students-manage-modal {
-  overflow-y: auto;
-}
-
-#students-manage-modal .modal-body {
-  padding: 0.9rem 1rem;
 }
 
 #students-manage-modal .admin-student-section:first-child {
@@ -264,7 +242,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  #students-manage-modal .modal-dialog {
+  #students-manage-modal.is-form-modal .modal-dialog {
     max-width: min(900px, 96vw);
   }
 
@@ -282,10 +260,6 @@
   .admin-student-form-grid,
   .admin-student-form-grid-4 {
     grid-template-columns: 1fr;
-  }
-
-  #students-manage-modal .modal-body {
-    padding: 0.75rem;
   }
 
   #students-manage-modal .admin-student-form-grid,

@@ -1,0 +1,45 @@
+[data-shared-modal] {
+  overflow-y: auto;
+}
+
+[data-shared-modal] .modal-dialog {
+  max-width: min(880px, 94vw);
+}
+
+[data-shared-modal] .modal-body {
+  padding: 0.9rem 1rem;
+}
+
+[data-shared-modal] .form-control,
+[data-shared-modal] .form-select {
+  border: 1px solid #8fa1bc;
+  border-radius: 0;
+  background-color: #fff;
+  color: #1e293b;
+}
+
+[data-shared-modal] .form-floating > label {
+  color: #475569;
+}
+
+[data-shared-modal] .form-control:focus,
+[data-shared-modal] .form-select:focus {
+  border-color: #2a4f95;
+  box-shadow: 0 0 0 0.1rem rgb(42 79 149 / 16%);
+}
+
+[data-shared-modal] .shared-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+@media (max-width: 640px) {
+  [data-shared-modal] .modal-body {
+    padding: 0.75rem;
+  }
+
+  [data-shared-modal] .shared-modal-grid {
+    grid-template-columns: 1fr;
+  }
+}

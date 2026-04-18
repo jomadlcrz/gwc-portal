@@ -259,35 +259,6 @@
   font-weight: 600;
 }
 
-#admin-directory-modal .form-control,
-#admin-directory-modal .form-select {
-  border: 1px solid #8fa1bc;
-  border-radius: 0;
-  background-color: #fff;
-  color: #1e293b;
-}
-
-#admin-directory-modal .form-floating > label {
-  color: #475569;
-}
-
-#admin-directory-modal .form-control:focus,
-#admin-directory-modal .form-select:focus {
-  border-color: #2a4f95;
-  box-shadow: 0 0 0 0.1rem rgb(42 79 149 / 16%);
-}
-
-#admin-directory-modal .admin-directory-modal-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.6rem;
-}
-
-@media (max-width: 640px) {
-  #admin-directory-modal .admin-directory-modal-grid {
-    grid-template-columns: 1fr;
-  }
-}
 
 @media (max-width: 1200px) {
   .admin-stats-grid {

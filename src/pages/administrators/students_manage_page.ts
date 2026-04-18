@@ -128,6 +128,7 @@ export function renderstudents_manage_page(): string {
 export function setupstudents_manage_page(root: HTMLElement): () => void {
   const cleanupShell = setupAdminShell(root)
   const modal = setupSharedModal(root, { modalSelector: '#students-manage-modal' })
+  const modalElement = root.querySelector<HTMLElement>('#students-manage-modal')
   const searchInput = root.querySelector<HTMLInputElement>('[data-student-search]')
   const allRows = Array.from(root.querySelectorAll<HTMLTableRowElement>('[data-student-row]'))
   const emptyRow = root.querySelector<HTMLTableRowElement>('[data-student-empty-row]')
@@ -179,6 +180,7 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
     const action = actionButton.dataset.studentAction
 
     if (action === 'edit') {
+      modalElement?.classList.add('is-form-modal')
       modal.setOnConfirm(() => modal.close())
       modal.open({
         title: 'Edit Student',
@@ -190,6 +192,7 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
       return
     }
 
+    modalElement?.classList.remove('is-form-modal')
     modal.setOnConfirm(() => modal.close())
     modal.open({
       title: 'Reset Student Account',
