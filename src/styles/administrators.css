@@ -351,9 +351,9 @@
 }
 
 .admin-actions-menu {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 0.3rem);
+  position: fixed;
+  left: var(--menu-left, 0);
+  top: var(--menu-top, 0);
   display: none;
   min-width: 130px;
   padding: 0.28rem;
@@ -367,6 +367,10 @@
 .admin-actions-popover.is-open .admin-actions-menu {
   display: grid;
   gap: 0.15rem;
+}
+
+.admin-actions-menu.is-dropup {
+  transform-origin: bottom right;
 }
 
 .admin-actions-menu button {
