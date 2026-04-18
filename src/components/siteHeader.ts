@@ -1,3 +1,5 @@
+import { ROUTES } from '../app/routes'
+
 export type HeaderAction = {
   icon: string
   label?: string
@@ -35,6 +37,7 @@ type MainSiteHeaderOptions = {
 type PortalHeaderOptions = {
   logoSrc: string
   logoAlt: string
+  logoHref?: string
   schoolName?: string
   portalTitle?: string
 }
@@ -121,6 +124,7 @@ export function buildMainHeaderActions(
 }
 
 export function renderPortalHeader(options: PortalHeaderOptions): string {
+  const logoHref = options.logoHref ?? ROUTES.HOME
   const schoolName = options.schoolName ?? 'GOLDEN WEST COLLEGES, INC.'
   const portalTitle = options.portalTitle ?? 'STUDENT PORTAL'
 
@@ -128,7 +132,9 @@ export function renderPortalHeader(options: PortalHeaderOptions): string {
     <header class="portal-header">
       <div class="portal-wave"></div>
       <div class="portal-header-inner">
-        <img src="${options.logoSrc}" alt="${options.logoAlt}" class="portal-logo" />
+        <a href="${logoHref}" aria-label="Go to home page">
+          <img src="${options.logoSrc}" alt="${options.logoAlt}" class="portal-logo" />
+        </a>
         <h1 class="portal-school-name">${schoolName}</h1>
         <p class="portal-title">${portalTitle}</p>
       </div>
