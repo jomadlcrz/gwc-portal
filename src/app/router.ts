@@ -7,6 +7,10 @@ import {
   renderfaculty_page,
   renderreports_page,
   rendersettings_page,
+  renderstudents_bulk_page,
+  renderstudents_create_page,
+  renderstudents_manage_page,
+  setupstudents_manage_page,
   setupadministrators_directory_page,
   renderstudents_page,
   setupadministrators_page,
@@ -89,6 +93,27 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   if (pathname === ROUTES.ADMINISTRATORS_STUDENTS) {
     document.title = 'Students | Golden West Colleges, Inc.'
     app.innerHTML = renderstudents_page()
+    cleanupCurrentRoute = setupadministrators_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.ADMINISTRATORS_STUDENTS_MANAGE) {
+    document.title = 'Manage Students | Golden West Colleges, Inc.'
+    app.innerHTML = renderstudents_manage_page()
+    cleanupCurrentRoute = setupstudents_manage_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.ADMINISTRATORS_STUDENTS_CREATE) {
+    document.title = 'Create Student | Golden West Colleges, Inc.'
+    app.innerHTML = renderstudents_create_page()
+    cleanupCurrentRoute = setupadministrators_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.ADMINISTRATORS_STUDENTS_BULK) {
+    document.title = 'Bulk Upload | Golden West Colleges, Inc.'
+    app.innerHTML = renderstudents_bulk_page()
     cleanupCurrentRoute = setupadministrators_page(app)
     return
   }
