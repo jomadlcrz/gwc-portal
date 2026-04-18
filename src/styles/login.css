@@ -55,7 +55,7 @@
   margin: -2px 0 0;
   color: #f2cb35;
   font-weight: 800;
-  font-size: clamp(2.2rem, 5.6vw, 5.2rem);
+  font-size: clamp(1.6rem, 3.8vw, 3.4rem);
   line-height: 0.95;
   letter-spacing: 1.2px;
   text-shadow: 0 3px 0 rgba(0, 0, 0, 0.32);
@@ -147,6 +147,7 @@
     grid-column: 1 / -1;
     justify-self: start;
     margin-left: 2px;
+    font-size: clamp(1.45rem, 7.2vw, 2.4rem);
   }
 
   .portal-body .row {
