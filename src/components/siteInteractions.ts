@@ -1,4 +1,5 @@
 import { createIcons, Megaphone, Menu, Search } from 'lucide'
+import { ROUTES } from '../app/routes'
 
 export function setupSiteInteractions(root: HTMLElement): () => void {
   const homeHeader = root.querySelector<HTMLElement>('.home-header')
@@ -69,7 +70,10 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
 
   const onSearchSubmit = (event: Event): void => {
     event.preventDefault()
+    const query = searchInput?.value.trim() ?? ''
     hideAll()
+    const target = query ? `${ROUTES.SEARCH}?q=${encodeURIComponent(query)}` : ROUTES.SEARCH
+    window.location.assign(target)
   }
 
   const updateHeaderScrollState = (): void => {

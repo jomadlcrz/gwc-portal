@@ -4,6 +4,7 @@ import './styles/login.css'
 import './styles/not-found.css'
 import './styles/home.css'
 import './styles/announcements.css'
+import './styles/search.css'
 import { renderRoute } from './app/router'
 
 const app = document.querySelector<HTMLDivElement>('#app')
