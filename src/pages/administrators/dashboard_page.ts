@@ -1,4 +1,4 @@
-import { renderAdminShell } from '../../components/admin_shell'
+import { renderAdminShell } from '../../components/admin_layout'
 
 export function renderadministrators_dashboard_page(): string {
   return renderAdminShell(

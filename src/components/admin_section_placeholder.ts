@@ -1,5 +1,5 @@
-import { renderAdminShell } from './admin_shell'
-import type { AdminSection } from './admin_shell'
+import { renderAdminShell } from './admin_layout'
+import type { AdminSection } from './admin_layout'
 
 export function renderAdminPlaceholderPage(section: AdminSection, title: string, description: string): string {
   return renderAdminShell(

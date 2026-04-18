@@ -1,4 +1,4 @@
-import { renderAdminActionsPopover, renderAdminShell } from '../../components/admin_shell'
+import { renderAdminActionsPopover, renderAdminShell } from '../../components/admin_layout'
 
 export function renderadministrators_directory_page(): string {
   return renderAdminShell(

@@ -1,4 +1,4 @@
-import { setupAdminShell } from '../../components/admin_shell'
+import { setupAdminShell } from '../../components/admin_layout'
 
 export { renderadministrators_dashboard_page } from './dashboard_page'
 export { renderadministrators_directory_page } from './administrators_directory_page'

@@ -61,11 +61,11 @@ const adminHeaderActions: HeaderAction[] = [
 
 function renderSidebar(section: AdminSection): string {
   return `
-    <aside class="admin-sidebar" id="admin-sidebar" aria-label="Administrators menu">
+    <aside class="admin-sidebar" id="admin-sidebar" aria-label="Administration menu">
       <div class="admin-sidebar-main">
         <div class="admin-sidebar-head">
           <p class="admin-eyebrow">Control Panel</p>
-          <h1><a href="${ROUTES.HOME}" class="admin-header-link">Administrators</a></h1>
+          <h1><a href="${ROUTES.HOME}" class="admin-header-link">Administration</a></h1>
         </div>
         <nav class="admin-menu" aria-label="Sidebar navigation">
           <ul>
