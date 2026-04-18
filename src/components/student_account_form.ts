@@ -62,11 +62,13 @@ export function renderStudentAccountForm(prefix: string): string {
 
     <section class="admin-student-section">
       <h3>Parent and Guardian's Information</h3>
-      ${renderGuardianFields(prefix, 'Father')}
-      ${renderGuardianFields(prefix, 'Mother')}
-      ${renderGuardianFields(prefix, 'Guardian')}
-      <div class="admin-student-form-grid admin-student-form-grid-4">
-        ${floatingInput(`${prefix}-guardian-relation`, 'Relation')}
+      <div class="admin-student-guardian-stack">
+        ${renderGuardianFields(prefix, 'Father')}
+        ${renderGuardianFields(prefix, 'Mother')}
+        ${renderGuardianFields(prefix, 'Guardian')}
+        <div class="admin-student-form-grid admin-student-form-grid-4">
+          ${floatingInput(`${prefix}-guardian-relation`, 'Relation')}
+        </div>
       </div>
     </section>
   `

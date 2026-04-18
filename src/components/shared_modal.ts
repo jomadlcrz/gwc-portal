@@ -1,6 +1,7 @@
 export type SharedModalController = {
   open: (options: SharedModalOpenOptions) => void
   setOnConfirm: (handler: (() => void) | null) => void
+  setMode: (mode: 'default' | 'form' | 'confirm') => void
   close: () => void
   destroy: () => void
 }
@@ -50,9 +51,16 @@ export function setupSharedModal(root: HTMLElement, options: SharedModalSetupOpt
     return {
       open: () => undefined,
       setOnConfirm: () => undefined,
+      setMode: () => undefined,
       close: () => undefined,
       destroy: () => undefined,
     }
+  }
+
+  const setMode = (mode: 'default' | 'form' | 'confirm'): void => {
+    modal.classList.remove('is-modal-form', 'is-modal-confirm')
+    if (mode === 'form') modal.classList.add('is-modal-form')
+    if (mode === 'confirm') modal.classList.add('is-modal-confirm')
   }
 
   const close = (): void => {
@@ -125,6 +133,7 @@ export function setupSharedModal(root: HTMLElement, options: SharedModalSetupOpt
     setOnConfirm: (handler): void => {
       onConfirm = handler
     },
+    setMode,
     close,
     destroy: (): void => {
       close()

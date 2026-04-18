@@ -6,6 +6,14 @@
   max-width: min(880px, 94vw);
 }
 
+[data-shared-modal].is-modal-confirm .modal-dialog {
+  max-width: min(560px, 92vw);
+}
+
+[data-shared-modal].is-modal-form .modal-dialog {
+  max-width: min(1280px, 96vw);
+}
+
 [data-shared-modal] .modal-body {
   padding: 0.9rem 1rem;
 }

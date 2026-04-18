@@ -230,7 +230,6 @@ export function setupadministrators_directory_page(root: HTMLElement): () => voi
   const cleanupShell = setupAdminShell(root)
   const modalController = setupSharedModal(root, { modalSelector: '#admin-directory-modal' })
   const modalElement = root.querySelector<HTMLElement>('#admin-directory-modal')
-  const modalDialog = modalElement?.querySelector<HTMLElement>('.modal-dialog')
   const searchInput = root.querySelector<HTMLInputElement>('[data-admin-search]')
   const allRows = Array.from(root.querySelectorAll<HTMLTableRowElement>('[data-admin-row]'))
   const emptyRow = root.querySelector<HTMLTableRowElement>('[data-admin-empty-row]')
@@ -376,14 +375,6 @@ export function setupadministrators_directory_page(root: HTMLElement): () => voi
     })
   }
 
-  const setModalMode = (mode: 'form' | 'confirm'): void => {
-    const isForm = mode === 'form'
-    modalElement?.classList.toggle('is-form-modal', isForm)
-    if (modalDialog) {
-      modalDialog.style.maxWidth = isForm ? 'min(900px, 94vw)' : 'min(560px, 92vw)'
-    }
-  }
-
   const submitModalForm = (): void => {
     const form = modalElement?.querySelector<HTMLFormElement>('[data-admin-modal-form]')
     if (!form) {
@@ -404,7 +395,7 @@ export function setupadministrators_directory_page(root: HTMLElement): () => voi
     if (!target) return
 
     if (target.closest('[data-admin-open-add]')) {
-      setModalMode('form')
+      modalController.setMode('form')
       openFormModal('Add Administrator', 'Add Admin', renderAdminForm(), submitModalForm)
       return
     }
@@ -419,19 +410,19 @@ export function setupadministrators_directory_page(root: HTMLElement): () => voi
     const record = readRecordFromRow(row)
 
     if (action === 'view') {
-      setModalMode('form')
+      modalController.setMode('form')
       openFormModal('View Administrator', 'Close', renderAdminForm(record, true), null, true)
       return
     }
 
     if (action === 'edit') {
-      setModalMode('form')
+      modalController.setMode('form')
       openFormModal('Edit Administrator', 'Save Changes', renderAdminForm(record), submitModalForm)
       return
     }
 
     if (action === 'deactivate') {
-      setModalMode('confirm')
+      modalController.setMode('confirm')
       openFormModal(
         'Deactivate Administrator',
         'Deactivate',
@@ -442,7 +433,7 @@ export function setupadministrators_directory_page(root: HTMLElement): () => voi
     }
 
     if (action === 'delete') {
-      setModalMode('confirm')
+      modalController.setMode('confirm')
       openFormModal(
         'Delete Administrator',
         'Delete',
