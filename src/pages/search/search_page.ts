@@ -1,9 +1,9 @@
-import gwcLogo from '../../assets/gwc-logo\.avif'
-import gwcLogoWhite from '../../assets/gwc-logo-white\.avif'
+import gwcLogo from '../../assets/gwc_logo\.avif'
+import gwcLogoWhite from '../../assets/gwc_logo_white\.avif'
 import { ROUTES } from '../../app/routes'
-import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/siteHeader'
-import { renderMainSiteFooter } from '../../components/siteFooter'
-import { renderHomeOverlays } from '../../components/siteOverlay'
+import { buildMainHeaderActions, renderMainsite_header } from '../../components/site_header'
+import { renderMainsite_footer } from '../../components/site_footer'
+import { renderHomeOverlays } from '../../components/site_overlay'
 
 type SearchItem = {
   title: string
@@ -86,13 +86,13 @@ function renderSearchResults(query: string): string {
   `
 }
 
-export function renderSearchPage(): string {
+export function rendersearch_page(): string {
   const query = getQuery()
   const queryEscaped = escapeHtml(query)
 
   return `
     <main class="search-page">
-      ${renderMainSiteHeader({
+      ${renderMainsite_header({
         brandHref: ROUTES.HOME,
         logoSrc: gwcLogo,
         logoAlt: 'Golden West Colleges logo',
@@ -125,7 +125,7 @@ export function renderSearchPage(): string {
         </section>
       </section>
 
-      ${renderMainSiteFooter()}
+      ${renderMainsite_footer()}
     </main>
   `
 }

@@ -1,8 +1,8 @@
-import gwcLogo from '../../assets/gwc-logo-laurel\.avif'
-import { renderPortalHeader } from '../../components/siteHeader'
-import { renderPortalSiteFooter } from '../../components/siteFooter'
+import gwcLogo from '../../assets/gwc_logo_laurel\.avif'
+import { renderPortalHeader } from '../../components/site_header'
+import { renderPortalsite_footer } from '../../components/site_footer'
 
-export function renderLoginPage(): string {
+export function renderlogin_page(): string {
   return `
     <main class="login-page">
       ${renderPortalHeader({
@@ -34,7 +34,7 @@ export function renderLoginPage(): string {
         </div>
       </section>
 
-      ${renderPortalSiteFooter()}
+      ${renderPortalsite_footer()}
     </main>
   `
 }

@@ -8,7 +8,7 @@ export type HeaderAction = {
   attrs?: string
 } & ({ type: 'link'; href: string } | { type: 'button' })
 
-type SiteHeaderOptions = {
+type site_headerOptions = {
   brandHref: string
   headerClass: string
   innerClass?: string
@@ -26,7 +26,7 @@ type SiteHeaderOptions = {
   actions: HeaderAction[]
 }
 
-type MainSiteHeaderOptions = {
+type Mainsite_headerOptions = {
   brandHref: string
   logoSrc: string
   logoAlt: string
@@ -55,7 +55,7 @@ function renderHeaderAction(action: HeaderAction, baseClass: string): string {
   return `<button type="button" class="${className}"${aria}${attrs}>${content}</button>`
 }
 
-export function renderSiteHeader(options: SiteHeaderOptions): string {
+export function rendersite_header(options: site_headerOptions): string {
   const innerClass = options.innerClass ? ` class="${options.innerClass}"` : ''
   return `
     <header class="${options.headerClass}">
@@ -73,10 +73,10 @@ export function renderSiteHeader(options: SiteHeaderOptions): string {
   `
 }
 
-export function renderMainSiteHeader(options: MainSiteHeaderOptions): string {
+export function renderMainsite_header(options: Mainsite_headerOptions): string {
   const headerClass = options.solid ? 'site-header site-header-solid' : 'site-header'
 
-  return renderSiteHeader({
+  return rendersite_header({
     brandHref: options.brandHref,
     headerClass,
     innerClass: 'site-header-inner',

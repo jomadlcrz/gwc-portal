@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/base.css'
 import './styles/login.css'
-import './styles/not-found.css'
+import './styles/not_found.css'
 import './styles/home.css'
 import './styles/header.css'
 import './styles/overlay.css'
@@ -10,8 +10,8 @@ import './styles/announcements.css'
 import './styles/search.css'
 import { renderRoute } from './app/router'
 import coverImageUrl from './assets/cover\.avif'
-import footerLogoUrl from './assets/gwc-logo-white\.avif'
-import headerLogoUrl from './assets/gwc-logo\.avif'
+import footerLogoUrl from './assets/gwc_logo_white\.avif'
+import headerLogoUrl from './assets/gwc_logo\.avif'
 
 const app = document.querySelector<HTMLDivElement>('#app')
 

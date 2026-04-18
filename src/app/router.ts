@@ -1,9 +1,9 @@
-import { renderAnnouncementsPage } from '../pages/announcements/announcementsPage'
-import { setupSiteInteractions } from '../components/siteInteractions'
-import { renderHomePage } from '../pages/home/homePage'
-import { renderLoginPage } from '../pages/login/loginPage'
-import { renderNotFoundPage } from '../pages/not-found/notFoundPage'
-import { renderSearchPage } from '../pages/search/searchPage'
+import { renderannouncements_page } from '../pages/announcements/announcements_page'
+import { setupsite_interactions } from '../components/site_interactions'
+import { renderhome_page } from '../pages/home/home_page'
+import { renderlogin_page } from '../pages/login/login_page'
+import { rendernot_found_page } from '../pages/not-found/not_found_page'
+import { rendersearch_page } from '../pages/search/search_page'
 import { ROUTES } from './routes'
 
 let cleanupCurrentRoute: (() => void) | null = null
@@ -14,31 +14,31 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.HOME) {
     document.title = 'Golden West Colleges, Inc.'
-    app.innerHTML = renderHomePage()
-    cleanupCurrentRoute = setupSiteInteractions(app)
+    app.innerHTML = renderhome_page()
+    cleanupCurrentRoute = setupsite_interactions(app)
     return
   }
 
   if (pathname === ROUTES.LOGIN) {
     document.title = 'Student Portal Login | Golden West Colleges, Inc.'
-    app.innerHTML = renderLoginPage()
+    app.innerHTML = renderlogin_page()
     return
   }
 
   if (pathname === ROUTES.ANNOUNCEMENTS) {
     document.title = 'Announcements | Golden West Colleges, Inc.'
-    app.innerHTML = renderAnnouncementsPage()
-    cleanupCurrentRoute = setupSiteInteractions(app)
+    app.innerHTML = renderannouncements_page()
+    cleanupCurrentRoute = setupsite_interactions(app)
     return
   }
 
   if (pathname === ROUTES.SEARCH) {
     document.title = 'Search | Golden West Colleges, Inc.'
-    app.innerHTML = renderSearchPage()
-    cleanupCurrentRoute = setupSiteInteractions(app)
+    app.innerHTML = rendersearch_page()
+    cleanupCurrentRoute = setupsite_interactions(app)
     return
   }
 
   document.title = 'Page Not Found | Golden West Colleges, Inc.'
-  app.innerHTML = renderNotFoundPage()
+  app.innerHTML = rendernot_found_page()
 }

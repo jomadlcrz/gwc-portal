@@ -1,15 +1,15 @@
-import gwcLogoWhite from '../assets/gwc-logo-white\.avif'
+import gwcLogoWhite from '../assets/gwc_logo_white\.avif'
 import { ROUTES } from '../app/routes'
 
-type MainSiteFooterOptions = {
+type Mainsite_footerOptions = {
   copyrightText?: string
 }
 
-type PortalSiteFooterOptions = {
+type Portalsite_footerOptions = {
   text?: string
 }
 
-export function renderMainSiteFooter(options: MainSiteFooterOptions = {}): string {
+export function renderMainsite_footer(options: Mainsite_footerOptions = {}): string {
   const copyrightText = options.copyrightText ?? 'Golden West Colleges, Inc.'
 
   return `
@@ -74,7 +74,7 @@ export function renderMainSiteFooter(options: MainSiteFooterOptions = {}): strin
   `
 }
 
-export function renderPortalSiteFooter(options: PortalSiteFooterOptions = {}): string {
+export function renderPortalsite_footer(options: Portalsite_footerOptions = {}): string {
   const text = options.text ?? 'All rights reserved, GOLDEN WEST COLLEGES, INC.'
 
   return `
