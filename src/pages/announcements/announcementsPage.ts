@@ -42,7 +42,7 @@ export function renderAnnouncementsPage(): string {
       })}
 
       <section class="ann-title-block">
-        <h1>ANNOUNCEMENTS <i data-lucide="megaphone"></i></h1>
+        <h1>ANNOUNCEMENTS <i class="ann-megaphone-icon" data-lucide="megaphone"></i></h1>
       </section>
 
       <section class="ann-highlight">
