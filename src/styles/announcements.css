@@ -1,7 +1,7 @@
-.ann-page {
+﻿.ann-page {
   min-height: 100dvh;
   background: #eaedf3;
-  padding-top: var(--home-topbar-height);
+  padding-top: var(--site-topbar-height);
 }
 
 .ann-header {
@@ -156,3 +156,4 @@
   margin: 0;
   color: #334155;
 }
+

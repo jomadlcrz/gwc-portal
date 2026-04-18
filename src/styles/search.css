@@ -1,6 +1,6 @@
-.search-page {
+﻿.search-page {
   min-height: 100dvh;
-  padding-top: var(--home-topbar-height);
+  padding-top: var(--site-topbar-height);
   background: #e8edf3;
 }
 
@@ -130,3 +130,4 @@
     display: none;
   }
 }
+

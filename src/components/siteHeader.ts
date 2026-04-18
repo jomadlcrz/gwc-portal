@@ -46,7 +46,7 @@ function renderHeaderAction(action: HeaderAction, baseClass: string): string {
   const className = `${baseClass}${action.className ? ` ${action.className}` : ''}`
   const attrs = action.attrs ? ` ${action.attrs}` : ''
   const aria = action.ariaLabel ? ` aria-label="${action.ariaLabel}"` : ''
-  const content = `<span class="home-quick-icon" aria-hidden="true"><i data-lucide="${action.icon}"></i></span>${action.label ? `<span class="home-quick-label">${action.label}</span>` : ''}`
+  const content = `<span class="site-quick-icon" aria-hidden="true"><i data-lucide="${action.icon}"></i></span>${action.label ? `<span class="site-quick-label">${action.label}</span>` : ''}`
 
   if (action.type === 'link') {
     return `<a href="${action.href}" class="${className}"${aria}${attrs}>${content}</a>`
@@ -74,23 +74,23 @@ export function renderSiteHeader(options: SiteHeaderOptions): string {
 }
 
 export function renderMainSiteHeader(options: MainSiteHeaderOptions): string {
-  const headerClass = options.solid ? 'home-header home-header-solid' : 'home-header'
+  const headerClass = options.solid ? 'site-header site-header-solid' : 'site-header'
 
   return renderSiteHeader({
     brandHref: options.brandHref,
     headerClass,
-    innerClass: 'home-header-inner',
-    brandClass: 'home-brand text-decoration-none',
+    innerClass: 'site-header-inner',
+    brandClass: 'site-brand text-decoration-none',
     logoSrc: options.logoSrc,
     logoAlt: options.logoAlt,
-    logoClass: 'home-brand-logo',
-    titleClass: 'home-brand-title',
-    titleFullClass: 'home-brand-title-full',
-    titleShortClass: 'home-brand-title-short',
+    logoClass: 'site-brand-logo',
+    titleClass: 'site-brand-title',
+    titleFullClass: 'site-brand-title-full',
+    titleShortClass: 'site-brand-title-short',
     titleFull: 'GOLDEN WEST COLLEGES, INC.',
     titleShort: 'GWC, INC.',
-    actionsNavClass: 'home-quick-menu',
-    actionBaseClass: 'home-quick-item',
+    actionsNavClass: 'site-quick-menu',
+    actionBaseClass: 'site-quick-item',
     actions: options.actions,
   })
 }
@@ -111,7 +111,7 @@ export function buildMainHeaderActions(
       href: announcementsHref,
       icon: 'megaphone',
       ariaLabel: 'Announcement',
-      className: 'home-quick-item-icon-only',
+      className: 'site-quick-item-icon-only',
     })
   }
 

@@ -2,7 +2,7 @@
 import { ROUTES } from '../app/routes'
 
 export function setupSiteInteractions(root: HTMLElement): () => void {
-  const homeHeader = root.querySelector<HTMLElement>('.home-header')
+  const homeHeader = root.querySelector<HTMLElement>('.site-header')
   const overlays = Array.from(root.querySelectorAll<HTMLElement>('[data-overlay]'))
   const openButtons = Array.from(root.querySelectorAll<HTMLElement>('[data-overlay-open]'))
   const closeButtons = Array.from(root.querySelectorAll<HTMLElement>('[data-overlay-close]'))
@@ -78,7 +78,7 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
 
   const updateHeaderScrollState = (): void => {
     if (!homeHeader) return
-    if (homeHeader.classList.contains('home-header-solid')) {
+    if (homeHeader.classList.contains('site-header-solid')) {
       homeHeader.classList.remove('is-scrolled')
       return
     }
@@ -101,4 +101,5 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
     unlockScroll()
   }
 }
+
 

@@ -1,21 +1,21 @@
-﻿.home-overlay {
+﻿.site-overlay {
   position: fixed;
   inset: 0;
   z-index: 1200;
   display: none;
 }
 
-.home-overlay.is-open {
+.site-overlay.is-open {
   display: block;
 }
 
-.home-overlay-backdrop {
+.site-overlay-backdrop {
   position: absolute;
   inset: 0;
   background: rgba(7, 14, 31, 0.86);
 }
 
-.home-overlay-panel {
+.site-overlay-panel {
   position: relative;
   z-index: 1;
   min-height: 100dvh;
@@ -27,28 +27,28 @@
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
 }
 
-.home-overlay-topbar {
+.site-overlay-topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: var(--home-topbar-height);
+  min-height: var(--site-topbar-height);
   padding: 0 14px;
 }
 
-.home-overlay-brand {
+.site-overlay-brand {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   color: #f4f6fa;
 }
 
-.home-overlay-brand-logo {
+.site-overlay-brand-logo {
   width: 56px;
   height: 56px;
   object-fit: contain;
 }
 
-.home-overlay-brand-title {
+.site-overlay-brand-title {
   font-family: 'Trebuchet MS', 'Segoe UI', Tahoma, sans-serif;
   font-weight: 700;
   letter-spacing: 0.8px;
@@ -57,11 +57,11 @@
   white-space: nowrap;
 }
 
-.home-overlay-brand-title-short {
+.site-overlay-brand-title-short {
   display: none;
 }
 
-.home-overlay-close {
+.site-overlay-close {
   width: 56px;
   height: 56px;
   border: 0;
@@ -73,25 +73,25 @@
   font-weight: 700;
 }
 
-.home-overlay-close:hover,
-.home-overlay-close:focus {
+.site-overlay-close:hover,
+.site-overlay-close:focus {
   color: #f4d269;
   background: rgba(255, 255, 255, 0.08);
 }
 
-.home-overlay-accent-line {
-  height: var(--home-accent-height);
+.site-overlay-accent-line {
+  height: var(--site-accent-height);
   background: #d6b247;
 }
 
-.home-overlay-panel-search .home-search-center {
-  min-height: calc(100dvh - (var(--home-topbar-height) + var(--home-accent-height)));
+.site-overlay-panel-search .site-search-center {
+  min-height: calc(100dvh - (var(--site-topbar-height) + var(--site-accent-height)));
   display: grid;
   place-items: center;
   padding: 24px;
 }
 
-.home-search-form {
+.site-search-form {
   width: min(760px, 90vw);
   display: flex;
   flex-direction: column;
@@ -100,7 +100,7 @@
   margin: 0;
 }
 
-.home-search-form input {
+.site-search-form input {
   width: 100%;
   min-height: 84px;
   border: 0;
@@ -116,11 +116,11 @@
   appearance: none;
 }
 
-.home-search-form input::placeholder {
+.site-search-form input::placeholder {
   color: rgba(213, 216, 223, 0.46);
 }
 
-.home-search-form button {
+.site-search-form button {
   min-height: 56px;
   min-width: 220px;
   border: 0;
@@ -134,25 +134,25 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-.home-search-form button:hover,
-.home-search-form button:focus {
+.site-search-form button:hover,
+.site-search-form button:focus {
   background: #35446a;
 }
 
-.home-overlay-panel-menu .home-overlay-menu-layout {
+.site-overlay-panel-menu .site-overlay-menu-layout {
   display: grid;
   grid-template-columns: minmax(270px, 540px) 4px 1fr;
-  min-height: calc(100dvh - (var(--home-topbar-height) + var(--home-accent-height)));
+  min-height: calc(100dvh - (var(--site-topbar-height) + var(--site-accent-height)));
   padding: 26px 0 24px 40px;
 }
 
-.home-overlay-menu-col {
+.site-overlay-menu-col {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
 }
 
-.home-overlay-menu-col a {
+.site-overlay-menu-col a {
   color: #f2f4fa;
   text-decoration: none;
   font-size: clamp(1.35rem, 2.4vw, 3.2rem);
@@ -161,63 +161,64 @@
   text-transform: uppercase;
 }
 
-.home-overlay-menu-col a:hover,
-.home-overlay-menu-col a:focus {
+.site-overlay-menu-col a:hover,
+.site-overlay-menu-col a:focus {
   color: #9ec5ff;
 }
 
-.home-overlay-menu-divider {
+.site-overlay-menu-divider {
   width: 4px;
   background: rgba(255, 255, 255, 0.25);
   margin: 0 28px 0 22px;
 }
 
-.home-overlay-menu-blank {
+.site-overlay-menu-blank {
   min-height: 100%;
 }
 
 @media (max-width: 991px) {
-  .home-overlay-close {
+  .site-overlay-close {
     width: 42px;
     height: 42px;
     font-size: 1.5rem;
   }
 
-  .home-overlay-panel-menu .home-overlay-menu-layout {
+  .site-overlay-panel-menu .site-overlay-menu-layout {
     grid-template-columns: 1fr;
     padding: 16px 16px 26px;
   }
 
-  .home-overlay-menu-divider,
-  .home-overlay-menu-blank {
+  .site-overlay-menu-divider,
+  .site-overlay-menu-blank {
     display: none;
   }
 
-  .home-overlay-menu-col a {
+  .site-overlay-menu-col a {
     font-size: 1.6rem;
   }
 
-  .home-search-form {
+  .site-search-form {
     width: min(520px, 90vw);
     gap: 1.2rem;
   }
 
-  .home-search-form input {
+  .site-search-form input {
     min-height: 62px;
     font-size: 2rem;
   }
 
-  .home-search-form button {
+  .site-search-form button {
     min-height: 48px;
     min-width: 170px;
     font-size: 1.25rem;
   }
 
-  .home-overlay-brand-title-full {
+  .site-overlay-brand-title-full {
     display: none;
   }
 
-  .home-overlay-brand-title-short {
+  .site-overlay-brand-title-short {
     display: inline;
   }
 }
+

@@ -1,4 +1,4 @@
-﻿.home-header {
+﻿.site-header {
   position: fixed;
   top: 0;
   left: 0;
@@ -7,8 +7,8 @@
   z-index: 1000;
 }
 
-.home-header-inner {
-  min-height: var(--home-topbar-height);
+.site-header-inner {
+  min-height: var(--site-topbar-height);
   display: flex;
   align-items: stretch;
   justify-content: space-between;
@@ -16,7 +16,7 @@
   transition: background-color 180ms ease, box-shadow 180ms ease;
 }
 
-.home-brand {
+.site-brand {
   display: flex;
   align-items: center;
   color: #fff;
@@ -25,13 +25,13 @@
   transition: color 180ms ease;
 }
 
-.home-brand-logo {
+.site-brand-logo {
   width: 56px;
   height: 56px;
   object-fit: contain;
 }
 
-.home-brand-title {
+.site-brand-title {
   font-family: 'Trebuchet MS', 'Segoe UI', Tahoma, sans-serif;
   font-weight: 700;
   letter-spacing: 0.8px;
@@ -40,25 +40,25 @@
   white-space: nowrap;
 }
 
-.home-header.is-scrolled .home-header-inner,
-.home-header.home-header-solid .home-header-inner {
+.site-header.is-scrolled .site-header-inner,
+.site-header.site-header-solid .site-header-inner {
   background: #f3f4f6;
   box-shadow: 0 2px 0 rgba(17, 24, 39, 0.08);
 }
 
-.home-header.is-scrolled .home-brand,
-.home-header.home-header-solid .home-brand {
+.site-header.is-scrolled .site-brand,
+.site-header.site-header-solid .site-brand {
   color: #171a23;
 }
 
-.home-brand-title-short {
+.site-brand-title-short {
   display: none;
 }
 
-.home-quick-menu {
+.site-quick-menu {
   min-width: 0;
   width: fit-content;
-  height: var(--home-topbar-height);
+  height: var(--site-topbar-height);
   display: flex;
   align-items: center;
   justify-content: stretch;
@@ -67,7 +67,7 @@
   padding: 0;
 }
 
-.home-quick-item {
+.site-quick-item {
   border: 0;
   background: transparent;
   color: #fff;
@@ -85,84 +85,86 @@
   transition: background-color 120ms ease, color 120ms ease;
 }
 
-.home-quick-item:hover,
-.home-quick-item:focus {
+.site-quick-item:hover,
+.site-quick-item:focus {
   color: #fff;
   background: #2c3959;
 }
 
-.home-quick-item-icon-only {
+.site-quick-item-icon-only {
   min-width: 112px;
   justify-content: center;
 }
 
-.home-quick-icon {
+.site-quick-icon {
   font-size: 1.35em;
   line-height: 1;
   width: 1.3em;
   text-align: center;
 }
 
-.home-quick-icon i {
+.site-quick-icon i {
   display: inline-flex;
 }
 
-.home-quick-icon i svg {
+.site-quick-icon i svg {
   width: 1em;
   height: 1em;
   stroke-width: 2.4;
 }
 
 @media (max-width: 991px) {
-  .home-header-inner {
-    min-height: var(--home-topbar-height);
+  .site-header-inner {
+    min-height: var(--site-topbar-height);
     flex-direction: row;
   }
 
-  .home-brand {
-    min-height: var(--home-topbar-height);
+  .site-brand {
+    min-height: var(--site-topbar-height);
   }
 
-  .home-brand-logo {
+  .site-brand-logo {
     width: 56px;
     height: 56px;
   }
 
-  .home-brand-title {
+  .site-brand-title {
     font-size: 1rem;
   }
 
-  .home-quick-menu {
+  .site-quick-menu {
     min-width: fit-content;
-    min-height: var(--home-topbar-height);
-    height: var(--home-topbar-height);
+    min-height: var(--site-topbar-height);
+    height: var(--site-topbar-height);
     justify-content: stretch;
     padding: 0;
   }
 
-  .home-quick-menu .home-quick-item {
+  .site-quick-menu .site-quick-item {
     font-size: 1.6rem;
     min-width: 58px;
-    min-height: var(--home-topbar-height);
+    min-height: var(--site-topbar-height);
     justify-content: center;
     padding: 0;
   }
 
-  .home-brand-title-full {
+  .site-brand-title-full {
     display: none;
   }
 
-  .home-brand-title-short {
+  .site-brand-title-short {
     display: inline;
   }
 }
 
 @media (max-width: 560px) {
-  .home-quick-item {
+  .site-quick-item {
     font-size: 1.2rem;
   }
 
-  .home-quick-label {
+  .site-quick-label {
     display: none;
   }
 }
+
+
