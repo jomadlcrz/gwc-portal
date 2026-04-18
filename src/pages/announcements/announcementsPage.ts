@@ -7,16 +7,19 @@ import { renderHomeOverlays } from '../../components/siteOverlay'
 
 const cards = [
   {
+    image: 'https://picsum.photos/id/1048/900/500',
     title: 'Enrollment Advisory for New Students',
     date: 'August 14, 2026',
     text: 'Please prepare your original credentials and complete online pre-registration before visiting campus.',
   },
   {
+    image: 'https://picsum.photos/id/180/900/500',
     title: 'Scholarship Screening Schedule',
     date: 'August 10, 2026',
     text: 'Qualified applicants may proceed to the Guidance Office for screening and interview schedule confirmation.',
   },
   {
+    image: 'https://picsum.photos/id/20/900/500',
     title: 'Faculty Consultation Week',
     date: 'August 05, 2026',
     text: 'Departments are opening consultation sessions to guide students on subject loads and academic pathways.',
@@ -56,11 +59,17 @@ export function renderAnnouncementsPage(): string {
             .map(
               (card) => `
             <article class="ann-card">
-              <div class="ann-card-top"></div>
+              <img class="ann-card-img-top" src="${card.image}" alt="${card.title}" loading="lazy" />
               <div class="ann-card-body">
                 <p class="ann-card-date">${card.date}</p>
                 <h3>${card.title}</h3>
                 <p>${card.text}</p>
+              </div>
+              <div class="ann-card-footer">
+                <a href="${ROUTES.ANNOUNCEMENTS}" class="ann-card-footer-link">
+                  <span>Read More</span>
+                  <i data-lucide="arrow-right" aria-hidden="true"></i>
+                </a>
               </div>
             </article>
           `,
