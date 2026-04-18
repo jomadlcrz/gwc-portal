@@ -25,6 +25,7 @@ export function renderHomeOverlays(options: HomeOverlayOptions): string {
             <nav class="site-overlay-menu-col">
               <a href="#academics" data-overlay-close>ACADEMICS</a>
               <a href="${ROUTES.LOGIN}" data-overlay-close>STUDENT PORTAL</a>
+              <a href="${ROUTES.ADMINISTRATORS}" data-overlay-close>ADMINISTRATION</a>
               <a href="#partners" data-overlay-close>ABOUT GWC</a>
             </nav>
             <div class="site-overlay-menu-divider" aria-hidden="true"></div>

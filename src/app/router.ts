@@ -1,4 +1,9 @@
 import { renderannouncements_page } from '../pages/announcements/announcements_page'
+import {
+  renderadministrators_dashboard_page,
+  renderadministrators_directory_page,
+  setupadministrators_page,
+} from '../pages/administrators/administrators_page'
 import { setupsite_interactions } from '../components/site_interactions'
 import { renderhome_page } from '../pages/home/home_page'
 import { renderlogin_page } from '../pages/login/login_page'
@@ -36,6 +41,20 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     document.title = 'Search | Golden West Colleges, Inc.'
     app.innerHTML = rendersearch_page()
     cleanupCurrentRoute = setupsite_interactions(app)
+    return
+  }
+
+  if (pathname === ROUTES.ADMINISTRATORS) {
+    document.title = 'Dashboard | Golden West Colleges, Inc.'
+    app.innerHTML = renderadministrators_dashboard_page()
+    cleanupCurrentRoute = setupadministrators_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.ADMINISTRATORS_DIRECTORY) {
+    document.title = 'Administrators | Golden West Colleges, Inc.'
+    app.innerHTML = renderadministrators_directory_page()
+    cleanupCurrentRoute = setupadministrators_page(app)
     return
   }
 
