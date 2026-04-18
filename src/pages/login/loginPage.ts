@@ -14,8 +14,7 @@ export function renderLoginPage(): string {
         <div class="container">
           <div class="row justify-content-center justify-content-lg-end">
             <div class="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
-              <section class="card shadow-sm border-0 login-card">
-                <div class="card-body p-4 p-md-4">
+              <section class="login-card p-4 p-md-4">
                   <h2 class="login-heading mb-2">Login to GWC Portal</h2>
                   <p class="login-subheading mb-4">Enter your email and password to use the system</p>
                   <form>
@@ -29,7 +28,6 @@ export function renderLoginPage(): string {
                     </div>
                     <button type="submit" class="btn btn-lg w-100 login-submit-btn">Log in</button>
                   </form>
-                </div>
               </section>
             </div>
           </div>

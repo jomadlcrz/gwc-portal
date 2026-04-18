@@ -76,6 +76,7 @@
 .login-card {
   border-radius: 0;
   background: transparent;
+  border: 0;
   box-shadow: none;
 }
 
