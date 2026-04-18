@@ -1,0 +1,49 @@
+.fallback-page {
+  min-height: 100dvh;
+  background: #ececee;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+}
+
+.fallback-card {
+  width: min(900px, 100%);
+  text-align: center;
+}
+
+.fallback-code {
+  margin: 0 0 0.5rem;
+  font-size: clamp(4rem, 9vw, 7rem);
+  line-height: 1;
+  font-weight: 800;
+  color: #091735;
+}
+
+.fallback-title {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.2;
+  font-weight: 700;
+  color: #091735;
+}
+
+.fallback-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  min-width: 260px;
+  border-radius: 8px;
+  padding: 0 1.4rem;
+  background: #081836;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.fallback-btn:hover,
+.fallback-btn:focus {
+  background: #122955;
+  color: #fff;
+}

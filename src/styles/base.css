@@ -1,0 +1,22 @@
+body {
+  --home-topbar-height: 86px;
+  --home-accent-height: 4px;
+  min-height: 100dvh;
+  margin: 0;
+  font-family: 'Trebuchet MS', 'Segoe UI', Tahoma, sans-serif;
+  background: #eef1f7;
+}
+
+#app {
+  min-height: 100dvh;
+}
+
+body.overlay-open {
+  overflow: hidden;
+}
+
+@media (max-width: 991px) {
+  body {
+    --home-topbar-height: 62px;
+  }
+}

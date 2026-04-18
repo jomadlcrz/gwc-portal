@@ -1,5 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './styles/global.css'
+import './styles/base.css'
+import './styles/login.css'
+import './styles/not-found.css'
+import './styles/home.css'
+import './styles/announcements.css'
 import { renderRoute } from './app/router'
 
 const app = document.querySelector<HTMLDivElement>('#app')
