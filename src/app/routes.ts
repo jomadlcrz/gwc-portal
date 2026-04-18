@@ -3,6 +3,7 @@ export const ROUTES = {
   ANNOUNCEMENTS: '/announcements',
   SEARCH: '/search',
   ADMINISTRATORS: '/administrators/dashboard',
+  ADMINISTRATORS_LOGIN: '/administrators/login',
   ADMINISTRATORS_DIRECTORY: '/administrators/administrators',
   ADMINISTRATORS_FACULTY: '/administrators/faculty',
   ADMINISTRATORS_STUDENTS: '/administrators/students',
@@ -10,5 +11,5 @@ export const ROUTES = {
   ADMINISTRATORS_DEPARTMENTS: '/administrators/departments',
   ADMINISTRATORS_REPORTS: '/administrators/reports',
   ADMINISTRATORS_SETTINGS: '/administrators/settings',
-  LOGIN: '/student-portal/login',
+  STUDENT_LOGIN: '/student-portal/login',
 } as const

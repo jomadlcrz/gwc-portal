@@ -12,7 +12,8 @@ import {
 } from '../pages/administrators/administrators_page'
 import { setupsite_interactions } from '../components/site_interactions'
 import { renderhome_page } from '../pages/home/home_page'
-import { renderlogin_page } from '../pages/login/login_page'
+import { renderadministrators_login_page } from '../pages/login/administrators_login_page'
+import { renderstudent_login_page } from '../pages/login/student_login_page'
 import { rendernot_found_page } from '../pages/not-found/not_found_page'
 import { rendersearch_page } from '../pages/search/search_page'
 import { ROUTES } from './routes'
@@ -30,9 +31,15 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     return
   }
 
-  if (pathname === ROUTES.LOGIN) {
+  if (pathname === ROUTES.STUDENT_LOGIN) {
     document.title = 'Student Portal Login | Golden West Colleges, Inc.'
-    app.innerHTML = renderlogin_page()
+    app.innerHTML = renderstudent_login_page()
+    return
+  }
+
+  if (pathname === ROUTES.ADMINISTRATORS_LOGIN) {
+    document.title = 'Administrator Login | Golden West Colleges, Inc.'
+    app.innerHTML = renderadministrators_login_page()
     return
   }
 

@@ -36,7 +36,7 @@ export function renderhome_page(): string {
                 industry-aligned programs.
               </p>
               <div class="d-flex flex-wrap gap-2">
-                <a href="${ROUTES.LOGIN}" class="btn btn-warning px-4 fw-semibold">Go to Portal</a>
+                <a href="${ROUTES.STUDENT_LOGIN}" class="btn btn-warning px-4 fw-semibold">Go to Portal</a>
                 <a href="#academics" class="btn btn-outline-light px-4">View Programs</a>
               </div>
             </div>

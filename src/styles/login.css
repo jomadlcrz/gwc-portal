@@ -124,6 +124,26 @@
   color: #fff;
 }
 
+.admin-login-page .login-heading {
+  color: #1f334d;
+  border-bottom-color: #2a3c5c;
+}
+
+.admin-login-page .login-subheading {
+  color: #334155;
+}
+
+.admin-login-page .login-submit-btn {
+  background-color: #2a3c5c;
+  border-color: #2a3c5c;
+}
+
+.admin-login-page .login-submit-btn:hover,
+.admin-login-page .login-submit-btn:focus {
+  background-color: #1f2f49;
+  border-color: #1f2f49;
+}
+
 .portal-footer {
   background: linear-gradient(180deg, #3c4c89 0%, #34447d 100%);
   color: #fff;
