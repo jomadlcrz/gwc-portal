@@ -9,9 +9,9 @@ import './styles/footer.css'
 import './styles/announcements.css'
 import './styles/search.css'
 import { renderRoute } from './app/router'
-import coverImageUrl from './assets/cover.png'
-import footerLogoUrl from './assets/gwc-logo-white.png'
-import headerLogoUrl from './assets/gwc-logo.png'
+import coverImageUrl from './assets/cover\.avif'
+import footerLogoUrl from './assets/gwc-logo-white\.avif'
+import headerLogoUrl from './assets/gwc-logo\.avif'
 
 const app = document.querySelector<HTMLDivElement>('#app')
 

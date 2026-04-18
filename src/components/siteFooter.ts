@@ -1,4 +1,4 @@
-﻿import gwcLogoWhite from '../assets/gwc-logo-white.png'
+import gwcLogoWhite from '../assets/gwc-logo-white\.avif'
 import { ROUTES } from '../app/routes'
 
 type MainSiteFooterOptions = {

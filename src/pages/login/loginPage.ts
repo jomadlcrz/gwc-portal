@@ -1,4 +1,4 @@
-import gwcLogo from '../../assets/gwc-logo-laurel.png'
+import gwcLogo from '../../assets/gwc-logo-laurel\.avif'
 import { renderPortalHeader } from '../../components/siteHeader'
 import { renderPortalSiteFooter } from '../../components/siteFooter'
 

@@ -1,5 +1,5 @@
-﻿import gwcLogo from '../../assets/gwc-logo.png'
-import gwcLogoWhite from '../../assets/gwc-logo-white.png'
+import gwcLogo from '../../assets/gwc-logo\.avif'
+import gwcLogoWhite from '../../assets/gwc-logo-white\.avif'
 import { ROUTES } from '../../app/routes'
 import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/siteHeader'
 import { renderMainSiteFooter } from '../../components/siteFooter'
