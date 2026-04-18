@@ -13,7 +13,6 @@
   align-items: stretch;
   justify-content: space-between;
   background: transparent;
-  transition: background-color 180ms ease, box-shadow 180ms ease;
 }
 
 .site-brand {
@@ -22,6 +21,13 @@
   color: #fff;
   gap: 10px;
   padding: 0 14px;
+}
+
+.site-header.is-ready .site-header-inner {
+  transition: background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.site-header.is-ready .site-brand {
   transition: color 180ms ease;
 }
 

@@ -85,12 +85,17 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
     homeHeader.classList.toggle('is-scrolled', window.scrollY > 24)
   }
 
+  // Set correct background state before binding listeners to avoid reload flicker.
+  updateHeaderScrollState()
+  if (homeHeader) {
+    requestAnimationFrame(() => homeHeader.classList.add('is-ready'))
+  }
+
   openButtons.forEach((button) => button.addEventListener('click', onOpenClick))
   closeButtons.forEach((button) => button.addEventListener('click', onCloseClick))
   document.addEventListener('keydown', onKeydown)
   searchForm?.addEventListener('submit', onSearchSubmit)
   window.addEventListener('scroll', updateHeaderScrollState, { passive: true })
-  updateHeaderScrollState()
 
   return () => {
     openButtons.forEach((button) => button.removeEventListener('click', onOpenClick))
