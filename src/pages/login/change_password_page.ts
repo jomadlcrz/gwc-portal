@@ -20,29 +20,30 @@ export function renderchange_password_page(): string {
               <section class="login-card p-4 p-md-4">
                 <h2 class="login-heading mb-2">Change Password</h2>
                 <p class="login-subheading mb-4">You must change your password before accessing your account.</p>
-                <form>
+                <form id="change-password-form">
                   <div class="form-floating mb-3">
                     <input
                       type="password"
                       class="form-control form-control-lg login-input password-input"
-                      id="new-password"
+                      id="change-password-new"
                       placeholder="New password"
                       required
                     />
-                    <label for="new-password">New password</label>
+                    <label for="change-password-new">New password</label>
                   </div>
                   <div class="form-floating mb-4">
                     <input
                       type="password"
                       class="form-control form-control-lg login-input password-input"
-                      id="confirm-password"
+                      id="change-password-confirm"
                       placeholder="Confirm new password"
                       required
                     />
-                    <label for="confirm-password">Confirm new password</label>
+                    <label for="change-password-confirm">Confirm new password</label>
                   </div>
                   <button type="submit" class="btn btn-lg w-100 login-submit-btn">Update Password</button>
                 </form>
+                <p id="change-password-message" class="mt-3 mb-0 small" aria-live="polite"></p>
               </section>
             </div>
           </div>

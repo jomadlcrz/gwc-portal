@@ -52,6 +52,7 @@ import { rendersearch_page } from '../pages/search/search_page'
 import { renderpost_page } from '../pages/post/post_page'
 import { getPostBySlug, getPostCategoryFromSlug } from '../data/posts'
 import { ROUTES } from './routes'
+import { setupChangePasswordPage, setupStudentLoginPage } from '../api/student_auth'
 
 let cleanupCurrentRoute: (() => void) | null = null
 
@@ -67,6 +68,7 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.STUDENT_LOGIN) {
     app.innerHTML = renderstudent_login_page()
+    cleanupCurrentRoute = setupStudentLoginPage(app)
     return
   }
 
@@ -117,6 +119,7 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.CHANGE_PASSWORD) {
     app.innerHTML = renderchange_password_page()
+    cleanupCurrentRoute = setupChangePasswordPage(app)
     return
   }
 
