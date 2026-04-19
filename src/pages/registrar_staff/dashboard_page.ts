@@ -1,7 +1,8 @@
-import { renderregistrar_staff_shell } from '../../components/registrar_staff_layout'
+import { REGISTRAR_STAFF_SHELL_CONFIG, renderPortalShell } from '../../components/_layout'
 
 export function renderregistrar_staff_dashboard_page(): string {
-  return renderregistrar_staff_shell(
+  return renderPortalShell(
+    REGISTRAR_STAFF_SHELL_CONFIG,
     'dashboard',
     `
       <section class="registrar_staff-content">

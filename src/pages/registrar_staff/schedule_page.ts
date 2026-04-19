@@ -1,7 +1,14 @@
-import { renderregistrar_staff_placeholder_page } from '../../components/registrar_staff_section_placeholder'
+import { REGISTRAR_STAFF_SHELL_CONFIG } from '../../components/_layout'
+import { renderSectionPlaceholderPage } from '../../components/section_placeholder'
 
 export function renderregistrar_staff_schedule_page(): string {
-  return renderregistrar_staff_placeholder_page('schedule', 'Schedule', 'Review enrollment and records release schedules.')
+  return renderSectionPlaceholderPage(
+    REGISTRAR_STAFF_SHELL_CONFIG,
+    { contentClass: 'registrar_staff-content', panelClass: 'registrar_staff-panel' },
+    'schedule',
+    'Schedule',
+    'Review enrollment and records release schedules.',
+  )
 }
 
 

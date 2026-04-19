@@ -1,5 +1,5 @@
 import { ROUTES } from '../../app/routes'
-import { renderAdminShell } from '../../components/admin_layout'
+import { ADMIN_SHELL_CONFIG, renderPortalShell } from '../../components/_layout'
 import { renderAdminBreadcrumbNav } from '../../components/nav_breadcrumb'
 import { renderStudentAccountForm } from '../../components/student_account_form'
 
@@ -17,7 +17,8 @@ function renderBulkCard(index: number): string {
 }
 
 export function renderstudents_bulk_page(): string {
-  return renderAdminShell(
+  return renderPortalShell(
+    ADMIN_SHELL_CONFIG,
     'students',
     `
       <section class="admin-content">

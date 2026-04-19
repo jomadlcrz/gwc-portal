@@ -1,7 +1,8 @@
-import { renderAdminShell } from '../../components/admin_layout'
+import { ADMIN_SHELL_CONFIG, renderPortalShell } from '../../components/_layout'
 
 export function renderadministrators_dashboard_page(): string {
-  return renderAdminShell(
+  return renderPortalShell(
+    ADMIN_SHELL_CONFIG,
     'dashboard',
     `
       <section class="admin-content">

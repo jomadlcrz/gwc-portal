@@ -1,4 +1,4 @@
-import { renderAdminShell, setupAdminShell } from '../../components/admin_layout'
+import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../components/_layout'
 import { renderSharedModal, setupSharedModal } from '../../components/shared_modal'
 import { renderSharedPagination, setupSharedPagination } from '../../components/shared_pagination'
 
@@ -142,7 +142,8 @@ function renderTableRows(): string {
 }
 
 export function renderadministrators_directory_page(): string {
-  return renderAdminShell(
+  return renderPortalShell(
+    ADMIN_SHELL_CONFIG,
     'administrators',
     `
       <section class="admin-content">
@@ -227,7 +228,7 @@ export function renderadministrators_directory_page(): string {
 }
 
 export function setupadministrators_directory_page(root: HTMLElement): () => void {
-  const cleanupShell = setupAdminShell(root)
+  const cleanupShell = setupPortalShell(root, ADMIN_SHELL_CONFIG)
   const modalController = setupSharedModal(root, { modalSelector: '#admin-directory-modal' })
   const modalElement = root.querySelector<HTMLElement>('#admin-directory-modal')
   const searchInput = root.querySelector<HTMLInputElement>('[data-admin-search]')

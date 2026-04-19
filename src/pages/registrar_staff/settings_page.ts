@@ -1,7 +1,14 @@
-import { renderregistrar_staff_placeholder_page } from '../../components/registrar_staff_section_placeholder'
+import { REGISTRAR_STAFF_SHELL_CONFIG } from '../../components/_layout'
+import { renderSectionPlaceholderPage } from '../../components/section_placeholder'
 
 export function renderregistrar_staff_settings_page(): string {
-  return renderregistrar_staff_placeholder_page('settings', 'Settings', 'Configure registrar staff office preferences and controls.')
+  return renderSectionPlaceholderPage(
+    REGISTRAR_STAFF_SHELL_CONFIG,
+    { contentClass: 'registrar_staff-content', panelClass: 'registrar_staff-panel' },
+    'settings',
+    'Settings',
+    'Configure registrar staff office preferences and controls.',
+  )
 }
 
 

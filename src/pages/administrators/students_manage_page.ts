@@ -1,5 +1,5 @@
 import { ROUTES } from '../../app/routes'
-import { renderAdminShell, setupAdminShell } from '../../components/admin_layout'
+import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../components/_layout'
 import { renderAdminBreadcrumbNav } from '../../components/nav_breadcrumb'
 import { renderSharedModal, setupSharedModal } from '../../components/shared_modal'
 import { renderSharedPagination, setupSharedPagination } from '../../components/shared_pagination'
@@ -62,7 +62,8 @@ function renderRows(): string {
 }
 
 export function renderstudents_manage_page(): string {
-  return renderAdminShell(
+  return renderPortalShell(
+    ADMIN_SHELL_CONFIG,
     'students',
     `
       <section class="admin-content">
@@ -127,7 +128,7 @@ export function renderstudents_manage_page(): string {
 }
 
 export function setupstudents_manage_page(root: HTMLElement): () => void {
-  const cleanupShell = setupAdminShell(root)
+  const cleanupShell = setupPortalShell(root, ADMIN_SHELL_CONFIG)
   const modal = setupSharedModal(root, { modalSelector: '#students-manage-modal' })
   const searchInput = root.querySelector<HTMLInputElement>('[data-student-search]')
   const allRows = Array.from(root.querySelectorAll<HTMLTableRowElement>('[data-student-row]'))

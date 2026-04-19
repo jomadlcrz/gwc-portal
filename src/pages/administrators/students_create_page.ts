@@ -1,5 +1,5 @@
 import { ROUTES } from '../../app/routes'
-import { renderAdminShell } from '../../components/admin_layout'
+import { ADMIN_SHELL_CONFIG, renderPortalShell } from '../../components/_layout'
 import { renderAdminBreadcrumbNav } from '../../components/nav_breadcrumb'
 
 function renderSectionFields(): string {
@@ -60,7 +60,8 @@ function renderGuardianFields(title: string): string {
 }
 
 export function renderstudents_create_page(): string {
-  return renderAdminShell(
+  return renderPortalShell(
+    ADMIN_SHELL_CONFIG,
     'students',
     `
       <section class="admin-content">
