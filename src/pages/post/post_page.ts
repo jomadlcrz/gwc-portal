@@ -76,7 +76,7 @@ export function renderpost_page(slug: string): string | null {
           <section class="post-related" aria-label="Related articles">
             <div class="post-related-head">
               <h2>Other Related Articles:</h2>
-              <a href="${ROUTES.ANNOUNCEMENTS}" class="post-see-more">See More</a>
+              <a href="${ROUTES.POST_LISTS}" class="post-see-more">See More</a>
             </div>
             <div class="post-related-grid">
               ${related

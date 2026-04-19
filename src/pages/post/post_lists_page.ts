@@ -11,7 +11,7 @@ const latest = cards[0]
 
 export function renderpost_lists_page(): string {
   return `
-    <main class="ann-page">
+    <main class="post-page">
       ${renderMainSiteHeader({
         brandHref: ROUTES.HOME,
         logoSrc: gwcLogo,
@@ -27,37 +27,39 @@ export function renderpost_lists_page(): string {
         searchAriaLabel: 'Search post lists',
       })}
 
-      <section class="ann-title-block">
-        <h1>POST LISTS <i class="ann-megaphone-icon" data-lucide="newspaper"></i></h1>
-      </section>
-
-      <section class="ann-highlight">
-        <p>${latest ? `Latest: ${latest.title}` : 'No Post Found'}</p>
-      </section>
-
-      <section class="ann-list-wrap">
-        <h2>All Posts:</h2>
-        <div class="ann-grid">
-          ${cards
-            .map(
-              (card) => `
-            <article class="ann-card">
-              <img class="ann-card-img-top" src="${card.image}" alt="${card.title}" loading="lazy" />
-              <div class="ann-card-body">
-                <p class="ann-card-date">${card.date}</p>
-                <h3>${card.title}</h3>
-                <p>${card.excerpt}</p>
-              </div>
-              <div class="ann-card-footer">
-                <a href="${getPostPath(card.slug)}" class="ann-card-footer-link">
-                  <span>Read More</span>
-                  <i data-lucide="arrow-right" aria-hidden="true"></i>
-                </a>
-              </div>
-            </article>
-          `,
-            )
-            .join('')}
+      <section class="post-shell">
+        <div class="post-container">
+          <section class="post-related" aria-label="All posts">
+            <div class="post-related-head">
+              <h2>All Posts</h2>
+              <span class="post-date-chip">${cards.length} article${cards.length === 1 ? '' : 's'}</span>
+            </div>
+            ${
+              latest
+                ? `<section class="post-body"><p>Latest: ${latest.title}</p></section>`
+                : '<section class="post-body"><p>No Post Found</p></section>'
+            }
+            <hr class="post-divider" />
+            <div class="post-related-grid">
+              ${cards
+                .map(
+                  (card) => `
+                <article class="post-related-card">
+                  <img class="post-related-image" src="${card.image}" alt="${card.title}" loading="lazy" />
+                  <div class="post-related-body">
+                    <h3>${card.title}</h3>
+                    <p class="post-related-date">Posted: ${card.date}</p>
+                    <p>${card.excerpt}</p>
+                  </div>
+                  <div class="post-related-footer">
+                    <a href="${getPostPath(card.slug)}">Read More</a>
+                  </div>
+                </article>
+              `,
+                )
+                .join('')}
+            </div>
+          </section>
         </div>
       </section>
 

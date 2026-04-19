@@ -100,11 +100,7 @@
   height: 1em;
 }
 
-@media (min-width: 768px) {
-  .ann-title-block .ann-megaphone-icon {
-    transform: scale(2.1);
-  }
-}
+
 
 .ann-highlight {
   background: #0f172a;
@@ -113,16 +109,18 @@
 }
 
 .ann-highlight p {
+  width: min(1140px, 100%);
   margin: 0 auto;
-  max-width: 1200px;
+  padding: clamp(1rem, 2.2vw, 1.6rem);
   font-size: clamp(1.1rem, 2vw, 1.9rem);
   font-weight: 600;
 }
 
 .ann-list-wrap {
-  max-width: 1280px;
+  width: min(1140px, 100%);
   margin: 0 auto;
-  padding: 2rem 1.5rem 3rem;
+  padding: clamp(1rem, 2.2vw, 1.6rem);
+  padding-bottom: 4rem;
 }
 
 .ann-list-wrap h2 {
@@ -216,3 +214,14 @@
   height: 0.95rem;
 }
 
+@media (max-width: 991px) {
+  .ann-highlight p {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .ann-list-wrap {
+    padding-left: calc(1.5rem + 1rem);
+    padding-right: calc(1.5rem + 1rem);
+  }
+}
