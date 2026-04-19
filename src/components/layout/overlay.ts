@@ -23,7 +23,8 @@ export function renderHomeOverlays(options: HomeOverlayOptions): string {
           <div class="site-overlay-accent-line"></div>
           <div class="site-overlay-menu-layout">
             <nav class="site-overlay-menu-col">
-              <a href="#academics" data-overlay-close>ACADEMICS</a>
+              <button type="button" class="site-overlay-menu-trigger" data-menu-target="academics">ACADEMICS</button>
+              <div class="site-overlay-mobile-submenu" data-mobile-submenu-panel></div>
               <a href="${ROUTES.STUDENT_LOGIN}" data-overlay-close>STUDENT PORTAL</a>
               <a href="${ROUTES.FACULTY_LOGIN}" data-overlay-close>FACULTY PORTAL</a>
               <a href="${ROUTES.REGISTRAR_STAFF_LOGIN}" data-overlay-close>REGISTRAR STAFF PORTAL</a>
@@ -31,8 +32,16 @@ export function renderHomeOverlays(options: HomeOverlayOptions): string {
               <a href="#partners" data-overlay-close>ABOUT GWC</a>
             </nav>
             <div class="site-overlay-menu-divider" aria-hidden="true"></div>
-            <div class="site-overlay-menu-blank" aria-hidden="true"></div>
+            <div class="site-overlay-submenu-panel" data-submenu-panel aria-live="polite"></div>
           </div>
+          <template data-submenu-template="academics">
+            <ul class="site-overlay-submenu-list">
+              <li><a href="#programs">PROGRAMS</a></li>
+              <li><a href="#strand">STRAND</a></li>
+              <li><a href="#faculty">FACULTY</a></li>
+              <li><a href="#special-programs">SPECIAL PROGRAMS</a></li>
+            </ul>
+          </template>
         </div>
       </section>
 

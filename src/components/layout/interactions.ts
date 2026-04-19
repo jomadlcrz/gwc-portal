@@ -8,6 +8,15 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
   const closeButtons = Array.from(root.querySelectorAll<HTMLElement>('[data-overlay-close]'))
   const searchForm = root.querySelector<HTMLFormElement>('[data-search-form]')
   const searchInput = root.querySelector<HTMLInputElement>('[data-search-form] input[name="q"]')
+  const submenuPanel = root.querySelector<HTMLElement>('[data-submenu-panel]')
+  const mobileSubmenuPanel = root.querySelector<HTMLElement>('[data-mobile-submenu-panel]')
+  const submenuTriggers = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-menu-target]'))
+  const submenuTemplates = new Map(
+    Array.from(root.querySelectorAll<HTMLTemplateElement>('[data-submenu-template]')).map((template) => [
+      template.dataset.submenuTemplate ?? '',
+      template,
+    ]),
+  )
 
   createIcons({
     icons: {
@@ -24,12 +33,37 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
     document.body.style.setProperty('--scrollbar-compensation', `${Math.max(0, scrollbarWidth)}px`)
     document.body.style.paddingRight = 'var(--scrollbar-compensation)'
     document.body.classList.add('overlay-open')
+    document.body.classList.add('no-scroll')
   }
 
   const unlockScroll = (): void => {
     document.body.classList.remove('overlay-open')
+    document.body.classList.remove('no-scroll')
     document.body.style.paddingRight = ''
     document.body.style.removeProperty('--scrollbar-compensation')
+  }
+
+  const applyBodyOverlayState = (openOverlayName: 'menu' | 'search' | null): void => {
+    if (openOverlayName === 'menu') {
+      document.body.classList.add('nav-open')
+      document.body.classList.remove('nav-close')
+      document.body.classList.remove('search-open')
+      document.body.classList.add('search-close')
+      return
+    }
+
+    if (openOverlayName === 'search') {
+      document.body.classList.add('search-open')
+      document.body.classList.remove('search-close')
+      document.body.classList.remove('nav-open')
+      document.body.classList.add('nav-close')
+      return
+    }
+
+    document.body.classList.remove('nav-open')
+    document.body.classList.remove('search-open')
+    document.body.classList.add('nav-close')
+    document.body.classList.add('search-close')
   }
 
   const hideAll = (): void => {
@@ -37,6 +71,10 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
       overlay.classList.remove('is-open')
       overlay.setAttribute('aria-hidden', 'true')
     })
+    submenuTriggers.forEach((trigger) => trigger.classList.remove('is-active'))
+    if (submenuPanel) submenuPanel.innerHTML = ''
+    if (mobileSubmenuPanel) mobileSubmenuPanel.innerHTML = ''
+    applyBodyOverlayState(null)
     unlockScroll()
   }
 
@@ -46,10 +84,17 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
     if (!target) return
     target.classList.add('is-open')
     target.setAttribute('aria-hidden', 'false')
+    applyBodyOverlayState(name === 'menu' ? 'menu' : 'search')
     lockScroll()
 
+    if (name === 'menu') {
+      submenuTriggers.forEach((item) => item.classList.remove('is-active'))
+      if (submenuPanel) submenuPanel.innerHTML = ''
+      if (mobileSubmenuPanel) mobileSubmenuPanel.innerHTML = ''
+    }
+
     if (name === 'search' && searchInput) {
-      requestAnimationFrame(() => searchInput.focus())
+      window.setTimeout(() => searchInput.focus(), 1000)
     }
   }
 
@@ -76,6 +121,36 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
     hideAll()
     const target = query ? `${ROUTES.SEARCH}?q=${encodeURIComponent(query)}` : ROUTES.SEARCH
     window.location.assign(target)
+  }
+
+  const setSubmenuContent = (name: string): void => {
+    const template = submenuTemplates.get(name)
+    if (!template) {
+      if (submenuPanel) submenuPanel.innerHTML = ''
+      if (mobileSubmenuPanel) mobileSubmenuPanel.innerHTML = ''
+      return
+    }
+
+    if (submenuPanel) submenuPanel.innerHTML = template.innerHTML
+    if (mobileSubmenuPanel) mobileSubmenuPanel.innerHTML = template.innerHTML
+  }
+
+  const onSubmenuTriggerClick = (event: Event): void => {
+    const trigger = event.currentTarget as HTMLButtonElement
+    const targetName = trigger.dataset.menuTarget
+    if (!targetName) return
+
+    const isAlreadyActive = trigger.classList.contains('is-active')
+    if (isAlreadyActive) {
+      trigger.classList.remove('is-active')
+      if (submenuPanel) submenuPanel.innerHTML = ''
+      if (mobileSubmenuPanel) mobileSubmenuPanel.innerHTML = ''
+      return
+    }
+
+    submenuTriggers.forEach((item) => item.classList.remove('is-active'))
+    trigger.classList.add('is-active')
+    setSubmenuContent(targetName)
   }
 
   const updateHeaderScrollState = (): void => {
@@ -119,6 +194,7 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
   window.addEventListener('pageshow', onPageShow, { once: true })
 
   openButtons.forEach((button) => button.addEventListener('click', onOpenClick))
+  submenuTriggers.forEach((button) => button.addEventListener('click', onSubmenuTriggerClick))
   closeButtons.forEach((button) => button.addEventListener('click', onCloseClick))
   document.addEventListener('keydown', onKeydown)
   searchForm?.addEventListener('submit', onSearchSubmit)
@@ -126,6 +202,7 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
 
   return () => {
     openButtons.forEach((button) => button.removeEventListener('click', onOpenClick))
+    submenuTriggers.forEach((button) => button.removeEventListener('click', onSubmenuTriggerClick))
     closeButtons.forEach((button) => button.removeEventListener('click', onCloseClick))
     document.removeEventListener('keydown', onKeydown)
     searchForm?.removeEventListener('submit', onSearchSubmit)
