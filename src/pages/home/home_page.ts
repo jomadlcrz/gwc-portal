@@ -120,19 +120,46 @@ export function renderhome_page(): string {
       <section id="events" class="site-post-section site-post-section-light">
         <div class="post-container home-section-inner">
           <h2 class="site-post-section-title">Events</h2>
-          <div class="site-events-list">
-            <article class="site-event-item">
-              <p class="site-event-date">May 10, 2026</p>
-              <h3>Foundation Day Celebration</h3>
-            </article>
-            <article class="site-event-item">
-              <p class="site-event-date">June 7, 2026</p>
-              <h3>Alumni Homecoming</h3>
-            </article>
-            <article class="site-event-item">
-              <p class="site-event-date">June 21, 2026</p>
-              <h3>Research and Innovation Forum</h3>
-            </article>
+          <div id="eventsCarousel" class="carousel slide site-events-carousel" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <article class="carousel-item active">
+                <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1280&q=80" class="d-block w-100 site-event-image" alt="Foundation Day Celebration event" />
+                <div class="carousel-caption d-none d-md-block site-event-caption">
+                  <p class="site-event-date">May 10, 2026</p>
+                  <h3>Foundation Day Celebration</h3>
+                  <p>Join campus-wide activities honoring the founding year of Golden West Colleges.</p>
+                </div>
+              </article>
+              <article class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1280&q=80" class="d-block w-100 site-event-image" alt="Alumni Homecoming event" />
+                <div class="carousel-caption d-none d-md-block site-event-caption">
+                  <p class="site-event-date">June 7, 2026</p>
+                  <h3>Alumni Homecoming</h3>
+                  <p>Reconnect with fellow alumni, mentors, and student communities across programs.</p>
+                </div>
+              </article>
+              <article class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1280&q=80" class="d-block w-100 site-event-image" alt="Research and Innovation Forum event" />
+                <div class="carousel-caption d-none d-md-block site-event-caption">
+                  <p class="site-event-date">June 21, 2026</p>
+                  <h3>Research and Innovation Forum</h3>
+                  <p>Explore student and faculty-led innovations shaping future-ready education.</p>
+                </div>
+              </article>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#eventsCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#eventsCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
           </div>
         </div>
       </section>

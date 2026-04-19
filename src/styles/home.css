@@ -65,7 +65,8 @@
 
 .site-post-section-title {
   font-size: clamp(1.6rem, 3vw, 2.2rem);
-  margin-bottom: 1rem;
+  margin-bottom: 1.75rem;
+  text-align: center;
   font-family: Georgia, 'Times New Roman', serif;
   letter-spacing: 0.02em;
 }
@@ -273,22 +274,52 @@
   color: #fff;
 }
 
-.site-events-list {
-  display: grid;
-  gap: 0.55rem;
-}
-
-.site-event-item {
-  background: #fff;
+.site-events-carousel {
   border: 1px solid #d9deea;
-  padding: 0.85rem;
+  background: #fff;
+  overflow: hidden;
 }
 
-.site-event-item h3 {
-  margin: 0 0 0.25rem;
-  font-size: 1.1rem;
-  text-align: justify;
-  text-justify: inter-word;
+.site-event-image {
+  width: 100%;
+  height: clamp(250px, 42vw, 520px);
+  object-fit: cover;
+}
+
+.site-events-carousel .carousel-item {
+  position: relative;
+}
+
+.site-events-carousel .carousel-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(6 12 26 / 20%) 0%, rgb(6 12 26 / 62%) 100%);
+  pointer-events: none;
+}
+
+.site-event-caption {
+  left: 6%;
+  right: 6%;
+  bottom: 1.25rem;
+  text-align: left;
+  z-index: 1;
+}
+
+.site-event-caption h3 {
+  margin: 0;
+  font-size: clamp(1.1rem, 2vw, 1.7rem);
+  line-height: 1.2;
+  color: #fff;
+}
+
+.site-event-caption p:last-child {
+  margin: 0.35rem 0 0;
+  color: #e2e8f0;
+}
+
+.site-events-carousel .carousel-indicators [data-bs-target] {
+  width: 26px;
 }
 
 .site-event-date {
@@ -296,7 +327,7 @@
   font-size: 0.8rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #55607b;
+  color: #f8fafc;
 }
 
 .site-careers-head {
@@ -312,15 +343,13 @@
   margin-bottom: 1.5rem;
   font-size: clamp(1.3rem, 2.5vw, 2rem);
   font-style: italic;
-  text-align: justify;
-  text-justify: inter-word;
+  text-align: center;
 }
 
 .site-careers-caption {
   margin: 0;
   font-size: clamp(1.1rem, 2vw, 1.8rem);
-  text-align: justify;
-  text-justify: inter-word;
+  text-align: center;
 }
 
 .site-job-list {
