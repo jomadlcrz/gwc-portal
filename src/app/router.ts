@@ -20,6 +20,13 @@ import { setupSiteInteractions } from '../components/layout/interactions'
 import { renderhome_page } from '../pages/home/home_page'
 import { renderadministrators_login_page } from '../pages/login/administrators_login_page'
 import { renderfaculty_login_page } from '../pages/login/faculty_login_page'
+import {
+  renderfaculty_classes_page,
+  renderfaculty_dashboard_page,
+  renderfaculty_gradebook_page,
+  renderfaculty_settings_page,
+  setupfaculty_page,
+} from '../pages/faculty/faculty_page'
 import { renderregistrar_staff_login_page } from '../pages/login/registrar_staff_login_page'
 import { renderstudent_login_page } from '../pages/login/student_login_page'
 import { rendernot_found_page } from '../pages/not-found/not_found_page'
@@ -66,6 +73,30 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.FACULTY_LOGIN) {
     app.innerHTML = renderfaculty_login_page()
+    return
+  }
+
+  if (pathname === ROUTES.FACULTY_PORTAL || pathname === ROUTES.FACULTY_DASHBOARD) {
+    app.innerHTML = renderfaculty_dashboard_page()
+    cleanupCurrentRoute = setupfaculty_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.FACULTY_CLASSES) {
+    app.innerHTML = renderfaculty_classes_page()
+    cleanupCurrentRoute = setupfaculty_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.FACULTY_GRADEBOOK) {
+    app.innerHTML = renderfaculty_gradebook_page()
+    cleanupCurrentRoute = setupfaculty_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.FACULTY_SETTINGS) {
+    app.innerHTML = renderfaculty_settings_page()
+    cleanupCurrentRoute = setupfaculty_page(app)
     return
   }
 

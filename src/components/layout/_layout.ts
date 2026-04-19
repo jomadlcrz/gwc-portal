@@ -37,6 +37,8 @@ export type RegistrarStaffSection =
   | 'schedule'
   | 'settings'
 
+export type FacultySection = 'dashboard' | 'classes' | 'gradebook' | 'settings'
+
 type ShellMenuItem<TSection extends string> = {
   label: string
   icon: string
@@ -175,6 +177,44 @@ export const REGISTRAR_STAFF_SHELL_CONFIG: ShellConfig<RegistrarStaffSection> = 
     FileText,
     ClipboardList,
     CalendarDays,
+    Settings,
+  },
+}
+
+export const FACULTY_SHELL_CONFIG: ShellConfig<FacultySection> = {
+  pageClass: 'faculty-shell-page',
+  layoutClass: 'faculty-layout',
+  sidebarClass: 'faculty-sidebar',
+  sidebarAriaLabel: 'Faculty menu',
+  sidebarMainClass: 'faculty-sidebar-main',
+  sidebarHeadClass: 'faculty-sidebar-head',
+  sidebarEyebrowClass: 'faculty-eyebrow',
+  sidebarEyebrow: 'Instructor Portal',
+  sidebarTitle: 'Faculty',
+  sidebarTitleClass: 'faculty-header-link',
+  sidebarMenuClass: 'faculty-menu',
+  sidebarMenuAriaLabel: 'Faculty navigation',
+  sidebarFooterClass: 'faculty-sidebar-footer',
+  sidebarFooterValue: 'FACULTY',
+  backdropClass: 'faculty-sidebar-backdrop',
+  sidebarOpenClass: 'faculty-sidebar-open',
+  mobileBodyLockWidth: 991,
+  menuToggleSelector: '[data-faculty-sidebar-open]',
+  menuToggleClassName: 'faculty-header-menu-toggle',
+  menuToggleAriaLabel: 'Open sidebar menu',
+  headerBrandHref: ROUTES.HOME,
+  headerLogoAlt: 'Golden West Colleges logo',
+  menuItems: [
+    { label: 'Dashboard', icon: 'layout-dashboard', href: ROUTES.FACULTY_DASHBOARD, section: 'dashboard' },
+    { label: 'Classes', icon: 'calendar-days', href: ROUTES.FACULTY_CLASSES, section: 'classes' },
+    { label: 'Gradebook', icon: 'file-text', href: ROUTES.FACULTY_GRADEBOOK, section: 'gradebook' },
+    { label: 'Settings', icon: 'settings', href: ROUTES.FACULTY_SETTINGS, section: 'settings' },
+  ],
+  icons: {
+    Menu,
+    LayoutDashboard,
+    CalendarDays,
+    FileText,
     Settings,
   },
 }

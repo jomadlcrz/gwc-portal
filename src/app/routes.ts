@@ -31,6 +31,11 @@ export const ROUTES = {
   ADMINISTRATORS_LOGIN: '/administrators/login',
   REGISTRAR_STAFF_LOGIN: '/registrar-staff/login',
   FACULTY_LOGIN: '/faculty-portal/login',
+  FACULTY_PORTAL: '/faculty-portal',
+  FACULTY_DASHBOARD: '/faculty-portal/dashboard',
+  FACULTY_CLASSES: '/faculty-portal/classes',
+  FACULTY_GRADEBOOK: '/faculty-portal/gradebook',
+  FACULTY_SETTINGS: '/faculty-portal/settings',
   STUDENT_LOGIN: '/student-portal/login',
   
 } as const
