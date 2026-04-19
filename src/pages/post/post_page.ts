@@ -1,7 +1,7 @@
 import gwcLogo from '../../assets/gwc_logo\.avif'
 import gwcLogoWhite from '../../assets/gwc_logo_white\.avif'
-import { ROUTES } from '../../app/routes'
-import { getPostBySlug, getPostPath, posts } from '../../data/posts'
+import { ROUTES, getPostListsRoute } from '../../app/routes'
+import { getPostBySlug, getPostCategorySlug, getPostPath, posts } from '../../data/posts'
 import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/layout/header'
 import { renderMainSiteFooter } from '../../components/layout/footer'
 import { renderHomeOverlays } from '../../components/layout/overlay'
@@ -76,7 +76,7 @@ export function renderpost_page(slug: string): string | null {
           <section class="post-related" aria-label="Related articles">
             <div class="post-related-head">
               <h2>Other Related Articles:</h2>
-              <a href="${ROUTES.POST_LISTS}" class="post-see-more">See More</a>
+              <a href="${getPostListsRoute(getPostCategorySlug(post.category))}" class="post-see-more">See More</a>
             </div>
             <div class="post-related-grid">
               ${related

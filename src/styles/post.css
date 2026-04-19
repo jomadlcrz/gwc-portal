@@ -10,6 +10,33 @@
   padding: 1.5rem 1rem 4rem;
 }
 
+.post-list-hero {
+  background: #4b494b;
+  padding: 1.25rem 1rem 1.8rem;
+}
+
+.post-list-hero-inner {
+  padding-top: 0.15rem;
+}
+
+.post-list-eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #f1f3f7;
+}
+
+.post-list-title {
+  margin: 0.35rem 0 0;
+  text-transform: uppercase;
+  font-size: clamp(1.7rem, 3.6vw, 2.5rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+}
+
 .post-container {
   width: min(1140px, 100%);
   margin: 0 auto;
@@ -180,5 +207,14 @@
 
   .post-shell {
     padding-top: 1rem;
+  }
+
+  .post-list-hero {
+    padding-top: 1rem;
+    padding-bottom: 1.35rem;
+  }
+
+  .post-list-eyebrow {
+    font-size: 0.9rem;
   }
 }

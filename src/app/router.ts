@@ -34,7 +34,7 @@ import {
 } from '../pages/registrar_staff/registrar_staff_page'
 import { rendersearch_page } from '../pages/search/search_page'
 import { renderpost_page } from '../pages/post/post_page'
-import { getPostBySlug } from '../data/posts'
+import { getPostBySlug, getPostCategoryFromSlug } from '../data/posts'
 import { ROUTES } from './routes'
 
 let cleanupCurrentRoute: (() => void) | null = null
@@ -75,10 +75,15 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     return
   }
 
-  if (pathname === ROUTES.POST_LISTS) {
-    app.innerHTML = renderpost_lists_page()
-    cleanupCurrentRoute = setupSiteInteractions(app)
-    return
+  if (pathname.startsWith(`${ROUTES.POST_LISTS}/`)) {
+    const categorySlug = pathname.slice(`${ROUTES.POST_LISTS}/`.length)
+    const category = getPostCategoryFromSlug(categorySlug)
+
+    if (category) {
+      app.innerHTML = renderpost_lists_page(category)
+      cleanupCurrentRoute = setupSiteInteractions(app)
+      return
+    }
   }
 
   if (pathname === ROUTES.REGISTRAR_STAFF || pathname === ROUTES.REGISTRAR_STAFF_DASHBOARD) {

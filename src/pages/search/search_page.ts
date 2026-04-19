@@ -1,7 +1,7 @@
 import gwcLogo from '../../assets/gwc_logo\.avif'
 import gwcLogoWhite from '../../assets/gwc_logo_white\.avif'
 import { ROUTES } from '../../app/routes'
-import { getPostPath, posts } from '../../data/posts'
+import { getCategoryLabel, getPostPath, posts, type PostCategory } from '../../data/posts'
 import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/layout/header'
 import { renderMainSiteFooter } from '../../components/layout/footer'
 import { renderHomeOverlays } from '../../components/layout/overlay'
@@ -9,7 +9,7 @@ import { renderHomeOverlays } from '../../components/layout/overlay'
 type SearchItem = {
   slug: string
   title: string
-  category: 'Articles' | 'Files' | 'Board Resolutions'
+  category: PostCategory
   excerpt: string
 }
 
@@ -56,7 +56,7 @@ function renderSearchResults(query: string): string {
         .map(
           (item) => `
         <li class="search-result-item">
-          <p class="search-result-kind">${item.category}</p>
+          <p class="search-result-kind">${getCategoryLabel(item.category)}</p>
           <h3>${item.title}</h3>
           <p>${item.excerpt}</p>
           <a href="${getPostPath(item.slug)}">Read More</a>

@@ -2,7 +2,7 @@ import gwcLogo from '../../assets/gwc_logo\.avif'
 import gwcLogoWhite from '../../assets/gwc_logo_white\.avif'
 import coverImage from '../../assets/cover\.avif'
 import { ROUTES } from '../../app/routes'
-import { getArticlePosts, getPostPath, type PostItem } from '../../data/posts'
+import { getPostPath, getPostsByCategory, type PostItem } from '../../data/posts'
 import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/layout/header'
 import { renderMainSiteFooter } from '../../components/layout/footer'
 import { renderHomeOverlays } from '../../components/layout/overlay'
@@ -12,12 +12,15 @@ function getImage(post: PostItem | undefined, fallback: string): string {
 }
 
 export function renderhome_page(): string {
-  const articlePosts = getArticlePosts()
-  const globalFeatured = articlePosts[0]
-  const globalMore = articlePosts.slice(1, 3)
-  const communityFeatured = articlePosts[3]
-  const communityMore = articlePosts.slice(4, 6)
-  const perspectiveFeatured = articlePosts[6] ?? articlePosts[0]
+  const globalPosts = getPostsByCategory('GLOBAL')
+  const communityPosts = getPostsByCategory('COMMUNITY')
+  const perspectivePosts = getPostsByCategory('PERSPECTIVE')
+
+  const globalFeatured = globalPosts[0]
+  const globalMore = globalPosts.slice(1, 3)
+  const communityFeatured = communityPosts[0]
+  const communityMore = communityPosts.slice(1, 3)
+  const perspectiveFeatured = perspectivePosts[0] ?? globalPosts[0]
 
   return `
     <main id="main" class="site-page site-post-page">
