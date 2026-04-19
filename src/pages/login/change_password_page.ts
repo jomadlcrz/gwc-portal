@@ -25,16 +25,6 @@ export function renderchange_password_page(): string {
                     <input
                       type="password"
                       class="form-control form-control-lg login-input password-input"
-                      id="current-password"
-                      placeholder="Current password"
-                      required
-                    />
-                    <label for="current-password">Current password</label>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <input
-                      type="password"
-                      class="form-control form-control-lg login-input password-input"
                       id="new-password"
                       placeholder="New password"
                       required
