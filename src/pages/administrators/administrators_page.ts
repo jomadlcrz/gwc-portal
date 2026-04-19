@@ -1,4 +1,4 @@
-import { ADMIN_SHELL_CONFIG, setupPortalShell } from '../../components/_layout'
+import { ADMIN_SHELL_CONFIG, setupPortalShell } from '../../components/layout/_layout'
 
 export { renderadministrators_dashboard_page } from './dashboard_page'
 export { renderadministrators_directory_page, setupadministrators_directory_page } from './administrators_directory_page'

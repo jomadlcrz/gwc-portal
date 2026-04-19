@@ -1,4 +1,4 @@
-import { ROUTES } from '../app/routes'
+import { ROUTES } from '../../app/routes'
 
 type HomeOverlayOptions = {
   logoSrc: string

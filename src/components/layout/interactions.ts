@@ -1,7 +1,7 @@
 import { createIcons,  Megaphone, Menu, Search } from 'lucide'
-import { ROUTES } from '../app/routes'
+import { ROUTES } from '../../app/routes'
 
-export function setupsite_interactions(root: HTMLElement): () => void {
+export function setupSiteInteractions(root: HTMLElement): () => void {
   const homeHeader = root.querySelector<HTMLElement>('.site-header')
   const overlays = Array.from(root.querySelectorAll<HTMLElement>('[data-overlay]'))
   const openButtons = Array.from(root.querySelectorAll<HTMLElement>('[data-overlay-open]'))

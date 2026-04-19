@@ -1,9 +1,9 @@
 import gwcLogo from '../../assets/gwc_logo\.avif'
 import gwcLogoWhite from '../../assets/gwc_logo_white\.avif'
 import { ROUTES } from '../../app/routes'
-import { buildMainHeaderActions, renderMainsite_header } from '../../components/site_header'
-import { renderMainsite_footer } from '../../components/site_footer'
-import { renderHomeOverlays } from '../../components/site_overlay'
+import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/layout/header'
+import { renderMainSiteFooter } from '../../components/layout/footer'
+import { renderHomeOverlays } from '../../components/layout/overlay'
 
 const cards = [
   {
@@ -29,7 +29,7 @@ const cards = [
 export function renderannouncements_page(): string {
   return `
     <main class="ann-page">
-      ${renderMainsite_header({
+      ${renderMainSiteHeader({
         brandHref: ROUTES.HOME,
         logoSrc: gwcLogo,
         logoAlt: 'Golden West Colleges logo',
@@ -78,7 +78,7 @@ export function renderannouncements_page(): string {
         </div>
       </section>
 
-      ${renderMainsite_footer()}
+      ${renderMainSiteFooter()}
     </main>
   `
 }

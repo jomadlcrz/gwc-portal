@@ -1,4 +1,4 @@
-import { REGISTRAR_STAFF_SHELL_CONFIG, renderPortalShell } from '../../components/_layout'
+import { REGISTRAR_STAFF_SHELL_CONFIG, renderPortalShell } from '../../components/layout/_layout'
 
 export function renderregistrar_staff_dashboard_page(): string {
   return renderPortalShell(

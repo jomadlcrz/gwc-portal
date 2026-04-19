@@ -1,4 +1,4 @@
-import { ROUTES } from '../app/routes'
+import { ROUTES } from '../../app/routes'
 
 export type HeaderAction = {
   icon: string
@@ -8,7 +8,7 @@ export type HeaderAction = {
   attrs?: string
 } & ({ type: 'link'; href: string } | { type: 'button' })
 
-type site_headerOptions = {
+type SiteHeaderOptions = {
   brandHref: string
   headerClass: string
   innerClass?: string
@@ -26,7 +26,7 @@ type site_headerOptions = {
   actions: HeaderAction[]
 }
 
-type Mainsite_headerOptions = {
+type MainSiteHeaderOptions = {
   brandHref: string
   logoSrc: string
   logoAlt: string
@@ -55,7 +55,7 @@ function renderHeaderAction(action: HeaderAction, baseClass: string): string {
   return `<button type="button" class="${className}"${aria}${attrs}>${content}</button>`
 }
 
-export function rendersite_header(options: site_headerOptions): string {
+export function renderSiteHeader(options: SiteHeaderOptions): string {
   const innerClass = options.innerClass ? ` class="${options.innerClass}"` : ''
   return `
     <header class="${options.headerClass}">
@@ -73,10 +73,10 @@ export function rendersite_header(options: site_headerOptions): string {
   `
 }
 
-export function renderMainsite_header(options: Mainsite_headerOptions): string {
+export function renderMainSiteHeader(options: MainSiteHeaderOptions): string {
   const headerClass = options.solid ? 'site-header site-header-solid' : 'site-header'
 
-  return rendersite_header({
+  return renderSiteHeader({
     brandHref: options.brandHref,
     headerClass,
     innerClass: 'site-header-inner',

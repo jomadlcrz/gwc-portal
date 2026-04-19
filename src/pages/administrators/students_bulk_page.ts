@@ -1,7 +1,7 @@
 import { ROUTES } from '../../app/routes'
-import { ADMIN_SHELL_CONFIG, renderPortalShell } from '../../components/_layout'
-import { renderAdminBreadcrumbNav } from '../../components/nav_breadcrumb'
-import { renderStudentAccountForm } from '../../components/student_account_form'
+import { ADMIN_SHELL_CONFIG, renderPortalShell } from '../../components/layout/_layout'
+import { renderAdminBreadcrumbNav } from '../../components/ui/nav_breadcrumb'
+import { renderStudentAccountForm } from '../../components/forms/student_account_form'
 
 function renderBulkCard(index: number): string {
   return `

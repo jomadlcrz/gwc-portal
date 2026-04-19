@@ -13,11 +13,11 @@ import {
   Users,
   createIcons,
 } from 'lucide'
-import gwcLogo from '../assets/gwc_logo.avif'
-import { ROUTES } from '../app/routes'
-import { setupSharedPopover } from './popover'
-import { renderMainsite_header } from './site_header'
-import type { HeaderAction } from './site_header'
+import gwcLogo from '../../assets/gwc_logo.avif'
+import { ROUTES } from '../../app/routes'
+import { setupSharedPopover } from '../ui/popover'
+import { renderMainSiteHeader } from './header'
+import type { HeaderAction } from './header'
 
 export type AdminSection =
   | 'dashboard'
@@ -225,7 +225,7 @@ export function renderPortalShell<TSection extends string>(
 
   return `
     <main class="${config.pageClass}">
-      ${renderMainsite_header({
+      ${renderMainSiteHeader({
         brandHref: config.headerBrandHref,
         logoSrc: gwcLogo,
         logoAlt: config.headerLogoAlt,

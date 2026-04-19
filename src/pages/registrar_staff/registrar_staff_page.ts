@@ -1,4 +1,4 @@
-import { REGISTRAR_STAFF_SHELL_CONFIG, setupPortalShell } from '../../components/_layout'
+import { REGISTRAR_STAFF_SHELL_CONFIG, setupPortalShell } from '../../components/layout/_layout'
 
 export { renderregistrar_staff_dashboard_page } from './dashboard_page'
 export { renderregistrar_staff_student_records_page } from './student_records_page'

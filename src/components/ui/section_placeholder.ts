@@ -1,5 +1,5 @@
-import { renderPortalShell } from './_layout'
-import type { ShellConfig } from './_layout'
+import { renderPortalShell } from '../layout/_layout'
+import type { ShellConfig } from '../layout/_layout'
 
 type PlaceholderShellConfig = {
   contentClass: string

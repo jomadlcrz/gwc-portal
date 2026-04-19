@@ -1,6 +1,6 @@
 import { ROUTES } from '../../app/routes'
-import { ADMIN_SHELL_CONFIG, renderPortalShell } from '../../components/_layout'
-import { renderAdminBreadcrumbNav } from '../../components/nav_breadcrumb'
+import { ADMIN_SHELL_CONFIG, renderPortalShell } from '../../components/layout/_layout'
+import { renderAdminBreadcrumbNav } from '../../components/ui/nav_breadcrumb'
 
 export function renderstudents_page(): string {
   return renderPortalShell(

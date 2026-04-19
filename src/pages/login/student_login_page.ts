@@ -1,6 +1,6 @@
 import gwcLogo from '../../assets/gwc_logo_laurel\.avif'
-import { renderPortalHeader } from '../../components/site_header'
-import { renderPortalsite_footer } from '../../components/site_footer'
+import { renderPortalHeader } from '../../components/layout/header'
+import { renderPortalSiteFooter } from '../../components/layout/footer'
 
 export function renderstudent_login_page(): string {
   return `
@@ -34,7 +34,7 @@ export function renderstudent_login_page(): string {
         </div>
       </section>
 
-      ${renderPortalsite_footer()}
+      ${renderPortalSiteFooter()}
     </main>
   `
 }

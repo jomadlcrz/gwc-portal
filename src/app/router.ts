@@ -14,7 +14,7 @@ import {
   renderstudents_page,
   setupadministrators_page,
 } from '../pages/administrators/administrators_page'
-import { setupsite_interactions } from '../components/site_interactions'
+import { setupSiteInteractions } from '../components/layout/interactions'
 import { renderhome_page } from '../pages/home/home_page'
 import { renderadministrators_login_page } from '../pages/login/administrators_login_page'
 import { renderfaculty_login_page } from '../pages/login/faculty_login_page'
@@ -42,7 +42,7 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   if (pathname === ROUTES.HOME) {
     document.title = 'Golden West Colleges, Inc.'
     app.innerHTML = renderhome_page()
-    cleanupCurrentRoute = setupsite_interactions(app)
+    cleanupCurrentRoute = setupSiteInteractions(app)
     return
   }
 
@@ -73,7 +73,7 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   if (pathname === ROUTES.ANNOUNCEMENTS) {
     document.title = 'Announcements | Golden West Colleges, Inc.'
     app.innerHTML = renderannouncements_page()
-    cleanupCurrentRoute = setupsite_interactions(app)
+    cleanupCurrentRoute = setupSiteInteractions(app)
     return
   }
 
@@ -122,7 +122,7 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   if (pathname === ROUTES.SEARCH) {
     document.title = 'Search | Golden West Colleges, Inc.'
     app.innerHTML = rendersearch_page()
-    cleanupCurrentRoute = setupsite_interactions(app)
+    cleanupCurrentRoute = setupSiteInteractions(app)
     return
   }
 

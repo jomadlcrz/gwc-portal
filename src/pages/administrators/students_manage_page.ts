@@ -1,10 +1,10 @@
 import { ROUTES } from '../../app/routes'
-import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../components/_layout'
-import { renderAdminBreadcrumbNav } from '../../components/nav_breadcrumb'
-import { renderSharedModal, setupSharedModal } from '../../components/modal'
-import { renderSharedPagination, setupSharedPagination } from '../../components/pagination'
-import { renderSharedPopover } from '../../components/popover'
-import { renderStudentAccountForm } from '../../components/student_account_form'
+import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../components/layout/_layout'
+import { renderAdminBreadcrumbNav } from '../../components/ui/nav_breadcrumb'
+import { renderSharedModal, setupSharedModal } from '../../components/ui/modal'
+import { renderSharedPagination, setupSharedPagination } from '../../components/ui/pagination'
+import { renderSharedPopover } from '../../components/ui/popover'
+import { renderStudentAccountForm } from '../../components/forms/student_account_form'
 
 type StudentRecord = {
   studentNo: string
