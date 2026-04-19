@@ -22,6 +22,10 @@ export function renderhome_page(): string {
   const communityFeatured = communityPosts[0]
   const communityMore = communityPosts.slice(1, 3)
   const perspectiveFeatured = perspectivePosts[0] ?? globalPosts[0]
+  const desktopEventSlides =
+    eventPosts.length > 2
+      ? Array.from({ length: eventPosts.length - 2 }, (_, index) => eventPosts.slice(index, index + 3))
+      : [eventPosts]
 
   return `
     <main id="main" class="site-page site-post-page">
@@ -121,55 +125,73 @@ export function renderhome_page(): string {
       <section id="events" class="site-post-section site-post-section-light">
         <div class="post-container home-section-inner">
           <h2 class="site-post-section-title">Events</h2>
-          <div id="eventsCarousel" class="carousel slide site-events-carousel" data-bs-ride="carousel">
+          <div id="eventsCarouselDesktop" class="carousel slide site-events-carousel d-none d-lg-block" data-bs-ride="carousel">
             <div class="carousel-indicators">
-              <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-              <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-              <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              ${desktopEventSlides
+                .map(
+                  (_, index) => `
+                <button type="button" data-bs-target="#eventsCarouselDesktop" data-bs-slide-to="${index}" class="${index === 0 ? 'active' : ''}" ${index === 0 ? 'aria-current="true"' : ''} aria-label="Slide ${index + 1}"></button>
+              `,
+                )
+                .join('')}
             </div>
             <div class="carousel-inner">
-              <article class="carousel-item active">
-                <a href="${getPostPath(eventPosts[0]?.slug ?? 'stem-fair-2026')}" class="site-event-slide-link">
-                  <img src="${getImage(eventPosts[0], 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1280&q=80')}" class="d-block w-100 site-event-image" alt="${eventPosts[0]?.title ?? 'Foundation Day Celebration event'}" />
-                  <div class="carousel-caption d-none d-md-block site-event-caption">
-                    <p class="site-event-date">${eventPosts[0]?.date ?? 'May 10, 2026'}</p>
-                    <h3>${eventPosts[0]?.title ?? 'Foundation Day Celebration'}</h3>
-                    <p>${eventPosts[0]?.excerpt ?? 'Join campus-wide activities honoring the founding year of Golden West Colleges.'}</p>
+              ${desktopEventSlides
+                .map(
+                  (slidePosts, index) => `
+                <article class="carousel-item ${index === 0 ? 'active' : ''}">
+                  <div class="site-events-grid">
+                    ${slidePosts
+                      .map(
+                        (post) => `
+                      <article class="site-event-card">
+                        <a href="${getPostPath(post.slug)}" class="site-event-slide-link">
+                          <img src="${getImage(post, 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1280&q=80')}" class="d-block w-100 site-event-image" alt="${post.title}" />
+                        </a>
+                        <div class="site-event-content">
+                          <p class="site-event-date">${post.date}</p>
+                          <h3><a href="${getPostPath(post.slug)}">${post.title}</a></h3>
+                        </div>
+                      </article>
+                    `,
+                      )
+                      .join('')}
                   </div>
-                  <div class="site-event-mobile-copy d-block d-md-none">
-                    <p class="site-event-date">${eventPosts[0]?.date ?? 'May 10, 2026'}</p>
-                    <h3>${eventPosts[0]?.title ?? 'Foundation Day Celebration'}</h3>
+                </article>
+              `,
+                )
+                .join('')}
+            </div>
+          </div>
+
+          <div id="eventsCarousel" class="carousel slide site-events-carousel d-lg-none" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              ${eventPosts
+                .map(
+                  (_, index) => `
+                <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="${index}" class="${index === 0 ? 'active' : ''}" ${index === 0 ? 'aria-current="true"' : ''} aria-label="Slide ${index + 1}"></button>
+              `,
+                )
+                .join('')}
+            </div>
+            <div class="carousel-inner">
+              ${eventPosts
+                .map(
+                  (post, index) => `
+                <article class="carousel-item ${index === 0 ? 'active' : ''}">
+                  <div class="site-event-card">
+                    <a href="${getPostPath(post.slug)}" class="site-event-slide-link">
+                      <img src="${getImage(post, 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1280&q=80')}" class="d-block w-100 site-event-image" alt="${post.title}" />
+                    </a>
+                    <div class="site-event-content">
+                      <p class="site-event-date">${post.date}</p>
+                      <h3><a href="${getPostPath(post.slug)}">${post.title}</a></h3>
+                    </div>
                   </div>
-                </a>
-              </article>
-              <article class="carousel-item">
-                <a href="${getPostPath(eventPosts[1]?.slug ?? 'research-colloquium')}" class="site-event-slide-link">
-                  <img src="${getImage(eventPosts[1], 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1280&q=80')}" class="d-block w-100 site-event-image" alt="${eventPosts[1]?.title ?? 'Alumni Homecoming event'}" />
-                  <div class="carousel-caption d-none d-md-block site-event-caption">
-                    <p class="site-event-date">${eventPosts[1]?.date ?? 'June 7, 2026'}</p>
-                    <h3>${eventPosts[1]?.title ?? 'Alumni Homecoming'}</h3>
-                    <p>${eventPosts[1]?.excerpt ?? 'Reconnect with fellow alumni, mentors, and student communities across programs.'}</p>
-                  </div>
-                  <div class="site-event-mobile-copy d-block d-md-none">
-                    <p class="site-event-date">${eventPosts[1]?.date ?? 'June 7, 2026'}</p>
-                    <h3>${eventPosts[1]?.title ?? 'Alumni Homecoming'}</h3>
-                  </div>
-                </a>
-              </article>
-              <article class="carousel-item">
-                <a href="${getPostPath(eventPosts[2]?.slug ?? 'campus-sustainability-and-student-leadership')}" class="site-event-slide-link">
-                  <img src="${getImage(eventPosts[2], 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1280&q=80')}" class="d-block w-100 site-event-image" alt="${eventPosts[2]?.title ?? 'Research and Innovation Forum event'}" />
-                  <div class="carousel-caption d-none d-md-block site-event-caption">
-                    <p class="site-event-date">${eventPosts[2]?.date ?? 'June 21, 2026'}</p>
-                    <h3>${eventPosts[2]?.title ?? 'Research and Innovation Forum'}</h3>
-                    <p>${eventPosts[2]?.excerpt ?? 'Explore student and faculty-led innovations shaping future-ready education.'}</p>
-                  </div>
-                  <div class="site-event-mobile-copy d-block d-md-none">
-                    <p class="site-event-date">${eventPosts[2]?.date ?? 'June 21, 2026'}</p>
-                    <h3>${eventPosts[2]?.title ?? 'Research and Innovation Forum'}</h3>
-                  </div>
-                </a>
-              </article>
+                </article>
+              `,
+                )
+                .join('')}
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#eventsCarousel" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>

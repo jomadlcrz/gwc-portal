@@ -20,7 +20,7 @@ export const posts: PostItem[] = [
       'A campus-wide celebration featuring student performances, recognition ceremonies, and community activities honoring the college foundation milestone.',
     content:
       'Golden West Colleges marks Foundation Day with academic showcases, student organization presentations, and commemorative events for the campus community.',
-    image: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1280&q=80',
+    image: 'https://picsum.photos/seed/gwc-event-foundation-day/1280/720',
   },
   {
     slug: 'alumni-homecoming-2026',
@@ -31,7 +31,7 @@ export const posts: PostItem[] = [
       'Alumni return to campus for networking sessions, mentoring circles, and program reunions that reconnect graduates with students and faculty.',
     content:
       'The homecoming program includes department meetups, career talks, and alumni recognition to strengthen cross-batch ties and institutional engagement.',
-    image: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1280&q=80',
+    image: 'https://picsum.photos/seed/gwc-event-alumni-homecoming/1280/720',
   },
   {
     slug: 'research-and-innovation-forum-2026',
@@ -42,7 +42,51 @@ export const posts: PostItem[] = [
       'Faculty and student researchers present practical innovations and studies focused on community needs, applied learning, and future-ready solutions.',
     content:
       'The forum highlights interdisciplinary outputs, prototype demonstrations, and academic discussions that support research culture across programs.',
-    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1280&q=80',
+    image: 'https://picsum.photos/seed/gwc-event-research-forum/1280/720',
+  },
+  {
+    slug: 'student-leadership-summit-2026',
+    title: 'Student Leadership Summit 2026',
+    date: 'July 12, 2026',
+    category: 'EVENTS',
+    excerpt:
+      'Student leaders from different programs gather for workshops, planning sessions, and collaborative activities focused on campus leadership development.',
+    content:
+      'The summit features leadership talks, peer learning circles, and action planning for student-led projects to be implemented during the academic year.',
+    image: 'https://picsum.photos/seed/gwc-event-leadership-summit/1280/720',
+  },
+  {
+    slug: 'college-intramurals-opening-2026',
+    title: 'College Intramurals Opening 2026',
+    date: 'August 3, 2026',
+    category: 'EVENTS',
+    excerpt:
+      'The intramurals opening brings together students, faculty, and staff for sportsmanship, team-building, and healthy campus competition.',
+    content:
+      'Opening day includes team parades, oath-taking, and kickoff matches across multiple sports disciplines and student divisions.',
+    image: 'https://picsum.photos/seed/gwc-event-intramurals/1280/720',
+  },
+  {
+    slug: 'freshmen-orientation-week-2026',
+    title: 'Freshmen Orientation Week 2026',
+    date: 'August 18, 2026',
+    category: 'EVENTS',
+    excerpt:
+      'Incoming students are introduced to academic policies, student services, campus facilities, and essential support offices through orientation activities.',
+    content:
+      'Orientation week includes department briefings, campus tours, and student organization showcases to help freshmen transition smoothly.',
+    image: 'https://picsum.photos/seed/gwc-event-orientation-week/1280/720',
+  },
+  {
+    slug: 'career-fair-and-industry-talks-2026',
+    title: 'Career Fair and Industry Talks 2026',
+    date: 'September 9, 2026',
+    category: 'EVENTS',
+    excerpt:
+      'Students connect with partner companies through career booths, recruitment consultations, and expert talks on workplace readiness.',
+    content:
+      'The event hosts hiring partners, alumni speakers, and career advisers to guide students in internship and employment planning.',
+    image: 'https://picsum.photos/seed/gwc-event-career-fair/1280/720',
   },
   {
     slug: 'delegates-join-international-academic-exchange-program',

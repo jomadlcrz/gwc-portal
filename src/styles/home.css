@@ -275,9 +275,13 @@
 }
 
 .site-events-carousel {
-  border: 1px solid #d9deea;
-  background: #fff;
-  overflow: hidden;
+  overflow: visible;
+}
+
+.site-events-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
 }
 
 .site-event-image {
@@ -290,57 +294,59 @@
   position: relative;
 }
 
+.site-event-card {
+  border: 1px solid #d9deea;
+  background: #fff;
+}
+
 .site-event-slide-link {
   display: block;
-  color: inherit;
-  text-decoration: none;
+  line-height: 0;
 }
 
-.site-events-carousel .carousel-item::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgb(6 12 26 / 20%) 0%, rgb(6 12 26 / 62%) 100%);
-  pointer-events: none;
-}
-
-.site-event-caption {
-  left: 6%;
-  right: 6%;
-  bottom: 1.25rem;
-  text-align: left;
-  z-index: 1;
-}
-
-.site-event-caption h3 {
-  margin: 0;
-  font-size: clamp(1.1rem, 2vw, 1.7rem);
-  line-height: 1.2;
-  color: #fff;
-}
-
-.site-event-caption p:last-child {
-  margin: 0.35rem 0 0;
-  color: #e2e8f0;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.site-event-mobile-copy {
+.site-event-content {
   padding: 0.8rem 0.9rem 0.95rem;
   background: #fff;
 }
 
-.site-event-mobile-copy h3 {
+.site-event-content .site-event-date {
+  color: #55607b;
+}
+
+.site-event-content h3 {
   margin: 0;
   font-size: 1rem;
-  color: #111827;
+}
+
+.site-event-content h3 a {
+  color: #314a23;
+  text-decoration: none;
+}
+
+.site-event-content h3 a:hover,
+.site-event-content h3 a:focus-visible {
+  text-decoration: underline;
 }
 
 .site-events-carousel .carousel-indicators [data-bs-target] {
   width: 26px;
+}
+
+.site-events-carousel .carousel-indicators {
+  bottom: clamp(82px, 10vw, 118px);
+  margin-bottom: 0;
+}
+
+@media (min-width: 992px) {
+  .site-events-carousel .site-event-image {
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .site-events-carousel .carousel-control-prev,
+  .site-events-carousel .carousel-control-next {
+    display: none;
+  }
 }
 
 .site-event-date {
@@ -630,9 +636,6 @@
     font-size: 1.5rem;
   }
 
-  .site-event-mobile-copy .site-event-date {
-    color: #55607b;
-  }
 }
 
 @media (max-width: 640px) {
