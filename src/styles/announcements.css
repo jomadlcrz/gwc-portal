@@ -199,15 +199,16 @@
   align-items: center;
   gap: 0.35rem;
   justify-content: flex-end;
-  color: #1d4ed8;
+  color: #132a63;
   text-decoration: none;
   font-weight: 600;
+  transition: color 140ms ease;
 }
 
 .ann-card-footer-link:hover,
 .ann-card-footer-link:focus {
-  color: #1e3a8a;
-  text-decoration: underline;
+  color: #b48a13;
+  text-decoration: none;
 }
 
 .ann-card-footer-link i svg {
