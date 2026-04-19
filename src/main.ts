@@ -7,6 +7,7 @@ import './styles/header.css'
 import './styles/overlay.css'
 import './styles/footer.css'
 import './styles/announcements.css'
+import './styles/registrar_staff.css'
 import './styles/search.css'
 import './styles/components/shared_modal.css'
 import './styles/administrators/layout.css'
@@ -100,3 +101,4 @@ if (shouldDelayFirstPaint) {
     })
   })
 }
+

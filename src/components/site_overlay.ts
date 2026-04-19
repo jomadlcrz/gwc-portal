@@ -26,6 +26,7 @@ export function renderHomeOverlays(options: HomeOverlayOptions): string {
               <a href="#academics" data-overlay-close>ACADEMICS</a>
               <a href="${ROUTES.STUDENT_LOGIN}" data-overlay-close>STUDENT PORTAL</a>
               <a href="${ROUTES.FACULTY_LOGIN}" data-overlay-close>FACULTY PORTAL</a>
+              <a href="${ROUTES.REGISTRAR_STAFF_LOGIN}" data-overlay-close>REGISTRAR STAFF PORTAL</a>
               <a href="${ROUTES.ADMINISTRATORS_LOGIN}" data-overlay-close>ADMINISTRATION</a>
               <a href="#partners" data-overlay-close>ABOUT GWC</a>
             </nav>
@@ -57,4 +58,5 @@ export function renderHomeOverlays(options: HomeOverlayOptions): string {
       </section>
   `
 }
+
 

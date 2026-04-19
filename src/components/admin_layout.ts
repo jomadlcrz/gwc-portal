@@ -20,7 +20,6 @@ export type AdminSection =
   | 'administrators'
   | 'faculty'
   | 'students'
-  | 'enrollments'
   | 'departments'
   | 'reports'
   | 'settings'
@@ -42,7 +41,6 @@ const menuItems: AdminMenuItem[] = [
   },
   { label: 'Faculty', icon: 'graduation-cap', href: ROUTES.ADMINISTRATORS_FACULTY, section: 'faculty' },
   { label: 'Students', icon: 'users', href: ROUTES.ADMINISTRATORS_STUDENTS, section: 'students' },
-  { label: 'Enrollments', icon: 'file-text', href: ROUTES.ADMINISTRATORS_ENROLLMENTS, section: 'enrollments' },
   { label: 'Departments', icon: 'building-2', href: ROUTES.ADMINISTRATORS_DEPARTMENTS, section: 'departments' },
   { label: 'Reports', icon: 'briefcase', href: ROUTES.ADMINISTRATORS_REPORTS, section: 'reports' },
   { label: 'Settings', icon: 'settings', href: ROUTES.ADMINISTRATORS_SETTINGS, section: 'settings' },

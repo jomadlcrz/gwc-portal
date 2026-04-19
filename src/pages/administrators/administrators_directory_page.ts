@@ -455,3 +455,4 @@ export function setupadministrators_directory_page(root: HTMLElement): () => voi
     root.removeEventListener('click', onActionClick)
   }
 }
+
