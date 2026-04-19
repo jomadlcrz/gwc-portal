@@ -1,4 +1,6 @@
+import { ROUTES } from '../../app/routes'
 import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../components/_layout'
+import { renderBreadcrumbNav } from '../../components/nav_breadcrumb'
 import { renderSharedModal, setupSharedModal } from '../../components/shared_modal'
 import { renderSharedPagination, setupSharedPagination } from '../../components/shared_pagination'
 
@@ -147,6 +149,10 @@ export function renderadministrators_directory_page(): string {
     'administrators',
     `
       <section class="admin-content">
+        ${renderBreadcrumbNav([
+          { label: 'Home', href: ROUTES.ADMINISTRATORS },
+          { label: 'Administrators', active: true },
+        ])}
         <article class="admin-directory-shell">
           <header class="admin-directory-head">
             <div>

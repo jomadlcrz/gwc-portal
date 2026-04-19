@@ -1,10 +1,10 @@
-type AdminBreadcrumbItem = {
+type BreadcrumbItem = {
   label: string
   href?: string
   active?: boolean
 }
 
-export function renderAdminBreadcrumbNav(items: AdminBreadcrumbItem[]): string {
+export function renderBreadcrumbNav(items: BreadcrumbItem[]): string {
   return `
     <nav class="admin-breadcrumb-shell" aria-label="Breadcrumb">
       <ol class="breadcrumb admin-breadcrumb mb-0">
@@ -19,4 +19,8 @@ export function renderAdminBreadcrumbNav(items: AdminBreadcrumbItem[]): string {
       </ol>
     </nav>
   `
+}
+
+export function renderAdminBreadcrumbNav(items: BreadcrumbItem[]): string {
+  return renderBreadcrumbNav(items)
 }

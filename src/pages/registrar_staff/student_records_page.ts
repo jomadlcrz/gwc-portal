@@ -1,4 +1,6 @@
+import { ROUTES } from '../../app/routes'
 import { REGISTRAR_STAFF_SHELL_CONFIG } from '../../components/_layout'
+import { renderBreadcrumbNav } from '../../components/nav_breadcrumb'
 import { renderSectionPlaceholderPage } from '../../components/section_placeholder'
 
 export function renderregistrar_staff_student_records_page(): string {
@@ -8,6 +10,12 @@ export function renderregistrar_staff_student_records_page(): string {
     'student_records',
     'Student Records',
     'Manage and verify student academic records.',
+    {
+      breadcrumbHtml: renderBreadcrumbNav([
+        { label: 'Home', href: ROUTES.REGISTRAR_STAFF_DASHBOARD },
+        { label: 'Student Records', active: true },
+      ]),
+    },
   )
 }
 
