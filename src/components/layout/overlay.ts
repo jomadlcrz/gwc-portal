@@ -23,13 +23,13 @@ export function renderHomeOverlays(options: HomeOverlayOptions): string {
           <div class="site-overlay-accent-line"></div>
           <div class="site-overlay-menu-layout">
             <nav class="site-overlay-menu-col">
-              <button type="button" class="site-overlay-menu-trigger" data-menu-target="academics">ACADEMICS</button>
+              <button type="button" class="site-overlay-menu-trigger" data-menu-target="academics" style="--menu-delay: 0.1s;">ACADEMICS</button>
               <div class="site-overlay-mobile-submenu" data-mobile-submenu-panel></div>
-              <a href="${ROUTES.STUDENT_LOGIN}" data-overlay-close>STUDENT PORTAL</a>
-              <a href="${ROUTES.FACULTY_LOGIN}" data-overlay-close>FACULTY PORTAL</a>
-              <a href="${ROUTES.REGISTRAR_STAFF_LOGIN}" data-overlay-close>REGISTRAR STAFF PORTAL</a>
-              <a href="${ROUTES.ADMINISTRATORS_LOGIN}" data-overlay-close>ADMINISTRATION</a>
-              <a href="#partners" data-overlay-close>ABOUT GWC</a>
+              <a href="${ROUTES.STUDENT_LOGIN}" data-overlay-close style="--menu-delay: 0.2s;">STUDENT PORTAL</a>
+              <a href="${ROUTES.FACULTY_LOGIN}" data-overlay-close style="--menu-delay: 0.3s;">FACULTY PORTAL</a>
+              <a href="${ROUTES.REGISTRAR_STAFF_LOGIN}" data-overlay-close style="--menu-delay: 0.4s;">REGISTRAR STAFF PORTAL</a>
+              <a href="${ROUTES.ADMINISTRATORS_LOGIN}" data-overlay-close style="--menu-delay: 0.5s;">ADMINISTRATION</a>
+              <a href="#partners" data-overlay-close style="--menu-delay: 0.6s;">ABOUT GWC</a>
             </nav>
             <div class="site-overlay-menu-divider" aria-hidden="true"></div>
             <div class="site-overlay-submenu-panel" data-submenu-panel aria-live="polite"></div>
