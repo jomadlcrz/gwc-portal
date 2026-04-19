@@ -1,6 +1,10 @@
 import { ROUTES } from '../app/routes'
 
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.trim() || 'https://gwc-school-portal.onrender.com'
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.trim()
+
+if (!API_BASE_URL) {
+  throw new Error('Missing VITE_API_BASE_URL. Set it in .env.')
+}
 
 type LoginResponse = {
   message?: string
