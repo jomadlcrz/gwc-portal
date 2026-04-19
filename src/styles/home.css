@@ -5,6 +5,8 @@
   background: #f4f6fb;
   color: #111827;
   overflow-anchor: none;
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 .site-post-page {

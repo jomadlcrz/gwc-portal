@@ -44,7 +44,7 @@ export function renderhome_page(): string {
       })}
 
       <section class="site-cover site-post-cover" style="--site-cover-image: url('${coverImage}');" aria-label="Campus cover image">
-        <div class="site-cover-overlay">
+        <div class="site-cover-overlay" data-aos="fade-up" data-aos-duration="700">
           <div class="post-container">
             <p class="site-post-eyebrow">Official GWC Updates</p>
             <h1 class="site-post-title">Golden West Colleges, Inc. in Action</h1>
@@ -54,9 +54,9 @@ export function renderhome_page(): string {
 
       <section id="global-arena" class="site-post-section site-post-section-light">
         <div class="post-container home-section-inner">
-          <h2 class="site-post-section-title">GWC in the Global Arena</h2>
-          <article class="site-story-layout">
-            <div class="site-story-main">
+          <h2 class="site-post-section-title" data-aos="fade-up">GWC in the Global Arena</h2>
+          <article class="site-story-layout" data-aos="fade-up" data-aos-delay="50">
+            <div class="site-story-main" data-aos="fade-right" data-aos-delay="100">
               <article class="site-story-card">
                 <img src="${getImage(globalFeatured, 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80')}" alt="${globalFeatured?.title ?? 'Featured story'}" class="site-story-image" />
                 <div class="site-story-body">
@@ -70,7 +70,7 @@ export function renderhome_page(): string {
                 </div>
               </article>
             </div>
-            <aside class="site-story-side">
+            <aside class="site-story-side" data-aos="fade-left" data-aos-delay="150">
               <h4>More Stories:</h4>
               ${globalMore
                 .map(
@@ -89,9 +89,9 @@ export function renderhome_page(): string {
 
       <section id="community" class="site-post-section site-post-section-dark">
         <div class="post-container home-section-inner">
-          <h2 class="site-post-section-title">GWC in the Community</h2>
-          <article class="site-story-layout site-story-layout-left-rail">
-            <aside class="site-story-side site-story-side-on-dark">
+          <h2 class="site-post-section-title" data-aos="fade-up">GWC in the Community</h2>
+          <article class="site-story-layout site-story-layout-left-rail" data-aos="fade-up" data-aos-delay="50">
+            <aside class="site-story-side site-story-side-on-dark" data-aos="fade-right" data-aos-delay="100">
               <h4>More Stories:</h4>
               ${communityMore
                 .map(
@@ -104,7 +104,7 @@ export function renderhome_page(): string {
                 )
                 .join('')}
             </aside>
-            <div class="site-story-main">
+            <div class="site-story-main" data-aos="fade-left" data-aos-delay="150">
               <article class="site-story-card site-story-card-on-dark">
                 <img src="${getImage(communityFeatured, 'https://picsum.photos/seed/gwc-community-extension/1200/720')}" alt="${communityFeatured?.title ?? 'Community story'}" class="site-story-image" />
                 <div class="site-story-body">
@@ -124,8 +124,8 @@ export function renderhome_page(): string {
 
       <section id="events" class="site-post-section site-post-section-light">
         <div class="post-container home-section-inner">
-          <h2 class="site-post-section-title">Events</h2>
-          <div id="eventsCarouselDesktop" class="carousel slide site-events-carousel d-none d-lg-block" data-bs-ride="carousel">
+          <h2 class="site-post-section-title" data-aos="fade-up">Events</h2>
+          <div id="eventsCarouselDesktop" class="carousel slide site-events-carousel d-none d-lg-block" data-bs-ride="carousel" data-aos="zoom-in-up" data-aos-delay="80">
             <div class="carousel-indicators">
               ${desktopEventSlides
                 .map(
@@ -164,7 +164,7 @@ export function renderhome_page(): string {
             </div>
           </div>
 
-          <div id="eventsCarousel" class="carousel slide site-events-carousel d-lg-none" data-bs-ride="carousel">
+          <div id="eventsCarousel" class="carousel slide site-events-carousel d-lg-none" data-bs-ride="carousel" data-aos="zoom-in-up" data-aos-delay="80">
             <div class="carousel-indicators">
               ${eventPosts
                 .map(
@@ -207,8 +207,8 @@ export function renderhome_page(): string {
 
       <section id="perspective" class="site-post-section site-post-section-primary">
         <div class="post-container home-section-inner">
-          <h2 class="site-post-section-title">Perspectives + Opinions</h2>
-          <article class="site-story-card site-story-card-dark">
+          <h2 class="site-post-section-title" data-aos="fade-up">Perspectives + Opinions</h2>
+          <article class="site-story-card site-story-card-dark" data-aos="fade-up" data-aos-delay="80">
             <img src="${getImage(perspectiveFeatured, 'https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=1200&q=80')}" alt="${perspectiveFeatured?.title ?? 'Perspective story'}" class="site-story-image" />
             <div class="site-story-body">
               <h3>${perspectiveFeatured?.title ?? 'No Perspective Story Yet'}</h3>
@@ -225,15 +225,15 @@ export function renderhome_page(): string {
 
       <section id="careers" class="site-post-section site-post-section-light">
         <div class="post-container home-section-inner">
-          <header class="site-careers-head">
+          <header class="site-careers-head" data-aos="fade-up">
             <h2 class="site-post-section-title">Be Part of Our Team</h2>
             <p class="site-careers-subtitle">Currently no vacant position available</p>
             <p class="site-careers-caption">Available Faculty Positions:</p>
           </header>
           <div class="site-job-list site-job-list-wide">
-            <article class="site-job-item"><span class="site-job-count">2</span><strong>Instructor I</strong><span>SG 12 - ₱ 22,500.00</span></article>
-            <article class="site-job-item"><span class="site-job-count">1</span><strong>Instructor II</strong><span>SG 13 - ₱ 24,800.00</span></article>
-            <article class="site-job-item"><span class="site-job-count">1</span><strong>Instructor III</strong><span>SG 14 - ₱ 27,200.00</span></article>
+            <article class="site-job-item" data-aos="fade-up" data-aos-delay="60"><span class="site-job-count">2</span><strong>Instructor I</strong><span>SG 12 - ₱ 22,500.00</span></article>
+            <article class="site-job-item" data-aos="fade-up" data-aos-delay="120"><span class="site-job-count">1</span><strong>Instructor II</strong><span>SG 13 - ₱ 24,800.00</span></article>
+            <article class="site-job-item" data-aos="fade-up" data-aos-delay="180"><span class="site-job-count">1</span><strong>Instructor III</strong><span>SG 14 - ₱ 27,200.00</span></article>
           </div>
         </div>
       </section>

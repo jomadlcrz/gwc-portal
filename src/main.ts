@@ -1,5 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 import './styles/base.css'
 import './styles/login.css'
 import './styles/not_found.css'
@@ -90,6 +92,13 @@ const preloadImage = (src: string, timeoutMs = 1400): Promise<void> =>
   })
 
 renderRoute(app, window.location.pathname)
+AOS.init({
+  offset: 120,
+  delay: 0,
+  easing: 'ease',
+  duration: 400,
+  once: false,
+})
 
 if (shouldDelayFirstPaint) {
   Promise.allSettled([
