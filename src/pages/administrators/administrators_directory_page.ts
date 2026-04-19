@@ -3,6 +3,7 @@ import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../c
 import { renderBreadcrumbNav } from '../../components/nav_breadcrumb'
 import { renderSharedModal, setupSharedModal } from '../../components/modal'
 import { renderSharedPagination, setupSharedPagination } from '../../components/pagination'
+import { renderSharedPopover } from '../../components/popover'
 
 type AdministratorRecord = {
   name: string
@@ -105,28 +106,6 @@ function getStatusClass(status: AdministratorRecord['status']): string {
   return 'is-inactive'
 }
 
-function renderActionsPopover(): string {
-  return `
-    <div class="admin-actions-popover">
-      <button
-        type="button"
-        class="admin-actions-trigger"
-        data-admin-actions-trigger
-        aria-haspopup="menu"
-        aria-expanded="false"
-      >
-        Actions
-      </button>
-      <div class="admin-actions-menu" data-admin-actions-menu role="menu" aria-label="Administrator row actions">
-        <button type="button" role="menuitem" data-admin-action="view">View</button>
-        <button type="button" role="menuitem" data-admin-action="edit">Edit</button>
-        <button type="button" role="menuitem" data-admin-action="deactivate">Deactivate</button>
-        <button type="button" role="menuitem" class="is-danger" data-admin-action="delete">Delete</button>
-      </div>
-    </div>
-  `
-}
-
 function renderTableRows(): string {
   return ADMIN_RECORDS.map((record) => {
     const searchValue = [record.name, record.position, record.office, record.email, record.status].join(' ').toLowerCase()
@@ -137,7 +116,16 @@ function renderTableRows(): string {
         <td>${record.office}</td>
         <td>${record.email}</td>
         <td><span class="admin-pill ${getStatusClass(record.status)}">${record.status}</span></td>
-        <td>${renderActionsPopover()}</td>
+        <td>${renderSharedPopover({
+          ariaLabel: 'Administrator row actions',
+          actionDataAttribute: 'data-admin-action',
+          actions: [
+            { label: 'View', value: 'view' },
+            { label: 'Edit', value: 'edit' },
+            { label: 'Deactivate', value: 'deactivate' },
+            { label: 'Delete', value: 'delete', danger: true },
+          ],
+        })}</td>
       </tr>
     `
   }).join('')

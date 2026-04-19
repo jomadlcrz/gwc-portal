@@ -17,6 +17,107 @@ export type SharedModalOpenOptions = {
   hideConfirm?: boolean
 }
 
+const SHARED_MODAL_STYLE_ID = 'shared-modal-inline-styles'
+
+const SHARED_MODAL_CSS = `
+[data-shared-modal] {
+  overflow-y: auto;
+}
+
+[data-shared-modal] .modal-dialog {
+  max-width: min(880px, 94vw);
+}
+
+[data-shared-modal].is-modal-confirm .modal-dialog {
+  max-width: min(560px, 92vw);
+}
+
+[data-shared-modal].is-modal-form .modal-dialog {
+  max-width: min(1280px, 96vw);
+}
+
+[data-shared-modal] .modal-body {
+  padding: 0.9rem 1rem;
+}
+
+[data-shared-modal] .form-control,
+[data-shared-modal] .form-select {
+  border: 1px solid #8fa1bc;
+  border-radius: 0;
+  background-color: #fff;
+  color: #1e293b;
+}
+
+[data-shared-modal] .form-floating > label {
+  color: #475569;
+}
+
+[data-shared-modal] .form-control:focus,
+[data-shared-modal] .form-select:focus {
+  border-color: #2a4f95;
+  box-shadow: 0 0 0 0.1rem rgb(42 79 149 / 16%);
+}
+
+[data-shared-modal] .shared-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+[data-shared-modal] .shared-modal-grid-1 {
+  grid-template-columns: 1fr;
+}
+
+[data-shared-modal] .shared-modal-grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+[data-shared-modal] .shared-modal-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+[data-shared-modal] .shared-modal-grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 991px) {
+  [data-shared-modal].is-modal-form .modal-dialog {
+    max-width: min(900px, 96vw);
+  }
+
+  [data-shared-modal] .shared-modal-grid-3,
+  [data-shared-modal] .shared-modal-grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  [data-shared-modal] .modal-body {
+    padding: 0.75rem;
+  }
+
+  [data-shared-modal] .shared-modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  [data-shared-modal] .shared-modal-grid-2,
+  [data-shared-modal] .shared-modal-grid-3,
+  [data-shared-modal] .shared-modal-grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+`
+
+function ensureSharedModalStyles(): void {
+  if (typeof document === 'undefined') return
+  if (document.getElementById(SHARED_MODAL_STYLE_ID)) return
+
+  const style = document.createElement('style')
+  style.id = SHARED_MODAL_STYLE_ID
+  style.textContent = SHARED_MODAL_CSS
+  document.head.append(style)
+}
+
 export function renderSharedModal(id: string): string {
   return `
     <div class="modal fade" id="${id}" tabindex="-1" aria-hidden="true" data-shared-modal>
@@ -38,6 +139,7 @@ export function renderSharedModal(id: string): string {
 }
 
 export function setupSharedModal(root: HTMLElement, options: SharedModalSetupOptions = {}): SharedModalController {
+  ensureSharedModalStyles()
   const modalSelector = options.modalSelector ?? '[data-shared-modal]'
   const modal = root.querySelector<HTMLElement>(modalSelector)
   const titleNode = modal?.querySelector<HTMLElement>('[data-shared-modal-title]')

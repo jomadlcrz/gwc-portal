@@ -15,6 +15,7 @@ import {
 } from 'lucide'
 import gwcLogo from '../assets/gwc_logo.avif'
 import { ROUTES } from '../app/routes'
+import { setupSharedPopover } from './popover'
 import { renderMainsite_header } from './site_header'
 import type { HeaderAction } from './site_header'
 
@@ -244,8 +245,7 @@ export function renderPortalShell<TSection extends string>(
 export function setupPortalShell<TSection extends string>(root: HTMLElement, config: ShellConfig<TSection>): () => void {
   const toggle = root.querySelector<HTMLButtonElement>(config.menuToggleSelector)
   const backdrop = root.querySelector<HTMLButtonElement>(`.${config.backdropClass}`)
-  const actionTriggers = root.querySelectorAll<HTMLButtonElement>('[data-admin-actions-trigger]')
-  const actionMenus = root.querySelectorAll<HTMLElement>('[data-admin-actions-menu]')
+  const cleanupPopover = setupSharedPopover(root)
   let bodyLocked = false
 
   createIcons({ icons: config.icons })
@@ -282,101 +282,22 @@ export function setupPortalShell<TSection extends string>(root: HTMLElement, con
     }
   }
 
-  const closeAllActions = (): void => {
-    actionTriggers.forEach((trigger) => {
-      trigger.setAttribute('aria-expanded', 'false')
-      const wrapper = trigger.closest<HTMLElement>('.admin-actions-popover')
-      wrapper?.classList.remove('is-open')
-      const menu = wrapper?.querySelector<HTMLElement>('[data-admin-actions-menu]')
-      menu?.style.removeProperty('--menu-left')
-      menu?.style.removeProperty('--menu-top')
-      menu?.classList.remove('is-dropup')
-    })
-  }
-
   const onEscape = (event: KeyboardEvent): void => {
     if (event.key !== 'Escape') return
     closeSidebar()
-    closeAllActions()
-  }
-
-  const placeActionsMenu = (wrapper: HTMLElement, trigger: HTMLButtonElement): void => {
-    const menu = wrapper.querySelector<HTMLElement>('[data-admin-actions-menu]')
-    if (!menu) return
-
-    const gap = 6
-    const viewportPadding = 8
-    const triggerRect = trigger.getBoundingClientRect()
-    const menuRect = menu.getBoundingClientRect()
-
-    let left = triggerRect.right - menuRect.width
-    left = Math.max(viewportPadding, Math.min(left, window.innerWidth - menuRect.width - viewportPadding))
-
-    const spaceBelow = window.innerHeight - triggerRect.bottom - viewportPadding
-    const shouldDropUp = spaceBelow < menuRect.height + gap
-    const top = shouldDropUp ? triggerRect.top - menuRect.height - gap : triggerRect.bottom + gap
-
-    menu.style.setProperty('--menu-left', `${Math.max(viewportPadding, left)}px`)
-    menu.style.setProperty('--menu-top', `${Math.max(viewportPadding, top)}px`)
-    menu.classList.toggle('is-dropup', shouldDropUp)
-  }
-
-  const onActionTriggerClick = (event: Event): void => {
-    const trigger = event.currentTarget as HTMLButtonElement
-    const wrapper = trigger.closest<HTMLElement>('.admin-actions-popover')
-    if (!wrapper) return
-
-    const isOpen = wrapper.classList.contains('is-open')
-    closeAllActions()
-    if (!isOpen) {
-      wrapper.classList.add('is-open')
-      trigger.setAttribute('aria-expanded', 'true')
-      placeActionsMenu(wrapper, trigger)
-    }
-  }
-
-  const onDocumentClick = (event: MouseEvent): void => {
-    const target = event.target as Node | null
-    if (!target) return
-
-    let clickedInside = false
-    actionMenus.forEach((menu) => {
-      if (menu.contains(target)) clickedInside = true
-    })
-    actionTriggers.forEach((trigger) => {
-      if (trigger.contains(target)) clickedInside = true
-    })
-
-    if (!clickedInside) closeAllActions()
-  }
-
-  const onViewportChange = (): void => {
-    actionTriggers.forEach((trigger) => {
-      const wrapper = trigger.closest<HTMLElement>('.admin-actions-popover')
-      if (!wrapper?.classList.contains('is-open')) return
-      placeActionsMenu(wrapper, trigger)
-    })
   }
 
   toggle?.addEventListener('click', onToggle)
   backdrop?.addEventListener('click', closeSidebar)
-  actionTriggers.forEach((trigger) => trigger.addEventListener('click', onActionTriggerClick))
   window.addEventListener('resize', onResize, { passive: true })
-  window.addEventListener('resize', onViewportChange, { passive: true })
-  root.addEventListener('scroll', onViewportChange, { passive: true, capture: true })
-  document.addEventListener('click', onDocumentClick)
   document.addEventListener('keydown', onEscape)
 
   return () => {
     closeSidebar()
-    closeAllActions()
+    cleanupPopover()
     toggle?.removeEventListener('click', onToggle)
     backdrop?.removeEventListener('click', closeSidebar)
-    actionTriggers.forEach((trigger) => trigger.removeEventListener('click', onActionTriggerClick))
     window.removeEventListener('resize', onResize)
-    window.removeEventListener('resize', onViewportChange)
-    root.removeEventListener('scroll', onViewportChange, true)
-    document.removeEventListener('click', onDocumentClick)
     document.removeEventListener('keydown', onEscape)
   }
 }

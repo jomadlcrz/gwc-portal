@@ -3,6 +3,7 @@ import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../c
 import { renderAdminBreadcrumbNav } from '../../components/nav_breadcrumb'
 import { renderSharedModal, setupSharedModal } from '../../components/modal'
 import { renderSharedPagination, setupSharedPagination } from '../../components/pagination'
+import { renderSharedPopover } from '../../components/popover'
 import { renderStudentAccountForm } from '../../components/student_account_form'
 
 type StudentRecord = {
@@ -40,21 +41,14 @@ function renderRows(): string {
         <td>${student.email}</td>
         <td><span class="admin-pill ${statusClass}">${student.status}</span></td>
         <td class="admin-student-actions">
-          <div class="admin-actions-popover">
-            <button
-              type="button"
-              class="admin-actions-trigger"
-              data-admin-actions-trigger
-              aria-haspopup="menu"
-              aria-expanded="false"
-            >
-              Actions
-            </button>
-            <div class="admin-actions-menu" data-admin-actions-menu role="menu" aria-label="Student row actions">
-              <button type="button" role="menuitem" data-student-action="reset">Reset</button>
-              <button type="button" role="menuitem" data-student-action="edit">Edit</button>
-            </div>
-          </div>
+          ${renderSharedPopover({
+            ariaLabel: 'Student row actions',
+            actionDataAttribute: 'data-student-action',
+            actions: [
+              { label: 'Reset', value: 'reset' },
+              { label: 'Edit', value: 'edit' },
+            ],
+          })}
         </td>
       </tr>
     `
