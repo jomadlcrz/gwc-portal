@@ -6,17 +6,17 @@ import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/l
 import { renderMainSiteFooter } from '../../components/layout/footer'
 import { renderHomeOverlays } from '../../components/layout/overlay'
 
-const cards = getArticlePosts().slice(0, 3)
+const cards = getArticlePosts()
 const latest = cards[0]
 
-export function renderannouncements_page(): string {
+export function renderpost_lists_page(): string {
   return `
     <main class="ann-page">
       ${renderMainSiteHeader({
         brandHref: ROUTES.HOME,
         logoSrc: gwcLogo,
         logoAlt: 'Golden West Colleges logo',
-        actions: buildMainHeaderActions(ROUTES.ANNOUNCEMENTS, { showAnnouncementsIcon: false }),
+        actions: buildMainHeaderActions(ROUTES.POST_LISTS, { showAnnouncementsIcon: false }),
         solid: true,
       })}
 
@@ -24,19 +24,19 @@ export function renderannouncements_page(): string {
         logoSrc: gwcLogoWhite,
         logoAlt: 'Golden West Colleges logo',
         shortBrand: 'GWC, INC.',
-        searchAriaLabel: 'Search announcements',
+        searchAriaLabel: 'Search post lists',
       })}
 
       <section class="ann-title-block">
-        <h1>ANNOUNCEMENTS <i class="ann-megaphone-icon" data-lucide="megaphone"></i></h1>
+        <h1>POST LISTS <i class="ann-megaphone-icon" data-lucide="newspaper"></i></h1>
       </section>
 
       <section class="ann-highlight">
-        <p>${latest ? `Latest: ${latest.title}` : 'No Recent Announcement Found'}</p>
+        <p>${latest ? `Latest: ${latest.title}` : 'No Post Found'}</p>
       </section>
 
       <section class="ann-list-wrap">
-        <h2>Other Announcements:</h2>
+        <h2>All Posts:</h2>
         <div class="ann-grid">
           ${cards
             .map(
@@ -65,5 +65,3 @@ export function renderannouncements_page(): string {
     </main>
   `
 }
-
-

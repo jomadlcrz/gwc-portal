@@ -1,6 +1,8 @@
 export const ROUTES = {
   HOME: '/',
   ANNOUNCEMENTS: '/announcements',
+  POSTS_BASE: '/post',
+  POST_LISTS: '/post/lists',
 
   // Registrar staff routes
   REGISTRAR_STAFF: '/registrar-staff',

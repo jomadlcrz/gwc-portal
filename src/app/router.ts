@@ -1,4 +1,5 @@
 import { renderannouncements_page } from '../pages/announcements/announcements_page'
+import { renderpost_lists_page } from '../pages/post/post_lists_page'
 import {
   renderadministrators_dashboard_page,
   renderadministrators_directory_page,
@@ -32,6 +33,8 @@ import {
   setupregistrar_staff_page,
 } from '../pages/registrar_staff/registrar_staff_page'
 import { rendersearch_page } from '../pages/search/search_page'
+import { renderpost_page } from '../pages/post/post_page'
+import { getPostBySlug } from '../data/posts'
 import { ROUTES } from './routes'
 
 let cleanupCurrentRoute: (() => void) | null = null
@@ -74,6 +77,13 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   if (pathname === ROUTES.ANNOUNCEMENTS) {
     document.title = 'Announcements | Golden West Colleges, Inc.'
     app.innerHTML = renderannouncements_page()
+    cleanupCurrentRoute = setupSiteInteractions(app)
+    return
+  }
+
+  if (pathname === ROUTES.POST_LISTS) {
+    document.title = 'Post Lists | Golden West Colleges, Inc.'
+    app.innerHTML = renderpost_lists_page()
     cleanupCurrentRoute = setupSiteInteractions(app)
     return
   }
@@ -125,6 +135,19 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     app.innerHTML = rendersearch_page()
     cleanupCurrentRoute = setupSiteInteractions(app)
     return
+  }
+
+  if (pathname.startsWith(`${ROUTES.POSTS_BASE}/`)) {
+    const slug = decodeURIComponent(pathname.slice(`${ROUTES.POSTS_BASE}/`.length))
+    const post = getPostBySlug(slug)
+    const postMarkup = renderpost_page(slug)
+
+    if (post && postMarkup) {
+      document.title = `${post.title} | Golden West Colleges, Inc.`
+      app.innerHTML = postMarkup
+      cleanupCurrentRoute = setupSiteInteractions(app)
+      return
+    }
   }
 
   if (pathname === ROUTES.ADMINISTRATORS) {

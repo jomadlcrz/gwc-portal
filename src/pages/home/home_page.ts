@@ -2,11 +2,23 @@ import gwcLogo from '../../assets/gwc_logo\.avif'
 import gwcLogoWhite from '../../assets/gwc_logo_white\.avif'
 import coverImage from '../../assets/cover\.avif'
 import { ROUTES } from '../../app/routes'
+import { getArticlePosts, getPostPath, type PostItem } from '../../data/posts'
 import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/layout/header'
 import { renderMainSiteFooter } from '../../components/layout/footer'
 import { renderHomeOverlays } from '../../components/layout/overlay'
 
+function getImage(post: PostItem | undefined, fallback: string): string {
+  return post?.image ?? fallback
+}
+
 export function renderhome_page(): string {
+  const articlePosts = getArticlePosts()
+  const globalFeatured = articlePosts[0]
+  const globalMore = articlePosts.slice(1, 3)
+  const communityFeatured = articlePosts[3]
+  const communityMore = articlePosts.slice(4, 6)
+  const perspectiveFeatured = articlePosts[6] ?? articlePosts[0]
+
   return `
     <main id="main" class="site-page site-post-page">
       ${renderMainSiteHeader({
@@ -38,27 +50,30 @@ export function renderhome_page(): string {
           <article class="site-story-layout">
             <div class="site-story-main">
               <article class="site-story-card">
-                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80" alt="Students in a seminar event" class="site-story-image" />
+                <img src="${getImage(globalFeatured, 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80')}" alt="${globalFeatured?.title ?? 'Featured story'}" class="site-story-image" />
                 <div class="site-story-body">
-                  <h3>Delegates Join International Academic Exchange Program</h3>
-                  <p>
-                    GWC strengthens global engagement through exchange dialogues, collaborative research sessions, and
-                    international networking opportunities for students and faculty.
-                  </p>
-                  <a href="${ROUTES.ANNOUNCEMENTS}" class="site-story-link">Read More</a>
+                  <h3>${globalFeatured?.title ?? 'No Featured Story Yet'}</h3>
+                  <p>${globalFeatured?.excerpt ?? 'Check back soon for the latest updates from Golden West Colleges.'}</p>
+                  ${
+                    globalFeatured
+                      ? `<a href="${getPostPath(globalFeatured.slug)}" class="site-story-link">Read More</a>`
+                      : ''
+                  }
                 </div>
               </article>
             </div>
             <aside class="site-story-side">
               <h4>More Stories:</h4>
-              <a href="${ROUTES.ANNOUNCEMENTS}" class="site-mini-story">
-                <img src="https://picsum.photos/seed/gwc-campus-event/320/320" alt="Campus event thumbnail" />
-                <span>STEM Fair 2026</span>
-              </a>
-              <a href="${ROUTES.ANNOUNCEMENTS}" class="site-mini-story">
-                <img src="https://images.unsplash.com/photo-1519452575417-564c1401ecc0?auto=format&fit=crop&w=640&q=80" alt="Research conference thumbnail" />
-                <span>Research Colloquium</span>
-              </a>
+              ${globalMore
+                .map(
+                  (post) => `
+                <a href="${getPostPath(post.slug)}" class="site-mini-story">
+                  <img src="${getImage(post, 'https://picsum.photos/seed/gwc-campus-event/320/320')}" alt="${post.title}" />
+                  <span>${post.title}</span>
+                </a>
+              `,
+                )
+                .join('')}
             </aside>
           </article>
         </div>
@@ -70,25 +85,28 @@ export function renderhome_page(): string {
           <article class="site-story-layout site-story-layout-left-rail">
             <aside class="site-story-side site-story-side-on-dark">
               <h4>More Stories:</h4>
-              <a href="${ROUTES.ANNOUNCEMENTS}" class="site-mini-story">
-                <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=640&q=80" alt="Outreach program thumbnail" />
-                <span>Reading Outreach</span>
-              </a>
-              <a href="${ROUTES.ANNOUNCEMENTS}" class="site-mini-story">
-                <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=640&q=80" alt="Community service thumbnail" />
-                <span>Campus Volunteers</span>
-              </a>
+              ${communityMore
+                .map(
+                  (post) => `
+                <a href="${getPostPath(post.slug)}" class="site-mini-story">
+                  <img src="${getImage(post, 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=640&q=80')}" alt="${post.title}" />
+                  <span>${post.title}</span>
+                </a>
+              `,
+                )
+                .join('')}
             </aside>
             <div class="site-story-main">
               <article class="site-story-card site-story-card-on-dark">
-                <img src="https://picsum.photos/seed/gwc-community-extension/1200/720" alt="Community extension program" class="site-story-image" />
+                <img src="${getImage(communityFeatured, 'https://picsum.photos/seed/gwc-community-extension/1200/720')}" alt="${communityFeatured?.title ?? 'Community story'}" class="site-story-image" />
                 <div class="site-story-body">
-                  <h3>Youth Extension Program Reaches Local Barangays</h3>
-                  <p>
-                    Student volunteers and faculty facilitators continue literacy, livelihood, and mentoring activities with
-                    partner communities across Alaminos.
-                  </p>
-                  <a href="${ROUTES.ANNOUNCEMENTS}" class="site-story-link">Read More</a>
+                  <h3>${communityFeatured?.title ?? 'No Community Story Yet'}</h3>
+                  <p>${communityFeatured?.excerpt ?? 'Community engagement stories will be posted here.'}</p>
+                  ${
+                    communityFeatured
+                      ? `<a href="${getPostPath(communityFeatured.slug)}" class="site-story-link">Read More</a>`
+                      : ''
+                  }
                 </div>
               </article>
             </div>
@@ -120,14 +138,15 @@ export function renderhome_page(): string {
         <div class="container py-5">
           <h2 class="site-post-section-title">Perspectives + Opinions</h2>
           <article class="site-story-card site-story-card-dark">
-            <img src="https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=1200&q=80" alt="Sustainability article" class="site-story-image" />
+            <img src="${getImage(perspectiveFeatured, 'https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=1200&q=80')}" alt="${perspectiveFeatured?.title ?? 'Perspective story'}" class="site-story-image" />
             <div class="site-story-body">
-              <h3>Campus Sustainability and Student Leadership</h3>
-              <p>
-                A reflection on how student-led initiatives are shaping responsible campus culture and practical
-                environmental action.
-              </p>
-              <a href="${ROUTES.ANNOUNCEMENTS}" class="site-story-link site-story-link-dark">Read More</a>
+              <h3>${perspectiveFeatured?.title ?? 'No Perspective Story Yet'}</h3>
+              <p>${perspectiveFeatured?.excerpt ?? 'Perspective and opinion updates will appear here.'}</p>
+              ${
+                perspectiveFeatured
+                  ? `<a href="${getPostPath(perspectiveFeatured.slug)}" class="site-story-link site-story-link-dark">Read More</a>`
+                  : ''
+              }
             </div>
           </article>
         </div>

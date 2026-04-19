@@ -1,43 +1,24 @@
 import gwcLogo from '../../assets/gwc_logo\.avif'
 import gwcLogoWhite from '../../assets/gwc_logo_white\.avif'
 import { ROUTES } from '../../app/routes'
+import { getPostPath, posts } from '../../data/posts'
 import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/layout/header'
 import { renderMainSiteFooter } from '../../components/layout/footer'
 import { renderHomeOverlays } from '../../components/layout/overlay'
 
 type SearchItem = {
+  slug: string
   title: string
   category: 'Articles' | 'Files' | 'Board Resolutions'
   excerpt: string
 }
 
-const searchIndex: SearchItem[] = [
-  {
-    title: 'Enrollment Advisory for New Students',
-    category: 'Articles',
-    excerpt: 'Prepare original credentials and complete online pre-registration before campus visit.',
-  },
-  {
-    title: 'Scholarship Screening Schedule',
-    category: 'Articles',
-    excerpt: 'Screening and interview slots are available through the Guidance Office.',
-  },
-  {
-    title: 'Student Handbook 2026 Edition',
-    category: 'Files',
-    excerpt: 'PDF reference for policies, grading system, and student conduct guidelines.',
-  },
-  {
-    title: 'Admission Requirements Checklist',
-    category: 'Files',
-    excerpt: 'Downloadable checklist for freshmen, transferees, and returning students.',
-  },
-  {
-    title: 'Board Resolution No. 12, Series of 2026',
-    category: 'Board Resolutions',
-    excerpt: 'Policy update on tuition structure and installment payment schedule.',
-  },
-]
+const searchIndex: SearchItem[] = posts.map((post) => ({
+  slug: post.slug,
+  title: post.title,
+  category: post.category,
+  excerpt: post.excerpt,
+}))
 
 function escapeHtml(value: string): string {
   return value
@@ -78,6 +59,7 @@ function renderSearchResults(query: string): string {
           <p class="search-result-kind">${item.category}</p>
           <h3>${item.title}</h3>
           <p>${item.excerpt}</p>
+          <a href="${getPostPath(item.slug)}">Read More</a>
         </li>
       `,
         )
