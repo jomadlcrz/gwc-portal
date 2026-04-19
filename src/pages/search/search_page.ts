@@ -104,22 +104,24 @@ export function rendersearch_page(): string {
         searchAriaLabel: 'Search site content',
       })}
 
-      <section class="search-shell">
-        <div class="search-input-row">
-          <form action="${ROUTES.SEARCH}" method="get" class="search-query-form">
-            <input type="search" name="q" value="${queryEscaped}" placeholder="Search" aria-label="Search site" autofocus />
-            <button type="submit" aria-label="Search">
-              <i data-lucide="search" aria-hidden="true"></i>
-              <span class="search-button-label">Search</span>
-            </button>
-          </form>
-        </div>
-
-        <section class="search-result-box" aria-live="polite">
-          <div class="search-result-content">
-            ${renderSearchResults(query)}
+      <section class="search-shell post-shell">
+        <div class="post-container">
+          <div class="search-input-row">
+            <form action="${ROUTES.SEARCH}" method="get" class="search-query-form">
+              <input type="search" name="q" value="${queryEscaped}" placeholder="Search" aria-label="Search site" autofocus />
+              <button type="submit" aria-label="Search">
+                <i data-lucide="search" aria-hidden="true"></i>
+                <span class="search-button-label">Search</span>
+              </button>
+            </form>
           </div>
-        </section>
+
+          <section class="search-result-box" aria-live="polite">
+            <div class="search-result-content">
+              ${renderSearchResults(query)}
+            </div>
+          </section>
+        </div>
       </section>
 
       ${renderMainSiteFooter()}

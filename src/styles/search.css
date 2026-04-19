@@ -5,9 +5,7 @@
 }
 
 .search-shell {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: clamp(1.1rem, 2.4vw, 2rem);
+  background: #e9ecf3;
 }
 
 .search-input-row {
@@ -193,4 +191,3 @@
     font-size: 1.45rem;
   }
 }
-
