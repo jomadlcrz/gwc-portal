@@ -16,7 +16,8 @@ export const posts: PostItem[] = [
     title: 'Delegates Join International Academic Exchange Program',
     date: 'April 5, 2026',
     category: 'GLOBAL',
-    excerpt: 'GWC strengthens global engagement through exchange dialogues and collaborative research sessions.',
+    excerpt:
+      'GWC strengthens global engagement by hosting exchange dialogues, collaborative research sessions, and cross-cultural academic planning with partner institutions. Through these exchanges, participants build shared academic goals, align research priorities, and establish practical pathways for faculty mobility, student immersion, and future joint program development that can be sustained across multiple terms.',
     content:
       'Golden West Colleges continues expanding international partnerships through faculty and student exchange activities. The program includes research discussions, cultural immersion, and joint planning for future academic collaborations.',
     image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80',
@@ -26,7 +27,8 @@ export const posts: PostItem[] = [
     title: 'STEM Fair 2026',
     date: 'May 12, 2026',
     category: 'GLOBAL',
-    excerpt: 'Students showcased innovative projects in robotics, coding, and applied science.',
+    excerpt:
+      'Students showcased innovative projects in robotics, coding, and applied science, highlighting practical solutions designed for real classroom and community challenges. Demonstrations emphasized creativity, technical execution, and measurable impact, while judges and guests noted how student-led prototypes addressed local needs, improved usability, and reflected strong interdisciplinary collaboration.',
     content:
       'The annual STEM Fair featured project exhibits, live demos, and judging sessions from invited academic and industry representatives. Participants presented practical solutions focused on local and regional challenges.',
     image: 'https://picsum.photos/seed/gwc-campus-event/1200/720',
@@ -36,7 +38,8 @@ export const posts: PostItem[] = [
     title: 'Research Colloquium',
     date: 'June 1, 2026',
     category: 'GLOBAL',
-    excerpt: 'Faculty and students presented current studies and emerging academic work.',
+    excerpt:
+      'Faculty and students presented current studies and emerging academic work, opening interdisciplinary discussions on methods, findings, and future publication goals. The colloquium created space for peer feedback, mentoring conversations, and cross-department collaboration, helping participants refine their studies, strengthen methodology decisions, and prepare outputs for conference and journal submission.',
     content:
       'The colloquium gathered departments to discuss current research directions, methodology standards, and publication targets. Sessions also covered mentorship opportunities for student researchers.',
     image: 'https://images.unsplash.com/photo-1519452575417-564c1401ecc0?auto=format&fit=crop&w=1200&q=80',
@@ -46,7 +49,8 @@ export const posts: PostItem[] = [
     title: 'Youth Extension Program Reaches Local Barangays',
     date: 'May 20, 2026',
     category: 'COMMUNITY',
-    excerpt: 'Student volunteers and faculty facilitators continue outreach and mentoring activities.',
+    excerpt:
+      'Student volunteers and faculty facilitators continue outreach and mentoring activities across partner barangays, with a stronger focus on youth participation and continuity. Organizers reported improved attendance and engagement as follow-up sessions became more structured, community-driven, and responsive to local priorities identified by youth leaders and barangay partners.',
     content:
       'The extension program supports barangay youth through literacy sessions, mentoring, and community-led activities. Organizers noted improved participation from partner communities this term.',
     image: 'https://picsum.photos/seed/gwc-community-extension/1200/720',
@@ -56,7 +60,8 @@ export const posts: PostItem[] = [
     title: 'Reading Outreach',
     date: 'May 8, 2026',
     category: 'COMMUNITY',
-    excerpt: 'Reading activities focused on foundational comprehension and confidence-building.',
+    excerpt:
+      'Reading activities focused on foundational comprehension and confidence-building through guided sessions, interactive storytelling, and learner support checkpoints. The program reinforces consistent literacy habits through repeat practice, close facilitation, and parent-community coordination, allowing learners to improve pace, understanding, and confidence in both oral and silent reading tasks.',
     content:
       'The outreach team coordinated with local schools to run guided reading sessions and provide supplementary learning materials. Follow-up sessions are scheduled in the coming months.',
     image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80',
@@ -66,7 +71,8 @@ export const posts: PostItem[] = [
     title: 'Campus Volunteers',
     date: 'May 28, 2026',
     category: 'COMMUNITY',
-    excerpt: 'Student organizations expanded community support through weekend volunteer drives.',
+    excerpt:
+      'Student organizations expanded community support through weekend volunteer drives, combining service-learning efforts with coordinated faculty and local partner involvement. Activities included resource distribution, basic assistance programs, and on-site engagement aligned with civic responsibility goals, while also giving student leaders practical experience in planning, communication, and sustained volunteer coordination.',
     content:
       'Volunteer groups organized service activities and resource support drives with faculty advisers. The initiative is part of GWC’s community engagement and service-learning effort.',
     image: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=1200&q=80',
@@ -76,7 +82,8 @@ export const posts: PostItem[] = [
     title: 'Campus Sustainability and Student Leadership',
     date: 'June 10, 2026',
     category: 'PERSPECTIVE',
-    excerpt: 'A reflection on student-led initiatives driving practical environmental action.',
+    excerpt:
+      'A reflection on student-led initiatives driving practical environmental action, from daily waste reduction practices to broader campus sustainability participation. The piece highlights how consistent student leadership can transform policy goals into visible day-to-day habits, influence peer behavior, and build a stronger campus culture centered on accountability, stewardship, and long-term sustainability.',
     content:
       'Student leaders and campus offices launched projects focused on waste reduction, responsible energy use, and awareness campaigns. The work aligns with long-term sustainability targets for the campus community.',
     image: 'https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=1200&q=80',
@@ -86,7 +93,8 @@ export const posts: PostItem[] = [
     title: 'Enrollment Advisory for New Students',
     date: 'August 14, 2026',
     category: 'ANNOUNCEMENT',
-    excerpt: 'Please prepare your original credentials and complete online pre-registration before visiting campus.',
+    excerpt:
+      'Please prepare your original credentials and complete online pre-registration before visiting campus to avoid delays during document verification and enrollment processing. Students are encouraged to review all requirements in advance, confirm document completeness, and follow assigned enrollment windows so transactions can be processed faster with fewer repeat visits.',
     content:
       'Incoming students are advised to complete online pre-registration and secure original credential documents before proceeding to campus enrollment windows. Support desks remain available for walk-in assistance.',
     image: 'https://picsum.photos/id/1048/900/500',
@@ -96,7 +104,8 @@ export const posts: PostItem[] = [
     title: 'Scholarship Screening Schedule',
     date: 'August 10, 2026',
     category: 'ANNOUNCEMENT',
-    excerpt: 'Qualified applicants may proceed to the Guidance Office for screening and interview confirmation.',
+    excerpt:
+      'Qualified applicants may proceed to the Guidance Office for screening and interview confirmation based on the released schedule and required supporting documents. Applicants should verify assigned time slots, complete all required forms, and submit accurate records before arrival to ensure smooth evaluation, proper interview sequencing, and timely release of screening outcomes.',
     content:
       'The Guidance Office released screening blocks for scholarship applicants. Students should verify schedule assignments and submit required forms before interview day.',
     image: 'https://picsum.photos/id/180/900/500',
@@ -106,7 +115,8 @@ export const posts: PostItem[] = [
     title: 'Faculty Consultation Week',
     date: 'August 5, 2026',
     category: 'ANNOUNCEMENT',
-    excerpt: 'Departments are opening consultation sessions to guide students on subject loads and pathways.',
+    excerpt:
+      'Departments are opening consultation sessions to guide students on subject loads, curriculum pathways, and enrollment decisions aligned with academic standing. Advisers will also address prerequisite concerns, sequencing options, and recommendations for balanced term planning so students can avoid scheduling conflicts and stay aligned with graduation targets.',
     content:
       'Consultation week offers one-on-one and group sessions for enrollment planning, curriculum alignment, and academic standing concerns. Students are encouraged to book appointments early.',
     image: 'https://picsum.photos/id/20/900/500',
@@ -116,7 +126,8 @@ export const posts: PostItem[] = [
     title: 'Student Handbook 2026 Edition',
     date: 'July 30, 2026',
     category: 'ANNOUNCEMENT',
-    excerpt: 'PDF reference for policies, grading system, and student conduct guidelines.',
+    excerpt:
+      'PDF reference for policies, grading system, and student conduct guidelines, including updated procedures for academic services and student support access. Students are advised to review the handbook thoroughly to understand institutional expectations, service workflows, and policy updates that may affect enrollment, evaluation, and campus conduct compliance.',
     content:
       'The latest student handbook compiles academic policies, grading rules, student services information, and conduct standards. The digital file is available through the registrar and student portals.',
   },
@@ -125,7 +136,8 @@ export const posts: PostItem[] = [
     title: 'Admission Requirements Checklist',
     date: 'July 28, 2026',
     category: 'ANNOUNCEMENT',
-    excerpt: 'Downloadable checklist for freshmen, transferees, and returning students.',
+    excerpt:
+      'Downloadable checklist for freshmen, transferees, and returning students to help ensure complete document submission and smoother admissions processing. The checklist includes category-specific requirements, submission reminders, and verification steps to minimize repeat visits, reduce missing paperwork, and improve processing turnaround at admissions counters.',
     content:
       'Applicants can use the checklist to prepare all required documents before submission. This file includes separate guidance for freshmen, transferees, and returning learners.',
   },
@@ -134,7 +146,8 @@ export const posts: PostItem[] = [
     title: 'Board Resolution No. 12, Series of 2026',
     date: 'July 15, 2026',
     category: 'ANNOUNCEMENT',
-    excerpt: 'Policy update on tuition structure and installment payment schedule.',
+    excerpt:
+      'Policy update on tuition structure and installment payment schedule, including revised implementation guidance for the upcoming academic year. The notice outlines key timelines, payment terms, and compliance reminders relevant to students and guardians, helping families prepare early and align financial planning with official institutional schedules.',
     content:
       'The board resolution details approved tuition updates, payment terms, and implementation timelines for Academic Year 2026-2027. Relevant offices have posted compliance advisories.',
   },
