@@ -1,4 +1,4 @@
-import { ADMIN_SHELL_CONFIG, renderPortalShell } from '../../components/layout/_layout'
+import { ADMIN_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 
 export function renderadministrators_dashboard_page(): string {
   return renderPortalShell(

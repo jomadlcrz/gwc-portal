@@ -1,9 +1,9 @@
-import { ROUTES } from '../../app/routes'
-import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../components/layout/_layout'
-import { renderBreadcrumbNav } from '../../components/ui/nav_breadcrumb'
-import { renderSharedModal, setupSharedModal } from '../../components/ui/modal'
-import { renderSharedPagination, setupSharedPagination } from '../../components/ui/pagination'
-import { renderSharedPopover } from '../../components/ui/popover'
+import { ROUTES } from '../../../app/routes'
+import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../../components/layout/_layout'
+import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
+import { renderSharedPagination, setupSharedPagination } from '../../../components/ui/pagination'
+import { renderSharedPopover } from '../../../components/ui/popover'
 
 type AdministratorRecord = {
   name: string
