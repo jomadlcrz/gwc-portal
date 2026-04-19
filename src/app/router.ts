@@ -19,6 +19,7 @@ import {
 import { setupSiteInteractions } from '../components/layout/interactions'
 import { renderhome_page } from '../pages/home/home_page'
 import { renderadministrators_login_page } from '../pages/login/administrators_login_page'
+import { renderchange_password_page } from '../pages/login/change_password_page'
 import { renderfaculty_login_page } from '../pages/login/faculty_login_page'
 import {
   renderfaculty_classes_page,
@@ -111,6 +112,11 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.FACULTY_LOGIN) {
     app.innerHTML = renderfaculty_login_page()
+    return
+  }
+
+  if (pathname === ROUTES.CHANGE_PASSWORD) {
+    app.innerHTML = renderchange_password_page()
     return
   }
 

@@ -43,6 +43,7 @@ export const ROUTES = {
   STUDENT_GRADES: '/student-portal/grades',
   STUDENT_SCHEDULE: '/student-portal/schedule',
   STUDENT_SETTINGS: '/student-portal/settings',
+  CHANGE_PASSWORD: '/change-password',
   
 } as const
 
