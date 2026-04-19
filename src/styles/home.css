@@ -85,6 +85,11 @@
   color: #fff;
 }
 
+.home-section-inner {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
 .site-story-layout {
   display: grid;
   grid-template-columns: 1fr 190px;
@@ -457,6 +462,16 @@
 }
 
 @media (max-width: 991px) {
+  .site-post-section {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .home-section-inner {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
   .site-cover {
     min-height: 220px;
     background-position: center top;

@@ -40,7 +40,7 @@ export function renderhome_page(): string {
 
       <section class="site-cover site-post-cover" style="--site-cover-image: url('${coverImage}');" aria-label="Campus cover image">
         <div class="site-cover-overlay">
-          <div class="container">
+          <div class="post-container">
             <p class="site-post-eyebrow">Official GWC Updates</p>
             <h1 class="site-post-title">Golden West Colleges, Inc. in Action</h1>
           </div>
@@ -48,7 +48,7 @@ export function renderhome_page(): string {
       </section>
 
       <section id="global-arena" class="site-post-section site-post-section-light">
-        <div class="container py-5">
+        <div class="post-container home-section-inner">
           <h2 class="site-post-section-title">GWC in the Global Arena</h2>
           <article class="site-story-layout">
             <div class="site-story-main">
@@ -83,7 +83,7 @@ export function renderhome_page(): string {
       </section>
 
       <section id="community" class="site-post-section site-post-section-dark">
-        <div class="container py-5">
+        <div class="post-container home-section-inner">
           <h2 class="site-post-section-title">GWC in the Community</h2>
           <article class="site-story-layout site-story-layout-left-rail">
             <aside class="site-story-side site-story-side-on-dark">
@@ -118,7 +118,7 @@ export function renderhome_page(): string {
       </section>
 
       <section id="events" class="site-post-section site-post-section-light">
-        <div class="container py-5">
+        <div class="post-container home-section-inner">
           <h2 class="site-post-section-title">Events</h2>
           <div class="site-events-list">
             <article class="site-event-item">
@@ -138,7 +138,7 @@ export function renderhome_page(): string {
       </section>
 
       <section id="perspective" class="site-post-section site-post-section-primary">
-        <div class="container py-5">
+        <div class="post-container home-section-inner">
           <h2 class="site-post-section-title">Perspectives + Opinions</h2>
           <article class="site-story-card site-story-card-dark">
             <img src="${getImage(perspectiveFeatured, 'https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=1200&q=80')}" alt="${perspectiveFeatured?.title ?? 'Perspective story'}" class="site-story-image" />
@@ -156,7 +156,7 @@ export function renderhome_page(): string {
       </section>
 
       <section id="careers" class="site-post-section site-post-section-light">
-        <div class="container py-5">
+        <div class="post-container home-section-inner">
           <header class="site-careers-head">
             <h2 class="site-post-section-title">Be Part of Our Team</h2>
             <p class="site-careers-subtitle">Currently no vacant position available</p>
