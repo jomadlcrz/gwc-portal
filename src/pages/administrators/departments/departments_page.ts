@@ -18,3 +18,5 @@ export function renderdepartments_page(): string {
     },
   )
 }
+
+

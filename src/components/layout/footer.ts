@@ -1,4 +1,4 @@
-import gwcLogoWhite from '../../assets/gwc_logo_white\.avif'
+const gwcLogoWhite = '/images/gwc_logo_white.avif'
 import { ROUTES } from '../../app/routes'
 
 type MainSiteFooterOptions = {
@@ -83,6 +83,8 @@ export function renderPortalSiteFooter(options: PortalSiteFooterOptions = {}): s
       </footer>
   `
 }
+
+
 
 
 

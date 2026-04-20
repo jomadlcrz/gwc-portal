@@ -208,3 +208,5 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
     root.removeEventListener('click', onActionClick)
   }
 }
+
+

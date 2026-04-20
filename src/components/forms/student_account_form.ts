@@ -73,3 +73,5 @@ export function renderStudentAccountForm(prefix: string): string {
     </section>
   `
 }
+
+

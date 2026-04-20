@@ -1,6 +1,6 @@
 // this is for non admin users who are required to change their password before accessing their account
 
-import gwcLogo from '../../assets/gwc_logo\.avif'
+const gwcLogo = '/images/gwc_logo.avif'
 import { renderPortalHeader } from '../../components/layout/header'
 import { renderPortalSiteFooter } from '../../components/layout/footer'
 
@@ -54,4 +54,6 @@ export function renderchange_password_page(): string {
     </main>
   `
 }
+
+
 

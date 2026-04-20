@@ -9,3 +9,5 @@ export { renderstudent_settings_page } from './settings/settings_page'
 export function setupstudent_page(root: HTMLElement): () => void {
   return setupPortalShell(root, STUDENT_SHELL_CONFIG)
 }
+
+

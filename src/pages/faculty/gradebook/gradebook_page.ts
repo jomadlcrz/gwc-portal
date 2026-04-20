@@ -18,3 +18,5 @@ export function renderfaculty_gradebook_page(): string {
     },
   )
 }
+
+

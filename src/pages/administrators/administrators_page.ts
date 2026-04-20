@@ -15,3 +15,5 @@ export { rendersettings_page } from './settings/settings_page'
 export function setupadministrators_page(root: HTMLElement): () => void {
   return setupPortalShell(root, ADMIN_SHELL_CONFIG)
 }
+
+

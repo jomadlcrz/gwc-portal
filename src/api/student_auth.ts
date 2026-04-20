@@ -135,3 +135,5 @@ export function setupChangePasswordPage(root: HTMLElement): () => void {
     form.removeEventListener('submit', onSubmit)
   }
 }
+
+

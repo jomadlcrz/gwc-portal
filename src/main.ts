@@ -19,9 +19,9 @@ import './styles/administrators/layout.css'
 import './styles/administrators/directory.css'
 import './styles/administrators/students.css'
 import { renderRoute } from './app/router'
-import coverImageUrl from './assets/cover\.avif'
-import footerLogoUrl from './assets/gwc_logo_white\.avif'
-import headerLogoUrl from './assets/gwc_logo\.avif'
+const coverImageUrl = '/images/cover.avif'
+const footerLogoUrl = '/images/gwc_logo_white.avif'
+const headerLogoUrl = '/images/gwc_logo.avif'
 
 const app = document.querySelector<HTMLDivElement>('#app')
 
@@ -113,4 +113,6 @@ if (shouldDelayFirstPaint) {
     })
   })
 }
+
+
 

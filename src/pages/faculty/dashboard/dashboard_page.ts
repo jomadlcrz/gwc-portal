@@ -14,3 +14,5 @@ export function renderfaculty_dashboard_page(): string {
     `,
   )
 }
+
+

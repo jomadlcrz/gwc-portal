@@ -51,3 +51,5 @@ export function getPostListsRoute(categorySlug: string): string {
   return `${ROUTES.POST_LISTS}/${encodeURIComponent(categorySlug)}`
 }
 
+
+

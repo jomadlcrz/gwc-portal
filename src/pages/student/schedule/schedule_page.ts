@@ -18,3 +18,5 @@ export function renderstudent_schedule_page(): string {
     },
   )
 }
+
+

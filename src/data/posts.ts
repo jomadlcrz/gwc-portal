@@ -278,3 +278,5 @@ export function getCategoryLabel(category: PostCategory): string {
   if (category === 'EVENTS') return 'Events'
   return 'Perspective'
 }
+
+

@@ -1,5 +1,5 @@
-import gwcLogo from '../../assets/gwc_logo\.avif'
-import gwcLogoWhite from '../../assets/gwc_logo_white\.avif'
+const gwcLogo = '/images/gwc_logo.avif'
+const gwcLogoWhite = '/images/gwc_logo_white.avif'
 import { ROUTES } from '../../app/routes'
 import type { PostCategory } from '../../data/posts'
 import { getPostCategorySlug, getPostPath, getPostsByCategory } from '../../data/posts'
@@ -67,3 +67,5 @@ export function renderpost_lists_page(category: PostCategory): string {
     </main>
   `
 }
+
+

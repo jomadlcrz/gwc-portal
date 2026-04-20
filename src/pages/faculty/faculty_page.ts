@@ -8,3 +8,5 @@ export { renderfaculty_settings_page } from './settings/settings_page'
 export function setupfaculty_page(root: HTMLElement): () => void {
   return setupPortalShell(root, FACULTY_SHELL_CONFIG)
 }
+
+

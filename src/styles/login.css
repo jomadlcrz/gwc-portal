@@ -37,6 +37,7 @@
 .portal-logo {
   width: 98px;
   height: 98px;
+  aspect-ratio: 1 / 1;
   object-fit: contain;
   border-radius: 50%;
 }

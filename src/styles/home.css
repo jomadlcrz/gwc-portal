@@ -23,6 +23,7 @@
 
 .site-cover {
   position: relative;
+  aspect-ratio: 16 / 9;
   min-height: 100dvh;
   padding-top: var(--site-topbar-height);
   background-image: var(--site-cover-image);

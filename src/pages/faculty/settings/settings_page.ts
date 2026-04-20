@@ -18,3 +18,5 @@ export function renderfaculty_settings_page(): string {
     },
   )
 }
+
+

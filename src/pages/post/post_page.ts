@@ -1,5 +1,5 @@
-import gwcLogo from '../../assets/gwc_logo\.avif'
-import gwcLogoWhite from '../../assets/gwc_logo_white\.avif'
+const gwcLogo = '/images/gwc_logo.avif'
+const gwcLogoWhite = '/images/gwc_logo_white.avif'
 import { ROUTES, getPostListsRoute } from '../../app/routes'
 import { getPostBySlug, getPostCategorySlug, getPostPath, posts } from '../../data/posts'
 import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/layout/header'
@@ -109,3 +109,5 @@ export function renderpost_page(slug: string): string | null {
     </main>
   `
 }
+
+

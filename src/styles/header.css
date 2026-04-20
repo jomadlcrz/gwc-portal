@@ -33,6 +33,7 @@
 .site-brand-logo {
   width: 56px;
   height: 56px;
+  aspect-ratio: 1 / 1;
   object-fit: contain;
 }
 

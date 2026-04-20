@@ -1,6 +1,6 @@
-import gwcLogo from '../../assets/gwc_logo\.avif'
-import gwcLogoWhite from '../../assets/gwc_logo_white\.avif'
-import coverImage from '../../assets/cover\.avif'
+const gwcLogo = '/images/gwc_logo.avif'
+const gwcLogoWhite = '/images/gwc_logo_white.avif'
+const coverImage = '/images/cover.avif'
 import { ROUTES } from '../../app/routes'
 import { getPostPath, getPostsByCategory, type PostItem } from '../../data/posts'
 import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/layout/header'
@@ -242,6 +242,8 @@ export function renderhome_page(): string {
     </main>
   `
 }
+
+
 
 
 
