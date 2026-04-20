@@ -131,7 +131,7 @@
   background: #1f4c93;
   display: inline-block;
   padding: 0.28rem 1.35rem 0.28rem 0.7rem;
-  font-size: 0.88rem;
+  font-size: 1.35rem;
   font-weight: 700;
   clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
 }
