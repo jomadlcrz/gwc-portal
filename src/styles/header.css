@@ -37,7 +37,7 @@
 }
 
 .site-brand-title {
-  font-family: 'Trebuchet MS', 'Segoe UI', Tahoma, sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
   letter-spacing: 0.8px;
   font-size: 1rem;
@@ -187,5 +187,6 @@
     display: none;
   }
 }
+
 
 

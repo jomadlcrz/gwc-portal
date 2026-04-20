@@ -61,7 +61,7 @@
 .site-post-title {
   font-size: clamp(1.9rem, 3.6vw, 3.3rem);
   margin: 0;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-display);
   letter-spacing: 0.03em;
 }
 
@@ -69,7 +69,7 @@
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   margin-bottom: 1.75rem;
   text-align: center;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-display);
   letter-spacing: 0.02em;
 }
 
@@ -220,7 +220,7 @@
 .site-story-side h4 {
   margin: 0;
   font-size: 0.95rem;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-display);
   font-weight: 700;
 }
 
@@ -654,4 +654,5 @@
     font-size: 2rem;
   }
 }
+
 

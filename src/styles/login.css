@@ -43,7 +43,7 @@
 
 .portal-school-name {
   margin: 0;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-display);
   font-size: clamp(1.55rem, 2.5vw, 3rem);
   letter-spacing: 0.6px;
   font-weight: 500;
@@ -161,3 +161,4 @@
     justify-content: center;
   }
 }
+
