@@ -3,6 +3,7 @@ const gwcLogoWhite = '/images/gwc_logo_white.avif'
 const coverImage = '/images/cover.avif'
 import { ROUTES } from '../../app/routes'
 import { getPostPath, getPostsByCategory, type PostItem } from '../../data/posts'
+import { testimonials } from '../../data/testimonials'
 import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/layout/header'
 import { renderMainSiteFooter } from '../../components/layout/footer'
 import { renderHomeOverlays } from '../../components/layout/overlay'
@@ -14,14 +15,13 @@ function getImage(post: PostItem | undefined, fallback: string): string {
 export function renderhome_page(): string {
   const globalPosts = getPostsByCategory('GLOBAL')
   const communityPosts = getPostsByCategory('COMMUNITY')
-  const perspectivePosts = getPostsByCategory('PERSPECTIVE')
   const eventPosts = getPostsByCategory('EVENTS')
 
   const globalFeatured = globalPosts[0]
   const globalMore = globalPosts.slice(1, 3)
   const communityFeatured = communityPosts[0]
   const communityMore = communityPosts.slice(1, 3)
-  const perspectiveFeatured = perspectivePosts[0] ?? globalPosts[0]
+  const testimonialSlides = testimonials.slice(0, 3)
   const desktopEventSlides =
     eventPosts.length > 2
       ? Array.from({ length: eventPosts.length - 2 }, (_, index) => eventPosts.slice(index, index + 3))
@@ -205,21 +205,54 @@ export function renderhome_page(): string {
         </div>
       </section>
 
-      <section id="perspective" class="site-post-section site-post-section-primary">
+      <section id="testimonials" class="site-post-section site-post-section-primary">
         <div class="post-container home-section-inner">
-          <h2 class="site-post-section-title" data-aos="fade-up">Perspectives + Opinions</h2>
-          <article class="site-story-card site-story-card-dark" data-aos="fade-up" data-aos-delay="80">
-            <img src="${getImage(perspectiveFeatured, 'https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=1200&q=80')}" alt="${perspectiveFeatured?.title ?? 'Perspective story'}" class="site-story-image" />
-            <div class="site-story-body">
-              <h3>${perspectiveFeatured?.title ?? 'No Perspective Story Yet'}</h3>
-              <p>${perspectiveFeatured?.excerpt ?? 'Perspective and opinion updates will appear here.'}</p>
-              ${
-                perspectiveFeatured
-                  ? `<a href="${getPostPath(perspectiveFeatured.slug)}" class="site-story-link site-story-link-dark"><span>Read More</span><span class="site-story-link-icon" aria-hidden="true"><i data-lucide="arrow-right"></i></span></a>`
-                  : ''
-              }
+          <h2 class="site-post-section-title" data-aos="fade-up">Testimonials and Success Stories</h2>
+          <div class="site-testimonial-shell" data-aos="fade-up" data-aos-delay="80">
+            <div id="testimonialCarousel" class="carousel slide site-testimonial-carousel" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                ${testimonialSlides
+                  .map(
+                    (item, index) => `
+                  <article class="carousel-item ${index === 0 ? 'active' : ''}">
+                    <section class="site-testimonial-panel">
+                      <aside class="site-testimonial-person">
+                        <img src="${item.image}" alt="${item.name}" class="site-testimonial-avatar" />
+                        <p class="site-testimonial-name">${item.name}</p>
+                        <p class="site-testimonial-role">${item.role}</p>
+                      </aside>
+                      <div class="site-testimonial-quote">
+                        <p class="site-testimonial-quote-mark" aria-hidden="true">&ldquo;</p>
+                        <p>${item.message}</p>
+                        <p class="site-testimonial-quote-mark site-testimonial-quote-mark-end" aria-hidden="true">&rdquo;</p>
+                      </div>
+                    </section>
+                  </article>
+                `,
+                  )
+                  .join('')}
+              </div>
+              <div class="site-testimonial-controls">
+                <button class="carousel-control-prev site-testimonial-control" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <div class="carousel-indicators site-testimonial-indicators">
+                  ${testimonialSlides
+                    .map(
+                      (_, index) => `
+                    <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="${index}" class="${index === 0 ? 'active' : ''}" ${index === 0 ? 'aria-current="true"' : ''} aria-label="Testimonial slide ${index + 1}"></button>
+                  `,
+                    )
+                    .join('')}
+                </div>
+                <button class="carousel-control-next site-testimonial-control" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
             </div>
-          </article>
+          </div>
         </div>
       </section>
 
@@ -242,11 +275,3 @@ export function renderhome_page(): string {
     </main>
   `
 }
-
-
-
-
-
-
-
-
