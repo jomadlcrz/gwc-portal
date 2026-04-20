@@ -12,8 +12,8 @@ export function renderregistrar_staff_schedule_page(): string {
           { label: 'Home', href: ROUTES.REGISTRAR_STAFF_DASHBOARD },
           { label: 'Schedule', active: true },
         ])}
-        <header class="class-scheduling-header">
-          <h2>Class Scheduling</h2>
+        <header class="registrar_staff-panel class-scheduling-header">
+          <h3>Class Scheduling</h3>
           <p>Create and organize course schedules for the upcoming term.</p>
         </header>
 
@@ -229,5 +229,3 @@ export function setupclass_scheduling_form(root: HTMLElement): () => void {
     slotContainer.removeEventListener('click', onSlotAction)
   }
 }
-
-

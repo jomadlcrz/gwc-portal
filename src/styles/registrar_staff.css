@@ -228,30 +228,17 @@
 }
 
 .class-scheduling-header {
-  border: 1px solid #d4deea;
-  border-radius: 0.75rem;
-  background: #fff;
-  padding: clamp(0.85rem, 2vw, 1.1rem);
+  box-shadow: none;
 }
 
-.class-scheduling-eyebrow {
+.class-scheduling-header h3 {
   margin: 0;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: #0f766e;
-}
-
-.class-scheduling-header h2 {
-  margin: 0.4rem 0 0;
-  color: #0f172a;
-  font-size: clamp(1.3rem, 2.4vw, 1.85rem);
+  color: inherit;
 }
 
 .class-scheduling-header p:last-child {
-  margin: 0.55rem 0 0;
-  color: #334155;
+  margin: 0.7rem 0 0;
+  color: #374151;
 }
 
 .class-scheduling-form {
