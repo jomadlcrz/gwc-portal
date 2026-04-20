@@ -123,16 +123,6 @@
   stroke-width: 2.4;
 }
 
-@media (max-width: 1200px) {
-  .site-brand-title-full {
-    display: none;
-  }
-
-  .site-brand-title-short {
-    display: inline;
-  }
-}
-
 @media (max-width: 991px) {
   .site-header-inner {
     min-height: var(--site-topbar-height);
@@ -184,6 +174,14 @@
 }
 
 @media (max-width: 560px) {
+  .site-brand-title-full {
+    display: none;
+  }
+
+  .site-brand-title-short {
+    display: inline;
+  }
+
   .site-quick-item {
     font-size: 1.2rem;
   }

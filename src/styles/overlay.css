@@ -374,6 +374,9 @@
     font-size: 1.25rem;
   }
 
+}
+
+@media (max-width: 560px) {
   .site-overlay-brand-title-full {
     display: none;
   }
