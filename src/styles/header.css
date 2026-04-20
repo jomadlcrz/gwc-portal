@@ -37,10 +37,10 @@
 }
 
 .site-brand-title {
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: 0.8px;
-  font-size: 1rem;
+  font-size: clamp(1.45rem, 1.8vw, 1.85rem);
   line-height: 1;
   white-space: nowrap;
 }
@@ -87,6 +87,10 @@
   font-size: clamp(1rem, 1.05vw, 1.2rem);
   background: #1f2a44;
   transition: background-color 120ms ease, color 120ms ease;
+}
+
+.site-quick-label {
+  font-family: var(--font-body);
 }
 
 .site-quick-item:hover,
@@ -144,7 +148,7 @@
   }
 
   .site-brand-title {
-    font-size: 1rem;
+    font-size: clamp(1.25rem, 4.5vw, 1.6rem);
   }
 
   .site-quick-menu {
