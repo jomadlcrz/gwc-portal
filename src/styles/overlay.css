@@ -1,4 +1,5 @@
 .site-overlay {
+  --site-overlay-surface-bg: rgba(255, 255, 255, 0.04);
   position: fixed;
   inset: 0;
   z-index: 1200;
@@ -58,6 +59,7 @@
   justify-content: space-between;
   min-height: var(--site-topbar-height);
   padding: 0 14px;
+  background-color: var(--site-overlay-surface-bg);
 }
 
 .site-overlay-brand {
@@ -125,6 +127,7 @@
   display: grid;
   place-items: center;
   padding: 24px;
+  background-color: var(--site-overlay-surface-bg);
 }
 
 .site-search-form {
@@ -186,7 +189,7 @@
   scrollbar-gutter: stable;
   scrollbar-width: thin;
   scrollbar-color: rgba(214, 178, 71, 0.85) rgba(255, 255, 255, 0.12);
-  background-color: rgba(255, 255, 255, 0.04);
+  background-color: var(--site-overlay-surface-bg);
 }
 
 .site-overlay-panel-menu .site-overlay-menu-layout::-webkit-scrollbar {
