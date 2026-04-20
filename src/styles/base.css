@@ -17,10 +17,12 @@ body {
   --dark-blue: #132a63;
   --site-topbar-height: 62px;
   --site-accent-height: 4px;
+  --site-body-overflow: auto;
   min-height: 100dvh;
   margin: 0;
   font-family: var(--font-body);
   background: #eef1f7;
+  overflow: var(--site-body-overflow);
 }
 
 #app {
@@ -46,4 +48,3 @@ strong,
 body.overlay-open {
   overflow: hidden;
 }
-

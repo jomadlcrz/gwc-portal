@@ -174,7 +174,7 @@ export function setupSharedModal(root: HTMLElement, options: SharedModalSetupOpt
     bodyNode.innerHTML = ''
     onConfirm = null
     document.body.classList.remove('modal-open')
-    document.body.style.removeProperty('overflow')
+    document.body.style.removeProperty('--site-body-overflow')
     backdrop?.remove()
     backdrop = null
   }
@@ -189,7 +189,7 @@ export function setupSharedModal(root: HTMLElement, options: SharedModalSetupOpt
     modal.classList.add('show')
     modal.setAttribute('aria-hidden', 'false')
     document.body.classList.add('modal-open')
-    document.body.style.overflow = 'hidden'
+    document.body.style.setProperty('--site-body-overflow', 'hidden')
 
     if (!backdrop) {
       backdrop = document.createElement('div')
