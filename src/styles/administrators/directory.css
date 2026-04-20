@@ -121,15 +121,6 @@
   font-size: 0.82rem;
 }
 
-.admin-add-btn {
-  border: 1px solid #2a3c5c;
-  background: #2a3c5c;
-  color: #f8fafc;
-  border-radius: 0.3rem;
-  font-weight: 700;
-  padding: 0.36rem 0.72rem;
-  font-size: 0.82rem;
-}
 
 .admin-table-wrap {
   overflow-x: auto;
@@ -287,10 +278,6 @@
   .admin-directory-card-head {
     align-items: flex-start;
     flex-direction: column;
-  }
-
-  .admin-add-btn {
-    width: 100%;
   }
 
   .admin-directory-card-foot {

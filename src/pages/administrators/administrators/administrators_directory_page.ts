@@ -180,7 +180,7 @@ export function renderadministrators_directory_page(): string {
               </div>
               <button
                 type="button"
-                class="admin-add-btn"
+                class="btn btn-primary fw-bold"
                 data-admin-open-add
               >
                 + Add Admin
