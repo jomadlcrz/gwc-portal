@@ -1,6 +1,6 @@
 body {
   --font-body: 'Century Gothic';
-  --font-display: 'Bebas Neue', 'Century Gothic';
+  --font-display: 'Bebas Neue';
   --site-topbar-height: 62px;
   --site-accent-height: 4px;
   min-height: 100dvh;
@@ -19,6 +19,13 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: var(--font-display);
+}
+
+b,
+strong,
+.fw-bold,
+.font-weight-bold {
   font-family: var(--font-display);
 }
 
