@@ -38,26 +38,37 @@ function getQuery(): string {
 }
 
 function renderSearchResults(query: string): string {
+  const normalized = query.toLowerCase()
+  const matches = query
+    ? searchIndex.filter((item) => {
+        const title = item.title.toLowerCase()
+        const excerpt = item.excerpt.toLowerCase()
+        const content = item.content.toLowerCase()
+        return title.includes(normalized) || excerpt.includes(normalized) || content.includes(normalized)
+      })
+    : []
+
   if (!query) {
-    return '<p class="search-empty">Enter a keyword to search posts.</p>'
+    return `
+      <div class="search-state-message">
+        <h2>Sorry, you must enter at least one search criteria before you can continue</h2>
+      </div>
+    `
   }
 
-  const normalized = query.toLowerCase()
-  const matches = searchIndex.filter((item) => {
-    const title = item.title.toLowerCase()
-    const excerpt = item.excerpt.toLowerCase()
-    const content = item.content.toLowerCase()
-    return title.includes(normalized) || excerpt.includes(normalized) || content.includes(normalized)
-  })
-
   if (matches.length === 0) {
-    return `<p class="search-empty">No records found for "${escapeHtml(query)}".</p>`
+    return `
+      <div class="search-state-message">
+        <h2>No Result Found using the keyword:</h2>
+        <p><span class="blockquote-footer">Keyword: "<strong>${escapeHtml(query)}</strong>"</span></p>
+      </div>
+    `
   }
 
   return `
     <header class="search-summary">
       <h2>Found ${matches.length} Result${matches.length === 1 ? '' : 's'} using:</h2>
-      <p>Keyword: "<strong>${escapeHtml(query)}</strong>"</p>
+      <p><span class="blockquote-footer">Keyword: "<strong>${escapeHtml(query)}</strong>"</span></p>
     </header>
     <ul class="search-result-list">
       ${matches
