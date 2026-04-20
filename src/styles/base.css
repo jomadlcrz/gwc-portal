@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('../assets/Bebas%20Neue/BebasNeue.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('../assets/Century%20Gothic/CenturyGothic.woff') format('woff');
+  font-display: swap;
+}
+
 body {
   --font-body: 'Century Gothic';
   --font-display: 'Bebas Neue';
@@ -33,8 +45,6 @@ strong,
 body.overlay-open {
   overflow: hidden;
 }
-
-
 
 
 

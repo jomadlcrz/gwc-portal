@@ -1,0 +1,10 @@
+@font-face {
+	font-family: 'BebasNeue';
+	src: local('BebasNeue'), url('./BebasNeue.woff') format('woff');
+}
+/* use this class to attach this font to any element i.e. <p class="fontsforweb_fontid_31241">Text with this font applied</p> */
+.fontsforweb_fontid_31241 {
+	font-family: 'BebasNeue' !important;
+}
+
+/* Font downloaded from FontsForWeb.com */

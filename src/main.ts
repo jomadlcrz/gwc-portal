@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
-import '@fontsource/bebas-neue/400.css'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import './styles/base.css'
@@ -23,6 +22,8 @@ import { renderRoute } from './app/router'
 import coverImageUrl from './assets/cover\.avif'
 import footerLogoUrl from './assets/gwc_logo_white\.avif'
 import headerLogoUrl from './assets/gwc_logo\.avif'
+import bebasNeueWoffUrl from './assets/Bebas Neue/BebasNeue.woff?url'
+import centuryGothicWoffUrl from './assets/Century Gothic/CenturyGothic.woff?url'
 
 const app = document.querySelector<HTMLDivElement>('#app')
 
@@ -51,6 +52,21 @@ const addImagePreloadHint = (src: string, fetchPriority: 'high' | 'low' | 'auto'
   document.head.append(link)
 }
 
+const addFontPreloadHint = (src: string): void => {
+  const existing = document.head.querySelector<HTMLLinkElement>(`link[rel="preload"][as="font"][href="${src}"]`)
+  if (existing) return
+
+  const link = document.createElement('link')
+  link.rel = 'preload'
+  link.as = 'font'
+  link.href = src
+  link.type = 'font/woff'
+  link.crossOrigin = 'anonymous'
+  document.head.append(link)
+}
+
+addFontPreloadHint(bebasNeueWoffUrl)
+addFontPreloadHint(centuryGothicWoffUrl)
 addImagePreloadHint(headerLogoUrl)
 addImagePreloadHint(footerLogoUrl)
 addImagePreloadHint(coverImageUrl)
