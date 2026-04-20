@@ -117,14 +117,14 @@
 }
 
 .post-see-more {
-  color: #132a63;
+  color: var(--dark-blue);
   font-weight: 700;
   text-decoration: none;
 }
 
 .post-see-more:hover,
 .post-see-more:focus-visible {
-  color: var(--gwc-logo-gold);
+  color: var(--gold);
 }
 
 .post-related-grid {
@@ -159,7 +159,7 @@
 
 .post-related-body h3 {
   margin: 0 0 0.5rem;
-  color: #132a63;
+  color: var(--dark-blue);
   font-size: 1.1rem;
   line-height: 1.15;
 }
@@ -193,13 +193,13 @@
 
 .post-related-footer a {
   text-decoration: none;
-  color: #132a63;
+  color: var(--dark-blue);
   font-weight: 700;
 }
 
 .post-related-footer a:hover,
 .post-related-footer a:focus-visible {
-  color: var(--gwc-logo-gold);
+  color: var(--gold);
 }
 
 @media (max-width: 991px) {

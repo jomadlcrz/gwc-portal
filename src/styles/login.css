@@ -54,7 +54,7 @@
   grid-column: 2;
   justify-self: end;
   margin: -2px 0 0;
-  color: var(--gwc-logo-gold);
+  color: var(--gold);
   font-weight: 800;
   font-size: clamp(1.6rem, 3.8vw, 3.4rem);
   line-height: 0.95;
@@ -65,7 +65,7 @@
 .portal-gold-line {
   position: relative;
   height: 8px;
-  background: var(--gwc-logo-gold);
+  background: var(--gold);
   box-shadow: 0 1px 0 #5d4911 inset, 0 -1px 0 #5d4911 inset;
 }
 

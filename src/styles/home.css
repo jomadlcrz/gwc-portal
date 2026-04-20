@@ -1,6 +1,6 @@
 .site-page {
-  --gwc-brand-primary: #102a5c;
-  --gwc-brand-accent: var(--gwc-logo-gold);
+  --gwc-brand-primary: var(--dark-blue);
+  --gwc-brand-accent: var(--gold);
   min-height: 100dvh;
   background: #f4f6fb;
   color: #111827;
@@ -146,8 +146,8 @@
   align-items: center;
   gap: 0;
   margin-left: auto;
-  background: var(--gwc-brand-accent);
-  color: #111827;
+  background: var(--dark-blue);
+  color: #fff;
   padding: 0.45rem 0.95rem;
   text-decoration: none;
   font-weight: 600;
@@ -258,11 +258,11 @@
 }
 
 #global-arena .site-mini-story span {
-  color: var(--gwc-brand-accent);
+  color: var(--dark-blue);
 }
 
 #global-arena .site-mini-story:hover span {
-  color: #111827;
+  color: var(--dark-blue);
 }
 
 #community .site-mini-story span {
@@ -270,7 +270,7 @@
 }
 
 #community .site-mini-story:hover span {
-  color: var(--gwc-logo-gold);
+  color: #fff;
 }
 
 .site-story-card-on-dark {
@@ -324,7 +324,7 @@
 }
 
 .site-event-content h3 a {
-  color: #132a63;
+  color: var(--dark-blue);
   text-decoration: none;
 }
 
@@ -422,14 +422,14 @@
 
 .site-testimonial-quote h3 {
   margin: 0.25rem 0 0.6rem;
-  color: #143a79;
+  color: var(--dark-blue);
   font-family: var(--font-display);
   font-size: clamp(1.25rem, 2.2vw, 1.85rem);
 }
 
 .site-testimonial-quote p {
   margin: 0;
-  color: #1f3f76;
+  color: var(--dark-blue);
   font-size: clamp(0.96rem, 1.5vw, 1.2rem);
   line-height: 1.58;
 }
@@ -473,7 +473,7 @@
 }
 
 .site-testimonial-indicators .active {
-  background-color: #15539a;
+  background-color: var(--dark-blue);
 }
 
 @media (min-width: 992px) {
@@ -575,7 +575,7 @@
   border-radius: 999px;
   background: var(--gwc-brand-accent);
   color: #111827;
-  border: 1px solid var(--gwc-logo-gold);
+  border: 1px solid var(--gold);
   font-weight: 700;
   font-size: 2rem;
   line-height: 1;
@@ -588,7 +588,7 @@
   font-size: 0.8rem;
   font-weight: 700;
   margin-bottom: 0.6rem;
-  color: var(--gwc-logo-gold);
+  color: var(--gold);
 }
 
 .site-hero-title {
@@ -615,7 +615,7 @@
 }
 
 .site-feature-card h2 {
-  color: #12307a;
+  color: var(--dark-blue);
   font-size: 1.25rem;
   margin-bottom: 0.55rem;
 }
@@ -677,7 +677,7 @@
   padding: 0.85rem;
   text-align: center;
   font-weight: 600;
-  color: #253b7b;
+  color: var(--dark-blue);
 }
 
 @media (max-width: 991px) {

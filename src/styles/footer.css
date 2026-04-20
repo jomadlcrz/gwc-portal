@@ -76,19 +76,19 @@
 
 .site-footer-links a:hover,
 .site-footer-links a:focus {
-  color: var(--gwc-logo-gold);
+  color: var(--gold);
 }
 
 .site-footer-contact a:hover,
 .site-footer-contact a:focus {
-  color: var(--gwc-logo-gold);
+  color: var(--gold);
   text-decoration: none;
 }
 
 .site-footer-links li::before {
   content: ">";
   margin-right: 0.5rem;
-  color: var(--gwc-logo-gold);
+  color: var(--gold);
 }
 
 .site-footer-address li {

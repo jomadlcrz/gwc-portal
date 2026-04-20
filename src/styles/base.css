@@ -13,7 +13,8 @@
 body {
   --font-body: 'Century Gothic';
   --font-display: 'Bebas Neue';
-  --gwc-logo-gold: hsl(45, 100%, 50%);
+  --gold: hsl(45, 100%, 50%);
+  --dark-blue: #132a63;
   --site-topbar-height: 62px;
   --site-accent-height: 4px;
   min-height: 100dvh;
@@ -45,6 +46,4 @@ strong,
 body.overlay-open {
   overflow: hidden;
 }
-
-
 

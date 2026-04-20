@@ -117,7 +117,7 @@
   height: 65%;
   transform: translateY(-50%);
   border-radius: 10px;
-  background: var(--gwc-logo-gold);
+  background: var(--gold);
 }
 
 .registrar_staff-content {
