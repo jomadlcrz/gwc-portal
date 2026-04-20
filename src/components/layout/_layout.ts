@@ -13,7 +13,7 @@ import {
   Users,
   createIcons,
 } from 'lucide'
-import gwcLogo from '../../assets/gwc_logo.avif'
+const gwcLogo = '/images/gwc_logo.avif'
 import { ROUTES } from '../../app/routes'
 import { setupSharedPopover } from '../ui/popover'
 import { renderMainSiteHeader } from './header'
