@@ -230,15 +230,6 @@ export function renderhome_page(): string {
                   .join('')}
               </div>
               <div class="site-testimonial-controls">
-                <div class="carousel-indicators site-testimonial-indicators">
-                  ${testimonialSlides
-                    .map(
-                      (_, index) => `
-                    <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="${index}" class="${index === 0 ? 'active' : ''}" ${index === 0 ? 'aria-current="true"' : ''} aria-label="Testimonial slide ${index + 1}"></button>
-                  `,
-                    )
-                    .join('')}
-                </div>
               </div>
             </div>
           </div>
