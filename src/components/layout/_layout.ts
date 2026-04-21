@@ -218,10 +218,10 @@ function renderSidebar<TSection extends string>(config: ShellConfig<TSection>, s
   return `
     <aside class="${config.sidebarClass}" ${idAttr} aria-label="${config.sidebarAriaLabel}">
       <div class="${config.sidebarMainClass}">
-        <div class="${config.sidebarHeadClass}">
+        <header class="portal-sidebar-header ${config.sidebarHeadClass}">
           <p class="${config.sidebarEyebrowClass}">${config.sidebarEyebrow}</p>
           <h1><a href="${ROUTES.HOME}" class="${config.sidebarTitleClass}">${config.sidebarTitle}</a></h1>
-        </div>
+        </header>
         <nav class="${config.sidebarMenuClass}" aria-label="${config.sidebarMenuAriaLabel}">
           <ul>
             ${config.menuItems
