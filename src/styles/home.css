@@ -165,8 +165,12 @@
 }
 
 .site-story-link-icon i {
+  display: inline-grid;
+  place-items: center;
   width: 0.95rem;
   height: 0.95rem;
+  line-height: 1;
+  vertical-align: middle;
 }
 
 .site-story-link-dark {
