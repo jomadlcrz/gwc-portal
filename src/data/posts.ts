@@ -1,4 +1,4 @@
-export type PostCategory = 'ANNOUNCEMENT' | 'GLOBAL' | 'COMMUNITY' | 'PERSPECTIVE' | 'EVENTS'
+export type PostCategory = 'ANNOUNCEMENT' | 'GLOBAL' | 'COMMUNITY' | 'EVENTS'
 
 export type PostItem = {
   slug: string
@@ -155,17 +155,6 @@ export const posts: PostItem[] = [
     image: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=1200&q=80',
   },
   {
-    slug: 'campus-sustainability-and-student-leadership',
-    title: 'Campus Sustainability and Student Leadership',
-    date: 'June 10, 2026',
-    category: 'PERSPECTIVE',
-    excerpt:
-      'A reflection on student-led initiatives driving practical environmental action, from daily waste reduction practices to broader campus sustainability participation. The piece highlights how consistent student leadership can transform policy goals into visible day-to-day habits, influence peer behavior, and build a stronger campus culture centered on accountability, stewardship, and long-term sustainability.',
-    content:
-      'Student leaders and campus offices launched projects focused on waste reduction, responsible energy use, and awareness campaigns. The work aligns with long-term sustainability targets for the campus community.',
-    image: 'https://images.unsplash.com/photo-1463320726281-696a485928c7?auto=format&fit=crop&w=1200&q=80',
-  },
-  {
     slug: 'enrollment-advisory-for-new-students',
     title: 'Enrollment Advisory for New Students',
     date: 'August 14, 2026',
@@ -246,7 +235,6 @@ const POST_CATEGORY_TO_SLUG: Record<PostCategory, string> = {
   ANNOUNCEMENT: 'ANNOUNCEMENT',
   GLOBAL: 'GLOBAL',
   COMMUNITY: 'COMMUNITY',
-  PERSPECTIVE: 'PERSPECTIVE',
   EVENTS: 'EVENTS',
 }
 
@@ -254,7 +242,6 @@ const POST_SLUG_TO_CATEGORY: Record<string, PostCategory> = {
   ANNOUNCEMENT: 'ANNOUNCEMENT',
   GLOBAL: 'GLOBAL',
   COMMUNITY: 'COMMUNITY',
-  PERSPECTIVE: 'PERSPECTIVE',
   EVENTS: 'EVENTS',
 }
 
@@ -275,8 +262,7 @@ export function getCategoryLabel(category: PostCategory): string {
   if (category === 'ANNOUNCEMENT') return 'Announcement'
   if (category === 'GLOBAL') return 'Global'
   if (category === 'COMMUNITY') return 'Community'
-  if (category === 'EVENTS') return 'Events'
-  return 'Perspective'
+  return 'Events'
 }
 
 

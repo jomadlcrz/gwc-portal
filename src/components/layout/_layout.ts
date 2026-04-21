@@ -10,6 +10,7 @@ export type AdminSection =
   | 'registrar_staff'
   | 'faculty'
   | 'students'
+  | 'posts'
   | 'departments'
   | 'reports'
   | 'settings'
@@ -99,6 +100,7 @@ export const ADMIN_SHELL_CONFIG: ShellConfig<AdminSection> = {
     },
     { label: 'Faculty', icon: 'bi-mortarboard', href: ROUTES.ADMINISTRATORS_FACULTY, section: 'faculty' },
     { label: 'Students', icon: 'bi-people', href: ROUTES.ADMINISTRATORS_STUDENTS, section: 'students' },
+    { label: 'Posts', icon: 'bi-megaphone', href: ROUTES.ADMINISTRATORS_POSTS, section: 'posts' },
     { label: 'Departments', icon: 'bi-building', href: ROUTES.ADMINISTRATORS_DEPARTMENTS, section: 'departments' },
     { label: 'Reports', icon: 'bi-briefcase', href: ROUTES.ADMINISTRATORS_REPORTS, section: 'reports' },
     { label: 'Settings', icon: 'bi-gear', href: ROUTES.ADMINISTRATORS_SETTINGS, section: 'settings' },

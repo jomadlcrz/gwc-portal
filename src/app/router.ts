@@ -16,6 +16,9 @@ import {
   setupstudents_manage_page,
   setupadministrators_directory_page,
   renderstudents_page,
+  renderposts_page,
+  renderposts_create_page,
+  setupposts_create_page,
   setupadministrators_page,
 } from '../pages/administrators/administrators_page'
 import { setupSiteInteractions } from '../components/layout/interactions'
@@ -282,6 +285,18 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   if (pathname === ROUTES.ADMINISTRATORS_STUDENTS_BULK) {
     app.innerHTML = renderstudents_bulk_page()
     cleanupCurrentRoute = setupstudents_bulk_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.ADMINISTRATORS_POSTS) {
+    app.innerHTML = renderposts_page()
+    cleanupCurrentRoute = setupadministrators_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.ADMINISTRATORS_POSTS_CREATE) {
+    app.innerHTML = renderposts_create_page()
+    cleanupCurrentRoute = setupposts_create_page(app)
     return
   }
 
