@@ -49,7 +49,7 @@ function renderHeaderAction(action: HeaderAction, baseClass: string): string {
   const className = `${baseClass}${action.className ? ` ${action.className}` : ''}`
   const attrs = action.attrs ? ` ${action.attrs}` : ''
   const aria = action.ariaLabel ? ` aria-label="${action.ariaLabel}"` : ''
-  const content = `<span class="site-quick-icon" aria-hidden="true"><i data-lucide="${action.icon}"></i></span>${action.label ? `<span class="site-quick-label">${action.label}</span>` : ''}`
+  const content = `<span class="site-quick-icon" aria-hidden="true"><i class="bi ${action.icon}"></i></span>${action.label ? `<span class="site-quick-label">${action.label}</span>` : ''}`
 
   if (action.type === 'link') {
     return `<a href="${action.href}" class="${className}"${aria}${attrs}>${content}</a>`
@@ -115,15 +115,15 @@ export function buildMainHeaderActions(
     actions.push({
       type: 'link',
       href: announcementsHref,
-      icon: 'megaphone',
+      icon: 'bi-megaphone',
       ariaLabel: 'Announcement',
       className: 'site-quick-item-icon-only',
     })
   }
 
   actions.push(
-    { type: 'button', icon: 'search', label: 'SEARCH', attrs: 'data-overlay-open="search"' },
-    { type: 'button', icon: 'menu', label: 'MENU', attrs: 'data-overlay-open="menu"' },
+    { type: 'button', icon: 'bi-search', label: 'SEARCH', attrs: 'data-overlay-open="search"' },
+    { type: 'button', icon: 'bi-list', label: 'MENU', attrs: 'data-overlay-open="menu"' },
   )
 
   return actions

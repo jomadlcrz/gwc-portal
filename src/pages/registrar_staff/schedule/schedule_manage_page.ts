@@ -92,7 +92,7 @@ export function renderregistrar_staff_schedule_manage_page(): string {
               <a href="${ROUTES.REGISTRAR_STAFF_SCHEDULE_CREATE}" class="btn btn-primary btn-sm">+ Create Schedule</a>
             </div>
             <label class="admin-directory-search admin-student-search">
-              <span class="admin-search-icon" aria-hidden="true"><i data-lucide="search"></i></span>
+              <span class="admin-search-icon" aria-hidden="true"><i class="bi bi-search"></i></span>
               <input
                 type="search"
                 placeholder="Search..."

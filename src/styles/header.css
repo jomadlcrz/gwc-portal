@@ -130,12 +130,8 @@
 
 .site-quick-icon i {
   display: inline-flex;
-}
-
-.site-quick-icon i svg {
   width: 1em;
   height: 1em;
-  stroke-width: 2.4;
 }
 
 @media (max-width: 991px) {

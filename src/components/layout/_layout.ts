@@ -1,18 +1,3 @@
-import {
-  Briefcase,
-  Building2,
-  CalendarDays,
-  ClipboardList,
-  FileText,
-  FolderOpen,
-  GraduationCap,
-  LayoutDashboard,
-  Menu,
-  Search,
-  Settings,
-  Users,
-  createIcons,
-} from 'lucide'
 const gwcLogo = '/images/gwc_logo.avif'
 import { ROUTES } from '../../app/routes'
 import { setupSharedPopover } from '../ui/popover'
@@ -47,8 +32,6 @@ type ShellMenuItem<TSection extends string> = {
   section: TSection
 }
 
-type IconSet = Exclude<Parameters<typeof createIcons>[0], undefined>['icons']
-
 export type ShellConfig<TSection extends string> = {
   pageClass: string
   layoutClass: string
@@ -74,7 +57,6 @@ export type ShellConfig<TSection extends string> = {
   headerBrandHref: string
   headerLogoAlt: string
   menuItems: ShellMenuItem<TSection>[]
-  icons: IconSet
 }
 
 export const ADMIN_SHELL_CONFIG: ShellConfig<AdminSection> = {
@@ -102,37 +84,25 @@ export const ADMIN_SHELL_CONFIG: ShellConfig<AdminSection> = {
   headerBrandHref: ROUTES.HOME,
   headerLogoAlt: 'Golden West Colleges logo',
   menuItems: [
-    { label: 'Dashboard', icon: 'layout-dashboard', href: ROUTES.ADMINISTRATORS, section: 'dashboard' },
+    { label: 'Dashboard', icon: 'bi-speedometer2', href: ROUTES.ADMINISTRATORS, section: 'dashboard' },
     {
       label: 'Administrators',
-      icon: 'file-text',
+      icon: 'bi-file-earmark-text',
       href: ROUTES.ADMINISTRATORS_DIRECTORY,
       section: 'administrators',
     },
     {
       label: 'Registrar Staff',
-      icon: 'folder-open',
+      icon: 'bi-folder2-open',
       href: ROUTES.ADMINISTRATORS_REGISTRAR_STAFF,
       section: 'registrar_staff',
     },
-    { label: 'Faculty', icon: 'graduation-cap', href: ROUTES.ADMINISTRATORS_FACULTY, section: 'faculty' },
-    { label: 'Students', icon: 'users', href: ROUTES.ADMINISTRATORS_STUDENTS, section: 'students' },
-    { label: 'Departments', icon: 'building-2', href: ROUTES.ADMINISTRATORS_DEPARTMENTS, section: 'departments' },
-    { label: 'Reports', icon: 'briefcase', href: ROUTES.ADMINISTRATORS_REPORTS, section: 'reports' },
-    { label: 'Settings', icon: 'settings', href: ROUTES.ADMINISTRATORS_SETTINGS, section: 'settings' },
+    { label: 'Faculty', icon: 'bi-mortarboard', href: ROUTES.ADMINISTRATORS_FACULTY, section: 'faculty' },
+    { label: 'Students', icon: 'bi-people', href: ROUTES.ADMINISTRATORS_STUDENTS, section: 'students' },
+    { label: 'Departments', icon: 'bi-building', href: ROUTES.ADMINISTRATORS_DEPARTMENTS, section: 'departments' },
+    { label: 'Reports', icon: 'bi-briefcase', href: ROUTES.ADMINISTRATORS_REPORTS, section: 'reports' },
+    { label: 'Settings', icon: 'bi-gear', href: ROUTES.ADMINISTRATORS_SETTINGS, section: 'settings' },
   ],
-  icons: {
-    Menu,
-    Search,
-    LayoutDashboard,
-    FileText,
-    FolderOpen,
-    GraduationCap,
-    Users,
-    Building2,
-    Briefcase,
-    Settings,
-  },
 }
 
 export const REGISTRAR_STAFF_SHELL_CONFIG: ShellConfig<RegistrarStaffSection> = {
@@ -159,28 +129,18 @@ export const REGISTRAR_STAFF_SHELL_CONFIG: ShellConfig<RegistrarStaffSection> = 
   headerBrandHref: ROUTES.HOME,
   headerLogoAlt: 'Golden West Colleges logo',
   menuItems: [
-    { label: 'Dashboard', icon: 'layout-dashboard', href: ROUTES.REGISTRAR_STAFF_DASHBOARD, section: 'dashboard' },
+    { label: 'Dashboard', icon: 'bi-speedometer2', href: ROUTES.REGISTRAR_STAFF_DASHBOARD, section: 'dashboard' },
     {
       label: 'Student Records',
-      icon: 'folder-open',
+      icon: 'bi-folder2-open',
       href: ROUTES.REGISTRAR_STAFF_STUDENT_RECORDS,
       section: 'student_records',
     },
-    { label: 'Enrollments', icon: 'file-text', href: ROUTES.REGISTRAR_STAFF_ENROLLMENTS, section: 'enrollments' },
-    { label: 'Requests', icon: 'clipboard-list', href: ROUTES.REGISTRAR_STAFF_REQUESTS, section: 'requests' },
-    { label: 'Schedule', icon: 'calendar-days', href: ROUTES.REGISTRAR_STAFF_SCHEDULE, section: 'schedule' },
-    { label: 'Settings', icon: 'settings', href: ROUTES.REGISTRAR_STAFF_SETTINGS, section: 'settings' },
+    { label: 'Enrollments', icon: 'bi-file-earmark-text', href: ROUTES.REGISTRAR_STAFF_ENROLLMENTS, section: 'enrollments' },
+    { label: 'Requests', icon: 'bi-clipboard-check', href: ROUTES.REGISTRAR_STAFF_REQUESTS, section: 'requests' },
+    { label: 'Schedule', icon: 'bi-calendar3', href: ROUTES.REGISTRAR_STAFF_SCHEDULE, section: 'schedule' },
+    { label: 'Settings', icon: 'bi-gear', href: ROUTES.REGISTRAR_STAFF_SETTINGS, section: 'settings' },
   ],
-  icons: {
-    Menu,
-    Search,
-    LayoutDashboard,
-    FolderOpen,
-    FileText,
-    ClipboardList,
-    CalendarDays,
-    Settings,
-  },
 }
 
 export const FACULTY_SHELL_CONFIG: ShellConfig<FacultySection> = {
@@ -207,18 +167,11 @@ export const FACULTY_SHELL_CONFIG: ShellConfig<FacultySection> = {
   headerBrandHref: ROUTES.HOME,
   headerLogoAlt: 'Golden West Colleges logo',
   menuItems: [
-    { label: 'Dashboard', icon: 'layout-dashboard', href: ROUTES.FACULTY_DASHBOARD, section: 'dashboard' },
-    { label: 'Classes', icon: 'calendar-days', href: ROUTES.FACULTY_CLASSES, section: 'classes' },
-    { label: 'Gradebook', icon: 'file-text', href: ROUTES.FACULTY_GRADEBOOK, section: 'gradebook' },
-    { label: 'Settings', icon: 'settings', href: ROUTES.FACULTY_SETTINGS, section: 'settings' },
+    { label: 'Dashboard', icon: 'bi-speedometer2', href: ROUTES.FACULTY_DASHBOARD, section: 'dashboard' },
+    { label: 'Classes', icon: 'bi-calendar3', href: ROUTES.FACULTY_CLASSES, section: 'classes' },
+    { label: 'Gradebook', icon: 'bi-file-earmark-text', href: ROUTES.FACULTY_GRADEBOOK, section: 'gradebook' },
+    { label: 'Settings', icon: 'bi-gear', href: ROUTES.FACULTY_SETTINGS, section: 'settings' },
   ],
-  icons: {
-    Menu,
-    LayoutDashboard,
-    CalendarDays,
-    FileText,
-    Settings,
-  },
 }
 
 export const STUDENT_SHELL_CONFIG: ShellConfig<StudentSection> = {
@@ -245,20 +198,12 @@ export const STUDENT_SHELL_CONFIG: ShellConfig<StudentSection> = {
   headerBrandHref: ROUTES.HOME,
   headerLogoAlt: 'Golden West Colleges logo',
   menuItems: [
-    { label: 'Dashboard', icon: 'layout-dashboard', href: ROUTES.STUDENT_DASHBOARD, section: 'dashboard' },
-    { label: 'Subjects', icon: 'folder-open', href: ROUTES.STUDENT_SUBJECTS, section: 'subjects' },
-    { label: 'Grades', icon: 'file-text', href: ROUTES.STUDENT_GRADES, section: 'grades' },
-    { label: 'Schedule', icon: 'calendar-days', href: ROUTES.STUDENT_SCHEDULE, section: 'schedule' },
-    { label: 'Settings', icon: 'settings', href: ROUTES.STUDENT_SETTINGS, section: 'settings' },
+    { label: 'Dashboard', icon: 'bi-speedometer2', href: ROUTES.STUDENT_DASHBOARD, section: 'dashboard' },
+    { label: 'Subjects', icon: 'bi-folder2-open', href: ROUTES.STUDENT_SUBJECTS, section: 'subjects' },
+    { label: 'Grades', icon: 'bi-file-earmark-text', href: ROUTES.STUDENT_GRADES, section: 'grades' },
+    { label: 'Schedule', icon: 'bi-calendar3', href: ROUTES.STUDENT_SCHEDULE, section: 'schedule' },
+    { label: 'Settings', icon: 'bi-gear', href: ROUTES.STUDENT_SETTINGS, section: 'settings' },
   ],
-  icons: {
-    Menu,
-    LayoutDashboard,
-    FolderOpen,
-    FileText,
-    CalendarDays,
-    Settings,
-  },
 }
 
 function renderSidebar<TSection extends string>(config: ShellConfig<TSection>, section: TSection): string {
@@ -279,7 +224,7 @@ function renderSidebar<TSection extends string>(config: ShellConfig<TSection>, s
                 return `
                   <li>
                     <a href="${item.href}" class="${isActive ? 'is-active' : ''}" ${isActive ? 'aria-current="page"' : ''}>
-                      <i data-lucide="${item.icon}" aria-hidden="true"></i>
+                      <i class="bi ${item.icon}" aria-hidden="true"></i>
                       <span>${item.label}</span>
                     </a>
                   </li>
@@ -305,7 +250,7 @@ export function renderPortalShell<TSection extends string>(
   const headerActions: HeaderAction[] = [
     {
       type: 'button',
-      icon: 'menu',
+      icon: 'bi-list',
       label: 'MENU',
       className: config.menuToggleClassName,
       attrs: config.menuToggleSelector.slice(1, -1),
@@ -337,8 +282,6 @@ export function setupPortalShell<TSection extends string>(root: HTMLElement, con
   const backdrop = root.querySelector<HTMLButtonElement>(`.${config.backdropClass}`)
   const cleanupPopover = setupSharedPopover(root)
   let bodyLocked = false
-
-  createIcons({ icons: config.icons })
 
   const closeSidebar = (): void => {
     root.classList.remove(config.sidebarOpenClass)

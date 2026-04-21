@@ -30,7 +30,7 @@ export function renderannouncements_page(): string {
       })}
 
       <section class="ann-title-block">
-        <h1>ANNOUNCEMENTS <i class="ann-megaphone-icon" data-lucide="megaphone"></i></h1>
+        <h1>ANNOUNCEMENTS <i class="ann-megaphone-icon bi bi-megaphone"></i></h1>
       </section>
 
       <section class="ann-highlight">

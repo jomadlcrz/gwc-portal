@@ -1,4 +1,3 @@
-import { ArrowRight, Clock, createIcons, Megaphone, Menu, Newspaper, Search } from 'lucide'
 import { ROUTES } from '../../app/routes'
 
 export function setupSiteInteractions(root: HTMLElement): () => void {
@@ -20,17 +19,6 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
   const brandElements = Array.from(
     root.querySelectorAll<HTMLElement>('.site-brand, .site-overlay-brand'),
   )
-
-  createIcons({
-    icons: {
-      ArrowRight,
-      Clock,
-      Megaphone,
-      Menu,
-      Newspaper,
-      Search,
-    },
-  })
 
   const lockScroll = (): void => {
     document.body.classList.add('overlay-open')

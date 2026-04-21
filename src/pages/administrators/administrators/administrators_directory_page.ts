@@ -148,7 +148,7 @@ export function renderadministrators_directory_page(): string {
               <p>View and manage school administrators</p>
             </div>
             <label class="admin-directory-search">
-              <span class="admin-search-icon" aria-hidden="true"><i data-lucide="search"></i></span>
+              <span class="admin-search-icon" aria-hidden="true"><i class="bi bi-search"></i></span>
               <input type="search" placeholder="Search..." aria-label="Search administrators" data-admin-search />
             </label>
           </header>

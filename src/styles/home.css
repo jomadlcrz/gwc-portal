@@ -164,7 +164,7 @@
   transition: width 150ms ease, margin-left 150ms ease, opacity 150ms ease, transform 150ms ease;
 }
 
-.site-story-link-icon svg {
+.site-story-link-icon i {
   width: 0.95rem;
   height: 0.95rem;
 }

@@ -80,7 +80,7 @@ export function renderstudents_manage_page(): string {
               <a href="${ROUTES.ADMINISTRATORS_STUDENTS_BULK}" class="btn btn-outline-primary btn-sm">Bulk Upload</a>
             </div>
             <label class="admin-directory-search admin-student-search">
-              <span class="admin-search-icon" aria-hidden="true"><i data-lucide="search"></i></span>
+              <span class="admin-search-icon" aria-hidden="true"><i class="bi bi-search"></i></span>
               <input
                 type="search"
                 placeholder="Search by student no, name, course, email"
