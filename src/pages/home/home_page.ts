@@ -26,6 +26,7 @@ export function renderhome_page(): string {
     eventPosts.length > 2
       ? Array.from({ length: eventPosts.length - 2 }, (_, index) => eventPosts.slice(index, index + 3))
       : [eventPosts]
+  const mobileEventSlides = eventPosts.slice(0, 5)
 
   return `
     <main id="main" class="site-page site-post-page">
@@ -126,15 +127,6 @@ export function renderhome_page(): string {
         <div class="post-container home-section-inner">
           <h2 class="site-post-section-title" data-aos="fade-up">Events</h2>
           <div id="eventsCarouselDesktop" class="carousel slide site-events-carousel d-none d-lg-block" data-bs-ride="carousel" data-aos="zoom-in-up" data-aos-delay="80">
-            <div class="carousel-indicators">
-              ${desktopEventSlides
-                .map(
-                  (_, index) => `
-                <button type="button" data-bs-target="#eventsCarouselDesktop" data-bs-slide-to="${index}" class="${index === 0 ? 'active' : ''}" ${index === 0 ? 'aria-current="true"' : ''} aria-label="Slide ${index + 1}"></button>
-              `,
-                )
-                .join('')}
-            </div>
             <div class="carousel-inner">
               ${desktopEventSlides
                 .map(
@@ -162,20 +154,22 @@ export function renderhome_page(): string {
                 )
                 .join('')}
             </div>
+            <div class="site-events-controls">
+              <div class="carousel-indicators site-events-indicators">
+                ${desktopEventSlides
+                  .map(
+                    (_, index) => `
+                  <button type="button" data-bs-target="#eventsCarouselDesktop" data-bs-slide-to="${index}" class="${index === 0 ? 'active' : ''}" ${index === 0 ? 'aria-current="true"' : ''} aria-label="Slide ${index + 1}"></button>
+                `,
+                  )
+                  .join('')}
+              </div>
+            </div>
           </div>
 
           <div id="eventsCarousel" class="carousel slide site-events-carousel d-lg-none" data-bs-ride="carousel" data-aos="zoom-in-up" data-aos-delay="80">
-            <div class="carousel-indicators">
-              ${eventPosts
-                .map(
-                  (_, index) => `
-                <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="${index}" class="${index === 0 ? 'active' : ''}" ${index === 0 ? 'aria-current="true"' : ''} aria-label="Slide ${index + 1}"></button>
-              `,
-                )
-                .join('')}
-            </div>
             <div class="carousel-inner">
-              ${eventPosts
+              ${mobileEventSlides
                 .map(
                   (post, index) => `
                 <article class="carousel-item ${index === 0 ? 'active' : ''}">
@@ -193,14 +187,17 @@ export function renderhome_page(): string {
                 )
                 .join('')}
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#eventsCarousel" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#eventsCarousel" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
+            <div class="site-events-controls">
+              <div class="carousel-indicators site-events-indicators">
+                ${mobileEventSlides
+                  .map(
+                    (_, index) => `
+                  <button type="button" data-bs-target="#eventsCarousel" data-bs-slide-to="${index}" class="${index === 0 ? 'active' : ''}" ${index === 0 ? 'aria-current="true"' : ''} aria-label="Slide ${index + 1}"></button>
+                `,
+                  )
+                  .join('')}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -233,10 +230,6 @@ export function renderhome_page(): string {
                   .join('')}
               </div>
               <div class="site-testimonial-controls">
-                <button class="carousel-control-prev site-testimonial-control" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
                 <div class="carousel-indicators site-testimonial-indicators">
                   ${testimonialSlides
                     .map(
@@ -246,10 +239,6 @@ export function renderhome_page(): string {
                     )
                     .join('')}
                 </div>
-                <button class="carousel-control-next site-testimonial-control" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
               </div>
             </div>
           </div>

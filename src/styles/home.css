@@ -333,13 +333,32 @@
   text-decoration: underline;
 }
 
-.site-events-carousel .carousel-indicators [data-bs-target] {
-  width: 26px;
+.site-events-indicators [data-bs-target] {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 2px solid #94a3b8;
+  background-color: #f8fafc;
+  margin: 0 0.36rem;
+  opacity: 1;
 }
 
-.site-events-carousel .carousel-indicators {
-  bottom: clamp(82px, 10vw, 118px);
-  margin-bottom: 0;
+.site-events-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.85rem;
+}
+
+.site-events-indicators {
+  position: static;
+  margin: 0;
+}
+
+.site-events-indicators .active {
+  background-color: var(--dark-blue);
+  border-color: var(--dark-blue);
 }
 
 .site-testimonial-carousel {
@@ -482,10 +501,6 @@
     aspect-ratio: 4 / 3;
   }
 
-  .site-events-carousel .carousel-control-prev,
-  .site-events-carousel .carousel-control-next {
-    display: none;
-  }
 }
 
 .site-event-date {
@@ -735,6 +750,7 @@
     width: 44px;
     height: 44px;
   }
+
 
   .site-story-layout-left-rail .site-story-main {
     order: 1;
