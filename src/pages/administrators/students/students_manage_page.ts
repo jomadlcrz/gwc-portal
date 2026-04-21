@@ -45,6 +45,7 @@ function renderRows(): string {
             ariaLabel: 'Student row actions',
             actionDataAttribute: 'data-student-action',
             actions: [
+              { label: 'View', value: 'view' },
               { label: 'Reset', value: 'reset' },
               { label: 'Edit', value: 'edit' },
             ],
@@ -164,6 +165,46 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
     renderVisibleRows()
   }
 
+  const escapeHtml = (value: string): string =>
+    value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+
+  const readStudentFromRow = (
+    row: HTMLTableRowElement,
+  ): { studentNo: string; name: string; course: string; year: string; email: string; status: string } => {
+    const cells = row.querySelectorAll<HTMLTableCellElement>('td')
+    return {
+      studentNo: cells[0]?.textContent?.trim() ?? '',
+      name: cells[1]?.textContent?.trim() ?? '',
+      course: cells[2]?.textContent?.trim() ?? '',
+      year: cells[3]?.textContent?.trim() ?? '',
+      email: cells[4]?.textContent?.trim() ?? '',
+      status: cells[5]?.textContent?.trim() ?? '',
+    }
+  }
+
+  const renderStudentView = (student: {
+    studentNo: string
+    name: string
+    course: string
+    year: string
+    email: string
+    status: string
+  }): string => `
+    <div class="admin-view-wrap">
+      <h3><span class="admin-student-section-title">Student Information</span></h3>
+      <div class="admin-view-row">
+        <div class="admin-view-item"><p>Student No.</p><strong>${escapeHtml(student.studentNo)}</strong></div>
+        <div class="admin-view-item"><p>Name</p><strong>${escapeHtml(student.name)}</strong></div>
+        <div class="admin-view-item"><p>Course</p><strong>${escapeHtml(student.course)}</strong></div>
+      </div>
+      <div class="admin-view-row">
+        <div class="admin-view-item"><p>Year</p><strong>${escapeHtml(student.year)}</strong></div>
+        <div class="admin-view-item"><p>Email</p><strong>${escapeHtml(student.email)}</strong></div>
+        <div class="admin-view-item"><p>Status</p><span class="admin-pill ${student.status === 'Active' ? 'is-active' : 'is-inactive'}">${escapeHtml(student.status)}</span></div>
+      </div>
+    </div>
+  `
+
   const onActionClick = (event: Event): void => {
     const target = event.target as HTMLElement | null
     const actionButton = target?.closest<HTMLButtonElement>('[data-student-action]')
@@ -173,6 +214,19 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
     if (!row) return
     const studentName = row.querySelector('td:nth-child(2)')?.textContent?.trim() ?? 'Student'
     const action = actionButton.dataset.studentAction
+    const student = readStudentFromRow(row)
+
+    if (action === 'view') {
+      modal.setMode('form')
+      modal.setOnConfirm(null)
+      modal.open({
+        title: 'View Student',
+        confirmLabel: 'Close',
+        bodyHtml: renderStudentView(student),
+        hideConfirm: true,
+      })
+      return
+    }
 
     if (action === 'edit') {
       modal.setMode('form')
