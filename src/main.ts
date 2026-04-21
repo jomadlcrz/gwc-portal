@@ -8,6 +8,7 @@ import { renderRoute } from './app/router'
 const coverImageUrl = '/images/cover.avif'
 const footerLogoUrl = '/images/gwc_logo_white.avif'
 const headerLogoUrl = '/images/gwc_logo.avif'
+const loaderGearImageUrl = '/images/gwc_logo_gear.avif'
 
 const app = document.querySelector<HTMLDivElement>('#app')
 
@@ -22,6 +23,29 @@ const shouldDelayFirstPaint = isReload && isHomePath
 
 if (shouldDelayFirstPaint) {
   document.documentElement.classList.add('route-reload-pending')
+}
+
+const mountGlobalLoader = (): HTMLDivElement => {
+  const existing = document.querySelector<HTMLDivElement>('#loading')
+  if (existing) return existing
+
+  const loader = document.createElement('div')
+  loader.id = 'loading'
+  loader.setAttribute('aria-label', 'Loading')
+  loader.setAttribute('role', 'status')
+  loader.innerHTML = `
+    <img id="loading-animating-image" src="${loaderGearImageUrl}" alt="" aria-hidden="true" />
+    <img id="loading-image" src="${headerLogoUrl}" alt="Golden West Colleges logo" />
+  `
+  document.body.append(loader)
+  return loader
+}
+
+const hideGlobalLoader = (loader: HTMLDivElement): void => {
+  loader.classList.add('is-hidden')
+  window.setTimeout(() => {
+    loader.remove()
+  }, 260)
 }
 
 const addImagePreloadHint = (src: string, fetchPriority: 'high' | 'low' | 'auto' = 'high'): void => {
@@ -39,6 +63,7 @@ const addImagePreloadHint = (src: string, fetchPriority: 'high' | 'low' | 'auto'
 addImagePreloadHint(headerLogoUrl)
 addImagePreloadHint(footerLogoUrl)
 addImagePreloadHint(coverImageUrl)
+addImagePreloadHint(loaderGearImageUrl)
 
 const preloadImage = (src: string, timeoutMs = 1400): Promise<void> =>
   new Promise((resolve) => {
@@ -77,6 +102,8 @@ const preloadImage = (src: string, timeoutMs = 1400): Promise<void> =>
     }
   })
 
+const globalLoader = mountGlobalLoader()
+
 renderRoute(app, window.location.pathname)
 AOS.init({
   offset: 120,
@@ -86,19 +113,45 @@ AOS.init({
   once: false,
 })
 
-if (shouldDelayFirstPaint) {
-  Promise.allSettled([
-    preloadImage(coverImageUrl),
-    preloadImage(footerLogoUrl),
-    preloadImage(headerLogoUrl),
-  ]).finally(() => {
+const waitForWindowLoad = (): Promise<void> =>
+  new Promise((resolve) => {
+    if (document.readyState === 'complete') {
+      resolve()
+      return
+    }
+    window.addEventListener('load', () => resolve(), { once: true })
+  })
+
+const collectRouteImageSources = (): string[] => {
+  const sources = new Set<string>()
+  app.querySelectorAll<HTMLImageElement>('img[src]').forEach((image) => {
+    const src = image.getAttribute('src')?.trim()
+    if (!src) return
+    sources.add(src)
+  })
+  return Array.from(sources)
+}
+
+const preloadTargets = Array.from(
+  new Set([
+    coverImageUrl,
+    footerLogoUrl,
+    headerLogoUrl,
+    loaderGearImageUrl,
+    ...collectRouteImageSources(),
+  ]),
+)
+
+Promise.allSettled([waitForWindowLoad(), ...preloadTargets.map((src) => preloadImage(src, 5000))]).finally(() => {
+  requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
+      if (shouldDelayFirstPaint) {
         document.documentElement.classList.remove('route-reload-pending')
-      })
+      }
+      hideGlobalLoader(globalLoader)
     })
   })
-}
+})
 
 
 
