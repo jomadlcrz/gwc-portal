@@ -286,6 +286,11 @@
   letter-spacing: 0.01em;
 }
 
+.admin-view-item + .admin-view-item {
+  border-left: 1px solid #d7dde8;
+  padding-left: 1rem;
+}
+
 .admin-view-item strong {
   display: block;
   margin-top: 0.28rem;
@@ -333,6 +338,10 @@
 
   .admin-view-row {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-view-item + .admin-view-item {
+    border-left: 1px solid #d7dde8;
   }
 }
 
@@ -392,6 +401,13 @@
   .admin-view-row {
     grid-template-columns: 1fr;
     gap: 0.6rem;
+  }
+
+  .admin-view-item + .admin-view-item {
+    border-left: 0;
+    border-top: 1px solid #d7dde8;
+    padding-left: 0;
+    padding-top: 0.6rem;
   }
 }
 
