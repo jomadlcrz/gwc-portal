@@ -48,12 +48,6 @@ function renderGuardianFields(title: string): string {
       <label for="${id}">${label}</label>
     </div>
   `
-  const floatingInputSpan2 = (id: string, label: string): string => `
-    <div class="form-floating admin-student-col-span-2">
-      <input class="form-control form-control-sm" id="${id}" placeholder="${label}" />
-      <label for="${id}">${label}</label>
-    </div>
-  `
 
   return `
     <h4>${title}</h4>
@@ -62,7 +56,7 @@ function renderGuardianFields(title: string): string {
       ${floatingInput(`${key}-middle-name`, 'Middle Name (Optional)')}
       ${floatingInput(`${key}-last-name`, 'Last Name')}
       ${floatingInput(`${key}-contact-number`, 'Contact Number')}
-      ${isGuardian ? floatingInputSpan2('guardian-relation', 'Relation') : ''}
+      ${isGuardian ? floatingInput('guardian-relation', 'Relation') : ''}
     </div>
   `
 }

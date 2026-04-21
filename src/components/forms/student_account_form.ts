@@ -52,10 +52,7 @@ function renderGuardianFields(prefix: string, title: string): string {
       ${floatingInput(`${prefix}-${key}-contact-number`, 'Contact Number')}
       ${
         isGuardian
-          ? `<div class="form-floating admin-student-col-span-2">
-      <input type="text" class="form-control form-control-sm" id="${prefix}-guardian-relation" placeholder="Relation" />
-      <label for="${prefix}-guardian-relation">Relation</label>
-    </div>`
+          ? floatingInput(`${prefix}-guardian-relation`, 'Relation')
           : ''
       }
     </div>
