@@ -2,6 +2,7 @@ import { ROUTES } from '../../../app/routes'
 import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../../components/layout/_layout'
 import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderStudentAccountForm } from '../../../components/forms/student_account_form'
+import { hydrateLocationSelects, setupProvinceCityCascade } from '../../../api/psgc'
 
 function renderBulkCard(index: number): string {
   const prefix = `bulk-${index}`
@@ -175,6 +176,7 @@ function mapCsvToRecords(content: string): StudentBulkRecord[] {
 
 export function setupstudents_bulk_page(root: HTMLElement): () => void {
   const cleanupShell = setupPortalShell(root, ADMIN_SHELL_CONFIG)
+  const cleanupCascade = setupProvinceCityCascade(root)
   const cardsContainer = root.querySelector<HTMLElement>('[data-bulk-cards]')
   const uploadButton = root.querySelector<HTMLButtonElement>('[data-bulk-upload-trigger]')
   const pasteButton = root.querySelector<HTMLButtonElement>('[data-bulk-paste-trigger]')
@@ -212,9 +214,12 @@ export function setupstudents_bulk_page(root: HTMLElement): () => void {
     if (card && prefix && record) {
       Object.entries(record).forEach(([fieldSuffix, value]) => {
         const input = card.querySelector<HTMLInputElement | HTMLSelectElement>(`#${prefix}-${fieldSuffix}`)
-        if (input) input.value = value
+        if (!input) return
+        if (input instanceof HTMLSelectElement) input.dataset.pendingValue = value
+        input.value = value
       })
     }
+    if (card) void hydrateLocationSelects(card)
 
     renderCardOrder()
   }
@@ -297,9 +302,11 @@ export function setupstudents_bulk_page(root: HTMLElement): () => void {
   addCardButton?.addEventListener('click', onAddCardClick)
   createButton?.addEventListener('click', onCreateClick)
   root.addEventListener('click', onRootClick)
+  void hydrateLocationSelects(root)
   renderCardOrder()
 
   return () => {
+    cleanupCascade()
     cleanupShell()
     uploadButton?.removeEventListener('click', onUploadClick)
     csvInput?.removeEventListener('change', onCsvSelected)

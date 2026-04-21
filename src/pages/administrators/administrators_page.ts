@@ -9,7 +9,7 @@ export { renderregistrar_staff_admin_page } from './registrar_staff/registrar_st
 export { renderfaculty_page } from './faculty/faculty_page'
 export { renderstudents_page } from './students/students_page'
 export { renderstudents_manage_page, setupstudents_manage_page } from './students/students_manage_page'
-export { renderstudents_create_page } from './students/students_create_page'
+export { renderstudents_create_page, setupstudents_create_page } from './students/students_create_page'
 export { renderstudents_bulk_page, setupstudents_bulk_page } from './students/students_bulk_page'
 export { renderdepartments_page } from './departments/departments_page'
 export { renderreports_page } from './reports/reports_page'

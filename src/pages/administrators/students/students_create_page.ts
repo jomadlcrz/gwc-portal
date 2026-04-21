@@ -1,6 +1,7 @@
 import { ROUTES } from '../../../app/routes'
-import { ADMIN_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
+import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../../components/layout/_layout'
 import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { hydrateLocationSelects, setupProvinceCityCascade } from '../../../api/psgc'
 
 function renderSectionFields(): string {
   const floatingInput = (id: string, label: string, type = 'text'): string => `
@@ -102,6 +103,16 @@ export function renderstudents_create_page(): string {
       </section>
     `,
   )
+}
+
+export function setupstudents_create_page(root: HTMLElement): () => void {
+  const cleanupShell = setupPortalShell(root, ADMIN_SHELL_CONFIG)
+  const cleanupCascade = setupProvinceCityCascade(root)
+  void hydrateLocationSelects(root)
+  return () => {
+    cleanupCascade()
+    cleanupShell()
+  }
 }
 
 
