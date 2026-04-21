@@ -61,7 +61,7 @@ export function renderhome_page(): string {
           <article class="site-story-layout" data-aos="fade-up" data-aos-delay="50">
             <div class="site-story-main" data-aos="fade-right" data-aos-delay="100">
               <article class="site-story-card">
-                <img src="${getImage(globalFeatured, 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80')}" alt="${globalFeatured?.title ?? 'Featured story'}" class="site-story-image" />
+                <img src="${getImage(globalFeatured, 'https://picsum.photos/id/180/1200/720.jpg')}" alt="${globalFeatured?.title ?? 'Featured story'}" class="site-story-image" />
                 <div class="site-story-body">
                   <h3>${globalFeatured?.title ?? 'No Featured Story Yet'}</h3>
                   <p>${globalFeatured?.excerpt ?? 'Check back soon for the latest updates from Golden West Colleges.'}</p>
@@ -100,7 +100,7 @@ export function renderhome_page(): string {
                 .map(
                   (post) => `
                 <a href="${getPostPath(post.slug)}" class="site-mini-story">
-                  <img src="${getImage(post, 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=640&q=80')}" alt="${post.title}" />
+                  <img src="${getImage(post, 'https://picsum.photos/id/24/640/640.jpg')}" alt="${post.title}" />
                   <span>${post.title}</span>
                 </a>
               `,
@@ -140,7 +140,7 @@ export function renderhome_page(): string {
                         (post) => `
                       <article class="site-event-card">
                         <a href="${getPostPath(post.slug)}" class="site-event-slide-link">
-                          <img src="${getImage(post, 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1280&q=80')}" class="d-block w-100 site-event-image" alt="${post.title}" />
+                          <img src="${getImage(post, 'https://picsum.photos/id/6/1280/720.jpg')}" class="d-block w-100 site-event-image" alt="${post.title}" />
                         </a>
                         <div class="site-event-content">
                           <p class="site-event-date">${post.date}</p>
@@ -177,7 +177,7 @@ export function renderhome_page(): string {
                 <article class="carousel-item ${index === 0 ? 'active' : ''}">
                   <div class="site-event-card">
                     <a href="${getPostPath(post.slug)}" class="site-event-slide-link">
-                      <img src="${getImage(post, 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1280&q=80')}" class="d-block w-100 site-event-image" alt="${post.title}" />
+                      <img src="${getImage(post, 'https://picsum.photos/id/6/1280/720.jpg')}" class="d-block w-100 site-event-image" alt="${post.title}" />
                     </a>
                     <div class="site-event-content">
                       <p class="site-event-date">${post.date}</p>
@@ -257,3 +257,5 @@ export function renderhome_page(): string {
     </main>
   `
 }
+
+

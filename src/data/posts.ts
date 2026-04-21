@@ -97,7 +97,7 @@ export const posts: PostItem[] = [
       'GWC strengthens global engagement by hosting exchange dialogues, collaborative research sessions, and cross-cultural academic planning with partner institutions. Through these exchanges, participants build shared academic goals, align research priorities, and establish practical pathways for faculty mobility, student immersion, and future joint program development that can be sustained across multiple terms.',
     content:
       'Golden West Colleges continues expanding international partnerships through faculty and student exchange activities. The program includes research discussions, cultural immersion, and joint planning for future academic collaborations.',
-    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://picsum.photos/id/180/1200/720.jpg',
   },
   {
     slug: 'stem-fair-2026',
@@ -119,7 +119,7 @@ export const posts: PostItem[] = [
       'Faculty and students presented current studies and emerging academic work, opening interdisciplinary discussions on methods, findings, and future publication goals. The colloquium created space for peer feedback, mentoring conversations, and cross-department collaboration, helping participants refine their studies, strengthen methodology decisions, and prepare outputs for conference and journal submission.',
     content:
       'The colloquium gathered departments to discuss current research directions, methodology standards, and publication targets. Sessions also covered mentorship opportunities for student researchers.',
-    image: 'https://images.unsplash.com/photo-1519452575417-564c1401ecc0?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://picsum.photos/id/96/1200/720.jpg',
   },
   {
     slug: 'youth-extension-program-reaches-local-barangays',
@@ -141,7 +141,7 @@ export const posts: PostItem[] = [
       'Reading activities focused on foundational comprehension and confidence-building through guided sessions, interactive storytelling, and learner support checkpoints. The program reinforces consistent literacy habits through repeat practice, close facilitation, and parent-community coordination, allowing learners to improve pace, understanding, and confidence in both oral and silent reading tasks.',
     content:
       'The outreach team coordinated with local schools to run guided reading sessions and provide supplementary learning materials. Follow-up sessions are scheduled in the coming months.',
-    image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://picsum.photos/id/24/1200/720.jpg',
   },
   {
     slug: 'campus-volunteers',
@@ -152,7 +152,7 @@ export const posts: PostItem[] = [
       'Student organizations expanded community support through weekend volunteer drives, combining service-learning efforts with coordinated faculty and local partner involvement. Activities included resource distribution, basic assistance programs, and on-site engagement aligned with civic responsibility goals, while also giving student leaders practical experience in planning, communication, and sustained volunteer coordination.',
     content:
       'Volunteer groups organized service activities and resource support drives with faculty advisers. The initiative is part of GWC’s community engagement and service-learning effort.',
-    image: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://picsum.photos/id/344/1200/720.jpg',
   },
   {
     slug: 'enrollment-advisory-for-new-students',
@@ -264,5 +264,7 @@ export function getCategoryLabel(category: PostCategory): string {
   if (category === 'COMMUNITY') return 'Community'
   return 'Events'
 }
+
+
 
 
