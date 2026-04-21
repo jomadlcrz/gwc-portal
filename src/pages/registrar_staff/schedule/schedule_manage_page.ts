@@ -107,7 +107,7 @@ export function renderregistrar_staff_schedule_manage_page(): string {
               <thead>
                 <tr>
                   <th>Subject Code</th>
-                  <th>Title</th>
+                  <th>Descriptive Title</th>
                   <th>Section</th>
                   <th>Faculty</th>
                   <th>Room</th>
@@ -208,8 +208,8 @@ export function setupschedule_manage_page(root: HTMLElement): () => void {
             <label for="schedule-modal-code">Subject Code</label>
           </div>
           <div class="form-floating">
-            <input type="text" class="form-control" id="schedule-modal-title" placeholder="Title" value="${escapeHtml(schedule.title)}" ${disabled} required />
-            <label for="schedule-modal-title">Title</label>
+            <input type="text" class="form-control" id="schedule-modal-title" placeholder="Descriptive Title" value="${escapeHtml(schedule.title)}" ${disabled} required />
+            <label for="schedule-modal-title">Descriptive Title</label>
           </div>
           <div class="form-floating">
             <input type="text" class="form-control" id="schedule-modal-section" placeholder="Section" value="${escapeHtml(schedule.section)}" ${disabled} required />
