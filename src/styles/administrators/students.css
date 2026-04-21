@@ -214,6 +214,25 @@
   font-size: 0.78rem;
 }
 
+.admin-bulk-status {
+  margin: 0 0 0.6rem;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid transparent;
+  font-size: 0.84rem;
+}
+
+.admin-bulk-status.is-success {
+  background: #eff8f0;
+  border-color: #9fd5a6;
+  color: #1e5a2c;
+}
+
+.admin-bulk-status.is-error {
+  background: #fff2f2;
+  border-color: #e2a9a9;
+  color: #8b2323;
+}
+
 @media (max-width: 991px) {
   .admin-student-toolbar {
     flex-direction: column;
