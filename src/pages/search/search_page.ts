@@ -39,16 +39,21 @@ function getQuery(): string {
   return new URLSearchParams(window.location.search).get('q')?.trim() ?? ''
 }
 
-function renderSearchResults(query: string): string {
+function getSearchMatches(query: string): SearchItem[] {
   const normalized = query.toLowerCase()
-  const matches = query
-    ? searchIndex.filter((item) => {
-        const title = item.title.toLowerCase()
-        const excerpt = item.excerpt.toLowerCase()
-        const content = item.content.toLowerCase()
-        return title.includes(normalized) || excerpt.includes(normalized) || content.includes(normalized)
-      })
-    : []
+  if (!query) {
+    return []
+  }
+
+  return searchIndex.filter((item) => {
+    const title = item.title.toLowerCase()
+    const excerpt = item.excerpt.toLowerCase()
+    const content = item.content.toLowerCase()
+    return title.includes(normalized) || excerpt.includes(normalized) || content.includes(normalized)
+  })
+}
+
+function renderSearchResults(query: string, matches: SearchItem[]): string {
 
   if (!query) {
     return `
@@ -99,6 +104,10 @@ function renderSearchResults(query: string): string {
 export function rendersearch_page(): string {
   const query = getQuery()
   const queryEscaped = escapeHtml(query)
+  const matches = getSearchMatches(query)
+  const isEmptyState = !query || matches.length === 0
+  const shellClass = isEmptyState ? 'search-shell post-shell search-shell-compact' : 'search-shell post-shell'
+  const resultBoxClass = isEmptyState ? 'search-result-box search-result-box-empty' : 'search-result-box'
 
   return `
     <main class="search-page">
@@ -117,7 +126,7 @@ export function rendersearch_page(): string {
         searchAriaLabel: 'Search site content',
       })}
 
-      <section class="search-shell post-shell">
+      <section class="${shellClass}">
         <div class="post-container">
           <div class="search-input-row">
             <form action="${ROUTES.SEARCH}" method="get" class="search-query-form">
@@ -129,9 +138,9 @@ export function rendersearch_page(): string {
             </form>
           </div>
 
-          <section class="search-result-box" aria-live="polite">
+          <section class="${resultBoxClass}" aria-live="polite">
             <div class="search-result-content">
-              ${renderSearchResults(query)}
+              ${renderSearchResults(query, matches)}
             </div>
           </section>
         </div>
