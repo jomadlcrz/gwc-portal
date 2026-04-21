@@ -114,6 +114,10 @@ const setupLogoPlaceholders = (): void => {
 
     const markLoaded = (): void => {
       image.classList.add('is-loaded')
+      window.setTimeout(() => {
+        image.classList.remove('logo-placeholder')
+        image.classList.remove('is-loaded')
+      }, 180)
       image.removeEventListener('load', markLoaded)
       image.removeEventListener('error', markLoaded)
     }

@@ -120,7 +120,7 @@ body {
 
 img.logo-placeholder {
   background-color: var(--color-surface-300);
-  border-radius: 8px;
+  border-radius: 50%;
   transition: background-color 180ms ease;
 }
 
