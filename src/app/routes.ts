@@ -11,6 +11,8 @@ export const ROUTES = {
   REGISTRAR_STAFF_ENROLLMENTS: '/registrar-staff/enrollments',
   REGISTRAR_STAFF_REQUESTS: '/registrar-staff/requests',
   REGISTRAR_STAFF_SCHEDULE: '/registrar-staff/schedule',
+  REGISTRAR_STAFF_SCHEDULE_MANAGE: '/registrar-staff/schedule/manage',
+  REGISTRAR_STAFF_SCHEDULE_CREATE: '/registrar-staff/schedule/create',
   REGISTRAR_STAFF_SETTINGS: '/registrar-staff/settings',
   SEARCH: '/search',
 

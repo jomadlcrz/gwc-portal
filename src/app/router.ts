@@ -45,9 +45,13 @@ import {
   renderregistrar_staff_student_records_page,
   renderregistrar_staff_requests_page,
   renderregistrar_staff_schedule_page,
+  renderregistrar_staff_schedule_manage_page,
+  renderregistrar_staff_schedule_create_page,
   renderregistrar_staff_settings_page,
   setupregistrar_staff_page,
   setupregistrar_staff_schedule_page,
+  setupregistrar_staff_schedule_manage_page,
+  setupregistrar_staff_schedule_create_page,
 } from '../pages/registrar_staff/registrar_staff_page'
 import { rendersearch_page } from '../pages/search/search_page'
 import { renderpost_page } from '../pages/post/post_page'
@@ -192,6 +196,18 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   if (pathname === ROUTES.REGISTRAR_STAFF_SCHEDULE) {
     app.innerHTML = renderregistrar_staff_schedule_page()
     cleanupCurrentRoute = setupregistrar_staff_schedule_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.REGISTRAR_STAFF_SCHEDULE_MANAGE) {
+    app.innerHTML = renderregistrar_staff_schedule_manage_page()
+    cleanupCurrentRoute = setupregistrar_staff_schedule_manage_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.REGISTRAR_STAFF_SCHEDULE_CREATE) {
+    app.innerHTML = renderregistrar_staff_schedule_create_page()
+    cleanupCurrentRoute = setupregistrar_staff_schedule_create_page(app)
     return
   }
 
