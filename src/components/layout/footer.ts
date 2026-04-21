@@ -58,7 +58,7 @@ export function renderMainSiteFooter(options: MainSiteFooterOptions = {}): strin
               <section>
                 <h2>Locate Us</h2>
                 <ul class="site-footer-address">
-                  <li>San Jose Drive, Alaminos City, Pangasinan 2404</li>
+                  <li><a href="https://maps.app.goo.gl/EKe9AQsfA5hgzZcQ7" target="_blank" rel="noopener noreferrer">San Jose Drive, Alaminos City, Pangasinan 2404</a></li>
                 </ul>
               </section>
             </div>
