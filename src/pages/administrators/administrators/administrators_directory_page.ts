@@ -4,6 +4,7 @@ import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
 import { renderSharedPagination, setupSharedPagination } from '../../../components/ui/pagination'
 import { renderSharedPopover } from '../../../components/ui/popover'
+import { renderActionView } from '../../../components/ui/action_view'
 
 type AdministratorRecord = {
   name: string
@@ -356,21 +357,6 @@ export function setupadministrators_directory_page(root: HTMLElement): () => voi
     `
   }
 
-  const renderAdminView = (record: AdministratorRecord): string => `
-    <div class="admin-view-wrap admin-view-separated">
-      <h3><span class="admin-student-section-title">Administrator Information</span></h3>
-      <div class="admin-view-grid-separated">
-        <div class="admin-view-item"><p>First Name</p><strong>${escapeHtml(record.name.split(' ')[0] ?? '')}</strong></div>
-        <div class="admin-view-item"><p>Middle Name</p><strong>${escapeHtml(record.name.split(' ').slice(1, -1).join(' ') || '-')}</strong></div>
-        <div class="admin-view-item"><p>Last Name</p><strong>${escapeHtml(record.name.split(' ').slice(-1)[0] ?? '')}</strong></div>
-        <div class="admin-view-item"><p>Position</p><strong>${escapeHtml(record.position)}</strong></div>
-        <div class="admin-view-item"><p>Office</p><strong>${escapeHtml(record.office)}</strong></div>
-        <div class="admin-view-item"><p>Email</p><strong>${escapeHtml(record.email)}</strong></div>
-        <div class="admin-view-item"><p>Status</p><span class="admin-pill ${getStatusClass(record.status)}">${escapeHtml(record.status)}</span></div>
-      </div>
-    </div>
-  `
-
   const openFormModal = (
     title: string,
     confirmLabel: string,
@@ -423,7 +409,26 @@ export function setupadministrators_directory_page(root: HTMLElement): () => voi
 
     if (action === 'view') {
       modalController.setMode('form')
-      openFormModal('View Administrator', 'Close', renderAdminView(record), null, true)
+      openFormModal(
+        'View Administrator',
+        'Close',
+        renderActionView([
+          {
+            title: 'Administrator Information',
+            fields: [
+              { label: 'First Name', value: record.name.split(' ')[0] ?? '' },
+              { label: 'Middle Name', value: record.name.split(' ').slice(1, -1).join(' ') || '-' },
+              { label: 'Last Name', value: record.name.split(' ').slice(-1)[0] ?? '' },
+              { label: 'Position', value: record.position },
+              { label: 'Office', value: record.office },
+              { label: 'Email', value: record.email },
+              { label: 'Status', value: record.status, pillClass: getStatusClass(record.status) },
+            ],
+          },
+        ]),
+        null,
+        true,
+      )
       return
     }
 

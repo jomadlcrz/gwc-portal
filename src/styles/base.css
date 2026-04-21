@@ -193,6 +193,86 @@ body.overlay-open {
   padding: 0.46rem 0.56rem;
 }
 
+.action-view-wrap {
+  display: grid;
+  gap: var(--space-0);
+}
+
+.action-view-section + .action-view-section {
+  margin-top: 0.9rem;
+}
+
+.action-view-wrap h3 {
+  margin: 0 0 0.65rem;
+  border-bottom: 1px solid var(--color-surface-400);
+  padding-bottom: 0.5rem;
+}
+
+.action-view-title,
+.admin-student-section-title {
+  color: var(--color-white);
+  background: #1f4c93;
+  display: inline-block;
+  padding: 0.28rem 1.35rem 0.28rem 0.7rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 0.2rem;
+  vertical-align: top;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
+}
+
+.action-view-separated .action-view-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--color-surface-300);
+  margin-top: 0.65rem;
+}
+
+.action-view-item {
+  padding: 0.8rem 0.9rem;
+  border-right: 1px solid var(--color-surface-200);
+  border-bottom: 1px solid var(--color-surface-200);
+}
+
+.action-view-item:nth-child(3n) {
+  border-right: 0;
+}
+
+.action-view-item p {
+  margin: var(--space-0);
+  color: var(--color-slate-700);
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.action-view-item strong {
+  display: block;
+  margin-top: 0.28rem;
+  color: var(--color-ink-900);
+  font-size: 0.98rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: normal;
+}
+
+@media (max-width: 991px) {
+  .action-view-separated .action-view-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .action-view-separated .action-view-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-view-item {
+    border-right: 0;
+  }
+}
+
 /*--------------------------------------------------------------
 # Loader
 --------------------------------------------------------------*/

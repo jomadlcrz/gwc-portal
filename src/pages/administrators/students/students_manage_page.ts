@@ -4,6 +4,7 @@ import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
 import { renderSharedPagination, setupSharedPagination } from '../../../components/ui/pagination'
 import { renderSharedPopover } from '../../../components/ui/popover'
+import { renderActionView } from '../../../components/ui/action_view'
 import { renderStudentAccountForm } from '../../../components/forms/student_account_form'
 
 type StudentRecord = {
@@ -165,9 +166,6 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
     renderVisibleRows()
   }
 
-  const escapeHtml = (value: string): string =>
-    value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
-
   const readStudentFromRow = (
     row: HTMLTableRowElement,
   ): { studentNo: string; name: string; course: string; year: string; email: string; status: string } => {
@@ -181,29 +179,6 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
       status: cells[5]?.textContent?.trim() ?? '',
     }
   }
-
-  const renderStudentView = (student: {
-    studentNo: string
-    name: string
-    course: string
-    year: string
-    email: string
-    status: string
-  }): string => `
-    <div class="admin-view-wrap">
-      <h3><span class="admin-student-section-title">Student Information</span></h3>
-      <div class="admin-view-row">
-        <div class="admin-view-item"><p>Student No.</p><strong>${escapeHtml(student.studentNo)}</strong></div>
-        <div class="admin-view-item"><p>Name</p><strong>${escapeHtml(student.name)}</strong></div>
-        <div class="admin-view-item"><p>Course</p><strong>${escapeHtml(student.course)}</strong></div>
-      </div>
-      <div class="admin-view-row">
-        <div class="admin-view-item"><p>Year</p><strong>${escapeHtml(student.year)}</strong></div>
-        <div class="admin-view-item"><p>Email</p><strong>${escapeHtml(student.email)}</strong></div>
-        <div class="admin-view-item"><p>Status</p><span class="admin-pill ${student.status === 'Active' ? 'is-active' : 'is-inactive'}">${escapeHtml(student.status)}</span></div>
-      </div>
-    </div>
-  `
 
   const onActionClick = (event: Event): void => {
     const target = event.target as HTMLElement | null
@@ -222,7 +197,19 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
       modal.open({
         title: 'View Student',
         confirmLabel: 'Close',
-        bodyHtml: renderStudentView(student),
+        bodyHtml: renderActionView([
+          {
+            title: 'Student Information',
+            fields: [
+              { label: 'Student No.', value: student.studentNo },
+              { label: 'Name', value: student.name },
+              { label: 'Course', value: student.course },
+              { label: 'Year', value: student.year },
+              { label: 'Email', value: student.email },
+              { label: 'Status', value: student.status, pillClass: student.status === 'Active' ? 'is-active' : 'is-inactive' },
+            ],
+          },
+        ]),
         hideConfirm: true,
       })
       return

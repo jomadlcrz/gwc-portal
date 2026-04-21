@@ -4,6 +4,7 @@ import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderSharedPagination, setupSharedPagination } from '../../../components/ui/pagination'
 import { renderSharedPopover } from '../../../components/ui/popover'
 import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
+import { renderActionChanges, renderActionView } from '../../../components/ui/action_view'
 import { schedulingService, statusToBadgeClass, statusToLabel } from '../../../features/scheduling/service'
 
 function renderRows(): string {
@@ -213,30 +214,26 @@ export function setupschedule_manage_page(root: HTMLElement): () => void {
     if (!schedule) return '<p class="mb-0">Schedule not found.</p>'
 
     const current = schedule.versions.find((version) => version.versionNumber === schedule.currentVersion) ?? schedule.versions[0]
-    return `
-      <div class="admin-view-wrap admin-view-separated">
-        <h3><span class="admin-student-section-title">Schedule Information</span></h3>
-        <div class="admin-view-grid-separated">
-          <div class="admin-view-item"><p>Status</p><strong>${statusToLabel(schedule.status)}</strong></div>
-          <div class="admin-view-item"><p>Current Version</p><strong>v${schedule.currentVersion}</strong></div>
-          <div class="admin-view-item"><p>Total Classes</p><strong>${current.snapshot.length}</strong></div>
-          <div class="admin-view-item"><p>Department</p><strong>${schedule.department}</strong></div>
-          <div class="admin-view-item"><p>Registrar Notes</p><strong>${schedule.registrarNotes || '-'}</strong></div>
-          <div class="admin-view-item"><p>Admin Feedback</p><strong>${schedule.adminFeedback || '-'}</strong></div>
-        </div>
-
-        <h3 class="mt-3"><span class="admin-student-section-title">Current Schedule Items</span></h3>
-        <div class="admin-view-grid-separated">
-          ${current.snapshot
-            .slice(0, 6)
-            .map(
-              (item) =>
-                `<div class="admin-view-item"><p>${item.subjectCode} ${item.section}</p><strong>${item.day} ${item.startTime}-${item.endTime} (${item.room})</strong></div>`,
-            )
-            .join('')}
-        </div>
-      </div>
-    `
+    return renderActionView([
+      {
+        title: 'Schedule Information',
+        fields: [
+          { label: 'Status', value: statusToLabel(schedule.status) },
+          { label: 'Current Version', value: `v${schedule.currentVersion}` },
+          { label: 'Total Classes', value: String(current.snapshot.length) },
+          { label: 'Department', value: schedule.department },
+          { label: 'Registrar Notes', value: schedule.registrarNotes || '-' },
+          { label: 'Admin Feedback', value: schedule.adminFeedback || '-' },
+        ],
+      },
+      {
+        title: 'Current Schedule Items',
+        fields: current.snapshot.slice(0, 6).map((item) => ({
+          label: `${item.subjectCode} ${item.section}`,
+          value: `${item.day} ${item.startTime}-${item.endTime} (${item.room})`,
+        })),
+      },
+    ])
   }
   const onActionClick = (event: Event): void => {
     const target = event.target as HTMLElement | null
@@ -306,14 +303,7 @@ export function setupschedule_manage_page(root: HTMLElement): () => void {
       modal.open({
         title: `Version Diff ${scheduleId}`,
         bodyHtml: diff.length
-          ? `
-            <div class="admin-view-wrap admin-view-separated">
-              <h3><span class="admin-student-section-title">Version Changes</span></h3>
-              <div class="admin-view-grid-separated">
-                ${diff.map((line) => `<div class="admin-view-item"><p>Change</p><strong>${line}</strong></div>`).join('')}
-              </div>
-            </div>
-          `
+          ? renderActionChanges('Version Changes', diff)
           : '<p class="mb-0">No comparable changes yet (need at least v2).</p>',
         hideConfirm: true,
       })
