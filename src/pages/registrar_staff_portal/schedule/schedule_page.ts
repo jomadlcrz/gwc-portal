@@ -22,15 +22,15 @@ export function renderregistrar_staff_schedule_page(): string {
           { label: 'Schedule', active: true },
         ])}
 
-        <article class="registrar-dashboard">
+        <article class="registrar-panel registrar-dashboard">
           <header class="registrar-dashboard-head">
             <div>
-              <h2>Schedule Operations</h2>
+              <h3>Schedule Operations</h3>
               <p>Monitor conflict detection, approval queue, published schedules, and incoming modification requests.</p>
             </div>
             <div class="registrar-dashboard-actions">
-              <a href="${ROUTES.REGISTRAR_STAFF_SCHEDULE_MANAGE}" class="btn btn-outline-primary">Manage Schedule</a>
-              <a href="${ROUTES.REGISTRAR_STAFF_SCHEDULE_CREATE}" class="btn btn-primary">Create Schedule</a>
+              <a href="${ROUTES.REGISTRAR_STAFF_SCHEDULE_MANAGE}" class="btn btn-sm btn-outline-primary">Manage Schedule</a>
+              <a href="${ROUTES.REGISTRAR_STAFF_SCHEDULE_CREATE}" class="btn btn-sm btn-primary">Create Schedule</a>
             </div>
           </header>
 
