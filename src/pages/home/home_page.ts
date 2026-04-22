@@ -59,8 +59,8 @@ export function renderhome_page(): string {
         <div class="post-container home-section-inner">
           <h1 class="site-post-section-title" data-aos="fade-up">GWC in the Global Arena</h1>
           <article class="site-story-layout" data-aos="fade-up" data-aos-delay="50">
-            <div class="site-story-main" data-aos="fade-right" data-aos-delay="100">
-              <article class="site-story-card">
+            <div class="site-story-main">
+              <article class="site-story-card" data-aos="fade-up" data-aos-delay="100">
                 <img src="${getImage(globalFeatured, 'https://picsum.photos/id/180/1200/720.jpg')}" alt="${globalFeatured?.title ?? 'Featured story'}" class="site-story-image" />
                 <div class="site-story-body">
                   <h2>${globalFeatured?.title ?? 'No Featured Story Yet'}</h2>
@@ -107,8 +107,8 @@ export function renderhome_page(): string {
                 )
                 .join('')}
             </aside>
-            <div class="site-story-main" data-aos="fade-left" data-aos-delay="150">
-              <article class="site-story-card site-story-card-on-dark">
+            <div class="site-story-main">
+              <article class="site-story-card site-story-card-on-dark" data-aos="fade-up" data-aos-delay="150">
                 <img src="${getImage(communityFeatured, 'https://picsum.photos/seed/gwc-community-extension/1200/720')}" alt="${communityFeatured?.title ?? 'Community story'}" class="site-story-image" />
                 <div class="site-story-body">
                   <h2>${communityFeatured?.title ?? 'No Community Story Yet'}</h2>
