@@ -393,6 +393,20 @@
   min-height: 110px;
 }
 
+.class-scheduling-form input[readonly] {
+  background: #f3f7fb;
+  color: #425466;
+  border-color: #cbd5e1;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.class-scheduling-form input[readonly]:focus {
+  background: #f3f7fb;
+  border-color: #cbd5e1;
+  box-shadow: none;
+}
+
 .schedule-card {
   border: var(--border-width-1) solid #d6e4ef;
   border-radius: 0.95rem;
