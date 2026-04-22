@@ -1,5 +1,27 @@
 import { ROUTES } from '../../app/routes'
 
+const loaderLogoUrl = '/images/gwc_logo.avif'
+const loaderGearImageUrl = '/images/gwc_logo_gear.avif'
+const searchRedirectDelayMs = 520
+
+const showGlobalLoader = (): void => {
+  const existing = document.querySelector<HTMLDivElement>('#loading')
+  if (existing) {
+    existing.classList.remove('is-hidden')
+    return
+  }
+
+  const loader = document.createElement('div')
+  loader.id = 'loading'
+  loader.setAttribute('aria-label', 'Loading')
+  loader.setAttribute('role', 'status')
+  loader.innerHTML = `
+    <img id="loading-animating-image" src="${loaderGearImageUrl}" alt="" aria-hidden="true" />
+    <img id="loading-image" src="${loaderLogoUrl}" alt="Golden West Colleges logo" />
+  `
+  document.body.append(loader)
+}
+
 export function setupSiteInteractions(root: HTMLElement): () => void {
   const homeHeader = root.querySelector<HTMLElement>('.site-header')
   const overlays = Array.from(root.querySelectorAll<HTMLElement>('[data-overlay]'))
@@ -198,7 +220,14 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
     const query = searchInput?.value.trim() ?? ''
     hideAll()
     const target = query ? `${ROUTES.SEARCH}?q=${encodeURIComponent(query)}` : ROUTES.SEARCH
-    window.location.assign(target)
+    showGlobalLoader()
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        window.setTimeout(() => {
+          window.location.assign(target)
+        }, searchRedirectDelayMs)
+      })
+    })
   }
 
   const setSubmenuContent = (name: string): void => {
