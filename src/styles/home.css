@@ -278,6 +278,11 @@
   transition: color 160ms ease;
 }
 
+.site-mini-story:hover span,
+.site-mini-story:focus-visible span {
+  text-decoration: underline;
+}
+
 #global-arena .site-mini-story span {
   color: var(--dark-blue);
 }
