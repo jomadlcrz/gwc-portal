@@ -57,7 +57,7 @@ export function renderhome_page(): string {
 
       <section id="global-arena" class="site-post-section site-post-section-light">
         <div class="post-container home-section-inner">
-          <h2 class="site-post-section-title" data-aos="fade-up">GWC in the Global Arena</h2>
+          <h1 class="site-post-section-title" data-aos="fade-up">GWC in the Global Arena</h1>
           <article class="site-story-layout" data-aos="fade-up" data-aos-delay="50">
             <div class="site-story-main" data-aos="fade-right" data-aos-delay="100">
               <article class="site-story-card">
@@ -92,7 +92,7 @@ export function renderhome_page(): string {
 
       <section id="community" class="site-post-section site-post-section-dark">
         <div class="post-container home-section-inner">
-          <h2 class="site-post-section-title" data-aos="fade-up">GWC in the Community</h2>
+          <h1 class="site-post-section-title" data-aos="fade-up">GWC in the Community</h1>
           <article class="site-story-layout site-story-layout-left-rail" data-aos="fade-up" data-aos-delay="50">
             <aside class="site-story-side site-story-side-on-dark" data-aos="fade-right" data-aos-delay="100">
               <h4>More Stories:</h4>
@@ -127,7 +127,7 @@ export function renderhome_page(): string {
 
       <section id="events" class="site-post-section site-post-section-light">
         <div class="post-container home-section-inner">
-          <h2 class="site-post-section-title" data-aos="fade-up">Events</h2>
+          <h1 class="site-post-section-title" data-aos="fade-up">Events</h1>
           <div id="eventsCarouselDesktop" class="carousel slide site-events-carousel d-none d-lg-block" data-bs-ride="carousel" data-aos="zoom-in-up" data-aos-delay="80">
             <div class="carousel-inner">
               ${desktopEventSlides
@@ -206,7 +206,7 @@ export function renderhome_page(): string {
 
       <section id="testimonials" class="site-post-section site-post-section-primary">
         <div class="post-container home-section-inner">
-          <h2 class="site-post-section-title" data-aos="fade-up">Testimonials and Success Stories</h2>
+          <h1 class="site-post-section-title" data-aos="fade-up">Testimonials and Success Stories</h1>
           <div class="site-testimonial-shell" data-aos="fade-up" data-aos-delay="80">
             <div id="testimonialCarousel" class="carousel slide site-testimonial-carousel" data-bs-ride="carousel">
               <div class="carousel-inner">
