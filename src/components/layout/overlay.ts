@@ -37,9 +37,8 @@ export function renderHomeOverlays(options: HomeOverlayOptions): string {
           <template data-submenu-template="academics">
             <ul class="site-overlay-submenu-list">
               <li><a href="#programs">PROGRAMS</a></li>
-              <li><a href="#strand">STRAND</a></li>
-              <li><a href="#faculty">FACULTY</a></li>
               <li><a href="#special-programs">SPECIAL PROGRAMS</a></li>
+              <li><a href="#faculty">FACULTY</a></li>
             </ul>
           </template>
           <template data-submenu-template="login">
