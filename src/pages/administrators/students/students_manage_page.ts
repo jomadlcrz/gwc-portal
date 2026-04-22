@@ -4,6 +4,7 @@ import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
 import { renderSharedPagination, setupSharedPagination } from '../../../components/ui/pagination'
 import { renderSharedPopover } from '../../../components/ui/popover'
+import { renderAdminSectionTitle, renderAdminSubheading } from '../../../components/ui/admin_section_heading'
 import { renderStudentAccountForm } from '../../../components/forms/student_account_form'
 
 type StudentRecord = {
@@ -106,7 +107,7 @@ function renderDetailField(field: DetailField): string {
 function renderDetailSection(title: string, fields: DetailField[]): string {
   return `
     <section class="action-view-section">
-      <h3><span class="action-view-title">${escapeHtml(title)}</span></h3>
+      ${renderAdminSectionTitle(title)}
       <div class="action-view-grid">
         ${fields.map((field) => renderDetailField(field)).join('')}
       </div>
@@ -117,10 +118,10 @@ function renderDetailSection(title: string, fields: DetailField[]): string {
 function renderParentGuardianSection(student: StudentRecord): string {
   return `
     <section class="action-view-section">
-      <h3><span class="action-view-title">Parent and Guardian's Information</span></h3>
+      ${renderAdminSectionTitle("Parent and Guardian's Information")}
       <div class="admin-student-guardian-stack">
         <div>
-          <h4 class="admin-student-subheading">Father</h4>
+          ${renderAdminSubheading('Father')}
           <div class="action-view-grid">
             ${renderDetailField({ label: 'First Name', value: student.fatherFirstName })}
             ${renderDetailField({ label: 'Middle Name', value: student.fatherMiddleName })}
@@ -130,7 +131,7 @@ function renderParentGuardianSection(student: StudentRecord): string {
         </div>
 
         <div>
-          <h4 class="admin-student-subheading">Mother</h4>
+          ${renderAdminSubheading('Mother')}
           <div class="action-view-grid">
             ${renderDetailField({ label: 'First Name', value: student.motherFirstName })}
             ${renderDetailField({ label: 'Middle Name', value: student.motherMiddleName })}
@@ -140,7 +141,7 @@ function renderParentGuardianSection(student: StudentRecord): string {
         </div>
 
         <div>
-          <h4 class="admin-student-subheading">Guardian</h4>
+          ${renderAdminSubheading('Guardian')}
           <div class="action-view-grid">
             ${renderDetailField({ label: 'First Name', value: student.guardianFirstName })}
             ${renderDetailField({ label: 'Middle Name', value: student.guardianMiddleName })}

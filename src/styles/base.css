@@ -208,6 +208,7 @@ body.overlay-open {
   padding-bottom: 0.5rem;
 }
 
+.admin-section-title,
 .action-view-title,
 .admin-student-section-title {
   color: var(--color-white);

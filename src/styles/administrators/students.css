@@ -146,6 +146,7 @@
   font-weight: 700;
 }
 
+.admin-section-subheading,
 .admin-student-subheading {
   margin: 0.15rem 0 0.35rem;
   color: var(--color-ink-900);

@@ -1,6 +1,7 @@
 import { ROUTES } from '../../../app/routes'
 import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../../components/layout/_layout'
 import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { renderAdminSectionTitle, renderAdminSubheading } from '../../../components/ui/admin_section_heading'
 import { hydrateLocationSelects, setupProvinceCityCascade } from '../../../api/psgc'
 
 function renderSectionFields(): string {
@@ -51,7 +52,7 @@ function renderGuardianFields(title: string): string {
   `
 
   return `
-    <h4>${title}</h4>
+    ${renderAdminSubheading(title)}
     <div class="admin-student-form-grid admin-student-form-grid-4">
       ${floatingInput(`${key}-first-name`, 'First Name')}
       ${floatingInput(`${key}-middle-name`, 'Middle Name (Optional)')}
@@ -82,12 +83,12 @@ export function renderstudents_create_page(): string {
           </header>
 
           <section class="admin-student-section">
-            <h3><span class="admin-student-section-title">Student Information</span></h3>
+            ${renderAdminSectionTitle('Student Information')}
             ${renderSectionFields()}
           </section>
 
           <section class="admin-student-section">
-            <h3><span class="admin-student-section-title">Parent and Guardian's Information</span></h3>
+            ${renderAdminSectionTitle("Parent and Guardian's Information")}
             <div class="admin-student-guardian-stack">
               ${renderGuardianFields('Father')}
               ${renderGuardianFields('Mother')}
