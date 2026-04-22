@@ -19,8 +19,8 @@ export function renderstudent_dashboard_page(): string {
               <p>Overview of your schedules and latest registrar announcements.</p>
             </div>
             <div class="student-dashboard-actions">
-              <a href="${ROUTES.STUDENT_SCHEDULE}" class="btn btn-sm btn-primary">Open Schedule</a>
               <a href="${ROUTES.STUDENT_SUBJECTS}" class="btn btn-sm btn-outline-primary">View Subjects</a>
+              <a href="${ROUTES.STUDENT_SCHEDULE}" class="btn btn-sm btn-primary">Open Schedule</a>
             </div>
           </header>
 

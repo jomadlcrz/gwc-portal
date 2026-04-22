@@ -166,7 +166,12 @@
 .student-dashboard-actions {
   display: flex;
   gap: 0.45rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+}
+
+.student-dashboard-actions .btn {
+  white-space: nowrap;
 }
 
 .student-kpi-grid {
@@ -322,6 +327,10 @@
 @media (max-width: 640px) {
   .student-dashboard-head {
     flex-direction: column;
+  }
+
+  .student-dashboard-actions {
+    flex-wrap: wrap;
   }
 
   .student-kpi-grid {
