@@ -143,6 +143,14 @@
   overflow-x: auto;
 }
 
+.admin-dashboard-table-scroll {
+  overflow-x: auto;
+}
+
+.admin-dashboard-table-scroll .admin-table-wrap {
+  overflow: visible;
+}
+
 .admin-table {
   width: 100%;
   border-collapse: collapse;

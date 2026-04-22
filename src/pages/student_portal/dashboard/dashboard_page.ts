@@ -1,6 +1,5 @@
 import { ROUTES } from '../../../app/routes'
 import { STUDENT_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
-import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { schedulingService } from '../../../features/scheduling/service'
 
 export function renderstudent_dashboard_page(): string {
@@ -13,11 +12,6 @@ export function renderstudent_dashboard_page(): string {
     'dashboard',
     `
       <section class="student-content">
-        ${renderBreadcrumbNav([
-          { label: 'Home', href: ROUTES.STUDENT_DASHBOARD },
-          { label: 'Dashboard', active: true },
-        ])}
-
         <article class="student-panel student-dashboard">
           <header class="student-dashboard-head">
             <div>
