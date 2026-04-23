@@ -29,7 +29,6 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
   const closeButtons = Array.from(root.querySelectorAll<HTMLElement>('[data-overlay-close]'))
   const searchForm = root.querySelector<HTMLFormElement>('[data-search-form]')
   const searchInput = root.querySelector<HTMLInputElement>('[data-search-form] input[name="q"]')
-
   const submenuPanel = root.querySelector<HTMLElement>('[data-submenu-panel]')
   const mobileSubmenuPanels = new Map(
     Array.from(root.querySelectorAll<HTMLElement>('[data-mobile-submenu-for]')).map((panel) => [
@@ -37,19 +36,18 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
       panel,
     ]),
   )
-
   const submenuTriggers = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-menu-target]'))
-
   const submenuTemplates = new Map(
     Array.from(root.querySelectorAll<HTMLTemplateElement>('[data-submenu-template]')).map((template) => [
       template.dataset.submenuTemplate ?? '',
       template,
     ]),
   )
-
   const brandElements = Array.from(
     root.querySelectorAll<HTMLElement>('.site-brand, .site-overlay-brand'),
   )
+
+  let brandResizeFrame = 0
 
   const lockScroll = (): void => {
     document.body.classList.add('overlay-open', 'no-scroll')
@@ -83,12 +81,9 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
       overlay.classList.remove('is-open')
       overlay.setAttribute('aria-hidden', 'true')
     })
-
     submenuTriggers.forEach((trigger) => trigger.classList.remove('is-active'))
-
     if (submenuPanel) submenuPanel.innerHTML = ''
     mobileSubmenuPanels.forEach((panel) => (panel.innerHTML = ''))
-
     applyBodyOverlayState(null)
     unlockScroll()
     updateBrandVariants()
@@ -96,83 +91,76 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
 
   const openOverlay = (name: string): void => {
     hideAll()
-
     const target = root.querySelector<HTMLElement>(`[data-overlay="${name}"]`)
     if (!target) return
-
     target.classList.add('is-open')
     target.setAttribute('aria-hidden', 'false')
-
     applyBodyOverlayState(name === 'menu' ? 'menu' : 'search')
     lockScroll()
 
     if (name === 'search' && searchInput) {
       setTimeout(() => searchInput.focus(), 300)
     }
-
     updateBrandVariants()
   }
 
-  // ✅ Submenu content logic (RESTORED)
-  const setSubmenuContent = (name: string): void => {
-    const template = submenuTemplates.get(name)
-
-    if (!template) {
-      if (submenuPanel) submenuPanel.innerHTML = ''
-      mobileSubmenuPanels.forEach((panel) => (panel.innerHTML = ''))
-      return
-    }
-
-    if (submenuPanel) submenuPanel.innerHTML = template.innerHTML
-
-    mobileSubmenuPanels.forEach((panel, panelName) => {
-      panel.innerHTML = panelName === name ? template.innerHTML : ''
-    })
+  const parsePixelValue = (value: string): number | null => {
+    const parsed = Number.parseFloat(value)
+    return Number.isFinite(parsed) ? parsed : null
   }
 
-  // ✅ Submenu click handler (RESTORED)
-  const onSubmenuTriggerClick = (event: Event): void => {
-    const trigger = event.currentTarget as HTMLButtonElement
-    const targetName = trigger.dataset.menuTarget
-    if (!targetName) return
+  const doesBrandFit = (brand: HTMLElement): boolean => {
+    const previousMaxWidth = brand.style.maxWidth
+    brand.style.maxWidth = '100%'
 
-    const isAlreadyActive = trigger.classList.contains('is-active')
+    const widthFits = brand.scrollWidth <= brand.clientWidth + 1
 
-    if (isAlreadyActive) {
-      trigger.classList.remove('is-active')
-      if (submenuPanel) submenuPanel.innerHTML = ''
-      mobileSubmenuPanels.forEach((panel) => (panel.innerHTML = ''))
-      return
+    const parent = brand.parentElement
+    let heightLimit = brand.clientHeight
+    if (parent) {
+      const parentStyles = window.getComputedStyle(parent)
+      const minHeight = parsePixelValue(parentStyles.minHeight)
+      const explicitHeight = parsePixelValue(parentStyles.height)
+      heightLimit = minHeight ?? explicitHeight ?? parent.clientHeight
     }
+    const heightFits = brand.scrollHeight <= heightLimit + 1
 
-    submenuTriggers.forEach((item) => item.classList.remove('is-active'))
-    trigger.classList.add('is-active')
+    brand.style.maxWidth = previousMaxWidth
+    return widthFits && heightFits
+  }
 
-    setSubmenuContent(targetName)
+  const fitBrandVariant = (brand: HTMLElement): void => {
+    const variants: Array<'full' | 'medium' | 'short'> = ['full', 'medium', 'short']
+    for (const variant of variants) {
+      brand.dataset.brandVariant = variant
+      if (doesBrandFit(brand)) return
+    }
+    brand.dataset.brandVariant = 'short'
   }
 
   const updateBrandVariants = (): void => {
-    brandElements.forEach((brand) => {
-      const variants: Array<'full' | 'medium' | 'short'> = ['full', 'medium', 'short']
+    brandElements.forEach((brand) => fitBrandVariant(brand))
+  }
 
-      for (const variant of variants) {
-        brand.dataset.brandVariant = variant
-        if (brand.scrollWidth <= brand.clientWidth + 1) return
-      }
-
-      brand.dataset.brandVariant = 'short'
+  const onWindowResize = (): void => {
+    if (brandResizeFrame) return
+    brandResizeFrame = window.requestAnimationFrame(() => {
+      brandResizeFrame = 0
+      updateBrandVariants()
     })
   }
 
   const onOpenClick = (event: Event): void => {
     const trigger = event.currentTarget as HTMLElement
     const targetName = trigger.getAttribute('data-overlay-open')
-    if (targetName) openOverlay(targetName)
+    if (!targetName) return
+    openOverlay(targetName)
   }
 
-  const onCloseClick = (): void => hideAll()
+  const onCloseClick = (): void => {
+    hideAll()
+  }
 
-  // ✅ FIXED keyboard shortcuts (Mac + Windows safe)
   const onKeydown = (event: KeyboardEvent): void => {
     if (event.key === 'Escape') {
       hideAll()
@@ -215,13 +203,9 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
 
   const onSearchSubmit = (event: Event): void => {
     event.preventDefault()
-
     const query = searchInput?.value.trim() ?? ''
     hideAll()
-
-    const target = query
-      ? `${ROUTES.SEARCH}?q=${encodeURIComponent(query)}`
-      : ROUTES.SEARCH
+    const target = query ? `${ROUTES.SEARCH}?q=${encodeURIComponent(query)}` : ROUTES.SEARCH
 
     showGlobalLoader()
 
@@ -234,35 +218,105 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
     })
   }
 
-  // INIT
+  const setSubmenuContent = (name: string): void => {
+    const template = submenuTemplates.get(name)
+    if (!template) {
+      if (submenuPanel) submenuPanel.innerHTML = ''
+      mobileSubmenuPanels.forEach((panel) => (panel.innerHTML = ''))
+      return
+    }
+
+    if (submenuPanel) submenuPanel.innerHTML = template.innerHTML
+    mobileSubmenuPanels.forEach((panel, panelName) => {
+      panel.innerHTML = panelName === name ? template.innerHTML : ''
+    })
+  }
+
+  const onSubmenuTriggerClick = (event: Event): void => {
+    const trigger = event.currentTarget as HTMLButtonElement
+    const targetName = trigger.dataset.menuTarget
+    if (!targetName) return
+
+    const isAlreadyActive = trigger.classList.contains('is-active')
+    if (isAlreadyActive) {
+      trigger.classList.remove('is-active')
+      if (submenuPanel) submenuPanel.innerHTML = ''
+      mobileSubmenuPanels.forEach((panel) => (panel.innerHTML = ''))
+      return
+    }
+
+    submenuTriggers.forEach((item) => item.classList.remove('is-active'))
+    trigger.classList.add('is-active')
+    setSubmenuContent(targetName)
+  }
+
+  const updateHeaderScrollState = (): void => {
+    if (!homeHeader) return
+    if (homeHeader.classList.contains('site-header-solid')) {
+      homeHeader.classList.remove('is-scrolled')
+      return
+    }
+    homeHeader.classList.toggle('is-scrolled', window.scrollY > 24)
+  }
+
+  const markHeaderReady = (): void => {
+    if (!homeHeader || homeHeader.classList.contains('is-ready')) return
+    updateHeaderScrollState()
+    requestAnimationFrame(() => {
+      updateHeaderScrollState()
+      homeHeader.classList.add('is-ready')
+    })
+  }
+
+  const onWindowLoad = (): void => {
+    markHeaderReady()
+    updateBrandVariants()
+  }
+
+  const onPageShow = (): void => {
+    markHeaderReady()
+    updateBrandVariants()
+  }
+
+  // Apply the best-fitting brand variant immediately to avoid first-paint flicker.
   updateBrandVariants()
 
-  openButtons.forEach((btn) => btn.addEventListener('click', onOpenClick))
-  closeButtons.forEach((btn) => btn.addEventListener('click', onCloseClick))
-  submenuTriggers.forEach((btn) =>
-    btn.addEventListener('click', onSubmenuTriggerClick),
-  )
+  // Keep transitions disabled until scroll restoration has settled.
+  updateHeaderScrollState()
+  requestAnimationFrame(() => {
+    updateHeaderScrollState()
+    requestAnimationFrame(() => {
+      updateHeaderScrollState()
+      markHeaderReady()
+      updateBrandVariants()
+    })
+  })
 
+  window.addEventListener('load', onWindowLoad, { once: true })
+  window.addEventListener('pageshow', onPageShow, { once: true })
+  window.addEventListener('resize', onWindowResize, { passive: true })
+
+  openButtons.forEach((button) => button.addEventListener('click', onOpenClick))
+  submenuTriggers.forEach((button) => button.addEventListener('click', onSubmenuTriggerClick))
+  closeButtons.forEach((button) => button.addEventListener('click', onCloseClick))
   document.addEventListener('keydown', onKeydown)
   searchForm?.addEventListener('submit', onSearchSubmit)
-
-  window.addEventListener(
-    'scroll',
-    () => {
-      if (!homeHeader) return
-      homeHeader.classList.toggle('is-scrolled', window.scrollY > 24)
-    },
-    { passive: true },
-  )
+  window.addEventListener('scroll', updateHeaderScrollState, { passive: true })
 
   return () => {
-    openButtons.forEach((btn) => btn.removeEventListener('click', onOpenClick))
-    closeButtons.forEach((btn) => btn.removeEventListener('click', onCloseClick))
-    submenuTriggers.forEach((btn) =>
-      btn.removeEventListener('click', onSubmenuTriggerClick),
-    )
-
+    openButtons.forEach((button) => button.removeEventListener('click', onOpenClick))
+    submenuTriggers.forEach((button) => button.removeEventListener('click', onSubmenuTriggerClick))
+    closeButtons.forEach((button) => button.removeEventListener('click', onCloseClick))
     document.removeEventListener('keydown', onKeydown)
     searchForm?.removeEventListener('submit', onSearchSubmit)
+    window.removeEventListener('scroll', updateHeaderScrollState)
+    window.removeEventListener('load', onWindowLoad)
+    window.removeEventListener('pageshow', onPageShow)
+    window.removeEventListener('resize', onWindowResize)
+    if (brandResizeFrame) {
+      window.cancelAnimationFrame(brandResizeFrame)
+      brandResizeFrame = 0
+    }
+    unlockScroll()
   }
 }
