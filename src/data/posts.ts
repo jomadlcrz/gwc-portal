@@ -20,7 +20,7 @@ export const posts: PostItem[] = [
       'A campus-wide celebration featuring student performances, recognition ceremonies, and community activities honoring the college foundation milestone.',
     content:
       'Golden West Colleges marks Foundation Day with academic showcases, student organization presentations, and commemorative events for the campus community.',
-    image: 'https://picsum.photos/seed/gwc-event-foundation-day/1280/720',
+    image: 'https://picsum.photos/seed/gwc-event-foundation-day/1280/1280',
   },
   {
     slug: 'alumni-homecoming-2026',
@@ -31,7 +31,7 @@ export const posts: PostItem[] = [
       'Alumni return to campus for networking sessions, mentoring circles, and program reunions that reconnect graduates with students and faculty.',
     content:
       'The homecoming program includes department meetups, career talks, and alumni recognition to strengthen cross-batch ties and institutional engagement.',
-    image: 'https://picsum.photos/seed/gwc-event-alumni-homecoming/1280/720',
+    image: 'https://picsum.photos/seed/gwc-event-alumni-homecoming/1280/1280',
   },
   {
     slug: 'research-and-innovation-forum-2026',
@@ -42,7 +42,7 @@ export const posts: PostItem[] = [
       'Faculty and student researchers present practical innovations and studies focused on community needs, applied learning, and future-ready solutions.',
     content:
       'The forum highlights interdisciplinary outputs, prototype demonstrations, and academic discussions that support research culture across programs.',
-    image: 'https://picsum.photos/seed/gwc-event-research-forum/1280/720',
+    image: 'https://picsum.photos/seed/gwc-event-research-forum/1280/1280',
   },
   {
     slug: 'student-leadership-summit-2026',
@@ -53,7 +53,7 @@ export const posts: PostItem[] = [
       'Student leaders from different programs gather for workshops, planning sessions, and collaborative activities focused on campus leadership development.',
     content:
       'The summit features leadership talks, peer learning circles, and action planning for student-led projects to be implemented during the academic year.',
-    image: 'https://picsum.photos/seed/gwc-event-leadership-summit/1280/720',
+    image: 'https://picsum.photos/seed/gwc-event-leadership-summit/1280/1280',
   },
   {
     slug: 'college-intramurals-opening-2026',
@@ -64,7 +64,7 @@ export const posts: PostItem[] = [
       'The intramurals opening brings together students, faculty, and staff for sportsmanship, team-building, and healthy campus competition.',
     content:
       'Opening day includes team parades, oath-taking, and kickoff matches across multiple sports disciplines and student divisions.',
-    image: 'https://picsum.photos/seed/gwc-event-intramurals/1280/720',
+    image: 'https://picsum.photos/seed/gwc-event-intramurals/1280/1280',
   },
   {
     slug: 'freshmen-orientation-week-2026',
@@ -75,7 +75,7 @@ export const posts: PostItem[] = [
       'Incoming students are introduced to academic policies, student services, campus facilities, and essential support offices through orientation activities.',
     content:
       'Orientation week includes department briefings, campus tours, and student organization showcases to help freshmen transition smoothly.',
-    image: 'https://picsum.photos/seed/gwc-event-orientation-week/1280/720',
+    image: 'https://picsum.photos/seed/gwc-event-orientation-week/1280/1280',
   },
   {
     slug: 'career-fair-and-industry-talks-2026',
@@ -86,7 +86,7 @@ export const posts: PostItem[] = [
       'Students connect with partner companies through career booths, recruitment consultations, and expert talks on workplace readiness.',
     content:
       'The event hosts hiring partners, alumni speakers, and career advisers to guide students in internship and employment planning.',
-    image: 'https://picsum.photos/seed/gwc-event-career-fair/1280/720',
+    image: 'https://picsum.photos/seed/gwc-event-career-fair/1280/1280',
   },
   {
     slug: 'delegates-join-international-academic-exchange-program',
@@ -97,7 +97,7 @@ export const posts: PostItem[] = [
       'GWC strengthens global engagement by hosting exchange dialogues, collaborative research sessions, and cross-cultural academic planning with partner institutions. Through these exchanges, participants build shared academic goals, align research priorities, and establish practical pathways for faculty mobility, student immersion, and future joint program development that can be sustained across multiple terms.',
     content:
       'Golden West Colleges continues expanding international partnerships through faculty and student exchange activities. The program includes research discussions, cultural immersion, and joint planning for future academic collaborations.',
-    image: 'https://picsum.photos/id/180/1200/720.jpg',
+    image: 'https://picsum.photos/id/1011/1380/1280.jpg',
   },
   {
     slug: 'stem-fair-2026',
@@ -108,7 +108,7 @@ export const posts: PostItem[] = [
       'Students showcased innovative projects in robotics, coding, and applied science, highlighting practical solutions designed for real classroom and community challenges. Demonstrations emphasized creativity, technical execution, and measurable impact, while judges and guests noted how student-led prototypes addressed local needs, improved usability, and reflected strong interdisciplinary collaboration.',
     content:
       'The annual STEM Fair featured project exhibits, live demos, and judging sessions from invited academic and industry representatives. Participants presented practical solutions focused on local and regional challenges.',
-    image: 'https://picsum.photos/seed/gwc-campus-event/1200/720',
+    image: 'https://picsum.photos/seed/gwc-campus-event/1380/1280',
   },
   {
     slug: 'research-colloquium',
@@ -119,7 +119,7 @@ export const posts: PostItem[] = [
       'Faculty and students presented current studies and emerging academic work, opening interdisciplinary discussions on methods, findings, and future publication goals. The colloquium created space for peer feedback, mentoring conversations, and cross-department collaboration, helping participants refine their studies, strengthen methodology decisions, and prepare outputs for conference and journal submission.',
     content:
       'The colloquium gathered departments to discuss current research directions, methodology standards, and publication targets. Sessions also covered mentorship opportunities for student researchers.',
-    image: 'https://picsum.photos/id/96/1200/720.jpg',
+    image: 'https://picsum.photos/id/96/1380/1280.jpg',
   },
   {
     slug: 'youth-extension-program-reaches-local-barangays',
@@ -130,7 +130,7 @@ export const posts: PostItem[] = [
       'Student volunteers and faculty facilitators continue outreach and mentoring activities across partner barangays, with a stronger focus on youth participation and continuity. Organizers reported improved attendance and engagement as follow-up sessions became more structured, community-driven, and responsive to local priorities identified by youth leaders and barangay partners.',
     content:
       'The extension program supports barangay youth through literacy sessions, mentoring, and community-led activities. Organizers noted improved participation from partner communities this term.',
-    image: 'https://picsum.photos/seed/gwc-community-extension/1200/720',
+    image: 'https://picsum.photos/seed/gwc-community-extension/1380/1280',
   },
   {
     slug: 'reading-outreach',
@@ -141,7 +141,7 @@ export const posts: PostItem[] = [
       'Reading activities focused on foundational comprehension and confidence-building through guided sessions, interactive storytelling, and learner support checkpoints. The program reinforces consistent literacy habits through repeat practice, close facilitation, and parent-community coordination, allowing learners to improve pace, understanding, and confidence in both oral and silent reading tasks.',
     content:
       'The outreach team coordinated with local schools to run guided reading sessions and provide supplementary learning materials. Follow-up sessions are scheduled in the coming months.',
-    image: 'https://picsum.photos/id/24/1200/720.jpg',
+    image: 'https://picsum.photos/id/24/1380/1280.jpg',
   },
   {
     slug: 'campus-volunteers',
@@ -152,7 +152,7 @@ export const posts: PostItem[] = [
       'Student organizations expanded community support through weekend volunteer drives, combining service-learning efforts with coordinated faculty and local partner involvement. Activities included resource distribution, basic assistance programs, and on-site engagement aligned with civic responsibility goals, while also giving student leaders practical experience in planning, communication, and sustained volunteer coordination.',
     content:
       'Volunteer groups organized service activities and resource support drives with faculty advisers. The initiative is part of GWC’s community engagement and service-learning effort.',
-    image: 'https://picsum.photos/id/344/1200/720.jpg',
+    image: 'https://picsum.photos/id/344/1380/1280.jpg',
   },
   {
     slug: 'enrollment-advisory-for-new-students',
