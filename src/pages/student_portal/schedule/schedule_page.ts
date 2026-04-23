@@ -16,7 +16,7 @@ export function renderstudent_schedule_page(): string {
           { label: 'Schedule', active: true },
         ])}
         <article class="student-panel">
-          <h3>Class Schedule Viewer</h3>
+          <h3>Class Schedule</h3>
           <p>Published schedule view with subject, section, instructor, room, and meeting time.</p>
           <div class="admin-table-wrap mt-3">
             <table class="admin-table">
