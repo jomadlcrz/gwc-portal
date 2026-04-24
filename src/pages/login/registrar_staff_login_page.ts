@@ -29,7 +29,10 @@ export function renderregistrar_staff_login_page(): string {
                       <label for="registrar_staff-password">Password</label>
                     </div>
                     <button type="submit" class="btn btn-lg w-100 login-submit-btn">Log in</button>
-                  </form>
+                    <p class="mt-3 mb-0 small">
+                    <a href="/forgot-password" class="no-underline">Forgot password</a>
+                  </p>
+                </form>
               </section>
             </div>
           </div>

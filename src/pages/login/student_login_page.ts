@@ -30,7 +30,9 @@ export function renderstudent_login_page(): string {
                     </div>
                     <button type="submit" class="btn btn-lg w-100 login-submit-btn">Log in</button>
                   </form>
-                  <p id="student-login-message" class="mt-3 mb-0 small" aria-live="polite"></p>
+                  <p class="mt-3 mb-0 small">
+                  <a href="/forgot-password" class="no-underline">Forgot password</a>
+                </p>
               </section>
             </div>
           </div>

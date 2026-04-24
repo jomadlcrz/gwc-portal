@@ -9,7 +9,7 @@ export function renderForgotPasswordPage(): string {
       ${renderPortalHeader({
         logoSrc: gwcLogo,
         logoAlt: 'Golden West Colleges logo',
-        portalTitle: 'FORGOT PASSWORD?',
+        portalTitle: 'ACCOUNT SECURITY',
       })}
 
       <section class="portal-body">

@@ -10,6 +10,9 @@ export const ROUTES = {
   ABOUT_GWC_HISTORY: '/about-gwc/gwc-history',
   ABOUT_GWC_FAQS: '/about-gwc/faqs',
 
+  // 404 route
+  NOT_FOUND: '/404',
+
   // Registrar staff routes
   REGISTRAR_STAFF_LOGIN: '/registrar-staff/login',
   REGISTRAR_STAFF: '/registrar-staff',
@@ -66,6 +69,9 @@ export const ROUTES = {
 
   // SPA route
   CHANGE_PASSWORD: '/change-password',
+
+  // forgot password route
+  FORGOT_PASSWORD: '/forgot-password',
 
   // HR routes
   HR_LOGIN: '/hr-portal/login',

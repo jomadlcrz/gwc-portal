@@ -79,9 +79,7 @@ import { renderpost_page } from '../pages/post/post_page'
 import { getPostBySlug, getPostCategoryFromSlug } from '../data/posts'
 import { ROUTES } from './routes'
 import { setupChangePasswordPage, setupStudentLoginPage } from '../api/student_auth'
-
-
-// HR Portal imports
+import { renderForgotPasswordPage } from '../pages/login/forgot_password_page'
 import { renderHRPortalPage } from '../pages/login/hr_portal_page'
 
 let cleanupCurrentRoute: (() => void) | null = null
@@ -395,6 +393,12 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   // HR routes
   if (pathname === ROUTES.HR_LOGIN) {
     app.innerHTML = renderHRPortalPage()
+    return
+  }
+
+  // forgot password route
+  if (pathname === ROUTES.FORGOT_PASSWORD) {
+    app.innerHTML = renderForgotPasswordPage()
     return
   }
 
