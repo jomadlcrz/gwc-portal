@@ -1,6 +1,9 @@
 export const ROUTES = {
+
+  // Public routes
   HOME: '/',
   ANNOUNCEMENTS: '/announcements',
+  SEARCH: '/search',
   POSTS_BASE: '/post',
   POST_LISTS: '/post/lists',
   ABOUT_GWC: '/about-gwc',
@@ -8,6 +11,7 @@ export const ROUTES = {
   ABOUT_GWC_FAQS: '/about-gwc/faqs',
 
   // Registrar staff routes
+  REGISTRAR_STAFF_LOGIN: '/registrar-staff/login',
   REGISTRAR_STAFF: '/registrar-staff',
   REGISTRAR_STAFF_DASHBOARD: '/registrar-staff/dashboard',
   REGISTRAR_STAFF_STUDENT_RECORDS: '/registrar-staff/student-records',
@@ -17,9 +21,9 @@ export const ROUTES = {
   REGISTRAR_STAFF_SCHEDULE_MANAGE: '/registrar-staff/schedule/manage',
   REGISTRAR_STAFF_SCHEDULE_CREATE: '/registrar-staff/schedule/create',
   REGISTRAR_STAFF_SETTINGS: '/registrar-staff/settings',
-  SEARCH: '/search',
 
   // Admin routes
+  ADMINISTRATORS_LOGIN: '/administrators/login',
   ADMINISTRATORS: '/administrators/dashboard',
   ADMINISTRATORS_DIRECTORY: '/administrators/administrators',
   ADMINISTRATORS_REGISTRAR_STAFF: '/administrators/registrar-staff',
@@ -36,10 +40,8 @@ export const ROUTES = {
   ADMINISTRATORS_REPORTS: '/administrators/reports',
   ADMINISTRATORS_SYSTEM_LOGS: '/administrators/system-logs',
   ADMINISTRATORS_SETTINGS: '/administrators/settings',
-  ADMINISTRATORS_LOGIN: '/administrators/login',
 
-  // registrar staff routes
-  REGISTRAR_STAFF_LOGIN: '/registrar-staff/login',
+  // Faculty routes
   FACULTY_LOGIN: '/faculty-portal/login',
   FACULTY_PORTAL: '/faculty-portal',
   FACULTY_DASHBOARD: '/faculty-portal/dashboard',
