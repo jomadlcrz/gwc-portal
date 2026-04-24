@@ -163,7 +163,7 @@ export const posts: PostItem[] = [
       'Please prepare your original credentials and complete online pre-registration before visiting campus to avoid delays during document verification and enrollment processing. Students are encouraged to review all requirements in advance, confirm document completeness, and follow assigned enrollment windows so transactions can be processed faster with fewer repeat visits.',
     content:
       'Incoming students are advised to complete online pre-registration and secure original credential documents before proceeding to campus enrollment windows. Support desks remain available for walk-in assistance.',
-    image: 'https://picsum.photos/id/1048/900/500',
+    image: 'https://picsum.photos/id/104/1280/1280',
   },
   {
     slug: 'scholarship-screening-schedule',
@@ -174,7 +174,7 @@ export const posts: PostItem[] = [
       'Qualified applicants may proceed to the Guidance Office for screening and interview confirmation based on the released schedule and required supporting documents. Applicants should verify assigned time slots, complete all required forms, and submit accurate records before arrival to ensure smooth evaluation, proper interview sequencing, and timely release of screening outcomes.',
     content:
       'The Guidance Office released screening blocks for scholarship applicants. Students should verify schedule assignments and submit required forms before interview day.',
-    image: 'https://picsum.photos/id/180/900/500',
+    image: 'https://picsum.photos/id/221/1280/1280',
   },
   {
     slug: 'faculty-consultation-week',
@@ -185,7 +185,7 @@ export const posts: PostItem[] = [
       'Departments are opening consultation sessions to guide students on subject loads, curriculum pathways, and enrollment decisions aligned with academic standing. Advisers will also address prerequisite concerns, sequencing options, and recommendations for balanced term planning so students can avoid scheduling conflicts and stay aligned with graduation targets.',
     content:
       'Consultation week offers one-on-one and group sessions for enrollment planning, curriculum alignment, and academic standing concerns. Students are encouraged to book appointments early.',
-    image: 'https://picsum.photos/id/20/900/500',
+    image: 'https://picsum.photos/id/220/1280/1280',
   },
   {
     slug: 'student-handbook-2026-edition',
@@ -196,6 +196,7 @@ export const posts: PostItem[] = [
       'PDF reference for policies, grading system, and student conduct guidelines, including updated procedures for academic services and student support access. Students are advised to review the handbook thoroughly to understand institutional expectations, service workflows, and policy updates that may affect enrollment, evaluation, and campus conduct compliance.',
     content:
       'The latest student handbook compiles academic policies, grading rules, student services information, and conduct standards. The digital file is available through the registrar and student portals.',
+      image: 'https://picsum.photos/id/120/1280/1280',
   },
   {
     slug: 'admission-requirements-checklist',
@@ -206,6 +207,7 @@ export const posts: PostItem[] = [
       'Downloadable checklist for freshmen, transferees, and returning students to help ensure complete document submission and smoother admissions processing. The checklist includes category-specific requirements, submission reminders, and verification steps to minimize repeat visits, reduce missing paperwork, and improve processing turnaround at admissions counters.',
     content:
       'Applicants can use the checklist to prepare all required documents before submission. This file includes separate guidance for freshmen, transferees, and returning learners.',
+      image: 'https://picsum.photos/id/240/1280/1280',
   },
   {
     slug: 'board-resolution-no-12-series-of-2026',
@@ -216,6 +218,7 @@ export const posts: PostItem[] = [
       'Policy update on tuition structure and installment payment schedule, including revised implementation guidance for the upcoming academic year. The notice outlines key timelines, payment terms, and compliance reminders relevant to students and guardians, helping families prepare early and align financial planning with official institutional schedules.',
     content:
       'The board resolution details approved tuition updates, payment terms, and implementation timelines for Academic Year 2026-2027. Relevant offices have posted compliance advisories.',
+      image: 'https://picsum.photos/id/229/1280/1280',
   },
 ]
 
