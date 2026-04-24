@@ -12,7 +12,6 @@ export function renderfaculty_settings_page(): string {
     'Configure faculty account preferences and teaching portal options.',
     {
       breadcrumbHtml: renderBreadcrumbNav([
-        { label: 'Home', href: ROUTES.FACULTY_DASHBOARD },
         { label: 'Settings', active: true },
       ]),
     },

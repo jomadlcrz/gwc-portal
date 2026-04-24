@@ -12,7 +12,6 @@ export function rendersystem_logs_page(): string {
     `
       <section class="admin-content">
         ${renderBreadcrumbNav([
-          { label: 'Home', href: ROUTES.ADMINISTRATORS },
           { label: 'System Logs', active: true },
         ])}
         <article class="admin-panel">

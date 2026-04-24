@@ -25,7 +25,6 @@ export function renderstudents_bulk_page(): string {
     `
       <section class="admin-content">
         ${renderAdminBreadcrumbNav([
-          { label: 'Home', href: ROUTES.ADMINISTRATORS },
           { label: 'Students', href: ROUTES.ADMINISTRATORS_STUDENTS },
           { label: 'Manage Students', href: ROUTES.ADMINISTRATORS_STUDENTS_MANAGE },
           { label: 'Bulk Upload', active: true },

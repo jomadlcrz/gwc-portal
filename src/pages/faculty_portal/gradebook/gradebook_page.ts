@@ -12,7 +12,6 @@ export function renderfaculty_gradebook_page(): string {
     'Review submissions, encode grades, and publish term results.',
     {
       breadcrumbHtml: renderBreadcrumbNav([
-        { label: 'Home', href: ROUTES.FACULTY_DASHBOARD },
         { label: 'Gradebook', active: true },
       ]),
     },

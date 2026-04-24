@@ -12,7 +12,6 @@ export function renderregistrar_staff_student_records_page(): string {
     'Manage and verify student academic records.',
     {
       breadcrumbHtml: renderBreadcrumbNav([
-        { label: 'Home', href: ROUTES.REGISTRAR_STAFF_DASHBOARD },
         { label: 'Student Records', active: true },
       ]),
     },

@@ -12,7 +12,6 @@ export function renderregistrar_staff_enrollments_page(): string {
     'Track and process enrollment records and queues.',
     {
       breadcrumbHtml: renderBreadcrumbNav([
-        { label: 'Home', href: ROUTES.REGISTRAR_STAFF_DASHBOARD },
         { label: 'Enrollments', active: true },
       ]),
     },

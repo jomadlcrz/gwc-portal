@@ -12,7 +12,6 @@ export function renderstudent_settings_page(): string {
     'Update your student profile preferences and portal account settings.',
     {
       breadcrumbHtml: renderBreadcrumbNav([
-        { label: 'Home', href: ROUTES.STUDENT_DASHBOARD },
         { label: 'Settings', active: true },
       ]),
     },

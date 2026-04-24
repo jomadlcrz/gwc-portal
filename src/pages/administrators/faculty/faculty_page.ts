@@ -12,7 +12,6 @@ export function renderfaculty_page(): string {
     'Manage faculty records and assignments.',
     {
       breadcrumbHtml: renderBreadcrumbNav([
-        { label: 'Home', href: ROUTES.ADMINISTRATORS },
         { label: 'Faculty', active: true },
       ]),
     },

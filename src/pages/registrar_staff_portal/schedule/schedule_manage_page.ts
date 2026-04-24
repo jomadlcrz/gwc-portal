@@ -62,7 +62,6 @@ export function renderregistrar_staff_schedule_manage_page(): string {
     `
       <section class="registrar_staff-content">
         ${renderAdminBreadcrumbNav([
-          { label: 'Home', href: ROUTES.REGISTRAR_STAFF_DASHBOARD },
           { label: 'Schedule', href: ROUTES.REGISTRAR_STAFF_SCHEDULE },
           { label: 'Manage Schedule', active: true },
         ])}

@@ -1,4 +1,3 @@
-import { ROUTES } from '../../../app/routes'
 import { ADMIN_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { schedulingService } from '../../../features/scheduling/service'
@@ -21,7 +20,6 @@ export function renderreports_page(): string {
     `
       <section class="admin-content">
         ${renderBreadcrumbNav([
-          { label: 'Home', href: ROUTES.ADMINISTRATORS },
           { label: 'Reports', active: true },
         ])}
         <article class="admin-panel">

@@ -12,7 +12,6 @@ export function renderregistrar_staff_settings_page(): string {
     'Configure registrar staff office preferences and controls.',
     {
       breadcrumbHtml: renderBreadcrumbNav([
-        { label: 'Home', href: ROUTES.REGISTRAR_STAFF_DASHBOARD },
         { label: 'Settings', active: true },
       ]),
     },

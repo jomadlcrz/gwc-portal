@@ -34,7 +34,6 @@ export function rendertestimonials_page(): string {
     `
       <section class="admin-content">
         ${renderAdminBreadcrumbNav([
-          { label: 'Home', href: ROUTES.ADMINISTRATORS },
           { label: 'Testimonials', active: true },
         ])}
 

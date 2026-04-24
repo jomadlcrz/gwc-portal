@@ -19,7 +19,6 @@ export function renderposts_create_page(): string {
     `
       <section class="admin-content">
         ${renderAdminBreadcrumbNav([
-          { label: 'Home', href: ROUTES.ADMINISTRATORS },
           { label: 'Posts', href: ROUTES.ADMINISTRATORS_POSTS },
           { label: 'Create Post', active: true },
         ])}

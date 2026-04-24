@@ -25,7 +25,6 @@ export function renderstudent_schedule_page(): string {
     `
       <section class="student-content">
         ${renderBreadcrumbNav([
-          { label: 'Home', href: ROUTES.STUDENT_DASHBOARD },
           { label: 'Schedule', active: true },
         ])}
         <article class="student-panel">

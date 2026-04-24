@@ -13,7 +13,6 @@ export function renderdepartment_schedule_page(): string {
     `
       <section class="department-content">
         ${renderBreadcrumbNav([
-          { label: 'Home', href: ROUTES.DEPARTMENT_DASHBOARD },
           { label: 'Schedule Review', active: true },
         ])}
 

@@ -12,7 +12,6 @@ export function renderregistrar_staff_requests_page(): string {
     'Track and process transcript and certification requests.',
     {
       breadcrumbHtml: renderBreadcrumbNav([
-        { label: 'Home', href: ROUTES.REGISTRAR_STAFF_DASHBOARD },
         { label: 'Requests', active: true },
       ]),
     },

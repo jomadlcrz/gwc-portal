@@ -9,7 +9,6 @@ export function renderstudents_page(): string {
     `
       <section class="admin-content">
         ${renderAdminBreadcrumbNav([
-          { label: 'Home', href: ROUTES.ADMINISTRATORS },
           { label: 'Students', active: true },
         ])}
 

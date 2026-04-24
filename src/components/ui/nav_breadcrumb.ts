@@ -5,6 +5,11 @@ type BreadcrumbItem = {
 }
 
 export function renderBreadcrumbNav(items: BreadcrumbItem[]): string {
+  // Only show breadcrumb if there are 2 or more items
+  if (items.length < 2) {
+    return ''
+  }
+  
   return `
     <nav class="admin-breadcrumb-shell" aria-label="Breadcrumb">
       <ol class="breadcrumb admin-breadcrumb mb-0">

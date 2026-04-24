@@ -90,7 +90,6 @@ export function renderregistrar_staff_schedule_create_page(): string {
     `
       <section class="registrar_staff-content class-scheduling-content">
         ${renderAdminBreadcrumbNav([
-          { label: 'Home', href: ROUTES.REGISTRAR_STAFF_DASHBOARD },
           { label: 'Schedule', href: ROUTES.REGISTRAR_STAFF_SCHEDULE },
           { label: 'Manage Schedule', href: ROUTES.REGISTRAR_STAFF_SCHEDULE_MANAGE },
           { label: 'Create Schedule', active: true },

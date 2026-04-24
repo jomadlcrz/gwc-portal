@@ -12,7 +12,6 @@ export function rendertestimonials_create_page(): string {
     `
       <section class="admin-content">
         ${renderAdminBreadcrumbNav([
-          { label: 'Home', href: ROUTES.ADMINISTRATORS },
           { label: 'Testimonials', href: ROUTES.ADMINISTRATORS_TESTIMONIALS },
           { label: 'Add New Testimonial', active: true },
         ])}

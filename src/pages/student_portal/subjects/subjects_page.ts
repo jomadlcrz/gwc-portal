@@ -12,7 +12,6 @@ export function renderstudent_subjects_page(): string {
     'Review your current enrolled subjects and assigned instructors.',
     {
       breadcrumbHtml: renderBreadcrumbNav([
-        { label: 'Home', href: ROUTES.STUDENT_DASHBOARD },
         { label: 'Subjects', active: true },
       ]),
     },

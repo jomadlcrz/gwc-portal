@@ -17,7 +17,6 @@ export function renderdepartment_dashboard_page(): string {
     `
       <section class="department-content">
         ${renderBreadcrumbNav([
-          { label: 'Home', href: ROUTES.DEPARTMENT_DASHBOARD },
           { label: 'Dashboard', active: true },
         ])}
         <article class="department-panel department-dashboard">

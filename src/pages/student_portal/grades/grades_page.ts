@@ -12,7 +12,6 @@ export function renderstudent_grades_page(): string {
     'Check term grades, subject performance, and posted evaluation results.',
     {
       breadcrumbHtml: renderBreadcrumbNav([
-        { label: 'Home', href: ROUTES.STUDENT_DASHBOARD },
         { label: 'Grades', active: true },
       ]),
     },

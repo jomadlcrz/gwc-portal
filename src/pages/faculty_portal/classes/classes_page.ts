@@ -21,7 +21,6 @@ export function renderfaculty_classes_page(): string {
     `
       <section class="faculty-content">
         ${renderBreadcrumbNav([
-          { label: 'Home', href: ROUTES.FACULTY_DASHBOARD },
           { label: 'Classes', active: true },
         ])}
         <article class="faculty-panel">

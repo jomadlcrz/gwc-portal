@@ -12,7 +12,6 @@ export function renderregistrar_staff_admin_page(): string {
     'Manage registrar staff accounts, roles, and access.',
     {
       breadcrumbHtml: renderBreadcrumbNav([
-        { label: 'Home', href: ROUTES.ADMINISTRATORS },
         { label: 'Registrar Staff', active: true },
       ]),
     },
