@@ -24,7 +24,7 @@ export function renderForgotPasswordPage(): string {
                       <input type="email" class="form-control form-control-lg login-input" id="forgot-password-email" placeholder="Email address" required />
                       <label for="forgot-password-email">Email address</label>
                     </div>
-                    <button type="submit" class="btn btn-lg w-100 login-submit-btn">Send Reset Link</button>
+                    <button type="submit" class="btn btn-lg w-100 login-submit-btn">Send Email</button>
                   </form>
               </section>
             </div>
