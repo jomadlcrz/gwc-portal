@@ -182,7 +182,11 @@
   }
 
   .post-image {
-    max-height: 320px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    max-height: none;
   }
 
   .post-related-grid {
