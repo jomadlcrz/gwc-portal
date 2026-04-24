@@ -191,6 +191,7 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
       a: ROUTES.ADMINISTRATORS_LOGIN,
       r: ROUTES.REGISTRAR_STAFF_LOGIN,
       d: ROUTES.DEPARTMENT_LOGIN,
+      h: ROUTES.HR_LOGIN,
     }
 
     const targetRoute = shortcutRouteByKey[key]

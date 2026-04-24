@@ -36,9 +36,9 @@ export const ROUTES = {
   ADMINISTRATORS_REPORTS: '/administrators/reports',
   ADMINISTRATORS_SYSTEM_LOGS: '/administrators/system-logs',
   ADMINISTRATORS_SETTINGS: '/administrators/settings',
-
-  // Login routes
   ADMINISTRATORS_LOGIN: '/administrators/login',
+
+  // registrar staff routes
   REGISTRAR_STAFF_LOGIN: '/registrar-staff/login',
   FACULTY_LOGIN: '/faculty-portal/login',
   FACULTY_PORTAL: '/faculty-portal',
@@ -46,6 +46,8 @@ export const ROUTES = {
   FACULTY_CLASSES: '/faculty-portal/classes',
   FACULTY_GRADEBOOK: '/faculty-portal/gradebook',
   FACULTY_SETTINGS: '/faculty-portal/settings',
+
+  // Student routes
   STUDENT_LOGIN: '/student-portal/login',
   STUDENT_PORTAL: '/student-portal',
   STUDENT_DASHBOARD: '/student-portal/dashboard',
@@ -53,11 +55,22 @@ export const ROUTES = {
   STUDENT_GRADES: '/student-portal/grades',
   STUDENT_SCHEDULE: '/student-portal/schedule',
   STUDENT_SETTINGS: '/student-portal/settings',
+
+  // Department routes
   DEPARTMENT_LOGIN: '/department-portal/login',
   DEPARTMENT_PORTAL: '/department-portal',
   DEPARTMENT_DASHBOARD: '/department-portal/dashboard',
   DEPARTMENT_SCHEDULE: '/department-portal/schedule',
+
+  // SPA route
   CHANGE_PASSWORD: '/change-password',
+
+  // HR routes
+  HR_LOGIN: '/hr-portal/login',
+  HR_DASHBOARD: '/hr-portal/dashboard',
+  HR_EMPLOYEES: '/hr-portal/employees',
+  HR_PAYROLL: '/hr-portal/payroll',
+  HR_SETTINGS: '/hr-portal/settings',
   
 } as const
 

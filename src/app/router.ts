@@ -80,6 +80,10 @@ import { getPostBySlug, getPostCategoryFromSlug } from '../data/posts'
 import { ROUTES } from './routes'
 import { setupChangePasswordPage, setupStudentLoginPage } from '../api/student_auth'
 
+
+// HR Portal imports
+import { renderHRPortalPage } from '../pages/login/hr_portal_page'
+
 let cleanupCurrentRoute: (() => void) | null = null
 
 export function renderRoute(app: HTMLDivElement, pathname: string): void {
@@ -150,6 +154,7 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     return
   }
 
+  // faculty routes
   if (pathname === ROUTES.FACULTY_LOGIN) {
     app.innerHTML = renderfaculty_login_page()
     return
@@ -190,12 +195,14 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     return
   }
 
+  // announcements route
   if (pathname === ROUTES.ANNOUNCEMENTS) {
     app.innerHTML = renderannouncements_page()
     cleanupCurrentRoute = setupSiteInteractions(app)
     return
   }
 
+  // about GWC routes
   if (pathname === ROUTES.ABOUT_GWC_HISTORY) {
     app.innerHTML = renderabout_gwc_history_page()
     cleanupCurrentRoute = setupSiteInteractions(app)
@@ -219,6 +226,7 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     }
   }
 
+  // registrar staff routes
   if (pathname === ROUTES.REGISTRAR_STAFF || pathname === ROUTES.REGISTRAR_STAFF_DASHBOARD) {
     app.innerHTML = renderregistrar_staff_dashboard_page()
     cleanupCurrentRoute = setupregistrar_staff_page(app)
@@ -267,12 +275,14 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     return
   }
 
+  // search route
   if (pathname === ROUTES.SEARCH) {
     app.innerHTML = rendersearch_page()
     cleanupCurrentRoute = setupSiteInteractions(app)
     return
   }
 
+  // post routes
   if (pathname.startsWith(`${ROUTES.POSTS_BASE}/`)) {
     const slug = decodeURIComponent(pathname.slice(`${ROUTES.POSTS_BASE}/`.length))
     const post = getPostBySlug(slug)
@@ -285,6 +295,7 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     }
   }
 
+  // Admin routes
   if (pathname === ROUTES.ADMINISTRATORS) {
     app.innerHTML = renderadministrators_dashboard_page()
     cleanupCurrentRoute = setupadministrators_dashboard_page(app)
@@ -378,6 +389,12 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   if (pathname === ROUTES.ADMINISTRATORS_SETTINGS) {
     app.innerHTML = rendersettings_page()
     cleanupCurrentRoute = setupadministrators_page(app)
+    return
+  }
+
+  // HR routes
+  if (pathname === ROUTES.HR_LOGIN) {
+    app.innerHTML = renderHRPortalPage()
     return
   }
 
