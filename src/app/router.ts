@@ -31,7 +31,7 @@ import {
 import { setupSiteInteractions } from '../components/layout/interactions'
 import { renderhome_page } from '../pages/home/home_page'
 import { renderadministrators_login_page } from '../pages/login/administrators_login_page'
-import { renderchange_password_page } from '../pages/login/change_password_page'
+import { renderchange_password_page } from '../pages/login/set_new_password_page'
 import { renderfaculty_login_page } from '../pages/login/faculty_login_page'
 import { renderdepartment_login_page } from '../pages/login/department_login_page'
 import {
