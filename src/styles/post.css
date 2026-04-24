@@ -48,7 +48,6 @@
   width: 100%;
   height: auto;
   object-fit: contain;
-  border: var(--border-width-1) solid #cfd5df;
 }
 
 .post-image-placeholder {
@@ -59,7 +58,8 @@
 .post-body {
   color: var(--color-ink-900);
   line-height: 1.65;
-  max-width: 98ch;
+  width: 100%;
+  max-width: 100%;
 }
 
 .post-body p {
