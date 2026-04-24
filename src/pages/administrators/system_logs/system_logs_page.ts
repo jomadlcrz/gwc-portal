@@ -1,4 +1,3 @@
-import { ROUTES } from '../../../app/routes'
 import { ADMIN_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { formatDateTime, schedulingService } from '../../../features/scheduling/service'

@@ -1,4 +1,3 @@
-import { ROUTES } from '../../../app/routes'
 import { DEPARTMENT_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderSharedModal } from '../../../components/ui/modal'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
