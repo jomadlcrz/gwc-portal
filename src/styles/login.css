@@ -196,7 +196,7 @@
   margin-bottom: 24px;
 }
 
-.timeline-container {
+.timeline-container.refactored-full-line {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -204,11 +204,36 @@
   gap: 0;
 }
 
+/* Background track line that spans the entire width from the very left to right edge */
+.timeline-track-line {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-slate-300);
+  z-index: 0;
+  width: 100%;
+}
+
+/* Progress line that fills from left edge based on current step (connects fully from step 1 all the way through to end) */
+.timeline-progress-line {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  height: 2px;
+  background: var(--login-brand-primary);
+  z-index: 1;
+  width: 0%;
+  transition: width 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  border-radius: 2px;
+}
+
 .timeline-step {
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 0 0 calc(33.333% - 20px);
+  flex: 1;
   position: relative;
   z-index: 2;
 }
@@ -228,6 +253,7 @@
   margin-bottom: 8px;
   transition: all 0.3s ease;
   position: relative;
+  z-index: 3;
 }
 
 .timeline-circle.active {
@@ -263,29 +289,7 @@
   font-weight: 700;
 }
 
-.timeline-line {
-  flex: 1;
-  height: 2px;
-  background: var(--color-slate-300);
-  position: absolute;
-  top: 20px;
-  z-index: 1;
-}
-
-.timeline-line[data-between="1-2"] {
-  left: calc(33.333% + 20px);
-  width: calc(33.333% - 40px);
-}
-
-.timeline-line[data-between="2-3"] {
-  left: calc(66.666% + 20px);
-  width: calc(33.333% - 40px);
-}
-
-.timeline-step:nth-child(1) .timeline-circle.active ~ .timeline-line,
-.timeline-step:nth-child(1) .timeline-circle.completed ~ .timeline-line {
-  background: var(--login-brand-primary);
-}
+/* No more individual timeline-line elements needed — our background track + progress bar handles full connection */
 
 /* =============================================
    PASSWORD RESET STEP STYLES
@@ -573,29 +577,9 @@
     padding-bottom: 16px;
     margin-bottom: 20px;
   }
-
-  .timeline-container {
-    gap: 0;
-  }
-
-  .timeline-step {
-    flex: 0 0 calc(33.333% - 15px);
-  }
-
-  .timeline-line[data-between="1-2"] {
-    width: calc(33.333% - 30px);
-  }
-
-  .timeline-line[data-between="2-3"] {
-    width: calc(33.333% - 30px);
+  
+  .timeline-track-line,
+  .timeline-progress-line {
+    top: 18px;
   }
 }
-
-
-
-
-
-
-
-
-

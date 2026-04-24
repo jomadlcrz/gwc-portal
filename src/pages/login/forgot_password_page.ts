@@ -43,24 +43,49 @@ import { renderPortalSiteFooter } from '../../components/layout/footer'
  *    - Send confirmation email to account owner
  */
 
+// ===================================================================
+// REFACTORED TIMELINE RENDER FUNCTION
+// ===================================================================
+// CHANGES:
+// 1. Lines now span from the beginning of the container to the end, ensuring the connection
+//    does not stop at the "Reset Password" step but continues visually as a whole.
+// 2. Instead of positioning fixed-width lines between steps, the CSS flex layout is enhanced
+//    with pseudo-elements and proper absolute positioning that spans the entire track.
+// 3. The "timeline-line" elements are now removed — we use a single background track line plus
+//    dynamic progress fill that connects from the first step all the way to the last.
+// 4. Maintains same active/completed states but lines now reflect progress across the whole timeline.
+// ===================================================================
+
 function renderPasswordResetTimeline(currentStep: number): string {
+  // Determine progress width percentage based on current step:
+  // Step 1 = 0% (no progress), Step 2 = 50%, Step 3 = 100%
+  let progressWidth = '0%';
+  if (currentStep === 2) progressWidth = '50%';
+  else if (currentStep === 3) progressWidth = '100%';
+  else if (currentStep > 3) progressWidth = '100%';
+  
   return `
     <div class="password-reset-timeline mb-4">
-      <div class="timeline-container">
+      <div class="timeline-container refactored-full-line">
+        <!-- Background track line (connects from left to right edge) -->
+        <div class="timeline-track-line"></div>
+        <!-- Dynamic progress line (fills based on step, connects all the way across) -->
+        <div class="timeline-progress-line" style="width: ${progressWidth};"></div>
+        
         <div class="timeline-step" data-step="1">
           <div class="timeline-circle ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}">
             ${currentStep > 1 ? '<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 7L8.5 15.5L3 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '1'}
           </div>
           <span class="timeline-label">Verify Account</span>
         </div>
-        <div class="timeline-line" data-between="1-2"></div>
+        
         <div class="timeline-step" data-step="2">
           <div class="timeline-circle ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}">
             ${currentStep > 2 ? '<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 7L8.5 15.5L3 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '2'}
           </div>
           <span class="timeline-label">Verify OTP</span>
         </div>
-        <div class="timeline-line" data-between="2-3"></div>
+        
         <div class="timeline-step" data-step="3">
           <div class="timeline-circle ${currentStep >= 3 ? 'active' : ''} ${currentStep > 3 ? 'completed' : ''}">
             ${currentStep > 3 ? '<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 7L8.5 15.5L3 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '3'}
