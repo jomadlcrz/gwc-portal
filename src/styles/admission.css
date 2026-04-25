@@ -546,6 +546,14 @@
 }
 
 @media (max-width: 768px) {
+  .admission-shell {
+    padding: 1rem 1rem 3rem;
+  }
+
+  .admission-shell .post-container {
+    padding: var(--layout-content-padding-mobile);
+  }
+
   .admission-hero {
     --admission-people-curve-offset: 0.7rem;
     --admission-people-overlap: 2.35rem;
