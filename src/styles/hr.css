@@ -314,3 +314,171 @@
     grid-template-columns: 1fr;
   }
 }
+
+.hr-faculty-home {
+  border: var(--border-width-1) solid var(--color-surface-500);
+  background: var(--color-white);
+  padding: 1.4rem;
+}
+
+.hr-faculty-home h2 {
+  margin: 0;
+  color: var(--color-ink-900);
+  font-size: clamp(1.7rem, 2.4vw, 2.15rem);
+}
+
+.hr-faculty-home p {
+  margin: 0.55rem 0 0;
+  color: var(--color-slate-600);
+  font-size: 1rem;
+}
+
+.hr-faculty-home-actions {
+  margin-top: 1.35rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.hr-faculty-home-actions .btn {
+  border-radius: var(--radius-none);
+  min-width: 200px;
+  font-weight: 700;
+}
+
+.hr-faculty-page-shell {
+  border: var(--border-width-1) solid var(--color-surface-500);
+  background: var(--color-white);
+  padding: var(--space-sm);
+}
+
+.hr-faculty-head {
+  border-bottom: 1px solid var(--color-surface-400);
+  margin-bottom: 0.7rem;
+  padding-bottom: 0.65rem;
+}
+
+.hr-faculty-head h2 {
+  margin: 0;
+  color: var(--color-ink-900);
+  font-size: clamp(1.6rem, 2.2vw, 2.05rem);
+}
+
+.hr-faculty-head p {
+  margin: 0.35rem 0 0;
+  color: var(--color-slate-600);
+}
+
+.hr-faculty-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.hr-faculty-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.hr-faculty-search {
+  min-width: min(100%, 330px);
+}
+
+.hr-faculty-section {
+  padding-top: 0.55rem;
+  margin-top: 0.55rem;
+}
+
+.hr-faculty-section h3 {
+  margin: 0 0 0.4rem;
+  border-bottom: 1px solid var(--color-surface-400);
+}
+
+.hr-faculty-section-title {
+  color: var(--color-white);
+  background: #1f4c93;
+  display: inline-block;
+  padding: 0.28rem 1.35rem 0.28rem 0.7rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 0.2rem;
+  vertical-align: top;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 100%, 0 100%);
+}
+
+.hr-faculty-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2xs);
+}
+
+.hr-faculty-col-span-2 {
+  grid-column: span 2;
+}
+
+.hr-faculty-page-shell .form-control,
+.hr-faculty-page-shell .form-select {
+  border: var(--border-width-1) solid #8fa1bc;
+  border-radius: var(--radius-none);
+  background-color: var(--color-white);
+  color: var(--color-slate-800);
+}
+
+.hr-faculty-page-shell .form-floating > label {
+  color: var(--color-slate-600);
+}
+
+.hr-faculty-page-shell .form-control:focus,
+.hr-faculty-page-shell .form-select:focus {
+  border-color: var(--color-border-focus);
+  box-shadow: var(--shadow-focus-primary);
+}
+
+.hr-faculty-toggle-wrap {
+  display: flex;
+  align-items: center;
+  min-height: 100%;
+  padding: 0.45rem 0.35rem;
+}
+
+.hr-faculty-form-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.45rem;
+  border-top: 1px solid var(--color-surface-400);
+  margin-top: 0.8rem;
+  padding-top: 0.65rem;
+}
+
+@media (max-width: 991px) {
+  .hr-faculty-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hr-faculty-search {
+    min-width: 100%;
+  }
+
+  .hr-faculty-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hr-faculty-col-span-2 {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .hr-faculty-home-actions .btn {
+    min-width: 100%;
+  }
+
+  .hr-faculty-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
