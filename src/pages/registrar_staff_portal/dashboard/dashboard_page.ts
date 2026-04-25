@@ -7,7 +7,7 @@ export function renderregistrar_staff_dashboard_page(): string {
     `
       <section class="registrar_staff-content">
         <article class="registrar_staff-panel">
-          <h3>Registrar Staff Dashboard</h3>
+          <h3>Registrar Dashboard</h3>
           <p>Monitor daily office transactions, pending requests, and record processing status.</p>
         </article>
       </section>

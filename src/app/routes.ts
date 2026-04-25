@@ -13,22 +13,22 @@ export const ROUTES = {
   // 404 route
   NOT_FOUND: '/404',
 
-  // Registrar staff routes
-  REGISTRAR_STAFF_LOGIN: '/registrar-staff/login',
-  REGISTRAR_STAFF: '/registrar-staff',
-  REGISTRAR_STAFF_DASHBOARD: '/registrar-staff/dashboard',
-  REGISTRAR_STAFF_STUDENT_RECORDS: '/registrar-staff/student-records',
-  REGISTRAR_STAFF_ENROLLMENTS: '/registrar-staff/enrollments',
-  REGISTRAR_STAFF_REQUESTS: '/registrar-staff/requests',
-  REGISTRAR_STAFF_SCHEDULE: '/registrar-staff/schedule',
-  REGISTRAR_STAFF_SCHEDULE_MANAGE: '/registrar-staff/schedule/manage',
-  REGISTRAR_STAFF_SCHEDULE_CREATE: '/registrar-staff/schedule/create',
-  REGISTRAR_STAFF_SETTINGS: '/registrar-staff/settings',
+  // Registrar routes
+  REGISTRAR_STAFF_LOGIN: '/registrar/login',
+  REGISTRAR_STAFF: '/registrar',
+  REGISTRAR_STAFF_DASHBOARD: '/registrar/dashboard',
+  REGISTRAR_STAFF_STUDENT_RECORDS: '/registrar/student-records',
+  REGISTRAR_STAFF_ENROLLMENTS: '/registrar/enrollments',
+  REGISTRAR_STAFF_REQUESTS: '/registrar/requests',
+  REGISTRAR_STAFF_SCHEDULE: '/registrar/schedule',
+  REGISTRAR_STAFF_SCHEDULE_MANAGE: '/registrar/schedule/manage',
+  REGISTRAR_STAFF_SCHEDULE_CREATE: '/registrar/schedule/create',
+  REGISTRAR_STAFF_SETTINGS: '/registrar/settings',
 
   // Admin routes
   ADMINISTRATORS_LOGIN: '/administrators/login',
   ADMINISTRATORS: '/administrators/dashboard',
-  ADMINISTRATORS_REGISTRAR_STAFF: '/administrators/registrar-staff',
+  ADMINISTRATORS_REGISTRAR_STAFF: '/administrators/registrar',
   ADMINISTRATORS_FACULTY: '/administrators/faculty',
   ADMINISTRATORS_STUDENTS: '/administrators/students',
   ADMINISTRATORS_STUDENTS_MANAGE: '/administrators/students/manage',

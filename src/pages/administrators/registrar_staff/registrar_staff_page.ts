@@ -7,11 +7,11 @@ export function renderregistrar_staff_admin_page(): string {
     ADMIN_SHELL_CONFIG,
     { contentClass: 'admin-content', panelClass: 'admin-panel' },
     'registrar_staff',
-    'Registrar Staff',
-    'Manage registrar staff accounts, roles, and access.',
+    'Registrar',
+    'Manage registrar accounts, roles, and access.',
     {
       breadcrumbHtml: renderBreadcrumbNav([
-        { label: 'Registrar Staff', active: true },
+        { label: 'Registrar', active: true },
       ]),
     },
   )

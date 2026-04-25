@@ -9,7 +9,7 @@ export function renderregistrar_staff_login_page(): string {
       ${renderPortalHeader({
         logoSrc: gwcLogo,
         logoAlt: 'Golden West Colleges logo',
-        portalTitle: 'REGISTRAR STAFF PORTAL',
+        portalTitle: 'REGISTRAR PORTAL',
       })}
 
       <section class="portal-body">
@@ -17,8 +17,8 @@ export function renderregistrar_staff_login_page(): string {
           <div class="row justify-content-center justify-content-lg-end">
             <div class="col-12 col-sm-10 col-md-8 col-lg-5 col-xl-4">
               <section class="login-card p-4 p-md-4">
-                  <h2 class="login-heading mb-2">Registrar Staff Login</h2>
-                  <p class="login-subheading mb-4">Sign in with your registrar staff account</p>
+                  <h2 class="login-heading mb-2">Registrar Login</h2>
+                  <p class="login-subheading mb-4">Sign in with your registrar account</p>
                   <form>
                     <div class="form-floating mb-3">
                       <input type="email" class="form-control form-control-lg login-input" id="registrar_staff-email" placeholder="Email address" required />
