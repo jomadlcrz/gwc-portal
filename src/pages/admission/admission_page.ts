@@ -8,6 +8,7 @@ import { renderMainSiteFooter } from '../../components/layout/footer'
 import { renderHomeOverlays } from '../../components/layout/overlay'
 
 type AdmissionSection = 'requirements' | 'status' | 'contact'
+const isAdmissionOpen = false
 
 function renderAdmissionTabs(active: AdmissionSection): string {
   return `
@@ -85,15 +86,10 @@ function renderAdmissionContent(active: AdmissionSection): string {
         </section>
       </article>
 
-      <section class="admission-cta">
-        <div class="admission-cta-copy">
-          <h3>Ready to join Golden West Colleges?</h3>
-          <p>Your future begins here.</p>
-        </div>
-        <a href="${ROUTES.ADMISSION}" class="admission-apply-link">Apply Now <i class="bi bi-arrow-right-circle-fill" aria-hidden="true"></i></a>
+      <section class="admission-availability ${isAdmissionOpen ? 'is-open' : 'is-closed'}">
+        <p class="admission-status-text">${isAdmissionOpen ? 'ONLINE ADMISSION IS NOW OPEN' : 'Application Closed'}</p>
+        ${isAdmissionOpen ? `<a href="${ROUTES.ADMISSION}" class="admission-apply-link">Apply Now <i class="bi bi-arrow-right-circle-fill" aria-hidden="true"></i></a>` : ''}
       </section>
-
-      <p class="admission-status-closed">Application Closed</p>
     `
   }
 
