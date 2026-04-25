@@ -89,6 +89,7 @@ import { ROUTES } from './routes'
 import { setupChangePasswordPage, setupStudentLoginPage } from '../api/student_auth'
 import { renderForgotPasswordPage } from '../pages/login/forgot_password_page'
 import { renderHRPortalPage } from '../pages/login/hr_portal_page'
+import { setupLoginPageShortcuts } from '../pages/login/login_shortcuts'
 
 let cleanupCurrentRoute: (() => void) | null = null
 
@@ -104,7 +105,12 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.STUDENT_LOGIN) {
     app.innerHTML = renderstudent_login_page()
-    cleanupCurrentRoute = setupStudentLoginPage(app)
+    const cleanupStudentLogin = setupStudentLoginPage(app)
+    const cleanupLoginShortcuts = setupLoginPageShortcuts()
+    cleanupCurrentRoute = () => {
+      cleanupStudentLogin()
+      cleanupLoginShortcuts()
+    }
     return
   }
 
@@ -152,22 +158,26 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.ADMINISTRATORS_LOGIN) {
     app.innerHTML = renderadministrators_login_page()
+    cleanupCurrentRoute = setupLoginPageShortcuts()
     return
   }
 
   if (pathname === ROUTES.REGISTRAR_STAFF_LOGIN) {
     app.innerHTML = renderregistrar_staff_login_page()
+    cleanupCurrentRoute = setupLoginPageShortcuts()
     return
   }
 
   // faculty routes
   if (pathname === ROUTES.FACULTY_LOGIN) {
     app.innerHTML = renderfaculty_login_page()
+    cleanupCurrentRoute = setupLoginPageShortcuts()
     return
   }
 
   if (pathname === ROUTES.DEPARTMENT_LOGIN) {
     app.innerHTML = renderdepartment_login_page()
+    cleanupCurrentRoute = setupLoginPageShortcuts()
     return
   }
 
@@ -395,6 +405,7 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   // HR routes
   if (pathname === ROUTES.HR_LOGIN) {
     app.innerHTML = renderHRPortalPage()
+    cleanupCurrentRoute = setupLoginPageShortcuts()
     return
   }
 

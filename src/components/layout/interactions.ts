@@ -1,4 +1,5 @@
 import { ROUTES } from '../../app/routes'
+import { getPortalShortcutRoute } from '../../app/portal_shortcuts'
 
 const loaderLogoUrl = '/images/gwc_logo.avif'
 const loaderGearImageUrl = '/images/gwc_logo_gear.avif'
@@ -167,34 +168,7 @@ export function setupSiteInteractions(root: HTMLElement): () => void {
       return
     }
 
-    if (event.defaultPrevented || event.repeat) return
-
-    const target = event.target as HTMLElement | null
-    const isTyping =
-      target instanceof HTMLInputElement ||
-      target instanceof HTMLTextAreaElement ||
-      target instanceof HTMLSelectElement ||
-      target?.isContentEditable
-
-    if (isTyping) return
-
-    const isMac = navigator.platform.toLowerCase().includes('mac')
-
-    const isMacCombo = isMac && event.metaKey && event.shiftKey
-    const isWindowsCombo = !isMac && event.ctrlKey && event.shiftKey
-
-    if (!isMacCombo && !isWindowsCombo) return
-
-    const key = event.code.replace('Key', '').toLowerCase()
-
-    const shortcutRouteByKey: Record<string, string> = {
-      a: ROUTES.ADMINISTRATORS_LOGIN,
-      r: ROUTES.REGISTRAR_STAFF_LOGIN,
-      d: ROUTES.DEPARTMENT_LOGIN,
-      h: ROUTES.HR_LOGIN,
-    }
-
-    const targetRoute = shortcutRouteByKey[key]
+    const targetRoute = getPortalShortcutRoute(event)
     if (!targetRoute) return
 
     event.preventDefault()
