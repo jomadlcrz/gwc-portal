@@ -51,6 +51,7 @@ export function renderhome_page(): string {
           <div class="post-container">
             <p class="site-post-eyebrow">Official GWC Updates</p>
             <h1 class="site-post-title">Golden West Colleges, Inc. in Action</h1>
+            <a href="#" class="site-hero-enroll-link">Enroll Now</a>
           </div>
         </div>
       </section>

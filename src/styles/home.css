@@ -65,6 +65,27 @@
   letter-spacing: 0.03em;
 }
 
+.site-hero-enroll-link {
+  display: inline-block;
+  margin-top: 1.15rem;
+  padding: 0.6rem 1.15rem;
+  border: 2px solid var(--color-white);
+  color: var(--color-white);
+  background: transparent;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.site-hero-enroll-link:hover,
+.site-hero-enroll-link:focus-visible {
+  background: var(--color-white);
+  color: var(--dark-blue);
+  border-color: var(--color-white);
+}
+
 .site-post-section-title {
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   margin-bottom: 1.75rem;
