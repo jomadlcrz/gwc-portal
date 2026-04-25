@@ -84,15 +84,15 @@ export function renderadmission_registration_page(): string {
             <h3>Programs:</h3>
             <label class="admission-registration-option" for="admission-program-bscrim">
               <input id="admission-program-bscrim" name="admission-program" type="radio" checked />
-              <span>BS Criminology</span>
+              <span>Bachelor of Science in Criminology</span>
             </label>
             <label class="admission-registration-option" for="admission-program-bsit">
               <input id="admission-program-bsit" name="admission-program" type="radio" />
-              <span>BS Information Technology</span>
+              <span>Bachelor of Science in Information Technology</span>
             </label>
             <label class="admission-registration-option" for="admission-program-bscs">
               <input id="admission-program-bscs" name="admission-program" type="radio" />
-              <span>BS Computer Science</span>
+              <span>Bachelor of Science in Computer Science</span>
             </label>
             <label class="admission-registration-option" for="admission-program-ascs">
               <input id="admission-program-ascs" name="admission-program" type="radio" />
@@ -100,7 +100,7 @@ export function renderadmission_registration_page(): string {
             </label>
             <label class="admission-registration-option" for="admission-program-bsba">
               <input id="admission-program-bsba" name="admission-program" type="radio" />
-              <span>BS Business Administration (Major in Marketing Management)</span>
+              <span>Bachelor of Science in Business Administration (Major in Marketing Management)</span>
             </label>
             <label class="admission-registration-option" for="admission-program-beed">
               <input id="admission-program-beed" name="admission-program" type="radio" />

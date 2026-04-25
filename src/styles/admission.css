@@ -48,14 +48,14 @@
 
 .admission-hero-title {
   margin: 0;
-  font-size: clamp(2rem, 5vw, 3.9rem);
+  font-size: clamp(1.8rem, 4.2vw, 3.2rem);
   line-height: 0.98;
   letter-spacing: 0.025em;
 }
 
 .admission-hero-subtitle {
   margin: 1rem 0 0;
-  font-size: clamp(1.02rem, 1.8vw, 1.38rem);
+  font-size: clamp(0.98rem, 1.5vw, 1.18rem);
   color: #f4f8ff;
   max-width: 520px;
 }
@@ -150,7 +150,7 @@
 
 .admission-section-header .admission-section-title {
   color: var(--color-white);
-  font-size: 1.9rem;
+  font-size: 1.45rem;
   line-height: 1.1;
 }
 
@@ -183,7 +183,7 @@
 }
 
 .admission-deadline strong {
-  font-size: 1.75rem;
+  font-size: 1.45rem;
   font-family: var(--font-display);
   letter-spacing: 0.02em;
   line-height: 0.98;
@@ -217,7 +217,7 @@
 .admission-block h3 {
   margin: 0 0 0.5rem;
   color: #132a63;
-  font-size: 1.5rem;
+  font-size: 1.15rem;
 }
 
 .admission-block ul {
@@ -239,7 +239,7 @@
 .admission-note-panel h3 {
   margin: 0 0 0.45rem;
   color: #132a63;
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   display: inline-flex;
   align-items: center;
   gap: 0.44rem;
@@ -281,7 +281,7 @@
 .admission-subhead h3 {
   margin: 0;
   color: #173879;
-  font-size: 1.9rem;
+  font-size: 1.35rem;
   border-bottom: 4px solid #f2c030;
   display: inline-block;
   padding-bottom: 0.26rem;
@@ -443,7 +443,7 @@
 .admission-status-text {
   margin: 0;
   font-weight: 700;
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
   text-transform: uppercase;
   text-align: center;
 }
@@ -592,7 +592,7 @@
 .admission-registration-intro h2 {
   margin: 0 0 0.62rem;
   color: #121d33;
-  font-size: clamp(1.7rem, 3.2vw, 2.35rem);
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
 }
 
 .admission-registration-intro p {
@@ -613,7 +613,7 @@
 .admission-registration-card h3 {
   margin: 0 0 0.75rem;
   color: #1f4ea1;
-  font-size: 1.45rem;
+  font-size: 1.15rem;
 }
 
 .admission-registration-option {
@@ -641,7 +641,7 @@
 
 .admission-registration-option span {
   color: #4a4f5c;
-  font-size: 1.05rem;
+  font-size: 0.98rem;
 }
 
 .admission-registration-actions {
@@ -656,7 +656,7 @@
   background: #efc84a;
   color: #111827;
   border-radius: var(--radius-sm);
-  font-size: 1.38rem;
+  font-size: 1.05rem;
   font-weight: 700;
   line-height: 1;
   padding: 0.65rem 1.05rem 0.7rem;
@@ -696,14 +696,14 @@
   }
 
   .admission-registration-card h3 {
-    font-size: 1.22rem;
+    font-size: 1.08rem;
   }
 
   .admission-registration-option span {
-    font-size: 0.98rem;
+    font-size: 0.92rem;
   }
 
   .admission-registration-next-step {
-    font-size: 1.15rem;
+    font-size: 0.98rem;
   }
 }
