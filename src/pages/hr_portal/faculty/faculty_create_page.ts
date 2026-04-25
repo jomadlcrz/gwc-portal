@@ -48,20 +48,6 @@ function renderFacultyFormFields(): string {
     </section>
 
     <section class="hr-faculty-section">
-      ${renderAdminSectionTitle('Account Setup', { titleClass: 'hr-faculty-section-title' })}
-      <div class="hr-faculty-form-grid">
-        ${floatingInput('faculty-password', 'Password', 'password')}
-        ${floatingInput('faculty-confirm-password', 'Confirm Password', 'password')}
-        <div class="hr-faculty-toggle-wrap">
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="faculty-temporary-password" />
-            <label class="form-check-label" for="faculty-temporary-password">Temporary Password</label>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="hr-faculty-section">
       ${renderAdminSectionTitle('Faculty Assignment', { titleClass: 'hr-faculty-section-title' })}
       <div class="hr-faculty-form-grid">
         ${floatingSelect('faculty-department-id', 'Department', [
@@ -100,7 +86,7 @@ export function renderhr_faculty_create_page(): string {
         <article class="hr-faculty-page-shell">
           <header class="hr-faculty-head">
             <h2>Create Faculty</h2>
-            <p>Add a new faculty account with HR-managed credentials.</p>
+            <p>Add a new faculty account. System-generated credentials will be sent to the faculty email.</p>
           </header>
 
           ${renderFacultyFormFields()}
