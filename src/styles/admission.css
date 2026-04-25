@@ -515,3 +515,195 @@
     grid-template-columns: 1fr;
   }
 }
+
+.admission-registration-hero {
+  border-top: 2px solid var(--gold);
+  padding: 1.4rem 0 1.6rem;
+}
+
+.admission-registration-hero::after {
+  display: none;
+}
+
+.admission-registration-steps {
+  background: var(--color-ink-900);
+  border-top: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  padding: 0.58rem 0;
+}
+
+.admission-stepper-list {
+  position: relative;
+  margin: 0;
+  padding: 0 1rem;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.6rem;
+  align-items: start;
+}
+
+.admission-stepper-list::before {
+  content: '';
+  position: absolute;
+  top: 1.05rem;
+  left: calc(12.5% + 1rem);
+  right: calc(12.5% + 1rem);
+  height: 3px;
+  background: #f5cf42;
+}
+
+.admission-stepper-item {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.34rem;
+}
+
+.admission-stepper-dot {
+  width: 1.85rem;
+  height: 1.85rem;
+  border-radius: var(--radius-pill);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  color: #0f1f3f;
+  background: #cdd7ea;
+  border: 1px solid #b7c4dd;
+}
+
+.admission-stepper-item.is-active .admission-stepper-dot {
+  background: #ffd34f;
+  border-color: #e6b630;
+}
+
+.admission-stepper-label {
+  color: var(--color-white);
+  font-weight: 700;
+  font-size: 0.86rem;
+}
+
+.admission-registration-shell {
+  padding-top: 1.35rem;
+}
+
+.admission-registration-intro h2 {
+  margin: 0 0 0.62rem;
+  color: #121d33;
+  font-size: clamp(1.7rem, 3.2vw, 2.35rem);
+}
+
+.admission-registration-intro p {
+  margin: 0 0 0.55rem;
+  color: #4b5568;
+  font-size: 0.96rem;
+}
+
+.admission-registration-card {
+  margin-top: 0.8rem;
+  background: #f8fafc;
+  border: 1px solid #d4dce9;
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  width: min(100%, 700px);
+}
+
+.admission-registration-card h3 {
+  margin: 0 0 0.75rem;
+  color: #1f4ea1;
+  font-size: 1.45rem;
+}
+
+.admission-registration-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 4.2rem;
+  border: 1px solid #d4dce9;
+  border-radius: var(--radius-sm);
+  padding: 0.72rem 0.9rem;
+  background: #f1f5fb;
+  cursor: pointer;
+}
+
+.admission-registration-option + .admission-registration-option {
+  margin-top: 0.8rem;
+}
+
+.admission-registration-option input {
+  width: 1.35rem;
+  height: 1.35rem;
+  margin: 0;
+}
+
+.admission-registration-option span {
+  color: #4a4f5c;
+  font-size: 1.05rem;
+}
+
+.admission-registration-actions {
+  margin-top: 0.9rem;
+  display: flex;
+  justify-content: flex-end;
+  width: min(100%, 700px);
+}
+
+.admission-registration-next-step {
+  border: 1px solid #d6af35;
+  background: #efc84a;
+  color: #111827;
+  border-radius: var(--radius-sm);
+  font-size: 1.38rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.65rem 1.05rem 0.7rem;
+  cursor: pointer;
+}
+
+.admission-registration-next-step:hover,
+.admission-registration-next-step:focus-visible {
+  background: #e5bc39;
+  border-color: #c59a24;
+}
+
+@media (max-width: 768px) {
+  .admission-registration-steps {
+    overflow-x: auto;
+  }
+
+  .admission-stepper-list {
+    grid-template-columns: repeat(4, minmax(2.2rem, auto));
+    justify-content: center;
+    min-width: max-content;
+    gap: 1.1rem;
+    padding: 0 1.2rem;
+  }
+
+  .admission-stepper-list::before {
+    left: 2.3rem;
+    right: 2.3rem;
+  }
+
+  .admission-stepper-label {
+    display: none;
+  }
+
+  .admission-registration-card {
+    padding: 0.82rem;
+  }
+
+  .admission-registration-card h3 {
+    font-size: 1.22rem;
+  }
+
+  .admission-registration-option span {
+    font-size: 0.98rem;
+  }
+
+  .admission-registration-next-step {
+    font-size: 1.15rem;
+  }
+}

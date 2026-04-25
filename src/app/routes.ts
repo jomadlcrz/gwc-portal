@@ -10,6 +10,7 @@ export const ROUTES = {
   ABOUT_GWC_HISTORY: '/about-gwc/gwc-history',
   ABOUT_GWC_FAQS: '/about-gwc/faqs',
   ADMISSION: '/admission',
+  ADMISSION_REGISTRATION: '/admission/registration',
   ADMISSION_STATUS: '/admission/status',
   ADMISSION_CONTACT: '/admission/contact',
 

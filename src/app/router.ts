@@ -5,6 +5,7 @@ import {
   renderadmission_page,
   renderadmission_status_page,
 } from '../pages/admission/admission_page'
+import { renderadmission_registration_page as renderadmission_registration_form_page } from '../pages/admission/admission_registration_page'
 import { renderpost_lists_page } from '../pages/post/post_lists_page'
 import {
   renderadministrators_dashboard_page,
@@ -238,6 +239,12 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.ADMISSION) {
     app.innerHTML = renderadmission_page()
+    cleanupCurrentRoute = setupSiteInteractions(app)
+    return
+  }
+
+  if (pathname === ROUTES.ADMISSION_REGISTRATION) {
+    app.innerHTML = renderadmission_registration_form_page()
     cleanupCurrentRoute = setupSiteInteractions(app)
     return
   }
