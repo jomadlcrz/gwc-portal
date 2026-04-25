@@ -1,5 +1,10 @@
 import { renderannouncements_page } from '../pages/announcements/announcements_page'
 import { renderabout_gwc_faqs_page, renderabout_gwc_history_page } from '../pages/about_gwc/about_gwc_page'
+import {
+  renderadmission_contact_page,
+  renderadmission_page,
+  renderadmission_status_page,
+} from '../pages/admission/admission_page'
 import { renderpost_lists_page } from '../pages/post/post_lists_page'
 import {
   renderadministrators_dashboard_page,
@@ -227,6 +232,24 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.ABOUT_GWC_FAQS) {
     app.innerHTML = renderabout_gwc_faqs_page()
+    cleanupCurrentRoute = setupSiteInteractions(app)
+    return
+  }
+
+  if (pathname === ROUTES.ADMISSION) {
+    app.innerHTML = renderadmission_page()
+    cleanupCurrentRoute = setupSiteInteractions(app)
+    return
+  }
+
+  if (pathname === ROUTES.ADMISSION_STATUS) {
+    app.innerHTML = renderadmission_status_page()
+    cleanupCurrentRoute = setupSiteInteractions(app)
+    return
+  }
+
+  if (pathname === ROUTES.ADMISSION_CONTACT) {
+    app.innerHTML = renderadmission_contact_page()
     cleanupCurrentRoute = setupSiteInteractions(app)
     return
   }

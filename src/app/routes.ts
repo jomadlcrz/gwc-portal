@@ -9,6 +9,9 @@ export const ROUTES = {
   ABOUT_GWC: '/about-gwc',
   ABOUT_GWC_HISTORY: '/about-gwc/gwc-history',
   ABOUT_GWC_FAQS: '/about-gwc/faqs',
+  ADMISSION: '/admission',
+  ADMISSION_STATUS: '/admission/status',
+  ADMISSION_CONTACT: '/admission/contact',
 
   // 404 route
   NOT_FOUND: '/404',

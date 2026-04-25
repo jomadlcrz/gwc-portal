@@ -1,0 +1,518 @@
+.admission-page {
+  min-height: var(--layout-page-min-height);
+  background: linear-gradient(180deg, #f4f7fc 0%, #eef3fb 100%);
+  color: var(--color-text-primary);
+  padding-top: var(--layout-page-top-offset);
+}
+
+.admission-hero {
+  position: relative;
+  overflow: hidden;
+  border-top: 2px solid var(--gold);
+  padding: 2.4rem 0 2.8rem;
+  background:
+    linear-gradient(90deg, rgba(9, 41, 110, 0.95) 0%, rgba(10, 52, 136, 0.92) 56%, rgba(10, 52, 136, 0.84) 100%),
+    var(--admission-cover-image);
+  background-position: center;
+  background-size: cover;
+}
+
+.admission-hero::after {
+  content: '';
+  position: absolute;
+  inset: auto -8% -48px;
+  height: 104px;
+  background: #f4f7fc;
+  border-top: 6px solid var(--gold);
+  border-radius: 100% 100% 0 0 / 100% 100% 0 0;
+}
+
+.admission-hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.admission-hero-content {
+  max-width: 640px;
+  color: var(--color-white);
+}
+
+.admission-hero-kicker {
+  margin: 0 0 0.4rem;
+  color: #9ec5ff;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.admission-hero-title {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.9rem);
+  line-height: 0.98;
+  letter-spacing: 0.025em;
+}
+
+.admission-hero-subtitle {
+  margin: 1rem 0 0;
+  font-size: clamp(1.02rem, 1.8vw, 1.38rem);
+  color: #f4f8ff;
+  max-width: 520px;
+}
+
+.admission-hero-cta {
+  margin-top: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+  font-weight: 700;
+  padding: 0.58rem 1.1rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid #d5a000;
+  background: #f5bd02;
+  color: #1a2234;
+}
+
+.admission-hero-cta:hover,
+.admission-hero-cta:focus-visible {
+  background: #e8b000;
+  color: #111827;
+}
+
+.admission-shell {
+  padding: 1.15rem 0 3rem;
+}
+
+.admission-tabs {
+  margin-top: 0.35rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  padding: 0;
+  width: fit-content;
+  margin-inline: auto;
+}
+
+.admission-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.46rem;
+  background: var(--color-white);
+  color: #173879;
+  text-decoration: none;
+  border: 1px solid #d3ddec;
+  border-radius: var(--radius-pill);
+  padding: 0.62rem 0.8rem;
+  font-weight: 700;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.admission-tab i {
+  font-size: 1rem;
+}
+
+.admission-tab.is-active,
+.admission-tab:hover,
+.admission-tab:focus-visible {
+  background: var(--color-ink-900);
+  border-color: var(--color-ink-900);
+  color: var(--color-white);
+}
+
+.admission-section-card {
+  margin-top: 1rem;
+  background: var(--color-white);
+  border: 1px solid #d1dceb;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-surface-raised);
+  overflow: hidden;
+}
+
+.admission-section-header {
+  padding: 1.1rem 1.2rem;
+  background: var(--color-white);
+  border-bottom: 1px solid #d8e2f0;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.admission-section-header h2 {
+  margin: 0;
+}
+
+.admission-section-title {
+  margin: 0;
+}
+
+.admission-section-header .admission-section-title {
+  color: var(--color-white);
+  font-size: 1.9rem;
+  line-height: 1.1;
+}
+
+.admission-section-header .admission-section-title span {
+  color: var(--color-white);
+}
+
+.admission-deadline {
+  margin: 0;
+  width: min(100%, 355px);
+  border: 1px solid #d7a400;
+  background: #f4c20d;
+  color: #1a2234;
+  border-radius: var(--radius-sm);
+  padding: 0.52rem 0.82rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 0.52rem;
+}
+
+.admission-deadline i {
+  grid-row: 1 / span 2;
+  font-size: 1.3rem;
+}
+
+.admission-deadline span {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.admission-deadline strong {
+  font-size: 1.75rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+  line-height: 0.98;
+}
+
+.admission-content-grid {
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.admission-block {
+  border: 1px solid #d9e2ef;
+  border-radius: var(--radius-md);
+  padding: 0.9rem 0.88rem 0.82rem;
+}
+
+.admission-step {
+  margin: 0 0 0.45rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: var(--radius-pill);
+  display: grid;
+  place-items: center;
+  color: var(--color-white);
+  background: #173879;
+  font-weight: 700;
+}
+
+.admission-block h3 {
+  margin: 0 0 0.5rem;
+  color: #132a63;
+  font-size: 1.5rem;
+}
+
+.admission-block ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.admission-block li {
+  margin-bottom: 0.28rem;
+}
+
+.admission-note-panel {
+  border: 1px solid #eadba9;
+  background: #fff9e8;
+  border-radius: var(--radius-md);
+  padding: 0.9rem 0.88rem;
+}
+
+.admission-note-panel h3 {
+  margin: 0 0 0.45rem;
+  color: #132a63;
+  font-size: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.44rem;
+}
+
+.admission-note-panel p {
+  margin: 0 0 0.4rem;
+}
+
+.admission-policy {
+  margin: 0;
+  padding: 0.92rem 1rem 1.05rem;
+  border-top: 1px solid #d8e2f0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #12244b;
+  font-weight: 600;
+}
+
+.admission-section-row {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0.8rem;
+}
+
+.admission-subhead {
+  padding: 1rem 1rem 0;
+}
+
+.admission-subhead h3 {
+  margin: 0;
+  color: #173879;
+  font-size: 1.9rem;
+  border-bottom: 4px solid #f2c030;
+  display: inline-block;
+  padding-bottom: 0.26rem;
+}
+
+.admission-subhead .admission-section-title {
+  color: var(--color-white);
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.admission-process-list {
+  margin: 0;
+  padding: 0.95rem 1rem 1.05rem;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.65rem;
+  list-style: none;
+  counter-reset: process-step;
+}
+
+.admission-process-list li {
+  border: 1px solid #d6dfec;
+  border-radius: var(--radius-md);
+  padding: 0.74rem 0.68rem;
+  min-height: 100%;
+}
+
+.admission-process-list li::before {
+  counter-increment: process-step;
+  content: counter(process-step);
+  display: grid;
+  place-items: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  background: #173879;
+  color: var(--color-white);
+  margin-bottom: 0.5rem;
+}
+
+.admission-process-list li strong {
+  display: block;
+  color: #1c3368;
+  margin-bottom: 0.32rem;
+}
+
+.admission-process-list li span {
+  color: #324968;
+  font-size: 0.92rem;
+}
+
+.admission-status-copy {
+  margin: 0.3rem 1rem 0;
+  color: #34486d;
+}
+
+.admission-status-fields {
+  padding: 0.85rem 1rem 1rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.admission-status-inline {
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 0.7rem;
+}
+
+.admission-status-fields label {
+  color: #26406f;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.34rem;
+}
+
+.admission-status-fields input {
+  width: 100%;
+  border: 1px solid #c3d1e4;
+  border-radius: var(--radius-sm);
+  padding: 0.58rem 0.7rem;
+}
+
+.admission-status-fields button {
+  border: 1px solid #173879;
+  border-radius: var(--radius-sm);
+  background: #173879;
+  color: var(--color-white);
+  font-weight: 700;
+  padding: 0.58rem 0.75rem;
+  text-transform: uppercase;
+  min-width: 150px;
+}
+
+.admission-status-fields button:hover,
+.admission-status-fields button:focus-visible {
+  background: var(--color-ink-900);
+  border-color: var(--color-ink-900);
+}
+
+.admission-table-wrap {
+  border: 1px solid #c1cede;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.admission-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admission-table thead th {
+  background: #28498d;
+  color: var(--color-white);
+  padding: 0.8rem 0.9rem;
+  text-align: left;
+}
+
+.admission-table tbody td {
+  padding: 0.72rem 0.9rem;
+  border-top: 1px solid #d0d8e5;
+}
+
+.admission-table tbody tr:nth-child(odd) {
+  background: #eef3fb;
+}
+
+.admission-table a {
+  color: #0d63cc;
+  text-decoration: none;
+}
+
+.admission-table a:hover,
+.admission-table a:focus-visible {
+  text-decoration: underline;
+}
+
+.admission-content-block {
+  padding: 0.25rem 1rem 1rem;
+}
+
+.admission-cta {
+  margin-top: 1rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid #153878;
+  background: linear-gradient(90deg, #143371 0%, #1c4ea0 100%);
+  color: var(--color-white);
+  padding: 1rem 1.1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.admission-cta-copy h3 {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.admission-cta-copy p {
+  margin: 0.2rem 0 0;
+  font-size: 1.05rem;
+}
+
+.admission-apply-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  background: #f3bf0f;
+  border: 1px solid #d2a200;
+  color: #17284f;
+  font-weight: 700;
+}
+
+.admission-apply-link:hover,
+.admission-apply-link:focus-visible {
+  background: #e5b40c;
+  color: #0f1b38;
+}
+
+.admission-status-closed {
+  color: #d72f42;
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3rem);
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0.8rem 0 0;
+}
+
+@media (max-width: 1100px) {
+  .admission-content-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admission-section-row {
+    grid-template-columns: 1fr;
+  }
+
+  .admission-process-list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .admission-hero {
+    padding: 1.8rem 0 2.6rem;
+  }
+
+  .admission-tabs {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .admission-tab {
+    justify-content: flex-start;
+  }
+
+  .admission-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admission-process-list {
+    grid-template-columns: 1fr;
+  }
+
+  .admission-cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admission-status-inline {
+    grid-template-columns: 1fr;
+  }
+}
