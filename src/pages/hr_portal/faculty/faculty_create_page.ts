@@ -1,5 +1,6 @@
 import { ROUTES } from '../../../app/routes'
 import { HR_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../../components/layout/_layout'
+import { hydrateLocationSelects, setupProvinceCityCascade } from '../../../api/psgc'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderDepartmentCodeBadge } from '../../../components/ui/department_badge'
 import { renderAdminSectionTitle } from '../../../components/ui/section_title_heading'
@@ -52,10 +53,10 @@ function renderFacultyFormFields(): string {
       <div class="hr-faculty-form-grid">
         ${floatingInput('faculty-email', 'Email', 'email')}
         ${floatingInput('faculty-mobile', 'Mobile Number')}
-        <div class="form-floating hr-faculty-col-span-2">
-          <textarea class="form-control form-control-sm" id="faculty-address" placeholder="Address" style="height: 95px;"></textarea>
-          <label for="faculty-address">Address</label>
-        </div>
+        ${floatingSelect('faculty-province', 'Province', [])}
+        ${floatingSelect('faculty-city', 'City/Municipality', [])}
+        ${floatingSelect('faculty-barangay', 'Barangay', [])}
+        ${floatingInput('faculty-street', 'Street')}
       </div>
     </section>
 
@@ -110,5 +111,11 @@ export function renderhr_faculty_create_page(): string {
 }
 
 export function setuphr_faculty_create_page(root: HTMLElement): () => void {
-  return setupPortalShell(root, HR_SHELL_CONFIG)
+  const cleanupShell = setupPortalShell(root, HR_SHELL_CONFIG)
+  const cleanupCascade = setupProvinceCityCascade(root)
+  void hydrateLocationSelects(root)
+  return () => {
+    cleanupCascade()
+    cleanupShell()
+  }
 }
