@@ -1,6 +1,7 @@
 import { ROUTES } from '../../../app/routes'
 import { REGISTRAR_STAFF_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { renderDepartmentCodeBadge } from '../../../components/ui/department_badge'
 import { schedulingService } from '../../../features/scheduling/service'
 
 export function renderregistrar_staff_schedule_page(): string {
@@ -48,7 +49,9 @@ export function renderregistrar_staff_schedule_page(): string {
               <ul class="registrar-list">
                 ${
                   conflictQueue.length
-                    ? conflictQueue.map((item) => `<li><strong>${item.id}</strong> - ${item.department} - ${item.status}</li>`).join('')
+                    ? conflictQueue
+                        .map((item) => `<li><strong>${item.id}</strong> - ${renderDepartmentCodeBadge(item.department)} - ${item.status}</li>`)
+                        .join('')
                     : '<li>No conflict schedules.</li>'
                 }
               </ul>
@@ -59,7 +62,9 @@ export function renderregistrar_staff_schedule_page(): string {
               <ul class="registrar-list">
                 ${
                   pendingAdmin.length
-                    ? pendingAdmin.map((item) => `<li><strong>${item.id}</strong> - ${item.department} - ${item.status}</li>`).join('')
+                    ? pendingAdmin
+                        .map((item) => `<li><strong>${item.id}</strong> - ${renderDepartmentCodeBadge(item.department)} - ${item.status}</li>`)
+                        .join('')
                     : '<li>No schedules sent to admin.</li>'
                 }
               </ul>

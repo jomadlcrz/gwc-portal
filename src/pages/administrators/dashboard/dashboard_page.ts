@@ -1,6 +1,7 @@
 import { ADMIN_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderSharedModal } from '../../../components/ui/modal'
 import { renderSharedPopover } from '../../../components/ui/popover'
+import { renderDepartmentDisplay } from '../../../components/ui/department_badge'
 import { schedulingService, statusToLabel } from '../../../features/scheduling/service'
 
 export function renderadministrators_dashboard_page(): string {
@@ -34,7 +35,7 @@ export function renderadministrators_dashboard_page(): string {
                       (schedule) => `
                         <tr data-admin-schedule-row data-schedule-id="${schedule.id}">
                           <td>${schedule.id}</td>
-                          <td>${schedule.department}</td>
+                          <td>${renderDepartmentDisplay(schedule.department)}</td>
                           <td>${schedule.term}</td>
                           <td>${statusToLabel(schedule.status)}</td>
                           <td>${schedule.registrarNotes || '-'}</td>

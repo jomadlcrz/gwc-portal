@@ -459,36 +459,6 @@
   color: var(--color-slate-600);
 }
 
-.hr-dept-code {
-  display: inline-block;
-  padding: 0.1rem 0.4rem;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-}
-
-.hr-dept-code-cite,
-.hr-dept-code-cte {
-  color: #4b5563;
-  background: #e5e7eb;
-}
-
-.hr-dept-code-cba {
-  color: #ffffff;
-  background: #1e3a8a;
-}
-
-.hr-dept-code-coe {
-  color: #3f2f00;
-  background: #facc15;
-}
-
-.hr-dept-code-ccj {
-  color: #ffffff;
-  background: #1d4ed8;
-}
-
 @media (max-width: 991px) {
   .hr-faculty-toolbar {
     flex-direction: column;

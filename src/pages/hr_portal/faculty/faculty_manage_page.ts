@@ -1,6 +1,7 @@
 import { ROUTES } from '../../../app/routes'
 import { HR_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { renderDepartmentDisplay } from '../../../components/ui/department_badge'
 import { DEPARTMENTS } from '../../../data/departments'
 
 type FacultyRecord = {
@@ -44,7 +45,7 @@ function renderRows(): string {
       <tr data-hr-faculty-row data-search-value="${searchValue}">
         <td>${faculty.schoolId}</td>
         <td>${fullName}</td>
-        <td><span class="hr-dept-code hr-dept-code-${faculty.departmentCode.toLowerCase()}">${faculty.departmentCode}</span> - ${faculty.department}</td>
+        <td>${renderDepartmentDisplay(faculty.departmentCode)}</td>
         <td>${faculty.email}</td>
         <td>${faculty.mobileNumber}</td>
         <td>${faculty.role}</td>

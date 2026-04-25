@@ -1,13 +1,13 @@
 import { ROUTES } from '../../../app/routes'
 import { HR_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { renderDepartmentCodeBadge } from '../../../components/ui/department_badge'
 import { renderAdminSectionTitle } from '../../../components/ui/section_title_heading'
 import { DEPARTMENTS, DEPARTMENT_SELECT_OPTIONS } from '../../../data/departments'
 
 function renderDepartmentCodeLegend(): string {
   return DEPARTMENTS.map(
-    (department) =>
-      `<span class="hr-dept-code hr-dept-code-${department.code.toLowerCase()}">${department.code}</span>`,
+    (department) => renderDepartmentCodeBadge(department.code),
   ).join(' | ')
 }
 

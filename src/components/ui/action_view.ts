@@ -1,6 +1,7 @@
 export type ActionViewField = {
   label: string
   value: string
+  valueHtml?: string
   pillClass?: string
 }
 
@@ -25,6 +26,8 @@ export function renderActionView(sections: ActionViewSection[]): string {
                   .map((field) => {
                     const valueHtml = field.pillClass
                       ? `<span class="admin-pill ${field.pillClass}">${escapeHtml(field.value)}</span>`
+                      : field.valueHtml
+                        ? field.valueHtml
                       : `<strong>${escapeHtml(field.value)}</strong>`
                     return `<div class="action-view-item"><p>${escapeHtml(field.label)}</p>${valueHtml}</div>`
                   })

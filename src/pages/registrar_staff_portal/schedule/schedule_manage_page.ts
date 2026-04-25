@@ -5,6 +5,7 @@ import { renderSharedPagination, setupSharedPagination } from '../../../componen
 import { renderSharedPopover } from '../../../components/ui/popover'
 import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
 import { renderActionChanges, renderActionView } from '../../../components/ui/action_view'
+import { renderDepartmentDisplay } from '../../../components/ui/department_badge'
 import { schedulingService, statusToBadgeClass, statusToLabel } from '../../../features/scheduling/service'
 
 function renderRows(): string {
@@ -27,7 +28,7 @@ function renderRows(): string {
       <tr data-schedule-row data-schedule-id="${schedule.id}" data-search-value="${searchValue}">
         <td>${schedule.id}</td>
         <td>${schedule.term}</td>
-        <td>${schedule.department}</td>
+        <td>${renderDepartmentDisplay(schedule.department)}</td>
         <td>v${schedule.currentVersion}</td>
         <td><span class="admin-pill ${statusToBadgeClass(schedule.status)}">${statusToLabel(schedule.status)}</span></td>
         <td>${schedule.adminFeedback || '-'}</td>
@@ -220,7 +221,7 @@ export function setupschedule_manage_page(root: HTMLElement): () => void {
           { label: 'Status', value: statusToLabel(schedule.status) },
           { label: 'Current Version', value: `v${schedule.currentVersion}` },
           { label: 'Total Classes', value: String(current.snapshot.length) },
-          { label: 'Department', value: schedule.department },
+          { label: 'Department', value: schedule.department, valueHtml: renderDepartmentDisplay(schedule.department) },
           { label: 'Registrar Notes', value: schedule.registrarNotes || '-' },
           { label: 'Admin Feedback', value: schedule.adminFeedback || '-' },
         ],
