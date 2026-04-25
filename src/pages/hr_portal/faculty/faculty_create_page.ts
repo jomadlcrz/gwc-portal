@@ -2,6 +2,14 @@ import { ROUTES } from '../../../app/routes'
 import { HR_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderAdminSectionTitle } from '../../../components/ui/section_title_heading'
+import { DEPARTMENTS, DEPARTMENT_SELECT_OPTIONS } from '../../../data/departments'
+
+function renderDepartmentCodeLegend(): string {
+  return DEPARTMENTS.map(
+    (department) =>
+      `<span class="hr-dept-code hr-dept-code-${department.code.toLowerCase()}">${department.code}</span>`,
+  ).join(' | ')
+}
 
 function renderFacultyFormFields(): string {
   const floatingInput = (id: string, label: string, type = 'text'): string => `
@@ -11,11 +19,15 @@ function renderFacultyFormFields(): string {
     </div>
   `
 
-  const floatingSelect = (id: string, label: string, options: string[]): string => `
+  const floatingSelect = (id: string, label: string, options: Array<string | { value: string; label: string }>): string => `
     <div class="form-floating">
       <select class="form-select form-select-sm" id="${id}">
         <option value="">Select ${label}</option>
-        ${options.map((option) => `<option value="${option}">${option}</option>`).join('')}
+        ${options
+          .map((option) =>
+            typeof option === 'string' ? `<option value="${option}">${option}</option>` : `<option value="${option.value}">${option.label}</option>`,
+          )
+          .join('')}
       </select>
       <label for="${id}">${label}</label>
     </div>
@@ -23,7 +35,7 @@ function renderFacultyFormFields(): string {
 
   return `
     <section class="hr-faculty-section">
-      ${renderAdminSectionTitle('Faculty Information', { titleClass: 'hr-faculty-section-title' })}
+      ${renderAdminSectionTitle('Basic Faculty Information', { titleClass: 'hr-faculty-section-title' })}
       <div class="hr-faculty-form-grid">
         ${floatingInput('faculty-school-id', 'School ID')}
         ${floatingInput('faculty-first-name', 'First Name')}
@@ -50,13 +62,9 @@ function renderFacultyFormFields(): string {
     <section class="hr-faculty-section">
       ${renderAdminSectionTitle('Faculty Assignment', { titleClass: 'hr-faculty-section-title' })}
       <div class="hr-faculty-form-grid">
-        ${floatingSelect('faculty-department-id', 'Department', [
-          'CCS',
-          'CBA',
-          'College of Education',
-          'College of Hospitality Management',
-        ])}
+        ${floatingSelect('faculty-department-id', 'Department', DEPARTMENT_SELECT_OPTIONS)}
       </div>
+      <p class="hr-faculty-department-codes mb-0 mt-2"><strong>Department Codes:</strong> ${renderDepartmentCodeLegend()}</p>
     </section>
 
     <section class="hr-faculty-section">

@@ -3,6 +3,7 @@ import { ROUTES } from '../../../app/routes'
 import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { schedulingService } from '../../../features/scheduling/service'
 import type { ScheduleItem } from '../../../features/scheduling/types'
+import { DEFAULT_DEPARTMENT_CODE, DEPARTMENT_SELECT_OPTIONS } from '../../../data/departments'
 
 function floatingInputWithFeedback(
   id: string,
@@ -25,7 +26,7 @@ function floatingSelect(
   id: string,
   label: string,
   placeholder: string,
-  options: string[],
+  options: Array<string | { value: string; label: string }>,
   feedback = '',
   extraAttributes = '',
 ): string {
@@ -33,7 +34,11 @@ function floatingSelect(
     <div class="form-floating">
       <select class="form-select form-select-sm" id="${id}" ${extraAttributes}>
         <option value="" selected disabled>${placeholder}</option>
-        ${options.map((option) => `<option>${option}</option>`).join('')}
+        ${options
+          .map((option) =>
+            typeof option === 'string' ? `<option value="${option}">${option}</option>` : `<option value="${option.value}">${option.label}</option>`,
+          )
+          .join('')}
       </select>
       <label for="${id}">${label}</label>
       ${feedback ? `<div class="invalid-feedback">${feedback}</div>` : ''}
@@ -110,9 +115,7 @@ export function renderregistrar_staff_schedule_create_page(): string {
                   'Summer AY 2026-2027',
                 ], 'Please select an academic term.', 'required')}
                 ${floatingSelect('schedule-department', 'College Department', 'Select College Department', [
-                  'College of Computer Studies',
-                  'College of Business',
-                  'College of Education',
+                  ...DEPARTMENT_SELECT_OPTIONS,
                 ], 'Please select a college department.', 'required')}
                 ${floatingInputWithFeedback('schedule-section', 'Section', 'text', 'Section', 'Please enter a section.', 'required')}
                 ${floatingInputWithFeedback(
@@ -307,7 +310,7 @@ export function setupclass_scheduling_form(root: HTMLElement): () => void {
     const schedule = schedulingService.createSchedule(
       {
         term: getValue('#schedule-term') || '1st Semester AY 2026-2027',
-        department: getValue('#schedule-department') || 'College of Computer Studies',
+        department: getValue('#schedule-department') || DEFAULT_DEPARTMENT_CODE,
         registrarNotes: getValue('#schedule-notes'),
         items,
       },

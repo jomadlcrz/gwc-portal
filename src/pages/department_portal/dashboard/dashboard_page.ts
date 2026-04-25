@@ -2,9 +2,10 @@ import { ROUTES } from '../../../app/routes'
 import { DEPARTMENT_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { schedulingService } from '../../../features/scheduling/service'
+import { DEFAULT_DEPARTMENT_CODE } from '../../../data/departments'
 
 export function renderdepartment_dashboard_page(): string {
-  const approved = schedulingService.listApprovedByDepartment('College of Computer Studies')
+  const approved = schedulingService.listApprovedByDepartment(DEFAULT_DEPARTMENT_CODE)
   const requests = schedulingService.listModificationRequests({ requesterRole: 'DEPARTMENT' }).slice(0, 5)
   const notes = schedulingService.listNotifications('DEPARTMENT').slice(0, 5)
   const accepted = requests.filter((item) => item.status === 'ACCEPTED').length

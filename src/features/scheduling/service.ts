@@ -13,6 +13,7 @@ import type {
   ScheduleStatus,
   ScheduleVersion,
 } from './types'
+import { DEFAULT_DEPARTMENT_CODE } from '../../data/departments'
 
 type CreateScheduleInput = {
   term: string
@@ -97,7 +98,7 @@ class SchedulingService {
         title: 'Introduction to Computing',
         section: 'BSIT-1A',
         faculty: 'Prof. Maria Dela Cruz',
-        department: 'College of Computer Studies',
+        department: DEFAULT_DEPARTMENT_CODE,
         room: 'Room 301',
         day: 'Monday',
         startTime: '08:00',
@@ -111,7 +112,7 @@ class SchedulingService {
         title: 'Data Structures',
         section: 'BSIT-2A',
         faculty: 'Prof. John Santos',
-        department: 'College of Computer Studies',
+        department: DEFAULT_DEPARTMENT_CODE,
         room: 'Computer Lab 2',
         day: 'Tuesday',
         startTime: '10:00',
@@ -124,7 +125,7 @@ class SchedulingService {
     this.createSchedule(
       {
         term: '1st Semester AY 2026-2027',
-        department: 'College of Computer Studies',
+        department: DEFAULT_DEPARTMENT_CODE,
         registrarNotes: 'Initial publishing batch',
         items: baseItems,
       },
@@ -139,7 +140,7 @@ class SchedulingService {
         title: 'Operating Systems',
         section: 'BSIT-3A',
         faculty: 'Prof. Angela Reyes',
-        department: 'College of Computer Studies',
+        department: DEFAULT_DEPARTMENT_CODE,
         room: 'Room 305',
         day: 'Wednesday',
         startTime: '09:00',
@@ -153,7 +154,7 @@ class SchedulingService {
         title: 'Computer Networks',
         section: 'BSIT-3B',
         faculty: 'Prof. Angela Reyes',
-        department: 'College of Computer Studies',
+        department: DEFAULT_DEPARTMENT_CODE,
         room: 'Room 305',
         day: 'Wednesday',
         startTime: '10:00',
@@ -166,7 +167,7 @@ class SchedulingService {
     this.createSchedule(
       {
         term: '1st Semester AY 2026-2027',
-        department: 'College of Computer Studies',
+        department: DEFAULT_DEPARTMENT_CODE,
         registrarNotes: 'Detected overlap for admin review',
         items: conflictItems,
       },

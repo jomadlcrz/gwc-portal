@@ -2,9 +2,10 @@ import { DEPARTMENT_SHELL_CONFIG, renderPortalShell } from '../../../components/
 import { renderSharedModal } from '../../../components/ui/modal'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { schedulingService, statusToLabel } from '../../../features/scheduling/service'
+import { DEFAULT_DEPARTMENT_CODE } from '../../../data/departments'
 
 export function renderdepartment_schedule_page(): string {
-  const schedules = schedulingService.listApprovedByDepartment('College of Computer Studies')
+  const schedules = schedulingService.listApprovedByDepartment(DEFAULT_DEPARTMENT_CODE)
 
   return renderPortalShell(
     DEPARTMENT_SHELL_CONFIG,

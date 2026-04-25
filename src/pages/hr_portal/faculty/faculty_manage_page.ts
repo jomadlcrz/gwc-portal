@@ -1,6 +1,7 @@
 import { ROUTES } from '../../../app/routes'
 import { HR_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { DEPARTMENTS } from '../../../data/departments'
 
 type FacultyRecord = {
   schoolId: string
@@ -8,6 +9,7 @@ type FacultyRecord = {
   middleName: string
   lastName: string
   suffix: string
+  departmentCode: string
   department: string
   email: string
   mobileNumber: string
@@ -17,13 +19,15 @@ type FacultyRecord = {
 
 const FACULTY: FacultyRecord[] = Array.from({ length: 18 }, (_, index) => {
   const num = index + 1
+  const department = DEPARTMENTS[index % DEPARTMENTS.length]
   return {
     schoolId: `FAC-${String(num).padStart(4, '0')}`,
     firstName: `Faculty${num}`,
     middleName: num % 3 === 0 ? '' : String.fromCharCode(65 + (num % 26)),
     lastName: `Lastname${num}`,
     suffix: num % 7 === 0 ? 'Jr.' : '',
-    department: num % 2 === 0 ? 'College of Computing Studies' : 'College of Business Administration',
+    departmentCode: department.code,
+    department: department.college,
     email: `faculty${num}@gwc.edu.ph`,
     mobileNumber: `09${String(700000000 + num).slice(0, 9)}`,
     role: 'Instructor',
@@ -35,12 +39,12 @@ function renderRows(): string {
   return FACULTY.map((faculty) => {
     const statusClass = faculty.status === 'Active' ? 'is-active' : 'is-inactive'
     const fullName = [faculty.firstName, faculty.middleName, faculty.lastName, faculty.suffix].filter(Boolean).join(' ')
-    const searchValue = `${faculty.schoolId} ${fullName} ${faculty.department} ${faculty.email}`.toLowerCase()
+    const searchValue = `${faculty.schoolId} ${fullName} ${faculty.departmentCode} ${faculty.department} ${faculty.email}`.toLowerCase()
     return `
       <tr data-hr-faculty-row data-search-value="${searchValue}">
         <td>${faculty.schoolId}</td>
         <td>${fullName}</td>
-        <td>${faculty.department}</td>
+        <td><span class="hr-dept-code hr-dept-code-${faculty.departmentCode.toLowerCase()}">${faculty.departmentCode}</span> - ${faculty.department}</td>
         <td>${faculty.email}</td>
         <td>${faculty.mobileNumber}</td>
         <td>${faculty.role}</td>

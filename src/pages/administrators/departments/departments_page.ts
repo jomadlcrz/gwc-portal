@@ -2,9 +2,10 @@ import { ADMIN_SHELL_CONFIG, renderPortalShell } from '../../../components/layou
 import { renderSharedModal } from '../../../components/ui/modal'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { schedulingService } from '../../../features/scheduling/service'
+import { DEFAULT_DEPARTMENT_CODE, getDepartmentDisplayName } from '../../../data/departments'
 
 export function renderdepartments_page(): string {
-  const approved = schedulingService.listApprovedByDepartment('College of Computer Studies')
+  const approved = schedulingService.listApprovedByDepartment(DEFAULT_DEPARTMENT_CODE)
 
   return renderPortalShell(
     ADMIN_SHELL_CONFIG,
@@ -16,7 +17,7 @@ export function renderdepartments_page(): string {
         ])}
         <article class="admin-panel">
           <h3>Department Schedule Review</h3>
-          <p>Approved schedules for College of Computer Studies: <strong>${approved.length}</strong></p>
+          <p>Approved schedules for ${getDepartmentDisplayName(DEFAULT_DEPARTMENT_CODE)}: <strong>${approved.length}</strong></p>
 
           <div class="admin-table-wrap mt-3">
             <table class="admin-table">
