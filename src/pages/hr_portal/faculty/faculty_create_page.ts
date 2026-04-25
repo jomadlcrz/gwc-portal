@@ -36,7 +36,7 @@ function renderFacultyFormFields(): string {
 
   return `
     <section class="hr-faculty-section">
-      ${renderAdminSectionTitle('Basic Faculty Information', { titleClass: 'hr-faculty-section-title' })}
+      ${renderAdminSectionTitle('Faculty Information', { titleClass: 'hr-faculty-section-title' })}
       <div class="hr-faculty-form-grid">
         ${floatingInput('faculty-school-id', 'School ID')}
         ${floatingInput('faculty-first-name', 'First Name')}
