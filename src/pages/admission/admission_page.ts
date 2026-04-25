@@ -60,12 +60,6 @@ function renderAdmissionContent(active: AdmissionSection): string {
               <li>4Ps beneficiary proof</li>
             </ul>
           </article>
-
-          <article class="admission-note-panel">
-            <h3><i class="bi bi-info-circle-fill" aria-hidden="true"></i>Note</h3>
-            <p>Some academic programs may have additional officially approved requirements before admission.</p>
-            <p>For updates or corrections on your application details, contact the campus where you submitted your application.</p>
-          </article>
         </section>
 
         <p class="admission-policy"><i class="bi bi-shield-check" aria-hidden="true"></i>Only one application is accepted for the university system. Multiple submissions can lead to disqualification.</p>
@@ -84,6 +78,12 @@ function renderAdmissionContent(active: AdmissionSection): string {
             <li><strong>Proceed to enrollment</strong><span>Follow enrollment instructions once approved.</span></li>
           </ol>
         </section>
+      </article>
+
+      <article class="admission-note-panel admission-note-panel-standalone">
+        <h3><i class="bi bi-info-circle-fill" aria-hidden="true"></i>Note</h3>
+        <p>Some academic programs may have additional officially approved requirements before admission.</p>
+        <p>For updates or corrections on your application details, contact the campus where you submitted your application.</p>
       </article>
 
       <section class="admission-availability ${isAdmissionOpen ? 'is-open' : 'is-closed'}">

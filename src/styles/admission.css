@@ -192,7 +192,7 @@
 .admission-content-grid {
   padding: 1rem;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.6rem;
 }
 
@@ -247,6 +247,10 @@
 
 .admission-note-panel p {
   margin: 0 0 0.4rem;
+}
+
+.admission-note-panel-standalone {
+  margin-top: 1rem;
 }
 
 .admission-policy {
