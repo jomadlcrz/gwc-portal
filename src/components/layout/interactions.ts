@@ -1,5 +1,5 @@
 import { ROUTES } from '../../app/routes'
-import { getPortalShortcutRoute } from '../../app/portal_shortcuts'
+import { getPortalShortcutRoute } from '../../pages/login/login_shortcuts'
 
 const loaderLogoUrl = '/images/gwc_logo.avif'
 const loaderGearImageUrl = '/images/gwc_logo_gear.avif'
