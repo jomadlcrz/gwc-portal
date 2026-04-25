@@ -97,7 +97,7 @@ export function renderregistrar_staff_schedule_page(): string {
               <ul class="registrar-list">
                 ${
                   published.length
-                    ? published.map((item) => `<li><strong>${item.id}</strong> - v${item.currentVersion} - ${item.status}</li>`).join('')
+                    ? published.map((item) => `<li><strong>${item.id}</strong> - ${item.status}</li>`).join('')
                     : '<li>No published schedules yet.</li>'
                 }
               </ul>

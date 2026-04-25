@@ -293,7 +293,7 @@ class SchedulingService {
 
     if (approveImmediately) {
       this.submitForApproval(schedule.id, actorId, 'Auto seeded and submitted')
-      this.approveSchedule({ scheduleId: schedule.id, reviewerId: 'admin-1', comment: 'Seed approved', tags: ['seed'] })
+      this.approveSchedule({ scheduleId: schedule.id, reviewerId: 'admin-1', comment: 'Approved', tags: ['seed'] })
     }
 
     return schedule

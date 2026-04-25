@@ -4,7 +4,7 @@ import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderSharedPagination, setupSharedPagination } from '../../../components/ui/pagination'
 import { renderSharedPopover } from '../../../components/ui/popover'
 import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
-import { renderActionChanges, renderActionView } from '../../../components/ui/action_view'
+import { renderActionView } from '../../../components/ui/action_view'
 import { renderDepartmentDisplay } from '../../../components/ui/department_badge'
 import { schedulingService, statusToBadgeClass, statusToLabel } from '../../../features/scheduling/service'
 
@@ -29,7 +29,6 @@ function renderRows(): string {
         <td>${schedule.id}</td>
         <td>${schedule.term}</td>
         <td>${renderDepartmentDisplay(schedule.department)}</td>
-        <td>v${schedule.currentVersion}</td>
         <td><span class="admin-pill ${statusToBadgeClass(schedule.status)}">${statusToLabel(schedule.status)}</span></td>
         <td>${schedule.adminFeedback || '-'}</td>
         <td>
@@ -41,7 +40,6 @@ function renderRows(): string {
               { label: 'View', value: 'view' },
               { label: 'Send to Admin', value: 'submit' },
               { label: 'Finalize', value: 'finalize' },
-              { label: 'Compare v1', value: 'compare' },
             ],
           })}
         </td>
@@ -98,7 +96,6 @@ export function renderregistrar_staff_schedule_manage_page(): string {
                   <th>ID</th>
                   <th>Term</th>
                   <th>Department</th>
-                  <th>Version</th>
                   <th>Status</th>
                   <th>Admin Feedback</th>
                   <th>Actions</th>
@@ -107,7 +104,7 @@ export function renderregistrar_staff_schedule_manage_page(): string {
               <tbody>
                 ${renderRows()}
                 <tr class="d-none" data-schedule-empty-row>
-                  <td colspan="7" class="text-center py-3">No schedules found.</td>
+                  <td colspan="6" class="text-center py-3">No schedules found.</td>
                 </tr>
               </tbody>
             </table>
@@ -219,7 +216,6 @@ export function setupschedule_manage_page(root: HTMLElement): () => void {
         title: 'Schedule Information',
         fields: [
           { label: 'Status', value: statusToLabel(schedule.status) },
-          { label: 'Current Version', value: `v${schedule.currentVersion}` },
           { label: 'Total Classes', value: String(current.snapshot.length) },
           { label: 'Department', value: schedule.department, valueHtml: renderDepartmentDisplay(schedule.department) },
           { label: 'Registrar Notes', value: schedule.registrarNotes || '-' },
@@ -294,19 +290,6 @@ export function setupschedule_manage_page(root: HTMLElement): () => void {
         bodyHtml: `<p class="mb-0">${done ? 'Schedule moved to FINALIZED.' : 'Only APPROVED schedules can be finalized.'}</p>`,
       })
       return
-    }
-
-    if (action === 'compare') {
-      const diff = schedulingService.compareVersions(scheduleId, 1, 2)
-      modal.setMode('form')
-      modal.setOnConfirm(null)
-      modal.open({
-        title: `Version Diff ${scheduleId}`,
-        bodyHtml: diff.length
-          ? renderActionChanges('Version Changes', diff)
-          : '<p class="mb-0">No comparable changes yet (need at least v2).</p>',
-        hideConfirm: true,
-      })
     }
 
   }
