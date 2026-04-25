@@ -2,6 +2,7 @@ import '../../styles/admission.css'
 const gwcLogo = '/images/gwc_logo.avif'
 const gwcLogoWhite = '/images/gwc_logo_white.avif'
 const coverImage = '/images/cover.avif'
+const admissionCoverPeopleImage = '/images/admission_cover.png'
 import { ROUTES } from '../../app/routes'
 import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/layout/header'
 import { renderMainSiteFooter } from '../../components/layout/footer'
@@ -147,7 +148,8 @@ function renderadmission_shell(active: AdmissionSection): string {
         ? 'Application Status'
           : active === 'contact'
             ? 'Contact Us'
-            : 'College Admission 2026 - 2027'
+            : 'College Admission'
+  const heroSchoolYear = active === 'requirements' ? '2026 - 2027' : ''
 
   return `
     <main class="admission-page">
@@ -168,9 +170,15 @@ function renderadmission_shell(active: AdmissionSection): string {
 
       <section class="admission-hero" style="--admission-cover-image: url('${coverImage}')">
         <div class="post-container admission-hero-inner">
-          <div class="admission-hero-content">
-            <h1 class="admission-hero-title">${heroTitle}</h1>
-            <p class="admission-hero-subtitle">Start your journey with Golden West Colleges, Inc.</p>
+          <div class="admission-hero-layout">
+            <div class="admission-hero-content">
+              <h1 class="admission-hero-title">${heroTitle}</h1>
+              ${heroSchoolYear ? `<p class="admission-hero-year">${heroSchoolYear}</p>` : ''}
+              <p class="admission-hero-subtitle">Start your journey with Golden West Colleges, Inc.</p>
+            </div>
+            <div class="admission-hero-people-wrap" aria-hidden="true">
+              <img class="admission-hero-people-image" src="${admissionCoverPeopleImage}" alt="" />
+            </div>
           </div>
         </div>
       </section>

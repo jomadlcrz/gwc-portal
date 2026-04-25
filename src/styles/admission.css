@@ -6,7 +6,10 @@
 }
 
 .admission-hero {
+  --admission-people-curve-offset: 1.25rem;
+  --admission-people-overlap: 3.35rem;
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   border-top: 2px solid var(--gold);
   padding: 2.4rem 0 2.8rem;
@@ -17,24 +20,68 @@
   background-size: cover;
 }
 
+.admission-hero::before,
 .admission-hero::after {
   content: '';
   position: absolute;
-  inset: auto -8% -48px;
-  height: 104px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 175%;
+  pointer-events: none;
+}
+
+.admission-hero::before {
+  top: calc(100% - 50px);
+  height: 232px;
+  border: 6px solid var(--gold);
+  border-bottom: 0;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  z-index: 4;
+}
+
+.admission-hero::after {
+  top: calc(100% - 46px);
+  height: 228px;
   background: #f4f7fc;
-  border-top: 6px solid var(--gold);
-  border-radius: 100% 100% 0 0 / 100% 100% 0 0;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  z-index: 3;
 }
 
 .admission-hero-inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .admission-hero-content {
+  position: relative;
+  z-index: 5;
   max-width: 640px;
   color: var(--color-white);
+}
+
+.admission-hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 440px);
+  align-items: end;
+  gap: 1.2rem;
+}
+
+.admission-hero-people-wrap {
+  position: relative;
+  z-index: 2;
+  justify-self: end;
+  width: 100%;
+  max-width: 500px;
+  align-self: end;
+  transform: translateY(calc(var(--admission-people-curve-offset) + var(--admission-people-overlap)));
+}
+
+.admission-hero-people-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  object-position: bottom center;
 }
 
 .admission-hero-kicker {
@@ -51,6 +98,15 @@
   font-size: clamp(1.8rem, 4.2vw, 3.2rem);
   line-height: 0.98;
   letter-spacing: 0.025em;
+}
+
+.admission-hero-year {
+  margin: 0.3rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 3.2vw, 2.35rem);
+  line-height: 1;
+  letter-spacing: 0.03em;
+  color: #f3c228;
 }
 
 .admission-hero-subtitle {
@@ -491,7 +547,37 @@
 
 @media (max-width: 768px) {
   .admission-hero {
+    --admission-people-curve-offset: 0.7rem;
+    --admission-people-overlap: 2.35rem;
     padding: 1.8rem 0 2.6rem;
+  }
+
+  .admission-hero::after {
+    top: calc(100% - 34px);
+    left: 51.5%;
+    width: 228%;
+    height: 186px;
+    border-radius: 47% 53% 0 0 / 100% 100% 0 0;
+  }
+
+  .admission-hero::before {
+    top: calc(100% - 38px);
+    left: 51.5%;
+    width: 228%;
+    height: 190px;
+    border-radius: 47% 53% 0 0 / 100% 100% 0 0;
+    border-bottom: 0;
+  }
+
+  .admission-hero-layout {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  .admission-hero-people-wrap {
+    max-width: 372px;
+    justify-self: center;
+    transform: translateX(0.65rem) translateY(calc(var(--admission-people-curve-offset) + var(--admission-people-overlap)));
   }
 
   .admission-tabs {
