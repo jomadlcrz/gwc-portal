@@ -3,7 +3,6 @@ import { renderabout_gwc_faqs_page, renderabout_gwc_history_page } from '../page
 import { renderpost_lists_page } from '../pages/post/post_lists_page'
 import {
   renderadministrators_dashboard_page,
-  renderadministrators_directory_page,
   renderregistrar_staff_admin_page,
   renderdepartments_page,
   renderfaculty_page,
@@ -16,7 +15,6 @@ import {
   setupstudents_create_page,
   renderstudents_manage_page,
   setupstudents_manage_page,
-  setupadministrators_directory_page,
   renderstudents_page,
   renderposts_page,
   renderposts_create_page,
@@ -307,12 +305,6 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   if (pathname === ROUTES.ADMINISTRATORS) {
     app.innerHTML = renderadministrators_dashboard_page()
     cleanupCurrentRoute = setupadministrators_dashboard_page(app)
-    return
-  }
-
-  if (pathname === ROUTES.ADMINISTRATORS_DIRECTORY) {
-    app.innerHTML = renderadministrators_directory_page()
-    cleanupCurrentRoute = setupadministrators_directory_page(app)
     return
   }
 

@@ -1,5 +1,5 @@
 import '../../styles/hr.css'
-import '../../styles/administrators/directory.css'
+import '../../styles/administrators/shared_admin.css'
 import '../../styles/administrators/students.css'
 import { HR_SHELL_CONFIG, setupPortalShell } from '../../components/layout/_layout'
 

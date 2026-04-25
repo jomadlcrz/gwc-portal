@@ -6,7 +6,6 @@ import type { HeaderAction } from './header'
 
 export type AdminSection =
   | 'dashboard'
-  | 'administrators'
   | 'registrar_staff'
   | 'faculty'
   | 'students'
@@ -90,12 +89,6 @@ export const ADMIN_SHELL_CONFIG: ShellConfig<AdminSection> = {
   headerLogoAlt: 'Golden West Colleges logo',
   menuItems: [
     { label: 'Dashboard', icon: 'bi-speedometer2', href: ROUTES.ADMINISTRATORS, section: 'dashboard' },
-    {
-      label: 'Administrators',
-      icon: 'bi-file-earmark-text',
-      href: ROUTES.ADMINISTRATORS_DIRECTORY,
-      section: 'administrators',
-    },
     {
       label: 'Registrar Staff',
       icon: 'bi-folder2-open',
