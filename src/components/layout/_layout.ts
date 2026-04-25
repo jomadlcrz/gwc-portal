@@ -28,6 +28,7 @@ export type RegistrarStaffSection =
 export type FacultySection = 'dashboard' | 'classes' | 'gradebook' | 'settings'
 export type StudentSection = 'dashboard' | 'subjects' | 'grades' | 'schedule' | 'settings'
 export type DepartmentSection = 'dashboard' | 'schedule'
+export type HrSection = 'dashboard' | 'faculty' | 'settings'
 
 type ShellMenuItem<TSection extends string> = {
   label: string
@@ -210,6 +211,36 @@ export const STUDENT_SHELL_CONFIG: ShellConfig<StudentSection> = {
     { label: 'Grades', icon: 'bi-file-earmark-text', href: ROUTES.STUDENT_GRADES, section: 'grades' },
     { label: 'Schedule', icon: 'bi-calendar3', href: ROUTES.STUDENT_SCHEDULE, section: 'schedule' },
     { label: 'Settings', icon: 'bi-gear', href: ROUTES.STUDENT_SETTINGS, section: 'settings' },
+  ],
+}
+
+export const HR_SHELL_CONFIG: ShellConfig<HrSection> = {
+  pageClass: 'hr-shell-page',
+  layoutClass: 'hr-layout',
+  sidebarClass: 'hr-sidebar',
+  sidebarAriaLabel: 'HR menu',
+  sidebarMainClass: 'hr-sidebar-main',
+  sidebarHeadClass: 'hr-sidebar-head',
+  sidebarEyebrowClass: 'hr-eyebrow',
+  sidebarEyebrow: 'HR Portal',
+  sidebarTitle: 'Human Resources',
+  sidebarTitleClass: 'hr-header-link',
+  sidebarMenuClass: 'hr-menu',
+  sidebarMenuAriaLabel: 'HR navigation',
+  sidebarFooterClass: 'hr-sidebar-footer',
+  sidebarFooterValue: 'HR',
+  backdropClass: 'hr-sidebar-backdrop',
+  sidebarOpenClass: 'hr-sidebar-open',
+  mobileBodyLockWidth: 991,
+  menuToggleSelector: '[data-hr-sidebar-open]',
+  menuToggleClassName: 'hr-header-menu-toggle',
+  menuToggleAriaLabel: 'Open sidebar menu',
+  headerBrandHref: ROUTES.HOME,
+  headerLogoAlt: 'Golden West Colleges logo',
+  menuItems: [
+    { label: 'Dashboard', icon: 'bi-speedometer2', href: ROUTES.HR_DASHBOARD, section: 'dashboard' },
+    { label: 'Faculty', icon: 'bi-mortarboard', href: ROUTES.HR_FACULTY, section: 'faculty' },
+    { label: 'Settings', icon: 'bi-gear', href: ROUTES.HR_SETTINGS, section: 'settings' },
   ],
 }
 

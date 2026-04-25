@@ -59,6 +59,12 @@ import {
   setupdepartment_page,
   setupdepartment_schedule_page,
 } from '../pages/department_portal/department_page'
+import {
+  renderhr_dashboard_page,
+  renderhr_faculty_page,
+  renderhr_settings_page,
+  setuphr_page,
+} from '../pages/hr_portal/hr_page'
 import { rendernot_found_page } from '../pages/not-found/not_found_page'
 import {
   renderregistrar_staff_dashboard_page,
@@ -393,6 +399,24 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   // HR routes
   if (pathname === ROUTES.HR_LOGIN) {
     app.innerHTML = renderHRPortalPage()
+    return
+  }
+
+  if (pathname === ROUTES.HR_PORTAL || pathname === ROUTES.HR_DASHBOARD) {
+    app.innerHTML = renderhr_dashboard_page()
+    cleanupCurrentRoute = setuphr_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.HR_FACULTY) {
+    app.innerHTML = renderhr_faculty_page()
+    cleanupCurrentRoute = setuphr_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.HR_SETTINGS) {
+    app.innerHTML = renderhr_settings_page()
+    cleanupCurrentRoute = setuphr_page(app)
     return
   }
 

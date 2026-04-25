@@ -75,6 +75,7 @@ export const ROUTES = {
 
   // HR routes
   HR_LOGIN: '/hr-portal/login',
+  HR_PORTAL: '/hr-portal',
   HR_DASHBOARD: '/hr-portal/dashboard',
   HR_FACULTY: '/hr-portal/faculty',
   HR_SETTINGS: '/hr-portal/settings',
