@@ -191,6 +191,24 @@ export function renderadmission_registration_page(): string {
           <section id="admission-registration-step-4" class="admission-registration-step-hidden">
             <article class="admission-registration-finish-card">
               <div class="admission-registration-success-check" aria-hidden="true">
+                <span class="admission-finish-confetti-layer">
+                  <span class="admission-finish-confetti admission-finish-confetti-1"></span>
+                  <span class="admission-finish-confetti admission-finish-confetti-2"></span>
+                  <span class="admission-finish-confetti admission-finish-confetti-3"></span>
+                  <span class="admission-finish-confetti admission-finish-confetti-4"></span>
+                  <span class="admission-finish-confetti admission-finish-confetti-5"></span>
+                  <span class="admission-finish-confetti admission-finish-confetti-6"></span>
+                  <span class="admission-finish-confetti admission-finish-confetti-7"></span>
+                  <span class="admission-finish-confetti admission-finish-confetti-8"></span>
+                  <span class="admission-finish-confetti admission-finish-confetti-9"></span>
+                  <span class="admission-finish-confetti admission-finish-confetti-10"></span>
+                  <span class="admission-finish-confetti admission-finish-confetti-11"></span>
+                  <span class="admission-finish-confetti admission-finish-confetti-12"></span>
+                  <span class="admission-finish-confetti admission-finish-confetti-13"></span>
+                  <span class="admission-finish-confetti admission-finish-confetti-14"></span>
+                  <span class="admission-finish-confetti admission-finish-confetti-15"></span>
+                  <span class="admission-finish-confetti admission-finish-confetti-16"></span>
+                </span>
                 <span class="admission-finish-glitter-layer">
                   <span class="admission-finish-glitter admission-finish-glitter-1"></span>
                   <span class="admission-finish-glitter admission-finish-glitter-2"></span>
