@@ -32,7 +32,6 @@ import {
   setuptestimonials_create_page,
   setupadministrators_page,
   setupadministrators_dashboard_page,
-  setupdepartments_page,
 } from '../pages/administrators/administrators_page'
 import { setupSiteInteractions } from '../components/layout/interactions'
 import { renderhome_page } from '../pages/home/home_page'
@@ -63,7 +62,6 @@ import {
   renderdepartment_dashboard_page,
   renderdepartment_schedule_page,
   setupdepartment_page,
-  setupdepartment_schedule_page,
 } from '../pages/department_portal/department_page'
 import {
   renderhr_dashboard_page,
@@ -166,7 +164,7 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.DEPARTMENT_SCHEDULE) {
     app.innerHTML = renderdepartment_schedule_page()
-    cleanupCurrentRoute = setupdepartment_schedule_page(app)
+    cleanupCurrentRoute = setupdepartment_page(app)
     return
   }
 
@@ -472,7 +470,7 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.ADMINISTRATORS_DEPARTMENTS) {
     app.innerHTML = renderdepartments_page()
-    cleanupCurrentRoute = setupdepartments_page(app)
+    cleanupCurrentRoute = setupadministrators_page(app)
     return
   }
 

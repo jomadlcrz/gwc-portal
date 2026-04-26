@@ -85,6 +85,8 @@ const STUDENTS: StudentRecord[] = Array.from({ length: 30 }, (_, index) => {
 })
 
 const STUDENTS_BY_NO = new Map(STUDENTS.map((student) => [student.studentNo, student]))
+const COURSE_OPTIONS = Array.from(new Set(STUDENTS.map((student) => student.course))).sort()
+const YEAR_LEVEL_OPTIONS = Array.from(new Set(STUDENTS.map((student) => student.year))).sort((a, b) => Number(a) - Number(b))
 
 type DetailField = {
   label: string
@@ -195,7 +197,7 @@ function renderRows(): string {
     const statusClass = student.status === 'Active' ? 'is-active' : 'is-inactive'
     const searchValue = `${student.studentNo} ${student.name} ${student.course} ${student.email}`.toLowerCase()
     return `
-      <tr data-student-row data-search-value="${searchValue}">
+      <tr data-student-row data-search-value="${searchValue}" data-course="${student.course}" data-year="${student.year}">
         <td>${student.studentNo}</td>
         <td>${student.name}</td>
         <td>${student.course}</td>
@@ -240,6 +242,36 @@ export function renderstudents_manage_page(): string {
                 data-student-search
               />
             </label>
+            <div class="admin-student-toolbar-actions">
+              <div class="admin-actions-popover admin-student-filter-popover">
+                <button
+                  type="button"
+                  class="admin-student-filter-trigger"
+                  data-admin-actions-trigger
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                >
+                  <span>Filters</span>
+                  <i class="bi bi-caret-down-fill" aria-hidden="true"></i>
+                </button>
+                <div class="admin-actions-menu admin-student-filter-menu" data-admin-actions-menu role="menu" aria-label="Student Filters">
+                  <label class="admin-student-filter-field">
+                    <span>Course</span>
+                    <select class="form-select form-select-sm" data-student-filter-course>
+                      <option value="">All Courses</option>
+                      ${COURSE_OPTIONS.map((course) => `<option value="${course}">${course}</option>`).join('')}
+                    </select>
+                  </label>
+                  <label class="admin-student-filter-field">
+                    <span>Year Level</span>
+                    <select class="form-select form-select-sm" data-student-filter-year>
+                      <option value="">All Year Levels</option>
+                      ${YEAR_LEVEL_OPTIONS.map((year) => `<option value="${year}">${year}</option>`).join('')}
+                    </select>
+                  </label>
+                </div>
+              </div>
+            </div>
           </section>
 
           <div class="admin-table-wrap">
@@ -278,6 +310,8 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
   const cleanupShell = setupPortalShell(root, ADMIN_SHELL_CONFIG)
   const modal = setupSharedModal(root, { modalSelector: '#students-manage-modal' })
   const searchInput = root.querySelector<HTMLInputElement>('[data-student-search]')
+  const courseFilter = root.querySelector<HTMLSelectElement>('[data-student-filter-course]')
+  const yearFilter = root.querySelector<HTMLSelectElement>('[data-student-filter-year]')
   const allRows = Array.from(root.querySelectorAll<HTMLTableRowElement>('[data-student-row]'))
   const emptyRow = root.querySelector<HTMLTableRowElement>('[data-student-empty-row]')
   const paginationRoot = root.querySelector<HTMLElement>('[data-student-pagination]')
@@ -310,9 +344,18 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
     pagination?.update({ totalItems, currentPage })
   }
 
-  const applySearch = (): void => {
+  const applyFilters = (): void => {
     const query = (searchInput?.value ?? '').trim().toLowerCase()
-    filteredRows = allRows.filter((row) => (row.dataset.searchValue ?? '').includes(query))
+    const selectedCourse = (courseFilter?.value ?? '').trim()
+    const selectedYear = (yearFilter?.value ?? '').trim()
+
+    filteredRows = allRows.filter((row) => {
+      const matchesSearch = (row.dataset.searchValue ?? '').includes(query)
+      const matchesCourse = !selectedCourse || row.dataset.course === selectedCourse
+      const matchesYear = !selectedYear || row.dataset.year === selectedYear
+      return matchesSearch && matchesCourse && matchesYear
+    })
+
     currentPage = 1
     renderVisibleRows()
   }
@@ -358,7 +401,9 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
     return
   }
 
-  searchInput?.addEventListener('input', applySearch)
+  searchInput?.addEventListener('input', applyFilters)
+  courseFilter?.addEventListener('change', applyFilters)
+  yearFilter?.addEventListener('change', applyFilters)
   root.addEventListener('click', onActionClick)
   renderVisibleRows()
 
@@ -366,7 +411,9 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
     cleanupShell()
     modal.destroy()
     pagination?.destroy()
-    searchInput?.removeEventListener('input', applySearch)
+    searchInput?.removeEventListener('input', applyFilters)
+    courseFilter?.removeEventListener('change', applyFilters)
+    yearFilter?.removeEventListener('change', applyFilters)
     root.removeEventListener('click', onActionClick)
   }
 }
