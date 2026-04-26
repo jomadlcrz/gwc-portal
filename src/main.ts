@@ -49,23 +49,6 @@ const hideGlobalLoader = (loader: HTMLDivElement): void => {
   }, 260)
 }
 
-const addImagePreloadHint = (src: string, fetchPriority: 'high' | 'low' | 'auto' = 'high'): void => {
-  const existing = document.head.querySelector<HTMLLinkElement>(`link[rel="preload"][as="image"][href="${src}"]`)
-  if (existing) return
-
-  const link = document.createElement('link')
-  link.rel = 'preload'
-  link.as = 'image'
-  link.href = src
-  link.fetchPriority = fetchPriority
-  document.head.append(link)
-}
-
-addImagePreloadHint(headerLogoUrl)
-addImagePreloadHint(footerLogoUrl)
-addImagePreloadHint(coverImageUrl)
-addImagePreloadHint(loaderGearImageUrl)
-
 const preloadImage = (src: string, timeoutMs = 1400): Promise<void> =>
   new Promise((resolve) => {
     let done = false
