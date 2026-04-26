@@ -7,7 +7,7 @@ import { createRegistrationStudent } from '../../api/v1/registration/students'
 
 const gwcLogo = '/images/gwc_logo.avif'
 const gwcLogoWhite = '/images/gwc_logo_white.avif'
-const coverImage = '/images/admission_cover.png'
+const coverImage = '/images/gwc_banner.png'
 const registrationStepLabels = ['Choose Program', 'Personal Information', 'Validate Details', 'Finish'] as const
 
 function renderRegistrationSteps(): string {

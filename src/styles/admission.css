@@ -645,6 +645,19 @@
   padding: 1.4rem 0 1.6rem;
 }
 
+.admission-registration-hero {
+  background-position: center;
+}
+
+@media (min-width: 769px) {
+  .admission-registration-hero {
+    min-height: clamp(180px, 28vw, 320px);
+    background-size: cover, contain;
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center center;
+  }
+}
+
 .admission-registration-hero::before,
 .admission-registration-hero::after {
   display: none;
