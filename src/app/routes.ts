@@ -1,4 +1,4 @@
-export const ROUTES = {
+﻿export const ROUTES = {
 
   // Public routes
   HOME: '/',
@@ -18,21 +18,21 @@ export const ROUTES = {
   NOT_FOUND: '/404',
 
   // Registrar routes
-  REGISTRAR_STAFF_LOGIN: '/registrar/login',
-  REGISTRAR_STAFF: '/registrar',
-  REGISTRAR_STAFF_DASHBOARD: '/registrar/dashboard',
-  REGISTRAR_STAFF_STUDENT_RECORDS: '/registrar/student-records',
-  REGISTRAR_STAFF_ENROLLMENTS: '/registrar/enrollments',
-  REGISTRAR_STAFF_REQUESTS: '/registrar/requests',
-  REGISTRAR_STAFF_SCHEDULE: '/registrar/schedule',
-  REGISTRAR_STAFF_SCHEDULE_MANAGE: '/registrar/schedule/manage',
-  REGISTRAR_STAFF_SCHEDULE_CREATE: '/registrar/schedule/create',
-  REGISTRAR_STAFF_SETTINGS: '/registrar/settings',
+  REGISTRAR_LOGIN: '/registrar/login',
+  REGISTRAR: '/registrar',
+  REGISTRAR_DASHBOARD: '/registrar/dashboard',
+  REGISTRAR_STUDENT_RECORDS: '/registrar/student-records',
+  REGISTRAR_ENROLLMENTS: '/registrar/enrollments',
+  REGISTRAR_REQUESTS: '/registrar/requests',
+  REGISTRAR_SCHEDULE: '/registrar/schedule',
+  REGISTRAR_SCHEDULE_MANAGE: '/registrar/schedule/manage',
+  REGISTRAR_SCHEDULE_CREATE: '/registrar/schedule/create',
+  REGISTRAR_SETTINGS: '/registrar/settings',
 
   // Admin routes
   ADMINISTRATORS_LOGIN: '/administrators/login',
   ADMINISTRATORS: '/administrators/dashboard',
-  ADMINISTRATORS_REGISTRAR_STAFF: '/administrators/registrar',
+  ADMINISTRATORS_REGISTRAR: '/administrators/registrar',
   ADMINISTRATORS_FACULTY: '/administrators/faculty',
   ADMINISTRATORS_STUDENTS: '/administrators/students',
   ADMINISTRATORS_STUDENTS_MANAGE: '/administrators/students/manage',
@@ -90,6 +90,7 @@ export const ROUTES = {
 export function getPostListsRoute(categorySlug: string): string {
   return `${ROUTES.POST_LISTS}/${encodeURIComponent(categorySlug)}`
 }
+
 
 
 

@@ -1,10 +1,10 @@
-import { ROUTES } from '../../../app/routes'
-import { REGISTRAR_STAFF_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
+﻿import { ROUTES } from '../../../app/routes'
+import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderDepartmentCodeBadge } from '../../../components/ui/department_badge'
 import { schedulingService } from '../../../features/scheduling/service'
 
-export function renderregistrar_staff_schedule_page(): string {
+export function renderregistrar_schedule_page(): string {
   const analytics = schedulingService.getAnalytics()
   const notifications = schedulingService.listNotifications('REGISTRAR').slice(0, 5)
   const pendingAdmin = schedulingService.listPendingApprovals().slice(0, 5)
@@ -14,10 +14,10 @@ export function renderregistrar_staff_schedule_page(): string {
   const published = schedulingService.listSchedulesByStatus(['APPROVED', 'FINALIZED']).slice(0, 5)
 
   return renderPortalShell(
-    REGISTRAR_STAFF_SHELL_CONFIG,
+    registrar_SHELL_CONFIG,
     'schedule',
     `
-      <section class="registrar_staff-content">
+      <section class="registrar-content">
         ${renderAdminBreadcrumbNav([
           { label: 'Schedule', active: true },
         ])}
@@ -29,8 +29,8 @@ export function renderregistrar_staff_schedule_page(): string {
               <p>Monitor conflict detection, approval queue, published schedules, and incoming modification requests.</p>
             </div>
             <div class="registrar-dashboard-actions">
-              <a href="${ROUTES.REGISTRAR_STAFF_SCHEDULE_MANAGE}" class="btn btn-sm btn-outline-primary">Manage Schedule</a>
-              <a href="${ROUTES.REGISTRAR_STAFF_SCHEDULE_CREATE}" class="btn btn-sm btn-primary">Create Schedule</a>
+              <a href="${ROUTES.REGISTRAR_SCHEDULE_MANAGE}" class="btn btn-sm btn-outline-primary">Manage Schedule</a>
+              <a href="${ROUTES.REGISTRAR_SCHEDULE_CREATE}" class="btn btn-sm btn-primary">Create Schedule</a>
             </div>
           </header>
 
@@ -113,9 +113,9 @@ export function renderregistrar_staff_schedule_page(): string {
             <article class="registrar-dashboard-card">
               <h4>Quick Actions</h4>
               <div class="registrar-quick-links">
-                <a href="${ROUTES.REGISTRAR_STAFF_SCHEDULE_CREATE}" class="btn btn-sm btn-outline-primary">New Schedule Draft</a>
-                <a href="${ROUTES.REGISTRAR_STAFF_SCHEDULE_MANAGE}" class="btn btn-sm btn-outline-primary">Process Requests</a>
-                <a href="${ROUTES.REGISTRAR_STAFF_REQUESTS}" class="btn btn-sm btn-outline-primary">Open Requests</a>
+                <a href="${ROUTES.REGISTRAR_SCHEDULE_CREATE}" class="btn btn-sm btn-outline-primary">New Schedule Draft</a>
+                <a href="${ROUTES.REGISTRAR_SCHEDULE_MANAGE}" class="btn btn-sm btn-outline-primary">Process Requests</a>
+                <a href="${ROUTES.REGISTRAR_REQUESTS}" class="btn btn-sm btn-outline-primary">Open Requests</a>
               </div>
             </article>
           </section>
@@ -124,3 +124,6 @@ export function renderregistrar_staff_schedule_page(): string {
     `,
   )
 }
+
+
+

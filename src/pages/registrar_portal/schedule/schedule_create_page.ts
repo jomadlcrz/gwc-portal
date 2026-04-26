@@ -1,4 +1,4 @@
-import { REGISTRAR_STAFF_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
+﻿import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { ROUTES } from '../../../app/routes'
 import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { schedulingService } from '../../../features/scheduling/service'
@@ -88,15 +88,15 @@ function renderTimeSlot(slot: number): string {
   `
 }
 
-export function renderregistrar_staff_schedule_create_page(): string {
+export function renderregistrar_schedule_create_page(): string {
   return renderPortalShell(
-    REGISTRAR_STAFF_SHELL_CONFIG,
+    registrar_SHELL_CONFIG,
     'schedule',
     `
-      <section class="registrar_staff-content class-scheduling-content">
+      <section class="registrar-content class-scheduling-content">
         ${renderAdminBreadcrumbNav([
-          { label: 'Schedule', href: ROUTES.REGISTRAR_STAFF_SCHEDULE },
-          { label: 'Manage Schedule', href: ROUTES.REGISTRAR_STAFF_SCHEDULE_MANAGE },
+          { label: 'Schedule', href: ROUTES.REGISTRAR_SCHEDULE },
+          { label: 'Manage Schedule', href: ROUTES.REGISTRAR_SCHEDULE_MANAGE },
           { label: 'Create Schedule', active: true },
         ])}
         <article class="admin-student-page-shell">
@@ -172,7 +172,7 @@ export function renderregistrar_staff_schedule_create_page(): string {
             </section>
 
             <footer class="admin-student-form-footer">
-              <a href="${ROUTES.REGISTRAR_STAFF_SCHEDULE_MANAGE}" class="btn btn-light btn-sm">Cancel</a>
+              <a href="${ROUTES.REGISTRAR_SCHEDULE_MANAGE}" class="btn btn-light btn-sm">Cancel</a>
               <button type="button" class="btn btn-primary btn-sm" data-create-schedule>Create + Submit</button>
             </footer>
           </form>
@@ -343,3 +343,6 @@ export function setupclass_scheduling_form(root: HTMLElement): () => void {
     titleInput.removeEventListener('input', onFieldInput)
   }
 }
+
+
+

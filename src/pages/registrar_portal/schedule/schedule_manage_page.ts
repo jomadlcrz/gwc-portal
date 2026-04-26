@@ -1,5 +1,5 @@
-import { ROUTES } from '../../../app/routes'
-import { REGISTRAR_STAFF_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
+﻿import { ROUTES } from '../../../app/routes'
+import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderSharedPagination, setupSharedPagination } from '../../../components/ui/pagination'
 import { renderSharedPopover } from '../../../components/ui/popover'
@@ -48,7 +48,7 @@ function renderRows(): string {
   }).join('')
 }
 
-export function renderregistrar_staff_schedule_manage_page(): string {
+export function renderregistrar_schedule_manage_page(): string {
   const total = schedulingService.listSchedules().length
   const draftCount = schedulingService.listSchedulesByStatus(['DRAFT']).length
   const conflictCount = schedulingService.listSchedulesByStatus(['CONFLICT_DETECTED']).length
@@ -56,12 +56,12 @@ export function renderregistrar_staff_schedule_manage_page(): string {
   const returnedCount = schedulingService.listSchedulesByStatus(['REJECTED_BY_ADMIN']).length
   const publishedCount = schedulingService.listSchedulesByStatus(['APPROVED', 'FINALIZED']).length
   return renderPortalShell(
-    REGISTRAR_STAFF_SHELL_CONFIG,
+    registrar_SHELL_CONFIG,
     'schedule',
     `
-      <section class="registrar_staff-content">
+      <section class="registrar-content">
         ${renderAdminBreadcrumbNav([
-          { label: 'Schedule', href: ROUTES.REGISTRAR_STAFF_SCHEDULE },
+          { label: 'Schedule', href: ROUTES.REGISTRAR_SCHEDULE },
           { label: 'Manage Schedule', active: true },
         ])}
 
@@ -81,7 +81,7 @@ export function renderregistrar_staff_schedule_manage_page(): string {
 
           <section class="admin-student-toolbar">
             <div class="admin-student-toolbar-actions">
-              <a href="${ROUTES.REGISTRAR_STAFF_SCHEDULE_CREATE}" class="btn btn-primary btn-sm">+ Create Schedule</a>
+              <a href="${ROUTES.REGISTRAR_SCHEDULE_CREATE}" class="btn btn-primary btn-sm">+ Create Schedule</a>
             </div>
             <label class="admin-directory-search admin-student-search">
               <span class="admin-search-icon" aria-hidden="true"><i class="bi bi-search"></i></span>
@@ -305,3 +305,6 @@ export function setupschedule_manage_page(root: HTMLElement): () => void {
     root.removeEventListener('click', onActionClick)
   }
 }
+
+
+

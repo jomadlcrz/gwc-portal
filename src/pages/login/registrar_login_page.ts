@@ -1,11 +1,11 @@
-import '../../styles/login.css'
+﻿import '../../styles/login.css'
 const gwcLogo = '/images/gwc_logo.avif'
 import { renderPortalHeader } from '../../components/layout/header'
 import { renderPortalSiteFooter } from '../../components/layout/footer'
 
-export function renderregistrar_staff_login_page(): string {
+export function renderregistrar_login_page(): string {
   return `
-    <main class="login-page registrar_staff-login-page">
+    <main class="login-page registrar-login-page">
       ${renderPortalHeader({
         logoSrc: gwcLogo,
         logoAlt: 'Golden West Colleges logo',
@@ -21,12 +21,12 @@ export function renderregistrar_staff_login_page(): string {
                   <p class="login-subheading mb-4">Sign in with your registrar account</p>
                   <form>
                     <div class="form-floating mb-3">
-                      <input type="email" class="form-control form-control-lg login-input" id="registrar_staff-email" placeholder="Email address" required />
-                      <label for="registrar_staff-email">Email address</label>
+                      <input type="email" class="form-control form-control-lg login-input" id="registrar-email" placeholder="Email address" required />
+                      <label for="registrar-email">Email address</label>
                     </div>
                     <div class="form-floating mb-4">
-                      <input type="password" class="form-control form-control-lg login-input password-input" id="registrar_staff-password" placeholder="Password" required />
-                      <label for="registrar_staff-password">Password</label>
+                      <input type="password" class="form-control form-control-lg login-input password-input" id="registrar-password" placeholder="Password" required />
+                      <label for="registrar-password">Password</label>
                     </div>
                     <button type="submit" class="btn btn-lg w-100 login-submit-btn">Log in</button>
                     <p class="mt-3 mb-0 small">
@@ -43,6 +43,7 @@ export function renderregistrar_staff_login_page(): string {
     </main>
   `
 }
+
 
 
 

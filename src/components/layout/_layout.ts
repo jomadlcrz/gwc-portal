@@ -1,4 +1,4 @@
-const gwcLogo = '/images/gwc_logo.avif'
+﻿const gwcLogo = '/images/gwc_logo.avif'
 import { ROUTES } from '../../app/routes'
 import { setupSharedPopover } from '../ui/popover'
 import { renderMainSiteHeader } from './header'
@@ -6,7 +6,7 @@ import type { HeaderAction } from './header'
 
 export type AdminSection =
   | 'dashboard'
-  | 'registrar_staff'
+  | 'registrar'
   | 'faculty'
   | 'students'
   | 'posts'
@@ -16,7 +16,7 @@ export type AdminSection =
   | 'system_logs'
   | 'settings'
 
-export type RegistrarStaffSection =
+export type RegistrarSection =
   | 'dashboard'
   | 'student_records'
   | 'enrollments'
@@ -92,8 +92,8 @@ export const ADMIN_SHELL_CONFIG: ShellConfig<AdminSection> = {
     {
       label: 'Registrar',
       icon: 'bi-folder2-open',
-      href: ROUTES.ADMINISTRATORS_REGISTRAR_STAFF,
-      section: 'registrar_staff',
+      href: ROUTES.ADMINISTRATORS_REGISTRAR,
+      section: 'registrar',
     },
     { label: 'Faculty', icon: 'bi-mortarboard', href: ROUTES.ADMINISTRATORS_FACULTY, section: 'faculty' },
     { label: 'Students', icon: 'bi-people', href: ROUTES.ADMINISTRATORS_STUDENTS, section: 'students' },
@@ -106,41 +106,41 @@ export const ADMIN_SHELL_CONFIG: ShellConfig<AdminSection> = {
   ],
 }
 
-export const REGISTRAR_STAFF_SHELL_CONFIG: ShellConfig<RegistrarStaffSection> = {
-  pageClass: 'registrar_staff-shell-page',
-  layoutClass: 'registrar_staff-layout',
-  sidebarClass: 'registrar_staff-sidebar',
+export const registrar_SHELL_CONFIG: ShellConfig<RegistrarSection> = {
+  pageClass: 'registrar-shell-page',
+  layoutClass: 'registrar-layout',
+  sidebarClass: 'registrar-sidebar',
   sidebarAriaLabel: 'Registrar menu',
-  sidebarMainClass: 'registrar_staff-sidebar-main',
-  sidebarHeadClass: 'registrar_staff-sidebar-head',
-  sidebarEyebrowClass: 'registrar_staff-eyebrow',
+  sidebarMainClass: 'registrar-sidebar-main',
+  sidebarHeadClass: 'registrar-sidebar-head',
+  sidebarEyebrowClass: 'registrar-eyebrow',
   sidebarEyebrow: 'Registrar Portal',
   sidebarTitle: 'Registrar',
-  sidebarTitleClass: 'registrar_staff-header-link',
-  sidebarMenuClass: 'registrar_staff-menu',
+  sidebarTitleClass: 'registrar-header-link',
+  sidebarMenuClass: 'registrar-menu',
   sidebarMenuAriaLabel: 'Registrar navigation',
-  sidebarFooterClass: 'registrar_staff-sidebar-footer',
+  sidebarFooterClass: 'registrar-sidebar-footer',
   sidebarFooterValue: 'REGISTRAR',
-  backdropClass: 'registrar_staff-sidebar-backdrop',
-  sidebarOpenClass: 'registrar_staff-sidebar-open',
+  backdropClass: 'registrar-sidebar-backdrop',
+  sidebarOpenClass: 'registrar-sidebar-open',
   mobileBodyLockWidth: 991,
-  menuToggleSelector: '[data-registrar_staff-sidebar-open]',
-  menuToggleClassName: 'registrar_staff-header-menu-toggle',
+  menuToggleSelector: '[data-registrar-sidebar-open]',
+  menuToggleClassName: 'registrar-header-menu-toggle',
   menuToggleAriaLabel: 'Open sidebar menu',
   headerBrandHref: ROUTES.HOME,
   headerLogoAlt: 'Golden West Colleges logo',
   menuItems: [
-    { label: 'Dashboard', icon: 'bi-speedometer2', href: ROUTES.REGISTRAR_STAFF_DASHBOARD, section: 'dashboard' },
+    { label: 'Dashboard', icon: 'bi-speedometer2', href: ROUTES.REGISTRAR_DASHBOARD, section: 'dashboard' },
     {
       label: 'Student Records',
       icon: 'bi-folder2-open',
-      href: ROUTES.REGISTRAR_STAFF_STUDENT_RECORDS,
+      href: ROUTES.REGISTRAR_STUDENT_RECORDS,
       section: 'student_records',
     },
-    { label: 'Enrollments', icon: 'bi-file-earmark-text', href: ROUTES.REGISTRAR_STAFF_ENROLLMENTS, section: 'enrollments' },
-    { label: 'Requests', icon: 'bi-clipboard-check', href: ROUTES.REGISTRAR_STAFF_REQUESTS, section: 'requests' },
-    { label: 'Schedule', icon: 'bi-calendar3', href: ROUTES.REGISTRAR_STAFF_SCHEDULE, section: 'schedule' },
-    { label: 'Settings', icon: 'bi-gear', href: ROUTES.REGISTRAR_STAFF_SETTINGS, section: 'settings' },
+    { label: 'Enrollments', icon: 'bi-file-earmark-text', href: ROUTES.REGISTRAR_ENROLLMENTS, section: 'enrollments' },
+    { label: 'Requests', icon: 'bi-clipboard-check', href: ROUTES.REGISTRAR_REQUESTS, section: 'requests' },
+    { label: 'Schedule', icon: 'bi-calendar3', href: ROUTES.REGISTRAR_SCHEDULE, section: 'schedule' },
+    { label: 'Settings', icon: 'bi-gear', href: ROUTES.REGISTRAR_SETTINGS, section: 'settings' },
   ],
 }
 
@@ -463,5 +463,8 @@ export const DEPARTMENT_SHELL_CONFIG: ShellConfig<DepartmentSection> = {
     { label: 'Schedule Review', icon: 'bi-calendar3', href: ROUTES.DEPARTMENT_SCHEDULE, section: 'schedule' },
   ],
 }
+
+
+
 
 

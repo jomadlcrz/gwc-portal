@@ -37,7 +37,6 @@ export function renderHomeOverlays(options: HomeOverlayOptions): string {
           </div>
           <template data-submenu-template="academics">
             <ul class="site-overlay-submenu-list">
-              <li><a href="${ROUTES.ADMISSION}">ADMISSION</a></li>
               <li><a href="#programs">PROGRAMS</a></li>
               <li><a href="#special-programs">SPECIAL PROGRAMS</a></li>
               <li><a href="#faculty">FACULTY</a></li>

@@ -1,4 +1,4 @@
-import { renderannouncements_page } from '../pages/announcements/announcements_page'
+﻿import { renderannouncements_page } from '../pages/announcements/announcements_page'
 import { renderabout_gwc_faqs_page, renderabout_gwc_history_page } from '../pages/about_gwc/about_gwc_page'
 import {
   renderadmission_contact_page,
@@ -9,7 +9,7 @@ import { renderadmission_registration_page as renderadmission_registration_form_
 import { renderpost_lists_page } from '../pages/post/post_lists_page'
 import {
   renderadministrators_dashboard_page,
-  renderregistrar_staff_admin_page,
+  renderregistrar_admin_page,
   renderdepartments_page,
   renderfaculty_page,
   renderreports_page,
@@ -46,7 +46,7 @@ import {
   setupfaculty_page,
   setupfaculty_classes_page,
 } from '../pages/faculty_portal/faculty_page'
-import { renderregistrar_staff_login_page } from '../pages/login/registrar_staff_login_page'
+import { renderregistrar_login_page } from '../pages/login/registrar_login_page'
 import { renderstudent_login_page } from '../pages/login/student_login_page'
 import {
   renderstudent_dashboard_page,
@@ -75,19 +75,19 @@ import {
 } from '../pages/hr_portal/hr_page'
 import { rendernot_found_page } from '../pages/not-found/not_found_page'
 import {
-  renderregistrar_staff_dashboard_page,
-  renderregistrar_staff_enrollments_page,
-  renderregistrar_staff_student_records_page,
-  renderregistrar_staff_requests_page,
-  renderregistrar_staff_schedule_page,
-  renderregistrar_staff_schedule_manage_page,
-  renderregistrar_staff_schedule_create_page,
-  renderregistrar_staff_settings_page,
-  setupregistrar_staff_page,
-  setupregistrar_staff_schedule_page,
-  setupregistrar_staff_schedule_manage_page,
-  setupregistrar_staff_schedule_create_page,
-} from '../pages/registrar_staff_portal/registrar_staff_page'
+  renderregistrar_dashboard_page,
+  renderregistrar_enrollments_page,
+  renderregistrar_student_records_page,
+  renderregistrar_requests_page,
+  renderregistrar_schedule_page,
+  renderregistrar_schedule_manage_page,
+  renderregistrar_schedule_create_page,
+  renderregistrar_settings_page,
+  setupregistrar_page,
+  setupregistrar_schedule_page,
+  setupregistrar_schedule_manage_page,
+  setupregistrar_schedule_create_page,
+} from '../pages/registrar_portal/registrar_page'
 import { rendersearch_page } from '../pages/search/search_page'
 import { renderpost_page } from '../pages/post/post_page'
 import { getPostBySlug, getPostCategoryFromSlug } from '../data/posts'
@@ -168,8 +168,8 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     return
   }
 
-  if (pathname === ROUTES.REGISTRAR_STAFF_LOGIN) {
-    app.innerHTML = renderregistrar_staff_login_page()
+  if (pathname === ROUTES.REGISTRAR_LOGIN) {
+    app.innerHTML = renderregistrar_login_page()
     cleanupCurrentRoute = setupLoginPageShortcuts()
     return
   }
@@ -272,52 +272,52 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     }
   }
 
-  // registrar staff routes
-  if (pathname === ROUTES.REGISTRAR_STAFF || pathname === ROUTES.REGISTRAR_STAFF_DASHBOARD) {
-    app.innerHTML = renderregistrar_staff_dashboard_page()
-    cleanupCurrentRoute = setupregistrar_staff_page(app)
+  // registrar routes
+  if (pathname === ROUTES.REGISTRAR || pathname === ROUTES.REGISTRAR_DASHBOARD) {
+    app.innerHTML = renderregistrar_dashboard_page()
+    cleanupCurrentRoute = setupregistrar_page(app)
     return
   }
 
-  if (pathname === ROUTES.REGISTRAR_STAFF_STUDENT_RECORDS) {
-    app.innerHTML = renderregistrar_staff_student_records_page()
-    cleanupCurrentRoute = setupregistrar_staff_page(app)
+  if (pathname === ROUTES.REGISTRAR_STUDENT_RECORDS) {
+    app.innerHTML = renderregistrar_student_records_page()
+    cleanupCurrentRoute = setupregistrar_page(app)
     return
   }
 
-  if (pathname === ROUTES.REGISTRAR_STAFF_ENROLLMENTS) {
-    app.innerHTML = renderregistrar_staff_enrollments_page()
-    cleanupCurrentRoute = setupregistrar_staff_page(app)
+  if (pathname === ROUTES.REGISTRAR_ENROLLMENTS) {
+    app.innerHTML = renderregistrar_enrollments_page()
+    cleanupCurrentRoute = setupregistrar_page(app)
     return
   }
 
-  if (pathname === ROUTES.REGISTRAR_STAFF_REQUESTS) {
-    app.innerHTML = renderregistrar_staff_requests_page()
-    cleanupCurrentRoute = setupregistrar_staff_page(app)
+  if (pathname === ROUTES.REGISTRAR_REQUESTS) {
+    app.innerHTML = renderregistrar_requests_page()
+    cleanupCurrentRoute = setupregistrar_page(app)
     return
   }
 
-  if (pathname === ROUTES.REGISTRAR_STAFF_SCHEDULE) {
-    app.innerHTML = renderregistrar_staff_schedule_page()
-    cleanupCurrentRoute = setupregistrar_staff_schedule_page(app)
+  if (pathname === ROUTES.REGISTRAR_SCHEDULE) {
+    app.innerHTML = renderregistrar_schedule_page()
+    cleanupCurrentRoute = setupregistrar_schedule_page(app)
     return
   }
 
-  if (pathname === ROUTES.REGISTRAR_STAFF_SCHEDULE_MANAGE) {
-    app.innerHTML = renderregistrar_staff_schedule_manage_page()
-    cleanupCurrentRoute = setupregistrar_staff_schedule_manage_page(app)
+  if (pathname === ROUTES.REGISTRAR_SCHEDULE_MANAGE) {
+    app.innerHTML = renderregistrar_schedule_manage_page()
+    cleanupCurrentRoute = setupregistrar_schedule_manage_page(app)
     return
   }
 
-  if (pathname === ROUTES.REGISTRAR_STAFF_SCHEDULE_CREATE) {
-    app.innerHTML = renderregistrar_staff_schedule_create_page()
-    cleanupCurrentRoute = setupregistrar_staff_schedule_create_page(app)
+  if (pathname === ROUTES.REGISTRAR_SCHEDULE_CREATE) {
+    app.innerHTML = renderregistrar_schedule_create_page()
+    cleanupCurrentRoute = setupregistrar_schedule_create_page(app)
     return
   }
 
-  if (pathname === ROUTES.REGISTRAR_STAFF_SETTINGS) {
-    app.innerHTML = renderregistrar_staff_settings_page()
-    cleanupCurrentRoute = setupregistrar_staff_page(app)
+  if (pathname === ROUTES.REGISTRAR_SETTINGS) {
+    app.innerHTML = renderregistrar_settings_page()
+    cleanupCurrentRoute = setupregistrar_page(app)
     return
   }
 
@@ -348,8 +348,8 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     return
   }
 
-  if (pathname === ROUTES.ADMINISTRATORS_REGISTRAR_STAFF) {
-    app.innerHTML = renderregistrar_staff_admin_page()
+  if (pathname === ROUTES.ADMINISTRATORS_REGISTRAR) {
+    app.innerHTML = renderregistrar_admin_page()
     cleanupCurrentRoute = setupadministrators_page(app)
     return
   }
@@ -477,6 +477,9 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   app.innerHTML = rendernot_found_page()
 }
+
+
+
 
 
 

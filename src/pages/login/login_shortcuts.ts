@@ -1,4 +1,4 @@
-import { ROUTES } from '../../app/routes'
+﻿import { ROUTES } from '../../app/routes'
 
 type ShortcutOptions = {
   allowWhenTyping?: boolean
@@ -26,7 +26,7 @@ export function getPortalShortcutRoute(event: KeyboardEvent, options: ShortcutOp
   const key = event.code.replace('Key', '').toLowerCase()
   const shortcutRouteByKey: Record<string, string> = {
     a: ROUTES.ADMINISTRATORS_LOGIN,
-    r: ROUTES.REGISTRAR_STAFF_LOGIN,
+    r: ROUTES.REGISTRAR_LOGIN,
     d: ROUTES.DEPARTMENT_LOGIN,
     h: ROUTES.HR_LOGIN,
   }
@@ -49,3 +49,4 @@ export function setupLoginPageShortcuts(): () => void {
     document.removeEventListener('keydown', onKeydown)
   }
 }
+

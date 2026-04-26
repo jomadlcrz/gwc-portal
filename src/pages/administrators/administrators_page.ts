@@ -1,4 +1,4 @@
-import '../../styles/administrators/layout.css'
+﻿import '../../styles/administrators/layout.css'
 import '../../styles/administrators/shared_admin.css'
 import '../../styles/administrators/students.css'
 import '../../styles/administrators/posts.css'
@@ -8,7 +8,7 @@ import { setupSharedModal } from '../../components/ui/modal'
 import { schedulingService } from '../../features/scheduling/service'
 
 export { renderadministrators_dashboard_page } from './dashboard/dashboard_page'
-export { renderregistrar_staff_admin_page } from './registrar_staff/registrar_staff_page'
+export { renderregistrar_admin_page } from './registrar/registrar_page'
 export { renderfaculty_page } from './faculty/faculty_page'
 export { renderstudents_page } from './students/students_page'
 export { renderstudents_manage_page, setupstudents_manage_page } from './students/students_manage_page'
@@ -201,3 +201,4 @@ export function setupdepartments_page(root: HTMLElement): () => void {
     cleanup()
   }
 }
+
