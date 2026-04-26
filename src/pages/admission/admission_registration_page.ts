@@ -8,13 +8,13 @@ import { createRegistrationStudent } from '../../api/v1/registration/students'
 const gwcLogo = '/images/gwc_logo.avif'
 const gwcLogoWhite = '/images/gwc_logo_white.avif'
 const coverImage = '/images/admission_cover.png'
+const registrationStepLabels = ['Choose Program', 'Personal Information', 'Validate Details', 'Finish'] as const
 
 function renderRegistrationSteps(): string {
-  const steps = ['Choose Program', 'Personal Information', 'Validate Details', 'Finish']
   return `
     <section class="admission-registration-steps" aria-label="Admission registration steps">
       <ol class="admission-stepper-list">
-        ${steps
+        ${registrationStepLabels
           .map(
             (label, index) => `
               <li class="admission-stepper-item ${index === 0 ? 'is-active' : ''}" data-step-index="${index}">
@@ -25,6 +25,7 @@ function renderRegistrationSteps(): string {
           )
           .join('')}
       </ol>
+      <p id="admission-stepper-mobile-label" class="admission-stepper-mobile-label">${registrationStepLabels[0]}</p>
     </section>
   `
 }
@@ -60,7 +61,7 @@ export function renderadmission_registration_page(): string {
 
       <section class="admission-shell admission-registration-shell">
         <div class="post-container">
-          <article class="admission-registration-intro">
+          <article id="admission-registration-intro" class="admission-registration-intro">
             <h2>Online Application</h2>
             <p>
               We warmly welcome junior high school completers, senior high school graduates, college transferees,
@@ -188,11 +189,21 @@ export function renderadmission_registration_page(): string {
           </section>
 
           <section id="admission-registration-step-4" class="admission-registration-step-hidden">
-            <article class="admission-registration-card">
-              <h3>Finish</h3>
+            <article class="admission-registration-finish-card">
+              <div class="admission-registration-success-check" aria-hidden="true">
+                <svg viewBox="0 0 120 120" role="presentation">
+                  <circle class="admission-success-check-circle" cx="60" cy="60" r="48" />
+                  <path class="admission-success-check-mark" d="M36 62l16 16 32-32" />
+                </svg>
+              </div>
+              <h3>Application Submitted!</h3>
               <p class="admission-registration-finish-copy">
                 Your application has been submitted successfully. Please wait for admissions confirmation.
               </p>
+              <a class="admission-registration-dashboard-link" href="/student-portal/dashboard">
+                <i class="bi bi-envelope"></i>
+                <span>Go to Home</span>
+              </a>
             </article>
           </section>
 
@@ -217,15 +228,18 @@ const setMessage = (el: HTMLElement | null, message: string, isError = false): v
 }
 
 export function setupadmission_registration_page(root: HTMLElement): () => void {
+  const introSection = root.querySelector<HTMLElement>('#admission-registration-intro')
   const step1Section = root.querySelector<HTMLElement>('#admission-registration-step-1')
   const step2Section = root.querySelector<HTMLElement>('#admission-registration-step-2')
   const step3Section = root.querySelector<HTMLElement>('#admission-registration-step-3')
   const step4Section = root.querySelector<HTMLElement>('#admission-registration-step-4')
   const timelineItems = Array.from(root.querySelectorAll<HTMLElement>('.admission-stepper-item'))
+  const timelineMobileLabel = root.querySelector<HTMLElement>('#admission-stepper-mobile-label')
   const backButton = root.querySelector<HTMLButtonElement>('#admission-registration-back')
   const nextButton = root.querySelector<HTMLButtonElement>('#admission-registration-next')
   const submitButton = root.querySelector<HTMLButtonElement>('#admission-registration-submit')
   const messageEl = root.querySelector<HTMLElement>('#admission-registration-message')
+  const finishCheck = root.querySelector<HTMLElement>('.admission-registration-success-check')
   const reviewStudentType = root.querySelector<HTMLElement>('#admission-review-student-type')
   const reviewProgram = root.querySelector<HTMLElement>('#admission-review-program')
   const reviewName = root.querySelector<HTMLElement>('#admission-review-name')
@@ -246,13 +260,16 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
   const permanentAddressIdInput = root.querySelector<HTMLInputElement>('#admission-permanent-address-id')
 
   if (
+    !introSection ||
     !step1Section ||
     !step2Section ||
     !step3Section ||
     !step4Section ||
+    !timelineMobileLabel ||
     !backButton ||
     !nextButton ||
     !submitButton ||
+    !finishCheck ||
     !reviewStudentType ||
     !reviewProgram ||
     !reviewName ||
@@ -277,12 +294,24 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
 
   let currentStep: 1 | 2 | 3 | 4 = 1
 
+  const setFinishCheckState = (animated: boolean): void => {
+    finishCheck.classList.remove('is-animate', 'is-static-complete')
+    if (animated) {
+      // Force reflow so animation can replay each successful submit.
+      void finishCheck.offsetWidth
+      finishCheck.classList.add('is-animate')
+      return
+    }
+    finishCheck.classList.add('is-static-complete')
+  }
+
   const setStep = (step: 1 | 2 | 3 | 4): void => {
     currentStep = step
     step1Section.classList.toggle('admission-registration-step-hidden', step !== 1)
     step2Section.classList.toggle('admission-registration-step-hidden', step !== 2)
     step3Section.classList.toggle('admission-registration-step-hidden', step !== 3)
     step4Section.classList.toggle('admission-registration-step-hidden', step !== 4)
+    introSection.classList.toggle('admission-registration-step-hidden', step === 4)
     backButton.classList.toggle('admission-registration-step-hidden', step === 1 || step === 4)
     nextButton.classList.toggle('admission-registration-step-hidden', step !== 1 && step !== 2)
     submitButton.classList.toggle('admission-registration-step-hidden', step !== 3)
@@ -292,6 +321,13 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
       const itemStep = Number(item.dataset.stepIndex)
       item.classList.toggle('is-active', itemStep === step - 1)
     })
+    timelineMobileLabel.textContent = registrationStepLabels[step - 1]
+
+    if (step === 4) {
+      const isDesktop = window.matchMedia('(min-width: 1024px)').matches
+      const isLowerDownPage = window.scrollY > 240
+      setFinishCheckState(!(isDesktop && isLowerDownPage))
+    }
   }
 
   const validatePersonalInformation = (): boolean => {

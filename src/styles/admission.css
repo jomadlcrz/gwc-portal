@@ -710,6 +710,10 @@
   font-size: 0.86rem;
 }
 
+.admission-stepper-mobile-label {
+  display: none;
+}
+
 .admission-registration-shell {
   padding-top: 1.35rem;
 }
@@ -819,7 +823,108 @@
 .admission-registration-finish-copy {
   margin: 0;
   color: #2f4365;
-  font-size: 1rem;
+  font-size: clamp(1.05rem, 1.5vw, 1.28rem);
+  text-align: center;
+  line-height: 1.4;
+}
+
+.admission-registration-finish-card {
+  width: min(100%, 700px);
+  margin-top: 0.8rem;
+  border: 1px solid #d4dce9;
+  border-radius: var(--radius-md);
+  background: #f8fafc;
+  padding: 2rem 1.25rem;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.admission-registration-finish-card h3 {
+  margin: 0.65rem 0 0.7rem;
+  color: #0f1f45;
+  text-transform: uppercase;
+  font-size: clamp(1.6rem, 3vw, 2.7rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.admission-registration-success-check {
+  width: 140px;
+  height: 140px;
+  margin: 0;
+  position: relative;
+}
+
+.admission-registration-success-check svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.admission-success-check-circle {
+  fill: #e9f9ee;
+  stroke: #16a34a;
+  stroke-width: 4;
+  stroke-dasharray: 302;
+  stroke-dashoffset: 302;
+}
+
+.admission-success-check-mark {
+  fill: none;
+  stroke: #16a34a;
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 70;
+  stroke-dashoffset: 70;
+}
+
+.admission-registration-success-check.is-animate .admission-success-check-circle {
+  animation: admissionCheckStroke 0.6s ease-out forwards;
+}
+
+.admission-registration-success-check.is-animate .admission-success-check-mark {
+  animation: admissionCheckMark 0.35s ease-out 0.55s forwards;
+}
+
+.admission-registration-success-check.is-static-complete .admission-success-check-circle,
+.admission-registration-success-check.is-static-complete .admission-success-check-mark {
+  stroke-dashoffset: 0;
+}
+
+.admission-registration-dashboard-link {
+  margin-top: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(90deg, #123b89 0%, #0f2f73 100%);
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid #123b89;
+  border-radius: var(--radius-sm);
+  padding: 0.78rem 1.15rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.admission-registration-dashboard-link:hover,
+.admission-registration-dashboard-link:focus-visible {
+  background: #111827;
+  border-color: #111827;
+  color: #fff;
+}
+
+@keyframes admissionCheckStroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes admissionCheckMark {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .admission-registration-step-hidden {
@@ -893,6 +998,16 @@
     display: none;
   }
 
+  .admission-stepper-mobile-label {
+    display: block;
+    margin: 0.45rem auto 0;
+    text-align: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.2;
+  }
+
   .admission-registration-card {
     padding: 0.82rem;
   }
@@ -911,6 +1026,15 @@
 
   .admission-registration-nav-button {
     font-size: 0.98rem;
+  }
+
+  .admission-registration-finish-copy {
+    font-size: 1.15rem;
+  }
+
+  .admission-registration-success-check {
+    width: 116px;
+    height: 116px;
   }
 }
 .admission-status-results {
