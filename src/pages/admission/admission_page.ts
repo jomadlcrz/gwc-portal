@@ -192,37 +192,43 @@ function renderAdmissionContent(active: AdmissionSection): string {
             <p class="admission-deadline"><i class="bi bi-calendar-event" aria-hidden="true"></i><span>Deadline of Application</span><strong>March 28, 2026</strong></p>
           </header>
 
-          <section class="admission-content-grid">
-            <article class="admission-block">
-              <p class="admission-step">1</p>
-              <h3>2x2 Picture</h3>
-              <ul>
-                <li>White background</li>
-              </ul>
-            </article>
-
-            <article class="admission-block">
-              <p class="admission-step">2</p>
-              <h3>Clear Copy of Grades</h3>
-              <ul>
-                <li>Grade 11 card for Senior High School students</li>
-                <li>Grade 12 card for Senior High School graduates</li>
-                <li>Transcript of Records or certification of grades for transferees</li>
-                <li>ALS certificate with remarks for college-level qualification</li>
-              </ul>
-            </article>
-
-            <article class="admission-block">
-              <p class="admission-step">3</p>
-              <h3>Other Relevant IDs or Certificates</h3>
-              <ul>
-                <li>Persons with Disabilities (PWD)</li>
-                <li>Indigenous Peoples (IP)</li>
-                <li>Solo Parent</li>
-                <li>Out of School Youth (OSY)</li>
-                <li>4Ps beneficiary proof</li>
-              </ul>
-            </article>
+          <section class="admission-content-block">
+            <ol class="admission-timeline" aria-label="Admission requirements timeline">
+              <li class="admission-timeline-item">
+                <div class="admission-timeline-marker" aria-hidden="true">1</div>
+                <div class="admission-timeline-content">
+                  <h3>2x2 Picture</h3>
+                  <ul>
+                    <li>White background</li>
+                  </ul>
+                </div>
+              </li>
+              <li class="admission-timeline-item">
+                <div class="admission-timeline-marker" aria-hidden="true">2</div>
+                <div class="admission-timeline-content">
+                  <h3>Clear Copy of Grades</h3>
+                  <ul>
+                    <li>Grade 11 card for Senior High School students</li>
+                    <li>Grade 12 card for Senior High School graduates</li>
+                    <li>Transcript of Records or certification of grades for transferees</li>
+                    <li>ALS certificate with remarks for college-level qualification</li>
+                  </ul>
+                </div>
+              </li>
+              <li class="admission-timeline-item">
+                <div class="admission-timeline-marker" aria-hidden="true">3</div>
+                <div class="admission-timeline-content">
+                  <h3>Other Relevant IDs or Certificates</h3>
+                  <ul>
+                    <li>Persons with Disabilities (PWD)</li>
+                    <li>Indigenous Peoples (IP)</li>
+                    <li>Solo Parent</li>
+                    <li>Out of School Youth (OSY)</li>
+                    <li>4Ps beneficiary proof</li>
+                  </ul>
+                </div>
+              </li>
+            </ol>
           </section>
 
           <p class="admission-policy"><i class="bi bi-shield-check" aria-hidden="true"></i>Only one application is accepted per applicant for Golden West Colleges, Inc. Multiple submissions can lead to disqualification.</p>
@@ -235,12 +241,42 @@ function renderAdmissionContent(active: AdmissionSection): string {
         </header>
         <section class="admission-section-card admission-section-card-no-margin">
           <div class="admission-content-block">
-            <ol class="admission-process-list">
-              <li><strong>Create an online account</strong><span>Register using a valid email address.</span></li>
-              <li><strong>Fill out the admission form</strong><span>Provide personal and academic information.</span></li>
-              <li><strong>Upload requirements</strong><span>Submit scanned copies of required documents.</span></li>
-              <li><strong>Wait for approval</strong><span>The admissions office will review your application.</span></li>
-              <li><strong>Proceed to enrollment</strong><span>Follow enrollment instructions once approved.</span></li>
+            <ol class="admission-timeline" aria-label="Admission process timeline">
+              <li class="admission-timeline-item">
+                <div class="admission-timeline-marker" aria-hidden="true">1</div>
+                <div class="admission-timeline-content">
+                  <strong>Create an online account</strong>
+                  <span>Register using a valid email address.</span>
+                </div>
+              </li>
+              <li class="admission-timeline-item">
+                <div class="admission-timeline-marker" aria-hidden="true">2</div>
+                <div class="admission-timeline-content">
+                  <strong>Fill out the admission form</strong>
+                  <span>Provide personal and academic information.</span>
+                </div>
+              </li>
+              <li class="admission-timeline-item">
+                <div class="admission-timeline-marker" aria-hidden="true">3</div>
+                <div class="admission-timeline-content">
+                  <strong>Upload requirements</strong>
+                  <span>Submit scanned copies of required documents.</span>
+                </div>
+              </li>
+              <li class="admission-timeline-item">
+                <div class="admission-timeline-marker" aria-hidden="true">4</div>
+                <div class="admission-timeline-content">
+                  <strong>Wait for approval</strong>
+                  <span>The admissions office will review your application.</span>
+                </div>
+              </li>
+              <li class="admission-timeline-item">
+                <div class="admission-timeline-marker" aria-hidden="true">5</div>
+                <div class="admission-timeline-content">
+                  <strong>Proceed to enrollment</strong>
+                  <span>Follow enrollment instructions once approved.</span>
+                </div>
+              </li>
             </ol>
           </div>
         </section>

@@ -254,44 +254,74 @@
   line-height: 0.98;
 }
 
-.admission-content-grid {
-  padding: 1rem;
+.admission-timeline {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.6rem;
+  gap: 0.8rem;
 }
 
-.admission-block {
-  border: 1px solid #d9e2ef;
-  border-radius: var(--radius-md);
-  padding: 0.9rem 0.88rem 0.82rem;
+.admission-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0.92rem;
+  width: 2px;
+  background: #bfd0ea;
 }
 
-.admission-step {
-  margin: 0 0 0.45rem;
-  width: 1.8rem;
-  height: 1.8rem;
+.admission-timeline-item {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.admission-timeline-marker {
+  width: 1.85rem;
+  height: 1.85rem;
   border-radius: var(--radius-pill);
   display: grid;
   place-items: center;
+  font-weight: 700;
   color: var(--color-white);
   background: #173879;
-  font-weight: 700;
+  border: 2px solid #d7e2f3;
 }
 
-.admission-block h3 {
+.admission-timeline-content {
+  border: 1px solid #d9e2ef;
+  border-radius: var(--radius-md);
+  padding: 0.9rem 0.88rem 0.82rem;
+  background: #f8fbff;
+}
+
+.admission-timeline-content h3,
+.admission-timeline-content strong {
   margin: 0 0 0.5rem;
   color: #132a63;
   font-size: 1.15rem;
+  line-height: 1.2;
+  display: block;
 }
 
-.admission-block ul {
+.admission-timeline-content ul {
   margin: 0;
   padding-left: 1.1rem;
 }
 
-.admission-block li {
+.admission-timeline-content li {
   margin-bottom: 0.28rem;
+}
+
+.admission-timeline-content span {
+  color: #324968;
+  font-size: 0.92rem;
 }
 
 .admission-note-panel {
@@ -541,10 +571,6 @@
 }
 
 @media (max-width: 1100px) {
-  .admission-content-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
   .admission-section-row {
     grid-template-columns: 1fr;
   }
@@ -604,14 +630,6 @@
 
   .admission-tab {
     justify-content: flex-start;
-  }
-
-  .admission-content-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .admission-process-list {
-    grid-template-columns: 1fr;
   }
 
   .admission-status-inline {
