@@ -32,11 +32,12 @@ export function renderMainSiteFooter(options: MainSiteFooterOptions = {}): strin
               </a>
 
               <section>
-                <h2>Security & Brand</h2>
+                <h2>Quick Links</h2>
                 <ul class="site-footer-links">
-                  <li><a href="#">Data Privacy Notice</a></li>
-                  <li><a href="#">Security Issue</a></li>
-                  <li><a href="#">Copyright Infringement</a></li>
+                  <li><a href="${ROUTES.HOME}">Home</a></li>
+                  <li><a href="${ROUTES.ANNOUNCEMENTS}">Announcements</a></li>
+                  <li><a href="${ROUTES.ADMISSION}">Admissions</a></li>
+                  <li><a href="${ROUTES.ADMISSION_STATUS}">Application Status</a></li>
                 </ul>
               </section>
 
