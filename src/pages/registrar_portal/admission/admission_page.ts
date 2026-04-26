@@ -222,6 +222,9 @@ export function renderregistrar_admission_review_page(): string {
               </label>
             </div>
             <div class="admin-student-toolbar-actions">
+              <button type="button" class="btn btn-outline-secondary btn-sm" data-admission-export>
+                Export
+              </button>
               <select class="form-select form-select-sm" data-admission-status-filter aria-label="Filter by status">
                 <option value="">All Statuses</option>
                 ${statusOptions}
@@ -234,7 +237,7 @@ export function renderregistrar_admission_review_page(): string {
               <thead>
                 <tr>
                   <th>Application No.</th>
-                  <th>Applicant</th>
+                  <th>Applicant Name</th>
                   <th>Program</th>
                   <th>Status</th>
                   <th>Submitted</th>
@@ -363,6 +366,63 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
   const emptyRow = root.querySelector<HTMLTableRowElement>('[data-admission-empty-row]')
   let activeApplicationNo: string | null = null
 
+  const getFilteredApplications = () => {
+    const query = (searchInput?.value ?? '').trim().toLowerCase()
+    const status = (statusFilter?.value ?? '').trim()
+    return admissionService.list().filter((application) => {
+      const fullName = `${application.lastName}, ${application.firstName}${application.middleName ? ` ${application.middleName}` : ''}`
+      const searchValue = [
+        application.applicationNo,
+        application.lastName,
+        application.firstName,
+        fullName,
+        application.program,
+        application.status,
+        application.submittedAt,
+      ]
+        .join(' ')
+        .toLowerCase()
+
+      const matchesSearch = searchValue.includes(query)
+      const matchesStatus = !status || application.status === status
+      return matchesSearch && matchesStatus
+    })
+  }
+
+  const toCsvCell = (value: string): string => `"${value.replaceAll('"', '""')}"`
+
+  const exportAdmissionQueueCsv = (): void => {
+    const filtered = getFilteredApplications()
+    if (filtered.length === 0) {
+      alert('No applications to export.')
+      return
+    }
+
+    const header = ['Application No.', 'Applicant Name', 'Program', 'Status', 'Submitted']
+    const rowsCsv = filtered.map((application) => {
+      const fullName = `${application.lastName}, ${application.firstName}${application.middleName ? ` ${application.middleName}` : ''}`
+      return [
+        toCsvCell(application.applicationNo),
+        toCsvCell(fullName),
+        toCsvCell(application.program),
+        toCsvCell(application.status),
+        toCsvCell(application.submittedAt),
+      ].join(',')
+    })
+
+    const csv = `${header.map(toCsvCell).join(',')}\n${rowsCsv.join('\n')}`
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    const now = new Date().toISOString().slice(0, 10)
+    link.href = url
+    link.download = `admission-queue-${now}.csv`
+    document.body.append(link)
+    link.click()
+    link.remove()
+    URL.revokeObjectURL(url)
+  }
+
   const applyFilters = (): void => {
     const query = (searchInput?.value ?? '').trim().toLowerCase()
     const status = (statusFilter?.value ?? '').trim()
@@ -381,6 +441,12 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
 
   const onRootClick = (event: Event): void => {
     const target = event.target as HTMLElement
+    const exportBtn = target.closest<HTMLButtonElement>('[data-admission-export]')
+    if (exportBtn) {
+      exportAdmissionQueueCsv()
+      return
+    }
+
     const manageButton = target.closest<HTMLButtonElement>('[data-admission-manage]')
     if (!manageButton) return
 
