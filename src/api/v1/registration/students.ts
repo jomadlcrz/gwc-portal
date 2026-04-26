@@ -1,12 +1,8 @@
 const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.trim()
-const API_BASE_PATH_RAW = (import.meta.env.VITE_API_BASE_PATH as string | undefined)?.trim() || '/api/v1'
 
 if (!API_BASE_URL) {
   throw new Error('Missing VITE_API_BASE_URL. Set it in .env.')
 }
-
-const API_BASE_PATH = API_BASE_PATH_RAW.startsWith('/') ? API_BASE_PATH_RAW : `/${API_BASE_PATH_RAW}`
-const REGISTRATION_STUDENTS_ENDPOINT = `${API_BASE_URL}${API_BASE_PATH}/registration/students`
 
 export type RegistrationStudentPayload = {
   programId: number
@@ -31,7 +27,7 @@ type RegistrationStudentResponse = {
 }
 
 export async function createRegistrationStudent(payload: RegistrationStudentPayload): Promise<RegistrationStudentResponse> {
-  const response = await fetch(REGISTRATION_STUDENTS_ENDPOINT, {
+  const response = await fetch(`${API_BASE_URL}/${import.meta.env.VITE_REGISTRATION_STUDENTS_PATH}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
