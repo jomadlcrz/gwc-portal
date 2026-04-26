@@ -34,7 +34,6 @@ export async function createRegistrationStudent(payload: RegistrationStudentPayl
   const response = await fetch(REGISTRATION_STUDENTS_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
     body: JSON.stringify(payload),
   })
 
