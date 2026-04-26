@@ -225,7 +225,7 @@
 
 .admission-deadline {
   margin: 0;
-  width: min(100%, 355px);
+  width: 100%;
   border: 1px solid #d7a400;
   background: #f4c20d;
   color: #1a2234;
