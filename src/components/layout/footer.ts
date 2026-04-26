@@ -48,10 +48,8 @@ export function renderMainSiteFooter(options: MainSiteFooterOptions = {}): strin
                   <li><a href="tel:+639165969881">0916 596 9881</a></li>
                 </ul>
                 <div class="site-footer-social" aria-label="Social links">
-                  <a href="https://www.facebook.com/gwcalaminosofficial" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                      <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.6 1.6-1.6h1.7V3.8c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.2V10H8v3h2.4v8h3.1z" />
-                    </svg>
+                  <a href="https://www.facebook.com/gwcalaminosofficial" class="facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                    <i class="bi bi-facebook" aria-hidden="true"></i>
                   </a>
                 </div>
               </section>
