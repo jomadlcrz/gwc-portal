@@ -14,11 +14,9 @@ export function renderstudents_page(): string {
 
         <article class="admin-students-home">
           <h2>Students</h2>
-          <p>Create, upload, and manage student records.</p>
+          <p>View and manage student records.</p>
           <div class="admin-students-home-actions">
-            <a href="${ROUTES.ADMINISTRATORS_STUDENTS_MANAGE}" class="btn btn-outline-primary">Manage Students</a>
-            <a href="${ROUTES.ADMINISTRATORS_STUDENTS_CREATE}" class="btn btn-primary">Create Student</a>
-            <a href="${ROUTES.ADMINISTRATORS_STUDENTS_BULK}" class="btn btn-outline-primary">Bulk Upload</a>
+            <a href="${ROUTES.ADMINISTRATORS_STUDENTS_MANAGE}" class="btn btn-outline-primary">Student List</a>
           </div>
         </article>
       </section>

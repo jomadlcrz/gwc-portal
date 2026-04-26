@@ -21,15 +21,9 @@ import {
   renderdepartments_page,
   renderfaculty_page,
   renderreports_page,
-  rendersystem_logs_page,
   rendersettings_page,
-  renderstudents_bulk_page,
-  setupstudents_bulk_page,
-  renderstudents_create_page,
-  setupstudents_create_page,
   renderstudents_manage_page,
   setupstudents_manage_page,
-  renderstudents_page,
   renderposts_page,
   renderposts_create_page,
   setupposts_create_page,
@@ -442,27 +436,13 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     return
   }
 
-  if (pathname === ROUTES.ADMINISTRATORS_STUDENTS) {
-    app.innerHTML = renderstudents_page()
-    cleanupCurrentRoute = setupadministrators_page(app)
-    return
-  }
-
-  if (pathname === ROUTES.ADMINISTRATORS_STUDENTS_MANAGE) {
+  if (
+    pathname === ROUTES.MANAGE
+    || pathname === ROUTES.ADMINISTRATORS_STUDENTS
+    || pathname === ROUTES.ADMINISTRATORS_STUDENTS_MANAGE
+  ) {
     app.innerHTML = renderstudents_manage_page()
     cleanupCurrentRoute = setupstudents_manage_page(app)
-    return
-  }
-
-  if (pathname === ROUTES.ADMINISTRATORS_STUDENTS_CREATE) {
-    app.innerHTML = renderstudents_create_page()
-    cleanupCurrentRoute = setupstudents_create_page(app)
-    return
-  }
-
-  if (pathname === ROUTES.ADMINISTRATORS_STUDENTS_BULK) {
-    app.innerHTML = renderstudents_bulk_page()
-    cleanupCurrentRoute = setupstudents_bulk_page(app)
     return
   }
 
@@ -498,12 +478,6 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.ADMINISTRATORS_REPORTS) {
     app.innerHTML = renderreports_page()
-    cleanupCurrentRoute = setupadministrators_page(app)
-    return
-  }
-
-  if (pathname === ROUTES.ADMINISTRATORS_SYSTEM_LOGS) {
-    app.innerHTML = rendersystem_logs_page()
     cleanupCurrentRoute = setupadministrators_page(app)
     return
   }

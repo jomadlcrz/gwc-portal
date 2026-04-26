@@ -13,7 +13,6 @@ export type AdminSection =
   | 'testimonials'
   | 'departments'
   | 'reports'
-  | 'system_logs'
   | 'settings'
 
 export type RegistrarSection =
@@ -102,7 +101,6 @@ export const ADMIN_SHELL_CONFIG: ShellConfig<AdminSection> = {
     { label: 'Testimonials', icon: 'bi-chat-quote', href: ROUTES.ADMINISTRATORS_TESTIMONIALS, section: 'testimonials' },
     { label: 'Departments', icon: 'bi-building', href: ROUTES.ADMINISTRATORS_DEPARTMENTS, section: 'departments' },
     { label: 'Reports', icon: 'bi-briefcase', href: ROUTES.ADMINISTRATORS_REPORTS, section: 'reports' },
-    { label: 'System Logs', icon: 'bi-journal-text', href: ROUTES.ADMINISTRATORS_SYSTEM_LOGS, section: 'system_logs' },
     { label: 'Settings', icon: 'bi-gear', href: ROUTES.ADMINISTRATORS_SETTINGS, section: 'settings' },
   ],
 }

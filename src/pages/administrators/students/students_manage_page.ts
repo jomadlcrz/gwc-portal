@@ -1,6 +1,4 @@
-import { ROUTES } from '../../../app/routes'
 import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../../components/layout/_layout'
-import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
 import { renderSharedPagination, setupSharedPagination } from '../../../components/ui/pagination'
 import { renderSharedPopover } from '../../../components/ui/popover'
@@ -211,7 +209,6 @@ function renderRows(): string {
             actionDataAttribute: 'data-student-action',
             actions: [
               { label: 'View Full Details', value: 'view' },
-              { label: 'Reset Password', value: 'reset-password' },
               { label: 'Edit', value: 'edit' },
             ],
           })}
@@ -227,22 +224,13 @@ export function renderstudents_manage_page(): string {
     'students',
     `
       <section class="admin-content">
-        ${renderAdminBreadcrumbNav([
-          { label: 'Students', href: ROUTES.ADMINISTRATORS_STUDENTS },
-          { label: 'Manage Students', active: true },
-        ])}
-
         <article class="admin-student-page-shell">
           <header class="admin-student-head">
-            <h2>Manage Students</h2>
+            <h2>Student List</h2>
             <p>Total Students: <strong>${STUDENTS.length}</strong></p>
           </header>
 
           <section class="admin-student-toolbar">
-            <div class="admin-student-toolbar-actions">
-              <a href="${ROUTES.ADMINISTRATORS_STUDENTS_CREATE}" class="btn btn-primary btn-sm">+ Create Student</a>
-              <a href="${ROUTES.ADMINISTRATORS_STUDENTS_BULK}" class="btn btn-outline-primary btn-sm">Bulk Upload</a>
-            </div>
             <label class="admin-directory-search admin-student-search">
               <span class="admin-search-icon" aria-hidden="true"><i class="bi bi-search"></i></span>
               <input
@@ -340,7 +328,6 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
     const studentRecord = STUDENTS_BY_NO.get(studentNo)
     if (!studentRecord) return
 
-    const studentName = studentRecord.name
     const action = actionButton.dataset.studentAction
 
     if (action === 'view') {
@@ -368,32 +355,7 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
       return
     }
 
-    modal.setMode('confirm')
-    modal.setOnConfirm(() => {
-      modal.setMode('default')
-      modal.setOnConfirm(null)
-      modal.open({
-        title: 'Password Reset Sent',
-        bodyHtml: `
-          <p class="mb-2">
-            <strong>${studentName}</strong>'s password has been reset successfully.
-          </p>
-          <p class="mb-0">
-            A new temporary password was generated and sent to <strong>${studentRecord.email}</strong>.
-          </p>
-        `,
-        confirmLabel: 'Close',
-        hideConfirm: true,
-      })
-    })
-    modal.open({
-      title: 'Reset Student Password',
-      confirmLabel: 'Reset Password',
-      bodyHtml: `
-        <p class="mb-2">Reset password for <strong>${studentName}</strong>?</p>
-        <p class="mb-0">This will generate a new temporary password and send it to <strong>${studentRecord.email}</strong>.</p>
-      `,
-    })
+    return
   }
 
   searchInput?.addEventListener('input', applySearch)

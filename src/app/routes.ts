@@ -33,21 +33,19 @@
   REGISTRAR_SETTINGS: '/registrar/settings',
 
   // Admin routes
+  MANAGE: '/manage',
   ADMINISTRATORS_LOGIN: '/administrators/login',
   ADMINISTRATORS: '/administrators/dashboard',
   ADMINISTRATORS_REGISTRAR: '/administrators/registrar',
   ADMINISTRATORS_FACULTY: '/administrators/faculty',
   ADMINISTRATORS_STUDENTS: '/administrators/students',
   ADMINISTRATORS_STUDENTS_MANAGE: '/administrators/students/manage',
-  ADMINISTRATORS_STUDENTS_CREATE: '/administrators/students/create',
-  ADMINISTRATORS_STUDENTS_BULK: '/administrators/students/bulk',
   ADMINISTRATORS_POSTS: '/administrators/posts',
   ADMINISTRATORS_POSTS_CREATE: '/administrators/posts/create',
   ADMINISTRATORS_TESTIMONIALS: '/administrators/testimonials',
   ADMINISTRATORS_TESTIMONIALS_CREATE: '/administrators/testimonials/create',
   ADMINISTRATORS_DEPARTMENTS: '/administrators/departments',
   ADMINISTRATORS_REPORTS: '/administrators/reports',
-  ADMINISTRATORS_SYSTEM_LOGS: '/administrators/system-logs',
   ADMINISTRATORS_SETTINGS: '/administrators/settings',
 
   // Faculty routes
