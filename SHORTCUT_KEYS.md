@@ -10,13 +10,13 @@ This feature enables quick navigation to key routes using keyboard combinations.
 ### Mac
 - `⌘ + Shift + A` → Administrator Login
 - `⌘ + Shift + R` → Registrar Staff Login
-- `⌘ + Shift + D` → Department Login
+- `⌘ + Shift + D` → Dean Login
 - `⌘ + Shift + H` → HR Login
 
 ### Windows / Linux
 - `Ctrl + Shift + A` → Administrator Login
 - `Ctrl + Shift + R` → Registrar Staff Login
-- `Ctrl + Shift + D` → Department Login
+- `Ctrl + Shift + D` → Dean Login
 - `Ctrl + Shift + H` → HR Login
 
 
@@ -67,7 +67,7 @@ Shortcuts are **disabled** when the user is typing in:
 |-----|--------------|
 | A   | `ROUTES.ADMINISTRATOR_LOGIN` |
 | R   | `ROUTES.REGISTRAR_STAFF_LOGIN` |
-| D   | `ROUTES.DEPARTMENT_LOGIN` |
+| D   | `ROUTES.DEAN_LOGIN` |
 
 ---
 
@@ -77,3 +77,5 @@ This system provides:
 - Fast navigation for internal users
 - Cross-platform consistency
 - Safe, non-intrusive keyboard handling
+
+

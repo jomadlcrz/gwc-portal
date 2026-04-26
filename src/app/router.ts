@@ -38,7 +38,7 @@ import { renderhome_page } from '../pages/home/home_page'
 import { renderadministrator_login_page } from '../pages/login/administrator_login_page'
 import { renderchange_password_page } from '../pages/login/set_new_password_page'
 import { renderfaculty_login_page } from '../pages/login/faculty_login_page'
-import { renderdepartment_login_page } from '../pages/login/department_login_page'
+import { renderdean_login_page } from '../pages/login/dean_login_page'
 import {
   renderfaculty_classes_page,
   renderfaculty_dashboard_page,
@@ -59,10 +59,10 @@ import {
   setupstudent_schedule_page,
 } from '../pages/student_portal/student_page'
 import {
-  renderdepartment_dashboard_page,
-  renderdepartment_schedule_page,
-  setupdepartment_page,
-} from '../pages/department_portal/department_page'
+  renderdean_dashboard_page,
+  renderdean_schedule_page,
+  setupdean_page,
+} from '../pages/dean_portal/dean_page'
 import {
   renderhr_dashboard_page,
   renderhr_faculty_page,
@@ -156,15 +156,15 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     return
   }
 
-  if (pathname === ROUTES.DEPARTMENT_PORTAL || pathname === ROUTES.DEPARTMENT_DASHBOARD) {
-    app.innerHTML = renderdepartment_dashboard_page()
-    cleanupCurrentRoute = setupdepartment_page(app)
+  if (pathname === ROUTES.DEAN_PORTAL || pathname === ROUTES.DEAN_DASHBOARD) {
+    app.innerHTML = renderdean_dashboard_page()
+    cleanupCurrentRoute = setupdean_page(app)
     return
   }
 
-  if (pathname === ROUTES.DEPARTMENT_SCHEDULE) {
-    app.innerHTML = renderdepartment_schedule_page()
-    cleanupCurrentRoute = setupdepartment_page(app)
+  if (pathname === ROUTES.DEAN_SCHEDULE) {
+    app.innerHTML = renderdean_schedule_page()
+    cleanupCurrentRoute = setupdean_page(app)
     return
   }
 
@@ -187,8 +187,8 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     return
   }
 
-  if (pathname === ROUTES.DEPARTMENT_LOGIN) {
-    app.innerHTML = renderdepartment_login_page()
+  if (pathname === ROUTES.DEAN_LOGIN) {
+    app.innerHTML = renderdean_login_page()
     cleanupCurrentRoute = setupLoginPageShortcuts()
     return
   }
@@ -531,6 +531,7 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   app.innerHTML = rendernot_found_page()
 }
+
 
 
 

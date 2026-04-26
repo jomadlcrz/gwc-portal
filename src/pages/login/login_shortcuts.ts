@@ -27,7 +27,7 @@ export function getPortalShortcutRoute(event: KeyboardEvent, options: ShortcutOp
   const shortcutRouteByKey: Record<string, string> = {
     a: ROUTES.ADMINISTRATOR_LOGIN,
     r: ROUTES.REGISTRAR_LOGIN,
-    d: ROUTES.DEPARTMENT_LOGIN,
+    d: ROUTES.DEAN_LOGIN,
     h: ROUTES.HR_LOGIN,
   }
 
@@ -49,5 +49,6 @@ export function setupLoginPageShortcuts(): () => void {
     document.removeEventListener('keydown', onKeydown)
   }
 }
+
 
 

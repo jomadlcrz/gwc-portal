@@ -26,7 +26,7 @@ export type RegistrarSection =
 
 export type FacultySection = 'dashboard' | 'classes' | 'gradebook' | 'settings'
 export type StudentSection = 'dashboard' | 'subjects' | 'grades' | 'schedule' | 'settings'
-export type DepartmentSection = 'dashboard' | 'schedule'
+export type DeanSection = 'dashboard' | 'schedule'
 export type HrSection = 'dashboard' | 'faculty' | 'settings'
 
 type ShellMenuItem<TSection extends string> = {
@@ -435,34 +435,35 @@ export function setupPortalShell<TSection extends string>(root: HTMLElement, con
   }
 }
 
-export const DEPARTMENT_SHELL_CONFIG: ShellConfig<DepartmentSection> = {
-  pageClass: 'department-shell-page',
-  layoutClass: 'department-layout',
-  sidebarClass: 'department-sidebar',
-  sidebarAriaLabel: 'Department menu',
-  sidebarMainClass: 'department-sidebar-main',
-  sidebarHeadClass: 'department-sidebar-head',
-  sidebarEyebrowClass: 'department-eyebrow',
-  sidebarEyebrow: 'Department Portal',
-  sidebarTitle: 'Department',
-  sidebarTitleClass: 'department-header-link',
-  sidebarMenuClass: 'department-menu',
-  sidebarMenuAriaLabel: 'Department navigation',
-  sidebarFooterClass: 'department-sidebar-footer',
-  sidebarFooterValue: 'DEPARTMENT',
-  backdropClass: 'department-sidebar-backdrop',
-  sidebarOpenClass: 'department-sidebar-open',
+export const DEAN_SHELL_CONFIG: ShellConfig<DeanSection> = {
+  pageClass: 'dean-shell-page',
+  layoutClass: 'dean-layout',
+  sidebarClass: 'dean-sidebar',
+  sidebarAriaLabel: 'Dean menu',
+  sidebarMainClass: 'dean-sidebar-main',
+  sidebarHeadClass: 'dean-sidebar-head',
+  sidebarEyebrowClass: 'dean-eyebrow',
+  sidebarEyebrow: 'Dean Portal',
+  sidebarTitle: 'Dean',
+  sidebarTitleClass: 'dean-header-link',
+  sidebarMenuClass: 'dean-menu',
+  sidebarMenuAriaLabel: 'Dean navigation',
+  sidebarFooterClass: 'dean-sidebar-footer',
+  sidebarFooterValue: 'DEAN',
+  backdropClass: 'dean-sidebar-backdrop',
+  sidebarOpenClass: 'dean-sidebar-open',
   mobileBodyLockWidth: 991,
-  menuToggleSelector: '[data-department-sidebar-open]',
-  menuToggleClassName: 'department-header-menu-toggle',
+  menuToggleSelector: '[data-dean-sidebar-open]',
+  menuToggleClassName: 'dean-header-menu-toggle',
   menuToggleAriaLabel: 'Open sidebar menu',
   headerBrandHref: ROUTES.HOME,
   headerLogoAlt: 'Golden West Colleges logo',
   menuItems: [
-    { label: 'Dashboard', icon: 'bi-speedometer2', href: ROUTES.DEPARTMENT_DASHBOARD, section: 'dashboard' },
-    { label: 'Schedule Review', icon: 'bi-calendar3', href: ROUTES.DEPARTMENT_SCHEDULE, section: 'schedule' },
+    { label: 'Dashboard', icon: 'bi-speedometer2', href: ROUTES.DEAN_DASHBOARD, section: 'dashboard' },
+    { label: 'Schedule', icon: 'bi-calendar3', href: ROUTES.DEAN_SCHEDULE, section: 'schedule' },
   ],
 }
+
 
 
 

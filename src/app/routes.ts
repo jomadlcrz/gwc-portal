@@ -66,10 +66,10 @@ export const ROUTES = {
   STUDENT_SETTINGS: '/student-portal/settings',
 
   // Department routes
-  DEPARTMENT_LOGIN: '/department-portal/login',
-  DEPARTMENT_PORTAL: '/department-portal',
-  DEPARTMENT_DASHBOARD: '/department-portal/dashboard',
-  DEPARTMENT_SCHEDULE: '/department-portal/schedule',
+  DEAN_LOGIN: '/dean-portal/login',
+  DEAN_PORTAL: '/dean-portal',
+  DEAN_DASHBOARD: '/dean-portal/dashboard',
+  DEAN_SCHEDULE: '/dean-portal/schedule',
 
   // SPA route
   CHANGE_PASSWORD: '/change-password',
@@ -91,6 +91,7 @@ export const ROUTES = {
 export function getPostListsRoute(categorySlug: string): string {
   return `${ROUTES.POST_LISTS}/${encodeURIComponent(categorySlug)}`
 }
+
 
 
 
