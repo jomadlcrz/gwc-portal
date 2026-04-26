@@ -74,21 +74,21 @@ function renderPasswordResetTimeline(currentStep: number): string {
         
         <div class="timeline-step" data-step="1">
           <div class="timeline-circle ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}">
-            ${currentStep > 1 ? '<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 7L8.5 15.5L3 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '1'}
+            ${currentStep > 1 ? '<i class="bi bi-check-lg" aria-hidden="true"></i>' : '1'}
           </div>
           <span class="timeline-label">Verify Account</span>
         </div>
         
         <div class="timeline-step" data-step="2">
           <div class="timeline-circle ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}">
-            ${currentStep > 2 ? '<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 7L8.5 15.5L3 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '2'}
+            ${currentStep > 2 ? '<i class="bi bi-check-lg" aria-hidden="true"></i>' : '2'}
           </div>
           <span class="timeline-label">Verify OTP</span>
         </div>
         
         <div class="timeline-step" data-step="3">
           <div class="timeline-circle ${currentStep >= 3 ? 'active' : ''} ${currentStep > 3 ? 'completed' : ''}">
-            ${currentStep > 3 ? '<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 7L8.5 15.5L3 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '3'}
+            ${currentStep > 3 ? '<i class="bi bi-check-lg" aria-hidden="true"></i>' : '3'}
           </div>
           <span class="timeline-label">Reset Password</span>
         </div>
@@ -170,7 +170,7 @@ export function renderForgotPasswordPage(): string {
                       <input type="password" class="form-control form-control-lg login-input" id="new-password" placeholder="Password" required />
                       <label for="new-password">New Password</label>
                       <button type="button" class="password-toggle" data-target="new-password" aria-label="Toggle password visibility">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.5c-4.5 0-8.5 3-10 7.5 1.5 4.5 5.5 7.5 10 7.5s8.5-3 10-7.5c-1.5-4.5-5.5-7.5-10-7.5zM12 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z" fill="currentColor"/></svg>
+                        <i class="bi bi-eye" aria-hidden="true"></i>
                       </button>
                     </div>
                     <div class="password-strength mb-3">
@@ -188,7 +188,7 @@ export function renderForgotPasswordPage(): string {
                       <input type="password" class="form-control form-control-lg login-input" id="confirm-password" placeholder="Confirm password" required />
                       <label for="confirm-password">Confirm New Password</label>
                       <button type="button" class="password-toggle" data-target="confirm-password" aria-label="Toggle password visibility">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.5c-4.5 0-8.5 3-10 7.5 1.5 4.5 5.5 7.5 10 7.5s8.5-3 10-7.5c-1.5-4.5-5.5-7.5-10-7.5zM12 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z" fill="currentColor"/></svg>
+                        <i class="bi bi-eye" aria-hidden="true"></i>
                       </button>
                     </div>
                     <button type="submit" class="btn btn-lg w-100 login-submit-btn">Reset Password</button>
@@ -201,10 +201,7 @@ export function renderForgotPasswordPage(): string {
                 <!-- Success Message -->
                 <div id="step-success" class="password-reset-step text-center">
                   <div class="success-icon mb-3">
-                    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="40" cy="40" r="40" fill="#d4edda"/>
-                      <path d="M35 45L30 40M35 45L55 30" stroke="#28a745" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+                    <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
                   </div>
                   <h2 class="login-heading mb-2">Password Reset Successful</h2>
                   <p class="login-subheading mb-4">Your password has been updated. You can now log in using your new password.</p>

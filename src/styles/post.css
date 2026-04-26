@@ -148,6 +148,8 @@
 
 .post-date-icon {
   flex: 0 0 auto;
+  font-size: 1.16em;
+  line-height: 1;
 }
 
 .post-related-body p {

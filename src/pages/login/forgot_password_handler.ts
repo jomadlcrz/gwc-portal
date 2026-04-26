@@ -365,8 +365,14 @@ class PasswordResetFlow {
 
         if (input.type === 'password') {
           input.type = 'text'
+          const icon = btn.querySelector('i')
+          icon?.classList.remove('bi-eye')
+          icon?.classList.add('bi-eye-slash')
         } else {
           input.type = 'password'
+          const icon = btn.querySelector('i')
+          icon?.classList.remove('bi-eye-slash')
+          icon?.classList.add('bi-eye')
         }
       })
     })

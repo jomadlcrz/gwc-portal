@@ -70,10 +70,9 @@
   display: inline-flex;
 }
 
-.search-query-form button i svg {
-  width: 1.1rem;
-  height: 1.1rem;
-  stroke-width: 2.5;
+.search-query-form button i {
+  font-size: 1.1rem;
+  line-height: 1;
 }
 
 .search-result-box {
@@ -195,6 +194,8 @@
 
 .post-date-icon {
   flex: 0 0 auto;
+  font-size: 1.16em;
+  line-height: 1;
 }
 
 .search-result-body p {

@@ -269,9 +269,9 @@
   color: var(--color-white);
 }
 
-.timeline-circle svg {
-  width: 20px;
-  height: 20px;
+.timeline-circle i {
+  font-size: 20px;
+  line-height: 1;
 }
 
 .timeline-label {
@@ -457,9 +457,9 @@
   height: 32px;
 }
 
-.password-toggle svg {
-  width: 20px;
-  height: 20px;
+.password-toggle i {
+  font-size: 20px;
+  line-height: 1;
 }
 
 .password-toggle:hover {
@@ -484,9 +484,14 @@
   margin: 32px 0 24px;
 }
 
-.success-icon svg {
+.success-icon i {
   width: 80px;
   height: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  color: #28a745;
   animation: scaleIn 0.5s ease-out;
 }
 

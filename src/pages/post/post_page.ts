@@ -91,7 +91,7 @@ export function renderpost_page(slug: string): string | null {
                   }
                   <div class="post-related-body">
                     <h3>${escapeHtml(item.title)}</h3>
-                    <p class="post-related-date small text-muted"><svg class="post-date-icon" viewBox="0 0 24 24" width="1.16em" height="1.16em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> <strong>posted:</strong> ${escapeHtml(item.date)}</p>
+                    <p class="post-related-date small text-muted"><i class="post-date-icon bi bi-clock" aria-hidden="true"></i> <strong>posted:</strong> ${escapeHtml(item.date)}</p>
                     <p>${escapeHtml(item.excerpt)}</p>
                   </div>
                   <div class="post-related-footer">

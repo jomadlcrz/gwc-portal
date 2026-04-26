@@ -89,7 +89,7 @@ function renderSearchResults(query: string, matches: SearchItem[]): string {
           }
           <div class="search-result-body">
             <h3>${item.title}</h3>
-            <p class="search-result-date small text-muted"><svg class="post-date-icon" viewBox="0 0 24 24" width="1.16em" height="1.16em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> <strong>posted:</strong> ${item.date}</p>
+            <p class="search-result-date small text-muted"><i class="post-date-icon bi bi-clock" aria-hidden="true"></i> <strong>posted:</strong> ${item.date}</p>
             <p>${item.excerpt}</p>
             <a href="${getPostPath(item.slug)}">Read More</a>
           </div>
