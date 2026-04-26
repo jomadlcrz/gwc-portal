@@ -688,6 +688,16 @@
   left: calc(12.5% + 1rem);
   right: calc(12.5% + 1rem);
   height: 3px;
+  background: #94a3b8;
+}
+
+.admission-stepper-list::after {
+  content: '';
+  position: absolute;
+  top: 1.05rem;
+  left: calc(12.5% + 1rem);
+  width: calc((75% - 2rem) * var(--admission-stepper-progress, 0));
+  height: 3px;
   background: #f5cf42;
 }
 
@@ -1484,20 +1494,18 @@
 
 @media (max-width: 768px) {
   .admission-registration-steps {
-    overflow-x: auto;
+    overflow-x: visible;
   }
 
   .admission-stepper-list {
-    grid-template-columns: repeat(4, minmax(2.2rem, auto));
-    justify-content: center;
-    min-width: max-content;
-    gap: 1.1rem;
-    padding: 0 1.2rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.6rem;
+    padding: 0 1rem;
   }
 
   .admission-stepper-list::before {
-    left: 2.3rem;
-    right: 2.3rem;
+    left: calc(12.5% + 1rem);
+    right: calc(12.5% + 1rem);
   }
 
   .admission-stepper-label {

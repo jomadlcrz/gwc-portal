@@ -265,6 +265,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
   const step3Section = root.querySelector<HTMLElement>('#admission-registration-step-3')
   const step4Section = root.querySelector<HTMLElement>('#admission-registration-step-4')
   const timelineItems = Array.from(root.querySelectorAll<HTMLElement>('.admission-stepper-item'))
+  const stepperList = root.querySelector<HTMLOListElement>('.admission-stepper-list')
   const timelineMobileLabel = root.querySelector<HTMLElement>('#admission-stepper-mobile-label')
   const backButton = root.querySelector<HTMLButtonElement>('#admission-registration-back')
   const nextButton = root.querySelector<HTMLButtonElement>('#admission-registration-next')
@@ -354,6 +355,8 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
       const itemStep = Number(item.dataset.stepIndex)
       item.classList.toggle('is-active', itemStep === step - 1)
     })
+    const progressRatio = (step - 1) / (registrationStepLabels.length - 1)
+    stepperList?.style.setProperty('--admission-stepper-progress', String(progressRatio))
     timelineMobileLabel.textContent = registrationStepLabels[step - 1]
 
     if (step === 4) {
