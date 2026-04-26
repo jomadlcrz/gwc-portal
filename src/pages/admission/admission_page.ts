@@ -297,7 +297,7 @@ function renderAdmissionContent(active: AdmissionSection): string {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Golden West Colleges</td>
+                    <td>Golden West Colleges, Inc.</td>
                     <td><a href="https://www.facebook.com/gwcalaminosofficial" target="_blank" rel="noreferrer">GWC Alaminos Official</a></td>
                   </tr>
                 </tbody>
@@ -326,14 +326,14 @@ function renderadmission_shell(active: AdmissionSection): string {
       ${renderMainSiteHeader({
         brandHref: ROUTES.HOME,
         logoSrc: gwcLogo,
-        logoAlt: 'Golden West Colleges logo',
+        logoAlt: 'Golden West Colleges, Inc. logo',
         actions: buildMainHeaderActions(ROUTES.ANNOUNCEMENTS, { showAnnouncementsIcon: false }),
         solid: true,
       })}
 
       ${renderHomeOverlays({
         logoSrc: gwcLogoWhite,
-        logoAlt: 'Golden West Colleges logo',
+        logoAlt: 'Golden West Colleges, Inc. logo',
         shortBrand: 'GWC, INC.',
         searchAriaLabel: 'Search admission details',
       })}
@@ -424,14 +424,14 @@ export function renderadmission_status_details_page(applicationNo: string): stri
       ${renderMainSiteHeader({
         brandHref: ROUTES.HOME,
         logoSrc: gwcLogo,
-        logoAlt: 'Golden West Colleges logo',
+        logoAlt: 'Golden West Colleges, Inc. logo',
         actions: buildMainHeaderActions(ROUTES.ANNOUNCEMENTS, { showAnnouncementsIcon: false }),
         solid: true,
       })}
 
       ${renderHomeOverlays({
         logoSrc: gwcLogoWhite,
-        logoAlt: 'Golden West Colleges logo',
+        logoAlt: 'Golden West Colleges, Inc. logo',
         shortBrand: 'GWC, INC.',
         searchAriaLabel: 'Search admission details',
       })}
