@@ -208,23 +208,22 @@
 .timeline-track-line {
   position: absolute;
   top: 20px;
-  left: 0;
-  right: 0;
+  left: 16.6667%;
+  right: 16.6667%;
   height: 2px;
   background: var(--color-slate-300);
   z-index: 0;
-  width: 100%;
 }
 
 /* Progress line that fills from left edge based on current step (connects fully from step 1 all the way through to end) */
 .timeline-progress-line {
   position: absolute;
   top: 20px;
-  left: 0;
+  left: 16.6667%;
   height: 2px;
   background: var(--login-brand-primary);
   z-index: 1;
-  width: 0%;
+  width: calc(66.6666% * var(--password-reset-progress, 0));
   transition: width 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
   border-radius: 2px;
 }

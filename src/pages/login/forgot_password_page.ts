@@ -57,20 +57,18 @@ import { renderPortalSiteFooter } from '../../components/layout/footer'
 // ===================================================================
 
 function renderPasswordResetTimeline(currentStep: number): string {
-  // Determine progress width percentage based on current step:
-  // Step 1 = 0% (no progress), Step 2 = 50%, Step 3 = 100%
-  let progressWidth = '0%';
-  if (currentStep === 2) progressWidth = '50%';
-  else if (currentStep === 3) progressWidth = '100%';
-  else if (currentStep > 3) progressWidth = '100%';
+  // Step 1 = 0, Step 2 = 0.5, Step 3+ = 1
+  let progressRatio = 0
+  if (currentStep === 2) progressRatio = 0.5
+  else if (currentStep >= 3) progressRatio = 1
   
   return `
     <div class="password-reset-timeline mb-4">
-      <div class="timeline-container refactored-full-line">
+      <div class="timeline-container refactored-full-line" style="--password-reset-progress: ${progressRatio};">
         <!-- Background track line (connects from left to right edge) -->
         <div class="timeline-track-line"></div>
         <!-- Dynamic progress line (fills based on step, connects all the way across) -->
-        <div class="timeline-progress-line" style="width: ${progressWidth};"></div>
+        <div class="timeline-progress-line"></div>
         
         <div class="timeline-step" data-step="1">
           <div class="timeline-circle ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}">
