@@ -63,7 +63,7 @@ function renderAdmissionContent(active: AdmissionSection): string {
           </article>
         </section>
 
-        <p class="admission-policy"><i class="bi bi-shield-check" aria-hidden="true"></i>Only one application is accepted for the university system. Multiple submissions can lead to disqualification.</p>
+        <p class="admission-policy"><i class="bi bi-shield-check" aria-hidden="true"></i>Only one application is accepted per applicant for Golden West Colleges, Inc. Multiple submissions can lead to disqualification.</p>
       </section>
 
       <article id="admission-process" class="admission-section-card">
@@ -174,7 +174,7 @@ function renderadmission_shell(active: AdmissionSection): string {
             <div class="admission-hero-content">
               <h1 class="admission-hero-title">${heroTitle}</h1>
               ${heroSchoolYear ? `<p class="admission-hero-year">${heroSchoolYear}</p>` : ''}
-              <p class="admission-hero-subtitle">Start your journey with Golden West Colleges, Inc.</p>
+              <p class="admission-hero-subtitle">Start your journey with <span class="admission-hero-brand">Golden West Colleges, Inc.</span></p>
             </div>
             <div class="admission-hero-people-wrap" aria-hidden="true">
               <img class="admission-hero-people-image" src="${admissionCoverPeopleImage}" alt="" />

@@ -116,6 +116,11 @@
   max-width: 520px;
 }
 
+.admission-hero-brand {
+  color: var(--gold);
+  font-weight: 700;
+}
+
 .admission-hero-cta {
   margin-top: 1.1rem;
   display: inline-flex;
