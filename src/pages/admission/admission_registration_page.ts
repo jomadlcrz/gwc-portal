@@ -191,6 +191,20 @@ export function renderadmission_registration_page(): string {
           <section id="admission-registration-step-4" class="admission-registration-step-hidden">
             <article class="admission-registration-finish-card">
               <div class="admission-registration-success-check" aria-hidden="true">
+                <span class="admission-finish-glitter-layer">
+                  <span class="admission-finish-glitter admission-finish-glitter-1"></span>
+                  <span class="admission-finish-glitter admission-finish-glitter-2"></span>
+                  <span class="admission-finish-glitter admission-finish-glitter-3"></span>
+                  <span class="admission-finish-glitter admission-finish-glitter-4"></span>
+                  <span class="admission-finish-glitter admission-finish-glitter-5"></span>
+                  <span class="admission-finish-glitter admission-finish-glitter-6"></span>
+                  <span class="admission-finish-glitter admission-finish-glitter-7"></span>
+                  <span class="admission-finish-glitter admission-finish-glitter-8"></span>
+                  <span class="admission-finish-glitter admission-finish-glitter-9"></span>
+                  <span class="admission-finish-glitter admission-finish-glitter-10"></span>
+                  <span class="admission-finish-glitter admission-finish-glitter-11"></span>
+                  <span class="admission-finish-glitter admission-finish-glitter-12"></span>
+                </span>
                 <svg viewBox="0 0 120 120" role="presentation">
                   <circle class="admission-success-check-circle" cx="60" cy="60" r="48" />
                   <path class="admission-success-check-mark" d="M36 62l16 16 32-32" />
@@ -200,7 +214,7 @@ export function renderadmission_registration_page(): string {
               <p class="admission-registration-finish-copy">
                 Your application has been submitted successfully. Please wait for admissions confirmation.
               </p>
-              <a class="admission-registration-dashboard-link" href="/student-portal/dashboard">
+              <a class="admission-registration-dashboard-link" href="${ROUTES.HOME}">
                 <span>Go to Home</span>
               </a>
             </article>

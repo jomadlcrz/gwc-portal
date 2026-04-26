@@ -856,10 +856,120 @@
   position: relative;
 }
 
+.admission-finish-glitter-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.admission-finish-glitter {
+  --glitter-size: 12px;
+  position: absolute;
+  width: var(--glitter-size);
+  height: var(--glitter-size);
+  opacity: 0;
+}
+
+.admission-finish-glitter::before,
+.admission-finish-glitter::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: var(--radius-pill);
+  background: radial-gradient(circle, #fff9d9 0%, #f5cb48 45%, #e0a400 100%);
+  box-shadow: 0 0 16px rgba(245, 203, 72, 0.8);
+}
+
+.admission-finish-glitter::before {
+  width: 100%;
+  height: 26%;
+}
+
+.admission-finish-glitter::after {
+  width: 26%;
+  height: 100%;
+}
+
+.admission-finish-glitter-1 {
+  --glitter-size: 14px;
+  top: 10%;
+  left: 9%;
+}
+
+.admission-finish-glitter-2 {
+  --glitter-size: 10px;
+  top: 5%;
+  right: 13%;
+}
+
+.admission-finish-glitter-3 {
+  --glitter-size: 11px;
+  top: 34%;
+  right: -2%;
+}
+
+.admission-finish-glitter-4 {
+  --glitter-size: 10px;
+  bottom: 16%;
+  right: 8%;
+}
+
+.admission-finish-glitter-5 {
+  --glitter-size: 12px;
+  bottom: 8%;
+  left: 3%;
+}
+
+.admission-finish-glitter-6 {
+  --glitter-size: 9px;
+  top: 42%;
+  left: -4%;
+}
+
+.admission-finish-glitter-7 {
+  --glitter-size: 8px;
+  top: 18%;
+  left: 28%;
+}
+
+.admission-finish-glitter-8 {
+  --glitter-size: 13px;
+  top: 20%;
+  right: 24%;
+}
+
+.admission-finish-glitter-9 {
+  --glitter-size: 9px;
+  bottom: 22%;
+  left: 24%;
+}
+
+.admission-finish-glitter-10 {
+  --glitter-size: 11px;
+  bottom: 20%;
+  right: 25%;
+}
+
+.admission-finish-glitter-11 {
+  --glitter-size: 7px;
+  top: -2%;
+  left: 45%;
+}
+
+.admission-finish-glitter-12 {
+  --glitter-size: 8px;
+  bottom: -2%;
+  left: 47%;
+}
+
 .admission-registration-success-check svg {
   width: 100%;
   height: 100%;
   display: block;
+  position: relative;
+  z-index: 1;
 }
 
 .admission-success-check-circle {
@@ -886,6 +996,54 @@
 
 .admission-registration-success-check.is-animate .admission-success-check-mark {
   animation: admissionCheckMark 0.35s ease-out 0.55s forwards;
+}
+
+.admission-registration-success-check.is-animate .admission-finish-glitter-1 {
+  animation: admissionGlitterFade 2.6s ease-out 0.85s forwards;
+}
+
+.admission-registration-success-check.is-animate .admission-finish-glitter-2 {
+  animation: admissionGlitterFade 2.9s ease-out 1s forwards;
+}
+
+.admission-registration-success-check.is-animate .admission-finish-glitter-3 {
+  animation: admissionGlitterFade 2.8s ease-out 1.1s forwards;
+}
+
+.admission-registration-success-check.is-animate .admission-finish-glitter-4 {
+  animation: admissionGlitterFade 3s ease-out 1.2s forwards;
+}
+
+.admission-registration-success-check.is-animate .admission-finish-glitter-5 {
+  animation: admissionGlitterFade 2.7s ease-out 1.3s forwards;
+}
+
+.admission-registration-success-check.is-animate .admission-finish-glitter-6 {
+  animation: admissionGlitterFade 3.1s ease-out 0.95s forwards;
+}
+
+.admission-registration-success-check.is-animate .admission-finish-glitter-7 {
+  animation: admissionGlitterTwinkle 2.3s ease-in-out 1.05s forwards;
+}
+
+.admission-registration-success-check.is-animate .admission-finish-glitter-8 {
+  animation: admissionGlitterTwinkle 2.6s ease-in-out 1.18s forwards;
+}
+
+.admission-registration-success-check.is-animate .admission-finish-glitter-9 {
+  animation: admissionGlitterTwinkle 2.5s ease-in-out 1.28s forwards;
+}
+
+.admission-registration-success-check.is-animate .admission-finish-glitter-10 {
+  animation: admissionGlitterTwinkle 2.35s ease-in-out 1.14s forwards;
+}
+
+.admission-registration-success-check.is-animate .admission-finish-glitter-11 {
+  animation: admissionGlitterTwinkle 2.1s ease-in-out 0.92s forwards;
+}
+
+.admission-registration-success-check.is-animate .admission-finish-glitter-12 {
+  animation: admissionGlitterTwinkle 2.4s ease-in-out 1.35s forwards;
 }
 
 .admission-registration-success-check.is-static-complete .admission-success-check-circle,
@@ -924,6 +1082,51 @@
 @keyframes admissionCheckMark {
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+@keyframes admissionGlitterFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) rotate(0deg);
+  }
+  18% {
+    opacity: 1;
+    transform: scale(1.1) rotate(22deg);
+  }
+  45% {
+    opacity: 0.88;
+    transform: scale(1) rotate(36deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.78) rotate(48deg);
+  }
+}
+
+@keyframes admissionGlitterTwinkle {
+  0% {
+    opacity: 0;
+    transform: scale(0.35) rotate(-16deg);
+    filter: blur(0.6px);
+  }
+  20% {
+    opacity: 0.9;
+    transform: scale(1.15) rotate(10deg);
+    filter: blur(0);
+  }
+  42% {
+    opacity: 0.45;
+    transform: scale(0.78) rotate(-8deg);
+  }
+  60% {
+    opacity: 0.95;
+    transform: scale(1.04) rotate(8deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.62) rotate(24deg);
+    filter: blur(0.8px);
   }
 }
 
