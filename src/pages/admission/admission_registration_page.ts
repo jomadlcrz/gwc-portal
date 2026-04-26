@@ -74,7 +74,7 @@ export function renderadmission_registration_page(): string {
             <article class="admission-registration-card">
               <h3>What type of student are you?</h3>
               <label class="admission-registration-option" for="admission-student-type-new">
-                <input id="admission-student-type-new" name="admission-student-type" type="radio" value="Freshmen" checked />
+                <input id="admission-student-type-new" name="admission-student-type" type="radio" value="Freshmen" />
                 <span>Freshmen</span>
               </label>
               <label class="admission-registration-option" for="admission-student-type-existing">
@@ -86,7 +86,7 @@ export function renderadmission_registration_page(): string {
             <article class="admission-registration-card">
               <h3>Programs:</h3>
               <label class="admission-registration-option" for="admission-program-bscrim">
-                <input id="admission-program-bscrim" name="admission-program" type="radio" value="1" checked />
+                <input id="admission-program-bscrim" name="admission-program" type="radio" value="1" />
                 <span>Bachelor of Science in Criminology</span>
               </label>
               <label class="admission-registration-option" for="admission-program-bsit">
@@ -201,7 +201,6 @@ export function renderadmission_registration_page(): string {
                 Your application has been submitted successfully. Please wait for admissions confirmation.
               </p>
               <a class="admission-registration-dashboard-link" href="/student-portal/dashboard">
-                <i class="bi bi-envelope"></i>
                 <span>Go to Home</span>
               </a>
             </article>
@@ -240,6 +239,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
   const submitButton = root.querySelector<HTMLButtonElement>('#admission-registration-submit')
   const messageEl = root.querySelector<HTMLElement>('#admission-registration-message')
   const finishCheck = root.querySelector<HTMLElement>('.admission-registration-success-check')
+  const finishSection = root.querySelector<HTMLElement>('#admission-registration-step-4')
   const reviewStudentType = root.querySelector<HTMLElement>('#admission-review-student-type')
   const reviewProgram = root.querySelector<HTMLElement>('#admission-review-program')
   const reviewName = root.querySelector<HTMLElement>('#admission-review-name')
@@ -270,6 +270,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     !nextButton ||
     !submitButton ||
     !finishCheck ||
+    !finishSection ||
     !reviewStudentType ||
     !reviewProgram ||
     !reviewName ||
@@ -324,9 +325,13 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     timelineMobileLabel.textContent = registrationStepLabels[step - 1]
 
     if (step === 4) {
+      setFinishCheckState(true)
       const isDesktop = window.matchMedia('(min-width: 1024px)').matches
-      const isLowerDownPage = window.scrollY > 240
-      setFinishCheckState(!(isDesktop && isLowerDownPage))
+      if (isDesktop) {
+        window.requestAnimationFrame(() => {
+          finishSection.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        })
+      }
     }
   }
 
