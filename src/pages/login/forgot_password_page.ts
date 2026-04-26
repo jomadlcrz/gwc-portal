@@ -74,21 +74,21 @@ function renderPasswordResetTimeline(currentStep: number): string {
           <div class="timeline-circle ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}">
             ${currentStep > 1 ? '<i class="bi bi-check-lg" aria-hidden="true"></i>' : '1'}
           </div>
-          <span class="timeline-label">Verify Account</span>
+          <span class="admission-stepper-label timeline-label">Verify Account</span>
         </div>
         
         <div class="timeline-step" data-step="2">
           <div class="timeline-circle ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}">
             ${currentStep > 2 ? '<i class="bi bi-check-lg" aria-hidden="true"></i>' : '2'}
           </div>
-          <span class="timeline-label">Verify OTP</span>
+          <span class="admission-stepper-label timeline-label">Verify OTP</span>
         </div>
         
         <div class="timeline-step" data-step="3">
           <div class="timeline-circle ${currentStep >= 3 ? 'active' : ''} ${currentStep > 3 ? 'completed' : ''}">
             ${currentStep > 3 ? '<i class="bi bi-check-lg" aria-hidden="true"></i>' : '3'}
           </div>
-          <span class="timeline-label">Reset Password</span>
+          <span class="admission-stepper-label timeline-label">Reset Password</span>
         </div>
       </div>
     </div>

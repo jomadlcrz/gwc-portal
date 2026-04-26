@@ -282,8 +282,18 @@
   letter-spacing: 0.5px;
 }
 
+.forgot-password-page .admission-stepper-label.timeline-label {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
 .timeline-circle.active ~ .timeline-label,
-.timeline-circle.completed ~ .timeline-label {
+.timeline-circle.completed ~ .timeline-label,
+.timeline-circle.active ~ .admission-stepper-label.timeline-label,
+.timeline-circle.completed ~ .admission-stepper-label.timeline-label {
   color: var(--login-brand-primary);
   font-weight: 700;
 }
@@ -585,5 +595,9 @@
   .timeline-track-line,
   .timeline-progress-line {
     top: 18px;
+  }
+
+  .forgot-password-page .admission-stepper-label.timeline-label {
+    display: block;
   }
 }
