@@ -41,6 +41,21 @@ function renderApplicationCard(application: AdmissionApplication): string {
   `
 }
 
+function formatProgramName(program: string): string {
+  const normalized = program.trim().toLowerCase()
+  const fullProgramByAlias: Record<string, string> = {
+    'bs criminology': 'Bachelor of Science in Criminology',
+    'bs information technology': 'Bachelor of Science in Information Technology',
+    bsit: 'Bachelor of Science in Information Technology',
+    'bs computer science': 'Bachelor of Science in Computer Science',
+    bscs: 'Bachelor of Science in Computer Science',
+    'bs business administration': 'Bachelor of Science in Business Administration',
+    bsba: 'Bachelor of Science in Business Administration',
+  }
+
+  return fullProgramByAlias[normalized] ?? program
+}
+
 function formatBirthDateForInput(value: string): string | null {
   const parsed = new Date(value)
   if (Number.isNaN(parsed.getTime())) return null
@@ -128,9 +143,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
           <div class="admission-details-grid">
             <p><span>Campus</span><strong>${application.campus}</strong></p>
             <p><span>Admission</span><strong>${application.admissionType}</strong></p>
-            <p><span>Course (First Choice)</span><strong>${application.courseFirstChoice}</strong></p>
-            <p><span>Course (Second Choice)</span><strong>${application.courseSecondChoice}</strong></p>
-            <p><span>Course (Third Choice)</span><strong>${application.courseThirdChoice}</strong></p>
+            <p><span>Program</span><strong>${formatProgramName(application.program || application.courseFirstChoice)}</strong></p>
             <p><span>Date Submitted</span><strong>${application.submittedAt}</strong></p>
           </div>
         </div>

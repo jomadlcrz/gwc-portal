@@ -3,6 +3,7 @@ import { ROUTES } from '../../app/routes'
 import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/layout/header'
 import { renderMainSiteFooter } from '../../components/layout/footer'
 import { renderHomeOverlays } from '../../components/layout/overlay'
+import { createRegistrationStudent } from '../../api/v1/registration/students'
 
 const gwcLogo = '/images/gwc_logo.avif'
 const gwcLogoWhite = '/images/gwc_logo_white.avif'
@@ -16,7 +17,7 @@ function renderRegistrationSteps(): string {
         ${steps
           .map(
             (label, index) => `
-              <li class="admission-stepper-item ${index === 0 ? 'is-active' : ''}">
+              <li class="admission-stepper-item ${index === 0 ? 'is-active' : ''}" data-step-index="${index}">
                 <span class="admission-stepper-dot" aria-hidden="true">${index + 1}</span>
                 <span class="admission-stepper-label">${label}</span>
               </li>
@@ -68,57 +69,361 @@ export function renderadmission_registration_page(): string {
             <p>Kindly fill-out the online application form for a fast and efficient admissions procedure.</p>
           </article>
 
-          <article class="admission-registration-card">
-            <h3>What type of student are you?</h3>
-            <label class="admission-registration-option" for="admission-student-type-new">
-              <input id="admission-student-type-new" name="admission-student-type" type="radio" checked />
-              <span>New</span>
-            </label>
-            <label class="admission-registration-option" for="admission-student-type-existing">
-              <input id="admission-student-type-existing" name="admission-student-type" type="radio" />
-              <span>Existing Student</span>
-            </label>
-          </article>
+          <section id="admission-registration-step-1">
+            <article class="admission-registration-card">
+              <h3>What type of student are you?</h3>
+              <label class="admission-registration-option" for="admission-student-type-new">
+                <input id="admission-student-type-new" name="admission-student-type" type="radio" value="Freshmen" checked />
+                <span>Freshmen</span>
+              </label>
+              <label class="admission-registration-option" for="admission-student-type-existing">
+                <input id="admission-student-type-existing" name="admission-student-type" type="radio" value="Transferee" />
+                <span>Transferee</span>
+              </label>
+            </article>
 
-          <article class="admission-registration-card">
-            <h3>Programs:</h3>
-            <label class="admission-registration-option" for="admission-program-bscrim">
-              <input id="admission-program-bscrim" name="admission-program" type="radio" checked />
-              <span>Bachelor of Science in Criminology</span>
-            </label>
-            <label class="admission-registration-option" for="admission-program-bsit">
-              <input id="admission-program-bsit" name="admission-program" type="radio" />
-              <span>Bachelor of Science in Information Technology</span>
-            </label>
-            <label class="admission-registration-option" for="admission-program-bscs">
-              <input id="admission-program-bscs" name="admission-program" type="radio" />
-              <span>Bachelor of Science in Computer Science</span>
-            </label>
-            <label class="admission-registration-option" for="admission-program-ascs">
-              <input id="admission-program-ascs" name="admission-program" type="radio" />
-              <span>2-Year Associate in Computer Science</span>
-            </label>
-            <label class="admission-registration-option" for="admission-program-bsba">
-              <input id="admission-program-bsba" name="admission-program" type="radio" />
-              <span>Bachelor of Science in Business Administration (Major in Marketing Management)</span>
-            </label>
-            <label class="admission-registration-option" for="admission-program-beed">
-              <input id="admission-program-beed" name="admission-program" type="radio" />
-              <span>Bachelor of Elementary Education</span>
-            </label>
-            <label class="admission-registration-option" for="admission-program-bsed">
-              <input id="admission-program-bsed" name="admission-program" type="radio" />
-              <span>Bachelor of Secondary Education</span>
-            </label>
-          </article>
+            <article class="admission-registration-card">
+              <h3>Programs:</h3>
+              <label class="admission-registration-option" for="admission-program-bscrim">
+                <input id="admission-program-bscrim" name="admission-program" type="radio" value="1" checked />
+                <span>Bachelor of Science in Criminology</span>
+              </label>
+              <label class="admission-registration-option" for="admission-program-bsit">
+                <input id="admission-program-bsit" name="admission-program" type="radio" value="2" />
+                <span>Bachelor of Science in Information Technology</span>
+              </label>
+              <label class="admission-registration-option" for="admission-program-bscs">
+                <input id="admission-program-bscs" name="admission-program" type="radio" value="3" />
+                <span>Bachelor of Science in Computer Science</span>
+              </label>
+              <label class="admission-registration-option" for="admission-program-ascs">
+                <input id="admission-program-ascs" name="admission-program" type="radio" value="4" />
+                <span>2-Year Associate in Computer Science</span>
+              </label>
+              <label class="admission-registration-option" for="admission-program-bsba">
+                <input id="admission-program-bsba" name="admission-program" type="radio" value="5" />
+                <span>Bachelor of Science in Business Administration (Major in Marketing Management)</span>
+              </label>
+              <label class="admission-registration-option" for="admission-program-beed">
+                <input id="admission-program-beed" name="admission-program" type="radio" value="6" />
+                <span>Bachelor of Elementary Education</span>
+              </label>
+              <label class="admission-registration-option" for="admission-program-bsed">
+                <input id="admission-program-bsed" name="admission-program" type="radio" value="7" />
+                <span>Bachelor of Secondary Education</span>
+              </label>
+            </article>
+          </section>
+
+          <section id="admission-registration-step-2" class="admission-registration-step-hidden">
+            <article class="admission-registration-card">
+              <h3>Personal Information</h3>
+              <div class="admission-registration-fields">
+                <div class="form-floating">
+                  <input id="admission-first-name" class="form-control" type="text" placeholder=" " autocomplete="given-name" />
+                  <label for="admission-first-name">First Name</label>
+                </div>
+
+                <div class="form-floating">
+                  <input id="admission-middle-name" class="form-control" type="text" placeholder=" " autocomplete="additional-name" />
+                  <label for="admission-middle-name">Middle Name</label>
+                </div>
+
+                <div class="form-floating">
+                  <input id="admission-last-name" class="form-control" type="text" placeholder=" " autocomplete="family-name" />
+                  <label for="admission-last-name">Last Name</label>
+                </div>
+
+                <div class="form-floating">
+                  <select id="admission-gender" class="form-select" aria-label="Gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                  <label for="admission-gender">Gender</label>
+                </div>
+
+                <div class="form-floating">
+                  <input id="admission-birth-date" class="form-control" type="date" placeholder=" " />
+                  <label for="admission-birth-date">Birth Date</label>
+                </div>
+
+                <div class="form-floating">
+                  <input id="admission-contact-info-id" class="form-control" type="number" min="1" placeholder=" " />
+                  <label for="admission-contact-info-id">Contact Info ID</label>
+                </div>
+
+                <div class="form-floating">
+                  <input id="admission-emergency-contact-id" class="form-control" type="number" min="1" placeholder=" " />
+                  <label for="admission-emergency-contact-id">Emergency Contact ID</label>
+                </div>
+
+                <div class="form-floating">
+                  <input id="admission-current-address-id" class="form-control" type="number" min="1" placeholder=" " />
+                  <label for="admission-current-address-id">Current Address ID</label>
+                </div>
+
+                <div class="form-floating">
+                  <input id="admission-permanent-address-id" class="form-control" type="number" min="1" placeholder=" " />
+                  <label for="admission-permanent-address-id">Permanent Address ID</label>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <section id="admission-registration-step-3" class="admission-registration-step-hidden">
+            <article class="admission-registration-card">
+              <h3>Validate Details</h3>
+              <div class="admission-details-grid admission-registration-review" id="admission-registration-review">
+                <p><span>Student Type</span><strong id="admission-review-student-type"></strong></p>
+                <p><span>Program</span><strong id="admission-review-program"></strong></p>
+                <p><span>Name</span><strong id="admission-review-name"></strong></p>
+                <p><span>Gender</span><strong id="admission-review-gender"></strong></p>
+                <p><span>Birth Date</span><strong id="admission-review-birth-date"></strong></p>
+                <p><span>Contact Info ID</span><strong id="admission-review-contact-id"></strong></p>
+                <p><span>Emergency Contact ID</span><strong id="admission-review-emergency-id"></strong></p>
+                <p><span>Current Address ID</span><strong id="admission-review-current-address-id"></strong></p>
+                <p><span>Permanent Address ID</span><strong id="admission-review-permanent-address-id"></strong></p>
+              </div>
+            </article>
+          </section>
+
+          <section id="admission-registration-step-4" class="admission-registration-step-hidden">
+            <article class="admission-registration-card">
+              <h3>Finish</h3>
+              <p class="admission-registration-finish-copy">
+                Your application has been submitted successfully. Please wait for admissions confirmation.
+              </p>
+            </article>
+          </section>
 
           <div class="admission-registration-actions">
-            <button type="button" class="admission-registration-next-step">Next Step</button>
+            <button type="button" class="admission-registration-nav-button admission-registration-step-hidden" id="admission-registration-back">Previous</button>
+            <button type="button" class="admission-registration-next-step" id="admission-registration-next">Next Step</button>
+            <button type="button" class="admission-registration-next-step admission-registration-step-hidden" id="admission-registration-submit">Submit Application</button>
           </div>
+          <p id="admission-registration-message" class="admission-registration-message" role="status" aria-live="polite"></p>
         </div>
       </section>
 
       ${renderMainSiteFooter()}
     </main>
   `
+}
+
+const setMessage = (el: HTMLElement | null, message: string, isError = false): void => {
+  if (!el) return
+  el.textContent = message
+  el.classList.toggle('is-error', isError)
+}
+
+export function setupadmission_registration_page(root: HTMLElement): () => void {
+  const step1Section = root.querySelector<HTMLElement>('#admission-registration-step-1')
+  const step2Section = root.querySelector<HTMLElement>('#admission-registration-step-2')
+  const step3Section = root.querySelector<HTMLElement>('#admission-registration-step-3')
+  const step4Section = root.querySelector<HTMLElement>('#admission-registration-step-4')
+  const timelineItems = Array.from(root.querySelectorAll<HTMLElement>('.admission-stepper-item'))
+  const backButton = root.querySelector<HTMLButtonElement>('#admission-registration-back')
+  const nextButton = root.querySelector<HTMLButtonElement>('#admission-registration-next')
+  const submitButton = root.querySelector<HTMLButtonElement>('#admission-registration-submit')
+  const messageEl = root.querySelector<HTMLElement>('#admission-registration-message')
+  const reviewStudentType = root.querySelector<HTMLElement>('#admission-review-student-type')
+  const reviewProgram = root.querySelector<HTMLElement>('#admission-review-program')
+  const reviewName = root.querySelector<HTMLElement>('#admission-review-name')
+  const reviewGender = root.querySelector<HTMLElement>('#admission-review-gender')
+  const reviewBirthDate = root.querySelector<HTMLElement>('#admission-review-birth-date')
+  const reviewContactId = root.querySelector<HTMLElement>('#admission-review-contact-id')
+  const reviewEmergencyId = root.querySelector<HTMLElement>('#admission-review-emergency-id')
+  const reviewCurrentAddressId = root.querySelector<HTMLElement>('#admission-review-current-address-id')
+  const reviewPermanentAddressId = root.querySelector<HTMLElement>('#admission-review-permanent-address-id')
+  const firstNameInput = root.querySelector<HTMLInputElement>('#admission-first-name')
+  const middleNameInput = root.querySelector<HTMLInputElement>('#admission-middle-name')
+  const lastNameInput = root.querySelector<HTMLInputElement>('#admission-last-name')
+  const genderInput = root.querySelector<HTMLSelectElement>('#admission-gender')
+  const birthDateInput = root.querySelector<HTMLInputElement>('#admission-birth-date')
+  const contactInfoIdInput = root.querySelector<HTMLInputElement>('#admission-contact-info-id')
+  const emergencyContactIdInput = root.querySelector<HTMLInputElement>('#admission-emergency-contact-id')
+  const currentAddressIdInput = root.querySelector<HTMLInputElement>('#admission-current-address-id')
+  const permanentAddressIdInput = root.querySelector<HTMLInputElement>('#admission-permanent-address-id')
+
+  if (
+    !step1Section ||
+    !step2Section ||
+    !step3Section ||
+    !step4Section ||
+    !backButton ||
+    !nextButton ||
+    !submitButton ||
+    !reviewStudentType ||
+    !reviewProgram ||
+    !reviewName ||
+    !reviewGender ||
+    !reviewBirthDate ||
+    !reviewContactId ||
+    !reviewEmergencyId ||
+    !reviewCurrentAddressId ||
+    !reviewPermanentAddressId ||
+    !firstNameInput ||
+    !middleNameInput ||
+    !lastNameInput ||
+    !genderInput ||
+    !birthDateInput ||
+    !contactInfoIdInput ||
+    !emergencyContactIdInput ||
+    !currentAddressIdInput ||
+    !permanentAddressIdInput
+  ) {
+    return () => {}
+  }
+
+  let currentStep: 1 | 2 | 3 | 4 = 1
+
+  const setStep = (step: 1 | 2 | 3 | 4): void => {
+    currentStep = step
+    step1Section.classList.toggle('admission-registration-step-hidden', step !== 1)
+    step2Section.classList.toggle('admission-registration-step-hidden', step !== 2)
+    step3Section.classList.toggle('admission-registration-step-hidden', step !== 3)
+    step4Section.classList.toggle('admission-registration-step-hidden', step !== 4)
+    backButton.classList.toggle('admission-registration-step-hidden', step === 1 || step === 4)
+    nextButton.classList.toggle('admission-registration-step-hidden', step !== 1 && step !== 2)
+    submitButton.classList.toggle('admission-registration-step-hidden', step !== 3)
+    nextButton.textContent = 'Next Step'
+
+    timelineItems.forEach((item) => {
+      const itemStep = Number(item.dataset.stepIndex)
+      item.classList.toggle('is-active', itemStep === step - 1)
+    })
+  }
+
+  const validatePersonalInformation = (): boolean => {
+    const firstName = firstNameInput.value.trim()
+    const lastName = lastNameInput.value.trim()
+    const birthDate = birthDateInput.value
+    const contactInfoId = Number(contactInfoIdInput.value)
+    const emergencyContactId = Number(emergencyContactIdInput.value)
+    const currAddrId = Number(currentAddressIdInput.value)
+    const permAddrId = Number(permanentAddressIdInput.value)
+
+    if (
+      !firstName ||
+      !lastName ||
+      !birthDate ||
+      !Number.isFinite(contactInfoId) ||
+      !Number.isFinite(emergencyContactId) ||
+      !Number.isFinite(currAddrId) ||
+      !Number.isFinite(permAddrId)
+    ) {
+      setMessage(messageEl, 'Complete all required personal information fields before continuing.', true)
+      return false
+    }
+
+    setMessage(messageEl, '')
+    return true
+  }
+
+  const populateValidationDetails = (): void => {
+    const admissionTypeInput = root.querySelector<HTMLInputElement>('input[name="admission-student-type"]:checked')
+    const programInput = root.querySelector<HTMLInputElement>('input[name="admission-program"]:checked')
+    const programLabel = programInput?.closest('label')?.querySelector('span')?.textContent?.trim() || '-'
+    const middleName = middleNameInput.value.trim()
+    reviewStudentType.textContent = admissionTypeInput?.value || '-'
+    reviewProgram.textContent = programLabel
+    reviewName.textContent = `${firstNameInput.value.trim()} ${middleName ? `${middleName} ` : ''}${lastNameInput.value.trim()}`.trim()
+    reviewGender.textContent = genderInput.value
+    reviewBirthDate.textContent = birthDateInput.value || '-'
+    reviewContactId.textContent = contactInfoIdInput.value || '-'
+    reviewEmergencyId.textContent = emergencyContactIdInput.value || '-'
+    reviewCurrentAddressId.textContent = currentAddressIdInput.value || '-'
+    reviewPermanentAddressId.textContent = permanentAddressIdInput.value || '-'
+  }
+
+  const onSubmit = async (): Promise<void> => {
+    const admissionType = root.querySelector<HTMLInputElement>('input[name="admission-student-type"]:checked')?.value
+    const programIdRaw = root.querySelector<HTMLInputElement>('input[name="admission-program"]:checked')?.value
+    const firstName = firstNameInput.value.trim()
+    const midName = middleNameInput.value.trim()
+    const lastName = lastNameInput.value.trim()
+    const birthDate = birthDateInput.value
+    const contactInfoId = Number(contactInfoIdInput.value)
+    const emergencyContactId = Number(emergencyContactIdInput.value)
+    const currAddrId = Number(currentAddressIdInput.value)
+    const permAddrId = Number(permanentAddressIdInput.value)
+
+    if (
+      !admissionType ||
+      !programIdRaw ||
+      !firstName ||
+      !lastName ||
+      !birthDate ||
+      !Number.isFinite(contactInfoId) ||
+      !Number.isFinite(emergencyContactId) ||
+      !Number.isFinite(currAddrId) ||
+      !Number.isFinite(permAddrId)
+    ) {
+      setMessage(messageEl, 'Complete all required fields before submitting.', true)
+      return
+    }
+
+    setMessage(messageEl, 'Submitting application...')
+    submitButton.disabled = true
+
+    try {
+      await createRegistrationStudent({
+        programId: Number(programIdRaw),
+        firstName,
+        midName: midName || undefined,
+        lastName,
+        gender: genderInput.value,
+        birthDate,
+        contactInfoId,
+        emergencyContactId,
+        admissionType,
+        currAddrId,
+        permAddrId,
+        preRegStatus: 'Pending',
+      })
+      setMessage(messageEl, '')
+      setStep(4)
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Unable to submit application.'
+      setMessage(messageEl, message, true)
+    } finally {
+      submitButton.disabled = false
+    }
+  }
+
+  const handleNextClick = (): void => {
+    if (currentStep === 1) {
+      setStep(2)
+      return
+    }
+
+    if (currentStep === 2) {
+      if (!validatePersonalInformation()) return
+      populateValidationDetails()
+      setStep(3)
+    }
+  }
+
+  const handleBackClick = (): void => {
+    if (currentStep === 2) {
+      setStep(1)
+    } else if (currentStep === 3) {
+      setStep(2)
+    }
+    setMessage(messageEl, '')
+  }
+
+  const handleSubmitClick = (): void => {
+    void onSubmit()
+  }
+  nextButton.addEventListener('click', handleNextClick)
+  backButton.addEventListener('click', handleBackClick)
+  submitButton.addEventListener('click', handleSubmitClick)
+  setStep(1)
+
+  return () => {
+    nextButton.removeEventListener('click', handleNextClick)
+    backButton.removeEventListener('click', handleBackClick)
+    submitButton.removeEventListener('click', handleSubmitClick)
+  }
 }

@@ -769,10 +769,68 @@
   font-size: 0.98rem;
 }
 
+.admission-registration-fields {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.admission-registration-fields .form-floating > label {
+  color: #26406f;
+  font-size: 0.9rem;
+}
+
+.admission-registration-fields .form-control,
+.admission-registration-fields .form-select {
+  width: 100%;
+  border: 1px solid #c3d1e4;
+  border-radius: var(--radius-sm);
+  background: #fff;
+}
+
+.admission-registration-fields .form-control:focus,
+.admission-registration-fields .form-control:focus-visible,
+.admission-registration-fields .form-select:focus,
+.admission-registration-fields .form-select:focus-visible {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: var(--shadow-focus-primary);
+}
+
+.admission-registration-message {
+  margin: 0.75rem 0 0;
+  color: #2f4365;
+  font-size: 0.9rem;
+}
+
+.admission-registration-message.is-error {
+  color: #b91c1c;
+}
+
+.admission-registration-review {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.admission-registration-review p {
+  margin: 0;
+  color: #2f4365;
+}
+
+.admission-registration-finish-copy {
+  margin: 0;
+  color: #2f4365;
+  font-size: 1rem;
+}
+
+.admission-registration-step-hidden {
+  display: none;
+}
+
 .admission-registration-actions {
   margin-top: 0.9rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  gap: 0.55rem;
   width: min(100%, 700px);
 }
 
@@ -786,6 +844,7 @@
   line-height: 1;
   padding: 0.65rem 1.05rem 0.7rem;
   cursor: pointer;
+  margin-left: auto;
 }
 
 .admission-registration-next-step:hover,
@@ -793,6 +852,23 @@
   background: #111827;
   border-color: #111827;
   color: #fff;
+}
+
+.admission-registration-nav-button {
+  border: 1px solid #c4cfdf;
+  background: #f1f5fb;
+  color: #223a6b;
+  border-radius: var(--radius-sm);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.65rem 1.05rem 0.7rem;
+  cursor: pointer;
+}
+
+.admission-registration-nav-button:hover,
+.admission-registration-nav-button:focus-visible {
+  background: #e4ebf7;
 }
 
 @media (max-width: 768px) {
@@ -830,6 +906,10 @@
   }
 
   .admission-registration-next-step {
+    font-size: 0.98rem;
+  }
+
+  .admission-registration-nav-button {
     font-size: 0.98rem;
   }
 }

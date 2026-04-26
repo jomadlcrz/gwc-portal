@@ -10,7 +10,10 @@ import {
   setupadmission_status_page,
   setupadmission_status_verify_page,
 } from '../pages/admission/admission_page'
-import { renderadmission_registration_page as renderadmission_registration_form_page } from '../pages/admission/admission_registration_page'
+import {
+  renderadmission_registration_page as renderadmission_registration_form_page,
+  setupadmission_registration_page,
+} from '../pages/admission/admission_registration_page'
 import { renderpost_lists_page } from '../pages/post/post_lists_page'
 import {
   renderadministrators_dashboard_page,
@@ -250,7 +253,12 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.ADMISSION_REGISTRATION) {
     app.innerHTML = renderadmission_registration_form_page()
-    cleanupCurrentRoute = setupSiteInteractions(app)
+    const cleanupSiteInteractions = setupSiteInteractions(app)
+    const cleanupAdmissionRegistration = setupadmission_registration_page(app)
+    cleanupCurrentRoute = () => {
+      cleanupSiteInteractions()
+      cleanupAdmissionRegistration()
+    }
     return
   }
 
