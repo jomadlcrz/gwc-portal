@@ -137,8 +137,9 @@
 
 .admission-hero-cta:hover,
 .admission-hero-cta:focus-visible {
-  background: #e8b000;
-  color: #111827;
+  background: #111827;
+  border-color: #111827;
+  color: #fff;
 }
 
 .admission-shell {
@@ -177,8 +178,8 @@
 .admission-tab.is-active,
 .admission-tab:hover,
 .admission-tab:focus-visible {
-  background: var(--color-ink-900);
-  border-color: var(--color-ink-900);
+  background: #111827;
+  border-color: #111827;
   color: var(--color-white);
 }
 
@@ -483,8 +484,8 @@
 }
 
 .admission-status-fields button:hover {
-  background: var(--color-ink-900);
-  border-color: var(--color-ink-900);
+  background: #111827;
+  border-color: #111827;
 }
 
 .admission-table-wrap {
@@ -521,6 +522,7 @@
 
 .admission-table a:hover,
 .admission-table a:focus-visible {
+  color: #173879;
   text-decoration: underline;
 }
 
@@ -566,8 +568,9 @@
 
 .admission-apply-link:hover,
 .admission-apply-link:focus-visible {
-  background: #e5b40c;
-  color: #0f1b38;
+  background: #111827;
+  border-color: #111827;
+  color: #fff;
 }
 
 @media (max-width: 1100px) {
@@ -787,8 +790,9 @@
 
 .admission-registration-next-step:hover,
 .admission-registration-next-step:focus-visible {
-  background: #e5bc39;
-  border-color: #c59a24;
+  background: #111827;
+  border-color: #111827;
+  color: #fff;
 }
 
 @media (max-width: 768px) {
@@ -880,9 +884,9 @@
 }
 
 .admission-view-status-btn {
-  border: 1px solid #184194;
+  border: 1px solid var(--dark-blue);
   border-radius: var(--radius-sm);
-  background: #2055bf;
+  background: var(--dark-blue);
   color: var(--color-white);
   font-weight: 700;
   padding: 0.58rem 1rem;
@@ -895,8 +899,8 @@
 
 .admission-view-status-btn:hover,
 .admission-view-status-btn:focus-visible {
-  background: #173e8e;
-  border-color: #173e8e;
+  background: #111827;
+  border-color: #111827;
 }
 
 .admission-details-header {

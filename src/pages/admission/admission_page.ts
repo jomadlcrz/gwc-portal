@@ -319,7 +319,7 @@ function renderAdmissionContent(active: AdmissionSection): string {
     return `
       <article class="admission-detail-section">
         <header class="admission-detail-heading">
-          ${renderAdminSectionTitle('Campus Hotline Numbers')}
+          ${renderAdminSectionTitle('Campus Contact Information')}
         </header>
         <section class="admission-section-card admission-section-card-no-margin">
           <div class="admission-content-block">
