@@ -1,9 +1,12 @@
-﻿import { renderannouncements_page } from '../pages/announcements/announcements_page'
+import { renderannouncements_page } from '../pages/announcements/announcements_page'
 import { renderabout_gwc_faqs_page, renderabout_gwc_history_page } from '../pages/about_gwc/about_gwc_page'
 import {
   renderadmission_contact_page,
   renderadmission_page,
   renderadmission_status_page,
+  renderadmission_status_details_page,
+  setupadmission_status_details_page,
+  setupadmission_status_page,
 } from '../pages/admission/admission_page'
 import { renderadmission_registration_page as renderadmission_registration_form_page } from '../pages/admission/admission_registration_page'
 import { renderpost_lists_page } from '../pages/post/post_lists_page'
@@ -249,9 +252,26 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     return
   }
 
+  if (pathname.startsWith(`${ROUTES.ADMISSION_STATUS}/`)) {
+    const applicationNo = decodeURIComponent(pathname.slice(`${ROUTES.ADMISSION_STATUS}/`.length))
+    app.innerHTML = renderadmission_status_details_page(applicationNo)
+    const removeSiteInteractions = setupSiteInteractions(app)
+    const removeStatusDetailsHandlers = setupadmission_status_details_page(app)
+    cleanupCurrentRoute = () => {
+      removeSiteInteractions()
+      removeStatusDetailsHandlers()
+    }
+    return
+  }
+
   if (pathname === ROUTES.ADMISSION_STATUS) {
     app.innerHTML = renderadmission_status_page()
-    cleanupCurrentRoute = setupSiteInteractions(app)
+    const removeSiteInteractions = setupSiteInteractions(app)
+    const removeAdmissionStatusHandlers = setupadmission_status_page(app)
+    cleanupCurrentRoute = () => {
+      removeSiteInteractions()
+      removeAdmissionStatusHandlers()
+    }
     return
   }
 

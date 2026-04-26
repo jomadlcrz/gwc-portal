@@ -190,6 +190,10 @@
   overflow: hidden;
 }
 
+.admission-section-card-no-margin {
+  margin-top: 0.2rem;
+}
+
 .admission-section-header {
   padding: 1.1rem 1.2rem;
   background: var(--color-white);
@@ -805,5 +809,286 @@
 
   .admission-registration-next-step {
     font-size: 0.98rem;
+  }
+}
+.admission-status-results {
+  padding: 0 1rem 1rem;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.admission-status-inline {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.admission-status-message {
+  margin: 0;
+  padding: 0.7rem 0.76rem;
+  border: 1px dashed #c3d1e4;
+  border-radius: var(--radius-sm);
+  color: #2f4365;
+  background: #f8fbff;
+}
+
+.admission-result-row {
+  border: 1px solid #d2dceb;
+  border-radius: var(--radius-sm);
+  background: #f8fbff;
+  padding: 0.85rem 0.9rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) auto;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.admission-result-row h4 {
+  margin: 0;
+  color: #2d3b51;
+  font-size: 1.08rem;
+  letter-spacing: 0.01em;
+}
+
+.admission-result-year {
+  margin: 0.3rem 0 0;
+  color: #4b5f7f;
+  font-size: 1rem;
+}
+
+.admission-result-campus {
+  margin: 0;
+  color: #3d4d67;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.admission-view-status-btn {
+  border: 1px solid #184194;
+  border-radius: var(--radius-sm);
+  background: #2055bf;
+  color: var(--color-white);
+  font-weight: 700;
+  padding: 0.58rem 1rem;
+  min-width: 145px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.admission-view-status-btn:hover,
+.admission-view-status-btn:focus-visible {
+  background: #173e8e;
+  border-color: #173e8e;
+}
+
+.admission-details-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.admission-details-name {
+  margin: 0;
+  color: #1f2f49;
+  font-size: 1.95rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.admission-details-name span {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #324968;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.admission-details-badge {
+  margin: 0;
+  background: #f4c314;
+  color: #1f2f49;
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.8rem;
+  font-size: 1.06rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.admission-details-notice {
+  margin: 0.95rem 0 0;
+  background: #d93143;
+  color: #fff;
+  border-radius: var(--radius-sm);
+  padding: 0.72rem 0.82rem;
+  font-size: 1.22rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.admission-details-grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem 1rem;
+}
+
+.admission-details-grid p {
+  margin: 0;
+  display: grid;
+  gap: 0.18rem;
+  padding-bottom: 0.42rem;
+  border-bottom: 1px solid #dbe4f2;
+}
+
+.admission-details-grid p:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.admission-details-grid span {
+  font-size: 0.88rem;
+  color: #4a607f;
+  font-weight: 700;
+}
+
+.admission-details-grid strong {
+  color: #1b2f57;
+  font-weight: 700;
+  font-size: 1.08rem;
+}
+
+.admission-back-link {
+  margin-top: 0.9rem;
+}
+
+.admission-details-page-shell {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.admission-detail-section {
+  display: grid;
+  gap: 0;
+}
+
+.admission-shell .post-container > .admission-detail-section:first-of-type {
+  margin-top: 1rem;
+}
+
+.admission-detail-heading {
+  padding: 0 0.05rem;
+}
+
+.admission-detail-heading h3 {
+  margin: 0;
+}
+
+.admission-detail-surface {
+  margin-top: 0.18rem;
+  border: 1px solid #d3ddec;
+  border-radius: var(--radius-sm);
+  background: #f8fbff;
+  padding: 0.88rem;
+}
+
+.admission-docs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.82rem;
+}
+
+.admission-docs-grid article {
+  margin: 0;
+}
+
+.admission-docs-grid h4 {
+  margin: 0 0 0.45rem;
+  color: #223b6e;
+  font-size: 0.98rem;
+}
+
+.admission-docs-grid img {
+  width: 100%;
+  height: 180px;
+  border: 1px solid #c7d5e8;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  display: block;
+}
+
+.admission-doc-preview {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+  cursor: zoom-in;
+}
+
+.admission-doc-full-view {
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.admission-doc-full-view img {
+  width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  border: 1px solid #d2dceb;
+  border-radius: var(--radius-sm);
+  background: #fff;
+}
+
+.admission-reminders-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: #2f4365;
+}
+
+.admission-reminders-list li {
+  margin-bottom: 0.28rem;
+}
+
+@media (max-width: 768px) {
+  .admission-result-row {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .admission-view-status-btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .admission-details-header {
+    grid-template-columns: 1fr;
+  }
+
+  .admission-details-name {
+    font-size: 1.45rem;
+  }
+
+  .admission-details-notice {
+    font-size: 1.02rem;
+  }
+
+  .admission-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admission-details-grid p {
+    padding-bottom: 0.58rem;
+    margin-bottom: 0.14rem;
+  }
+
+  .admission-docs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admission-docs-grid img {
+    height: 200px;
   }
 }
