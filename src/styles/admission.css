@@ -1653,13 +1653,32 @@
 
 .admission-details-badge {
   margin: 0;
-  background: #f4c314;
-  color: #1f2f49;
+  background: #fff7ed;
+  color: #9a3412;
+  border: 1px solid #fed7aa;
   border-radius: var(--radius-sm);
   padding: 0.5rem 0.8rem;
   font-size: 1.06rem;
   font-weight: 800;
   text-transform: uppercase;
+}
+
+.admission-details-badge.is-pending {
+  background: #fff7ed;
+  color: #9a3412;
+  border-color: #fed7aa;
+}
+
+.admission-details-badge.is-approved {
+  background: #ecfdf3;
+  color: #166534;
+  border-color: #bbf7d0;
+}
+
+.admission-details-badge.is-rejected {
+  background: #fef2f2;
+  color: #991b1b;
+  border-color: #fecaca;
 }
 
 .admission-details-notice {

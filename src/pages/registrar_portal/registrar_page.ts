@@ -6,6 +6,14 @@ import { setupschedule_manage_page } from './schedule/schedule_manage_page'
 export { renderregistrar_dashboard_page } from './dashboard/dashboard_page'
 export { renderregistrar_student_records_page } from './student_records/student_records_page'
 export { renderregistrar_enrollments_page } from './enrollments/enrollments_page'
+export {
+  renderregistrar_admission_page,
+  renderregistrar_admission_review_page,
+  renderregistrar_admission_details_page,
+  setupregistrar_admission_page,
+  setupregistrar_admission_review_page,
+  setupregistrar_admission_details_page,
+} from './admission/admission_page'
 export { renderregistrar_requests_page } from './requests/requests_page'
 export { renderregistrar_schedule_page } from './schedule/schedule_page'
 export { renderregistrar_schedule_manage_page } from './schedule/schedule_manage_page'

@@ -1,4 +1,4 @@
-export type AdmissionApplicationStatus = 'Pending' | 'For Interview' | 'Approved' | 'Rejected'
+export type AdmissionApplicationStatus = 'Pending' | 'Approved' | 'Rejected'
 
 export type AdmissionApplication = {
   applicationNo: string
@@ -66,7 +66,7 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
     program: 'BS Information Technology',
     schoolYear: 'S.Y. 2026 - 2027',
     submittedAt: 'January 12, 2026',
-    status: 'For Interview',
+    status: 'Pending',
     remarks: 'Please wait for an SMS schedule from Admissions.',
     personalInfo: {
       address: 'Purok 3, Barangay San Jose',

@@ -1,0 +1,508 @@
+import { ROUTES } from '../../../app/routes'
+import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
+import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { renderAdminSectionTitle } from '../../../components/ui/section_title_heading'
+import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
+import { type AdmissionApplicationStatus } from '../../../data/admission'
+import { admissionService } from '../../../features/admission/service'
+
+const ADMISSION_STATUSES: AdmissionApplicationStatus[] = ['Pending', 'Approved', 'Rejected']
+
+function getStatusBadgeClass(status: AdmissionApplicationStatus): string {
+  if (status === 'Approved') return 'is-approved'
+  if (status === 'Rejected') return 'is-rejected'
+  return 'is-pending'
+}
+
+function renderStatusBadge(status: AdmissionApplicationStatus, attrs = ''): string {
+  return `<span class="registrar-status-badge ${getStatusBadgeClass(status)}" ${attrs}>${status}</span>`
+}
+
+function renderAdmissionManageForm(applicationNo: string): string {
+  const application = admissionService.findByApplicationNo(applicationNo)
+  if (!application) {
+    return '<p class="mb-0">Admission record not found.</p>'
+  }
+
+  return `
+    <div class="shared-modal-grid shared-modal-grid-1">
+      <section>
+        ${renderAdminSectionTitle('Registrar Decision')}
+        <div class="shared-modal-grid shared-modal-grid-2">
+          <div class="form-floating">
+            <select id="admission-modal-status" class="form-select">
+              ${ADMISSION_STATUSES.map((status) => `<option value="${status}" ${status === application.status ? 'selected' : ''}>${status}</option>`).join('')}
+            </select>
+            <label for="admission-modal-status">Application Status</label>
+          </div>
+          <div class="form-floating">
+            <input id="admission-modal-program" class="form-control" value="${application.program}" readonly />
+            <label for="admission-modal-program">Program</label>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        ${renderAdminSectionTitle('Registrar Remarks')}
+        <div class="form-floating">
+          <textarea id="admission-modal-remarks" class="form-control" style="height: 140px;">${application.remarks}</textarea>
+          <label for="admission-modal-remarks">Registrar Remarks</label>
+        </div>
+      </section>
+
+      <section>
+        ${renderAdminSectionTitle('Application Details')}
+        <div class="shared-modal-grid shared-modal-grid-3">
+          <div class="form-floating"><input class="form-control" value="${application.applicationNo}" readonly /><label>Application No.</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.admissionType}" readonly /><label>Admission Type</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.campus}" readonly /><label>Campus</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.submittedAt}" readonly /><label>Date Submitted</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.lastName}, ${application.firstName}${application.middleName ? ` ${application.middleName}` : ''}" readonly /><label>Applicant Name</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.schoolYear}" readonly /><label>School Year</label></div>
+        </div>
+      </section>
+
+      <section>
+        ${renderAdminSectionTitle('Personal Information')}
+        <div class="shared-modal-grid shared-modal-grid-3">
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.email}" readonly /><label>Email</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.mobile}" readonly /><label>Mobile</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.phone}" readonly /><label>Phone</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.birthDate}" readonly /><label>Birth Date</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.birthPlace}" readonly /><label>Birth Place</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.sex}" readonly /><label>Sex</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.citizenship}" readonly /><label>Citizenship</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.civilStatus}" readonly /><label>Civil Status</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.religion}" readonly /><label>Religion</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.cityProvince}" readonly /><label>City/Province</label></div>
+          <div class="form-floating" style="grid-column: 1 / -1;"><input class="form-control" value="${application.personalInfo.address}" readonly /><label>Address</label></div>
+        </div>
+      </section>
+
+      <section>
+        ${renderAdminSectionTitle('Educational Information')}
+        <div class="shared-modal-grid shared-modal-grid-3">
+          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.seniorHighSchool}" readonly /><label>Senior High School</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.strand}" readonly /><label>Strand</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.yearGraduated}" readonly /><label>Year Graduated</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.generalAverage}" readonly /><label>General Average</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastSchoolAttended}" readonly /><label>Last School Attended</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastCourse}" readonly /><label>Last Course</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastSchoolYear}" readonly /><label>Last School Year</label></div>
+        </div>
+      </section>
+
+      <section>
+        ${renderAdminSectionTitle('Other Information')}
+        <div class="shared-modal-grid shared-modal-grid-3">
+          <div class="form-floating"><input class="form-control" value="${application.otherInfo.alsPasser}" readonly /><label>ALS Passer</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.otherInfo.is4PsBeneficiary}" readonly /><label>4Ps Beneficiary</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.otherInfo.isPWD}" readonly /><label>PWD</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.otherInfo.isIndigenous}" readonly /><label>Indigenous Peoples</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.otherInfo.isSoloParent}" readonly /><label>Solo Parent</label></div>
+        </div>
+      </section>
+
+      <section>
+        ${renderAdminSectionTitle('Reminder Notes')}
+        <ul class="mb-0 ps-3">
+          ${application.reminders.map((reminder) => `<li>${reminder}</li>`).join('')}
+        </ul>
+      </section>
+    </div>
+  `
+}
+
+function renderAdmissionQueueRows(): string {
+  return admissionService
+    .list()
+    .map((application) => {
+      const fullName = `${application.lastName}, ${application.firstName}${application.middleName ? ` ${application.middleName}` : ''}`
+      const searchValue = [
+        application.applicationNo,
+        application.lastName,
+        application.firstName,
+        application.program,
+        application.status,
+        application.submittedAt,
+      ]
+        .join(' ')
+        .toLowerCase()
+
+      return `
+      <tr data-admission-row data-search-value="${searchValue}" data-status-value="${application.status}">
+        <td>${application.applicationNo}</td>
+        <td>${fullName}</td>
+        <td>${application.program}</td>
+        <td data-admission-status-cell>${renderStatusBadge(application.status)}</td>
+        <td>${application.submittedAt}</td>
+        <td>
+          <button type="button" class="btn btn-outline-primary btn-sm" data-admission-manage data-application-no="${application.applicationNo}">
+            Manage
+          </button>
+        </td>
+      </tr>
+    `
+    })
+    .join('')
+}
+
+export function renderregistrar_admission_page(): string {
+  const stats = admissionService.getStats()
+  const enrollmentOpen = admissionService.isEnrollmentOpen()
+
+  return renderPortalShell(
+    registrar_SHELL_CONFIG,
+    'admission',
+    `
+      <section class="registrar-content">
+        ${renderAdminBreadcrumbNav([
+          { label: 'Admission', active: true },
+        ])}
+
+        <article class="registrar-panel registrar-dashboard">
+          <header class="registrar-dashboard-head">
+            <div>
+              <h3>Admission Control Center</h3>
+              <p>Review applications, update status decisions, and maintain registrar remarks.</p>
+            </div>
+            <div class="registrar-dashboard-actions">
+              <a href="${ROUTES.REGISTRAR_ADMISSION_REVIEW}" class="btn btn-sm btn-primary">Open Full Queue</a>
+            </div>
+          </header>
+
+          <section class="registrar-kpi-grid mt-3">
+            <article class="registrar-kpi-card"><p>Total Applications</p><strong>${stats.total}</strong></article>
+            <article class="registrar-kpi-card"><p>Pending</p><strong>${stats.pending}</strong></article>
+            <article class="registrar-kpi-card"><p>Approved</p><strong>${stats.approved}</strong></article>
+            <article class="registrar-kpi-card"><p>Rejected</p><strong>${stats.rejected}</strong></article>
+            <article class="registrar-kpi-card"><p>Campus</p><strong>Alaminos</strong></article>
+          </section>
+
+          <section class="mt-3">
+            <article class="registrar-dashboard-card" data-enrollment-controls>
+              <h4>Enrollment Control</h4>
+              <p class="mb-2">Current Status: <strong class="registrar-enrollment-status ${enrollmentOpen ? 'is-open' : 'is-closed'}" data-enrollment-status-text>${enrollmentOpen ? 'OPEN' : 'CLOSED'}</strong></p>
+              <div class="registrar-dashboard-actions">
+                <button type="button" class="btn btn-sm btn-primary" data-enrollment-open ${enrollmentOpen ? 'disabled' : ''}>Open Enrollment</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-enrollment-close ${enrollmentOpen ? '' : 'disabled'}>Close Enrollment</button>
+              </div>
+            </article>
+          </section>
+        </article>
+      </section>
+    `,
+  )
+}
+
+export function renderregistrar_admission_review_page(): string {
+  const statusOptions = ADMISSION_STATUSES.map((status) => `<option value="${status}">${status}</option>`).join('')
+
+  return renderPortalShell(
+    registrar_SHELL_CONFIG,
+    'admission',
+    `
+      <section class="registrar-content">
+        ${renderAdminBreadcrumbNav([
+          { label: 'Admission', href: ROUTES.REGISTRAR_ADMISSION },
+          { label: 'Queue', active: true },
+        ])}
+
+        <article class="admin-student-page-shell">
+          <header class="admin-student-head">
+            <h2>Admission Queue</h2>
+            <p>Total Applications: <strong>${admissionService.getStats().total}</strong></p>
+          </header>
+
+          <section class="admin-student-toolbar">
+            <div class="admin-student-toolbar-actions">
+              <label class="admin-directory-search admin-student-search">
+                <span class="admin-search-icon" aria-hidden="true"><i class="bi bi-search"></i></span>
+                <input type="search" placeholder="Search applications" aria-label="Search applications" data-admission-search />
+              </label>
+            </div>
+            <div class="admin-student-toolbar-actions">
+              <select class="form-select form-select-sm" data-admission-status-filter aria-label="Filter by status">
+                <option value="">All Statuses</option>
+                ${statusOptions}
+              </select>
+            </div>
+          </section>
+
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Application No.</th>
+                  <th>Applicant</th>
+                  <th>Program</th>
+                  <th>Status</th>
+                  <th>Submitted</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${renderAdmissionQueueRows()}
+                <tr class="d-none" data-admission-empty-row>
+                  <td colspan="6" class="text-center py-3">No applications found.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+      ${renderSharedModal('registrar-admission-manage-modal')}
+    `,
+  )
+}
+
+export function renderregistrar_admission_details_page(applicationNo: string): string {
+  const application = admissionService.findByApplicationNo(applicationNo)
+
+  if (!application) {
+    return renderPortalShell(
+      registrar_SHELL_CONFIG,
+      'admission',
+      `
+        <section class="registrar-content">
+          ${renderAdminBreadcrumbNav([
+            { label: 'Admission', href: ROUTES.REGISTRAR_ADMISSION },
+            { label: 'Queue', href: ROUTES.REGISTRAR_ADMISSION_REVIEW },
+            { label: 'Details', active: true },
+          ])}
+          <article class="registrar-panel">
+            <h3>Admission Record Not Found</h3>
+            <p>The selected admission application does not exist.</p>
+          </article>
+        </section>
+      `,
+    )
+  }
+
+  return renderPortalShell(
+    registrar_SHELL_CONFIG,
+    'admission',
+    `
+      <section class="registrar-content">
+        ${renderAdminBreadcrumbNav([
+          { label: 'Admission', href: ROUTES.REGISTRAR_ADMISSION },
+          { label: 'Queue', href: ROUTES.REGISTRAR_ADMISSION_REVIEW },
+          { label: application.applicationNo, active: true },
+        ])}
+
+        <article class="registrar-panel registrar-dashboard">
+          <header class="registrar-dashboard-head">
+            <div>
+              <h3>${application.applicationNo}</h3>
+              <p>${application.lastName}, ${application.firstName}${application.middleName ? ` ${application.middleName}` : ''}</p>
+            </div>
+            <div class="registrar-dashboard-actions">
+              ${renderStatusBadge(application.status, 'data-admission-header-status-badge')}
+              <a href="${ROUTES.REGISTRAR_ADMISSION_REVIEW}" class="btn btn-sm btn-outline-primary">Back to Queue</a>
+            </div>
+          </header>
+
+          <section class="registrar-dashboard-grid mt-3">
+            <article class="registrar-dashboard-card">
+              <h4>Application Details</h4>
+              <ul class="registrar-list">
+                <li><strong>Campus:</strong> ${application.campus}</li>
+                <li><strong>Admission Type:</strong> ${application.admissionType}</li>
+                <li><strong>Program:</strong> ${application.program}</li>
+                <li><strong>Submitted:</strong> ${application.submittedAt}</li>
+              </ul>
+            </article>
+
+            <article class="registrar-dashboard-card">
+              <h4>Contact Information</h4>
+              <ul class="registrar-list">
+                <li><strong>Email:</strong> ${application.personalInfo.email}</li>
+                <li><strong>Mobile:</strong> ${application.personalInfo.mobile}</li>
+                <li><strong>Address:</strong> ${application.personalInfo.address}</li>
+                <li><strong>City/Province:</strong> ${application.personalInfo.cityProvince}</li>
+              </ul>
+            </article>
+
+            <article class="registrar-dashboard-card">
+              <h4>Educational Background</h4>
+              <ul class="registrar-list">
+                <li><strong>School:</strong> ${application.educationalInfo.seniorHighSchool}</li>
+                <li><strong>Strand:</strong> ${application.educationalInfo.strand}</li>
+                <li><strong>Year Graduated:</strong> ${application.educationalInfo.yearGraduated}</li>
+                <li><strong>General Average:</strong> ${application.educationalInfo.generalAverage}</li>
+              </ul>
+            </article>
+
+            <article class="registrar-dashboard-card">
+              <h4>Registrar Controls</h4>
+              <div class="d-grid gap-2" data-admission-controls data-application-no="${application.applicationNo}">
+                <label for="admission-status-select" class="form-label mb-1">Application Status</label>
+                <select id="admission-status-select" class="form-select form-select-sm">
+                  ${ADMISSION_STATUSES.map((status) => `<option value="${status}" ${status === application.status ? 'selected' : ''}>${status}</option>`).join('')}
+                </select>
+
+                <label for="admission-remarks-input" class="form-label mt-2 mb-1">Registrar Remarks</label>
+                <textarea id="admission-remarks-input" class="form-control form-control-sm" rows="5">${application.remarks}</textarea>
+
+                <button type="button" class="btn btn-primary btn-sm mt-2" data-admission-save>Save Updates</button>
+                <p class="mb-0 small text-success d-none" data-admission-save-message>Admission record updated.</p>
+              </div>
+            </article>
+          </section>
+        </article>
+      </section>
+    `,
+  )
+}
+
+export function setupregistrar_admission_review_page(root: HTMLElement): () => void {
+  const modal = setupSharedModal(root, { modalSelector: '#registrar-admission-manage-modal' })
+  const searchInput = root.querySelector<HTMLInputElement>('[data-admission-search]')
+  const statusFilter = root.querySelector<HTMLSelectElement>('[data-admission-status-filter]')
+  const rows = Array.from(root.querySelectorAll<HTMLTableRowElement>('[data-admission-row]'))
+  const emptyRow = root.querySelector<HTMLTableRowElement>('[data-admission-empty-row]')
+  let activeApplicationNo: string | null = null
+
+  const applyFilters = (): void => {
+    const query = (searchInput?.value ?? '').trim().toLowerCase()
+    const status = (statusFilter?.value ?? '').trim()
+
+    let visibleCount = 0
+    rows.forEach((row) => {
+      const matchesSearch = (row.dataset.searchValue ?? '').includes(query)
+      const matchesStatus = !status || row.dataset.statusValue === status
+      const visible = matchesSearch && matchesStatus
+      row.classList.toggle('d-none', !visible)
+      if (visible) visibleCount += 1
+    })
+
+    emptyRow?.classList.toggle('d-none', visibleCount > 0)
+  }
+
+  const onRootClick = (event: Event): void => {
+    const target = event.target as HTMLElement
+    const manageButton = target.closest<HTMLButtonElement>('[data-admission-manage]')
+    if (!manageButton) return
+
+    const applicationNo = manageButton.dataset.applicationNo
+    if (!applicationNo) return
+    activeApplicationNo = applicationNo
+
+    modal.setMode('form')
+    modal.open({
+      title: `Manage ${applicationNo}`,
+      bodyHtml: renderAdmissionManageForm(applicationNo),
+      confirmLabel: 'Save Updates',
+    })
+
+    modal.setOnConfirm(() => {
+      if (!activeApplicationNo) return
+      const statusInput = root.querySelector<HTMLSelectElement>('#admission-modal-status')
+      const remarksInput = root.querySelector<HTMLTextAreaElement>('#admission-modal-remarks')
+      if (!statusInput || !remarksInput) return
+
+      const nextStatus = statusInput.value as AdmissionApplicationStatus
+      const nextRemarks = remarksInput.value
+      const statusSaved = admissionService.updateStatus(activeApplicationNo, nextStatus)
+      const remarksSaved = admissionService.updateRemarks(activeApplicationNo, nextRemarks)
+      if (!statusSaved || !remarksSaved) return
+
+      const row = root.querySelector<HTMLTableRowElement>(`[data-admission-row] [data-admission-manage][data-application-no="${activeApplicationNo}"]`)?.closest('tr')
+      if (row) {
+        row.dataset.statusValue = nextStatus
+        const statusCell = row.querySelector<HTMLElement>('[data-admission-status-cell]')
+        if (statusCell) statusCell.innerHTML = renderStatusBadge(nextStatus)
+      }
+
+      applyFilters()
+      modal.close()
+    })
+  }
+
+  searchInput?.addEventListener('input', applyFilters)
+  statusFilter?.addEventListener('change', applyFilters)
+  root.addEventListener('click', onRootClick)
+  applyFilters()
+
+  return () => {
+    modal.destroy()
+    searchInput?.removeEventListener('input', applyFilters)
+    statusFilter?.removeEventListener('change', applyFilters)
+    root.removeEventListener('click', onRootClick)
+  }
+}
+
+export function setupregistrar_admission_page(root: HTMLElement): () => void {
+  const openButton = root.querySelector<HTMLButtonElement>('[data-enrollment-open]')
+  const closeButton = root.querySelector<HTMLButtonElement>('[data-enrollment-close]')
+  const statusText = root.querySelector<HTMLElement>('[data-enrollment-status-text]')
+
+  if (!openButton || !closeButton || !statusText) return () => {}
+
+  const syncState = (): void => {
+    const isOpen = admissionService.isEnrollmentOpen()
+    statusText.textContent = isOpen ? 'OPEN' : 'CLOSED'
+    statusText.classList.toggle('is-open', isOpen)
+    statusText.classList.toggle('is-closed', !isOpen)
+    openButton.disabled = isOpen
+    closeButton.disabled = !isOpen
+  }
+
+  const onOpen = (): void => {
+    const confirmed = window.confirm('Open enrollment now? Applicants will be able to submit online admission forms.')
+    if (!confirmed) return
+    admissionService.setEnrollmentOpen(true)
+    syncState()
+  }
+
+  const onClose = (): void => {
+    const confirmed = window.confirm('Close enrollment now? Applicants will no longer be able to submit online admission forms.')
+    if (!confirmed) return
+    admissionService.setEnrollmentOpen(false)
+    syncState()
+  }
+
+  openButton.addEventListener('click', onOpen)
+  closeButton.addEventListener('click', onClose)
+  syncState()
+
+  return () => {
+    openButton.removeEventListener('click', onOpen)
+    closeButton.removeEventListener('click', onClose)
+  }
+}
+
+export function setupregistrar_admission_details_page(root: HTMLElement): () => void {
+  const controls = root.querySelector<HTMLElement>('[data-admission-controls]')
+  const saveButton = root.querySelector<HTMLButtonElement>('[data-admission-save]')
+  const statusInput = root.querySelector<HTMLSelectElement>('#admission-status-select')
+  const remarksInput = root.querySelector<HTMLTextAreaElement>('#admission-remarks-input')
+  const message = root.querySelector<HTMLElement>('[data-admission-save-message]')
+  const headerStatusBadge = root.querySelector<HTMLElement>('[data-admission-header-status-badge]')
+
+  if (!controls || !saveButton || !statusInput || !remarksInput) return () => {}
+
+  const applicationNo = controls.dataset.applicationNo
+  if (!applicationNo) return () => {}
+
+  const onSave = (): void => {
+    const updatedStatus = statusInput.value as AdmissionApplicationStatus
+    const updatedRemarks = remarksInput.value
+
+    const statusSaved = admissionService.updateStatus(applicationNo, updatedStatus)
+    const remarksSaved = admissionService.updateRemarks(applicationNo, updatedRemarks)
+    if (!statusSaved || !remarksSaved) return
+
+    if (headerStatusBadge) {
+      headerStatusBadge.textContent = updatedStatus
+      headerStatusBadge.className = `registrar-status-badge ${getStatusBadgeClass(updatedStatus)}`
+    }
+    message?.classList.remove('d-none')
+  }
+
+  saveButton.addEventListener('click', onSave)
+
+  return () => {
+    saveButton.removeEventListener('click', onSave)
+  }
+}

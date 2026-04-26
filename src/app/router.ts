@@ -85,6 +85,12 @@ import { rendernot_found_page } from '../pages/not-found/not_found_page'
 import {
   renderregistrar_dashboard_page,
   renderregistrar_enrollments_page,
+  renderregistrar_admission_page,
+  renderregistrar_admission_review_page,
+  renderregistrar_admission_details_page,
+  setupregistrar_admission_page,
+  setupregistrar_admission_review_page,
+  setupregistrar_admission_details_page,
   renderregistrar_student_records_page,
   renderregistrar_requests_page,
   renderregistrar_schedule_page,
@@ -330,6 +336,40 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   if (pathname === ROUTES.REGISTRAR_ENROLLMENTS) {
     app.innerHTML = renderregistrar_enrollments_page()
     cleanupCurrentRoute = setupregistrar_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.REGISTRAR_ADMISSION) {
+    app.innerHTML = renderregistrar_admission_page()
+    const cleanupRegistrarShell = setupregistrar_page(app)
+    const cleanupAdmissionControl = setupregistrar_admission_page(app)
+    cleanupCurrentRoute = () => {
+      cleanupAdmissionControl()
+      cleanupRegistrarShell()
+    }
+    return
+  }
+
+  if (pathname === ROUTES.REGISTRAR_ADMISSION_REVIEW) {
+    app.innerHTML = renderregistrar_admission_review_page()
+    const cleanupRegistrarShell = setupregistrar_page(app)
+    const cleanupAdmissionReview = setupregistrar_admission_review_page(app)
+    cleanupCurrentRoute = () => {
+      cleanupAdmissionReview()
+      cleanupRegistrarShell()
+    }
+    return
+  }
+
+  if (pathname.startsWith(`${ROUTES.REGISTRAR_ADMISSION_DETAILS}/`)) {
+    const applicationNo = decodeURIComponent(pathname.slice(`${ROUTES.REGISTRAR_ADMISSION_DETAILS}/`.length))
+    app.innerHTML = renderregistrar_admission_details_page(applicationNo)
+    const cleanupRegistrarShell = setupregistrar_page(app)
+    const cleanupAdmissionDetails = setupregistrar_admission_details_page(app)
+    cleanupCurrentRoute = () => {
+      cleanupAdmissionDetails()
+      cleanupRegistrarShell()
+    }
     return
   }
 

@@ -9,10 +9,10 @@ import { renderMainSiteFooter } from '../../components/layout/footer'
 import { renderHomeOverlays } from '../../components/layout/overlay'
 import { renderSharedModal, setupSharedModal } from '../../components/ui/modal'
 import { renderAdminSectionTitle } from '../../components/ui/section_title_heading'
-import { ADMISSION_APPLICATIONS, getAdmissionApplicationByNo, type AdmissionApplication } from '../../data/admission'
+import { type AdmissionApplication } from '../../data/admission'
+import { admissionService } from '../../features/admission/service'
 
 type AdmissionSection = 'requirements' | 'status' | 'contact'
-const isAdmissionOpen = false
 
 function renderAdmissionTabs(active: AdmissionSection): string {
   return `
@@ -56,6 +56,12 @@ function formatProgramName(program: string): string {
   return fullProgramByAlias[normalized] ?? program
 }
 
+function getAdmissionStatusBadgeClass(status: AdmissionApplication['status']): string {
+  if (status === 'Approved') return 'is-approved'
+  if (status === 'Rejected') return 'is-rejected'
+  return 'is-pending'
+}
+
 function formatBirthDateForInput(value: string): string | null {
   const parsed = new Date(value)
   if (Number.isNaN(parsed.getTime())) return null
@@ -67,7 +73,7 @@ function formatBirthDateForInput(value: string): string | null {
 }
 
 function renderAdmissionVerificationContent(applicationNo: string): string {
-  const application = getAdmissionApplicationByNo(applicationNo)
+  const application = admissionService.findByApplicationNo(applicationNo)
 
   if (!application) {
     return `
@@ -110,7 +116,7 @@ function renderAdmissionVerificationContent(applicationNo: string): string {
 }
 
 function renderAdmissionStatusDetailsContent(applicationNo: string): string {
-  const application = getAdmissionApplicationByNo(applicationNo)
+  const application = admissionService.findByApplicationNo(applicationNo)
 
   if (!application) {
     return `
@@ -137,7 +143,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
         <div class="admission-detail-surface">
           <div class="admission-details-header">
             <p class="admission-details-name"><span>Applicant Name:</span> ${fullName}</p>
-            <p class="admission-details-badge">${application.status}</p>
+            <p class="admission-details-badge ${getAdmissionStatusBadgeClass(application.status)}">${application.status}</p>
           </div>
           <p class="admission-details-notice">${application.remarks}</p>
           <div class="admission-details-grid">
@@ -248,6 +254,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
 
 function renderAdmissionContent(active: AdmissionSection): string {
   if (active === 'requirements') {
+    const isAdmissionOpen = admissionService.isEnrollmentOpen()
     return `
       <section class="admission-detail-section">
         <header class="admission-detail-heading">
@@ -356,7 +363,7 @@ function renderAdmissionContent(active: AdmissionSection): string {
 
       <section class="admission-availability ${isAdmissionOpen ? 'is-open' : 'is-closed'}">
         <p class="admission-status-text">${isAdmissionOpen ? 'ONLINE ADMISSION IS NOW OPEN' : 'Application Closed'}</p>
-        ${isAdmissionOpen ? `<a href="${ROUTES.ADMISSION}" class="admission-apply-link">Apply Now <i class="bi bi-arrow-right-circle-fill" aria-hidden="true"></i></a>` : ''}
+        ${isAdmissionOpen ? `<a href="${ROUTES.ADMISSION_REGISTRATION}" class="admission-apply-link">Apply Now <i class="bi bi-arrow-right-circle-fill" aria-hidden="true"></i></a>` : ''}
       </section>
     `
   }
@@ -485,7 +492,7 @@ export function setupadmission_status_page(app: HTMLDivElement): () => void {
       return
     }
 
-    const matched = ADMISSION_APPLICATIONS.filter(
+    const matched = admissionService.list().filter(
       (entry) => entry.lastName.toLowerCase().includes(query) && entry.campus.toLowerCase() === fixedCampus,
     )
 
@@ -613,7 +620,7 @@ export function setupadmission_status_verify_page(app: HTMLDivElement, applicati
   const birthDateInput = app.querySelector<HTMLInputElement>('#status-birthdate-verify')
   const verifyButton = app.querySelector<HTMLButtonElement>('#status-verify-submit')
   const verifyMessage = app.querySelector<HTMLDivElement>('#status-verify-message')
-  const application = getAdmissionApplicationByNo(applicationNo)
+  const application = admissionService.findByApplicationNo(applicationNo)
 
   if (!birthDateInput || !verifyButton || !verifyMessage || !application) {
     return () => {}
