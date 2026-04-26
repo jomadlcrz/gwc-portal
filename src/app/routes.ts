@@ -1,4 +1,4 @@
-﻿export const ROUTES = {
+export const ROUTES = {
 
   // Public routes
   HOME: '/',
@@ -34,19 +34,19 @@
 
   // Admin routes
   MANAGE: '/manage',
-  ADMINISTRATORS_LOGIN: '/administrators/login',
-  ADMINISTRATORS: '/administrators/dashboard',
-  ADMINISTRATORS_REGISTRAR: '/administrators/registrar',
-  ADMINISTRATORS_FACULTY: '/administrators/faculty',
-  ADMINISTRATORS_STUDENTS: '/administrators/students',
-  ADMINISTRATORS_STUDENTS_MANAGE: '/administrators/students/manage',
-  ADMINISTRATORS_POSTS: '/administrators/posts',
-  ADMINISTRATORS_POSTS_CREATE: '/administrators/posts/create',
-  ADMINISTRATORS_TESTIMONIALS: '/administrators/testimonials',
-  ADMINISTRATORS_TESTIMONIALS_CREATE: '/administrators/testimonials/create',
-  ADMINISTRATORS_DEPARTMENTS: '/administrators/departments',
-  ADMINISTRATORS_REPORTS: '/administrators/reports',
-  ADMINISTRATORS_SETTINGS: '/administrators/settings',
+  ADMINISTRATOR_LOGIN: '/administrator/login',
+  ADMINISTRATOR: '/administrator/dashboard',
+  ADMINISTRATOR_REGISTRAR: '/administrator/registrar',
+  ADMINISTRATOR_FACULTY: '/administrator/faculty',
+  ADMINISTRATOR_STUDENTS: '/administrator/students',
+  ADMINISTRATOR_STUDENTS_MANAGE: '/administrator/students/manage',
+  ADMINISTRATOR_POSTS: '/administrator/posts',
+  ADMINISTRATOR_POSTS_CREATE: '/administrator/posts/create',
+  ADMINISTRATOR_TESTIMONIALS: '/administrator/testimonials',
+  ADMINISTRATOR_TESTIMONIALS_CREATE: '/administrator/testimonials/create',
+  ADMINISTRATOR_DEPARTMENTS: '/administrator/departments',
+  ADMINISTRATOR_REPORTS: '/administrator/reports',
+  ADMINISTRATOR_SETTINGS: '/administrator/settings',
 
   // Faculty routes
   FACULTY_LOGIN: '/faculty-portal/login',
@@ -91,6 +91,7 @@
 export function getPostListsRoute(categorySlug: string): string {
   return `${ROUTES.POST_LISTS}/${encodeURIComponent(categorySlug)}`
 }
+
 
 
 

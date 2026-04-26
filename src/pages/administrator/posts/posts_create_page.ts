@@ -19,7 +19,7 @@ export function renderposts_create_page(): string {
     `
       <section class="admin-content">
         ${renderAdminBreadcrumbNav([
-          { label: 'Posts', href: ROUTES.ADMINISTRATORS_POSTS },
+          { label: 'Posts', href: ROUTES.ADMINISTRATOR_POSTS },
           { label: 'Create Post', active: true },
         ])}
 
@@ -341,7 +341,7 @@ export function setupposts_create_page(root: HTMLElement): () => void {
     try {
       await createPost(payload)
 
-      feedback.innerHTML = `Post created. <a href="${ROUTES.ADMINISTRATORS_POSTS}">Back to Posts</a>`
+      feedback.innerHTML = `Post created. <a href="${ROUTES.ADMINISTRATOR_POSTS}">Back to Posts</a>`
       form.reset()
       if (imageDataInput) imageDataInput.value = ''
       if (imageName) imageName.textContent = 'No image selected'
@@ -378,3 +378,4 @@ export function setupposts_create_page(root: HTMLElement): () => void {
     form?.removeEventListener('submit', onSubmit)
   }
 }
+

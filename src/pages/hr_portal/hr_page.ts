@@ -1,6 +1,6 @@
 import '../../styles/hr.css'
-import '../../styles/administrators/shared_admin.css'
-import '../../styles/administrators/students.css'
+import '../../styles/administrator/shared_admin.css'
+import '../../styles/administrator/students.css'
 import { HR_SHELL_CONFIG, setupPortalShell } from '../../components/layout/_layout'
 
 export { renderhr_dashboard_page } from './dashboard/dashboard_page'
@@ -12,3 +12,4 @@ export { renderhr_settings_page } from './settings/settings_page'
 export function setuphr_page(root: HTMLElement): () => void {
   return setupPortalShell(root, HR_SHELL_CONFIG)
 }
+

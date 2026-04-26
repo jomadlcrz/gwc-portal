@@ -16,12 +16,13 @@ export function renderstudents_page(): string {
           <h2>Students</h2>
           <p>View and manage student records.</p>
           <div class="admin-students-home-actions">
-            <a href="${ROUTES.ADMINISTRATORS_STUDENTS_MANAGE}" class="btn btn-outline-primary">Student List</a>
+            <a href="${ROUTES.ADMINISTRATOR_STUDENTS_MANAGE}" class="btn btn-outline-primary">Student List</a>
           </div>
         </article>
       </section>
     `,
   )
 }
+
 
 

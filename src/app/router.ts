@@ -16,7 +16,7 @@ import {
 } from '../pages/admission/admission_registration_page'
 import { renderpost_lists_page } from '../pages/post/post_lists_page'
 import {
-  renderadministrators_dashboard_page,
+  renderadministrator_dashboard_page,
   renderregistrar_admin_page,
   renderdepartments_page,
   renderfaculty_page,
@@ -30,12 +30,12 @@ import {
   rendertestimonials_page,
   rendertestimonials_create_page,
   setuptestimonials_create_page,
-  setupadministrators_page,
-  setupadministrators_dashboard_page,
-} from '../pages/administrators/administrators_page'
+  setupadministrator_page,
+  setupadministrator_dashboard_page,
+} from '../pages/administrator/administrator_page'
 import { setupSiteInteractions } from '../components/layout/interactions'
 import { renderhome_page } from '../pages/home/home_page'
-import { renderadministrators_login_page } from '../pages/login/administrators_login_page'
+import { renderadministrator_login_page } from '../pages/login/administrator_login_page'
 import { renderchange_password_page } from '../pages/login/set_new_password_page'
 import { renderfaculty_login_page } from '../pages/login/faculty_login_page'
 import { renderdepartment_login_page } from '../pages/login/department_login_page'
@@ -168,8 +168,8 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
     return
   }
 
-  if (pathname === ROUTES.ADMINISTRATORS_LOGIN) {
-    app.innerHTML = renderadministrators_login_page()
+  if (pathname === ROUTES.ADMINISTRATOR_LOGIN) {
+    app.innerHTML = renderadministrator_login_page()
     cleanupCurrentRoute = setupLoginPageShortcuts()
     return
   }
@@ -416,73 +416,73 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   }
 
   // Admin routes
-  if (pathname === ROUTES.ADMINISTRATORS) {
-    app.innerHTML = renderadministrators_dashboard_page()
-    cleanupCurrentRoute = setupadministrators_dashboard_page(app)
+  if (pathname === ROUTES.ADMINISTRATOR) {
+    app.innerHTML = renderadministrator_dashboard_page()
+    cleanupCurrentRoute = setupadministrator_dashboard_page(app)
     return
   }
 
-  if (pathname === ROUTES.ADMINISTRATORS_REGISTRAR) {
+  if (pathname === ROUTES.ADMINISTRATOR_REGISTRAR) {
     app.innerHTML = renderregistrar_admin_page()
-    cleanupCurrentRoute = setupadministrators_page(app)
+    cleanupCurrentRoute = setupadministrator_page(app)
     return
   }
 
-  if (pathname === ROUTES.ADMINISTRATORS_FACULTY) {
+  if (pathname === ROUTES.ADMINISTRATOR_FACULTY) {
     app.innerHTML = renderfaculty_page()
-    cleanupCurrentRoute = setupadministrators_page(app)
+    cleanupCurrentRoute = setupadministrator_page(app)
     return
   }
 
   if (
     pathname === ROUTES.MANAGE
-    || pathname === ROUTES.ADMINISTRATORS_STUDENTS
-    || pathname === ROUTES.ADMINISTRATORS_STUDENTS_MANAGE
+    || pathname === ROUTES.ADMINISTRATOR_STUDENTS
+    || pathname === ROUTES.ADMINISTRATOR_STUDENTS_MANAGE
   ) {
     app.innerHTML = renderstudents_manage_page()
     cleanupCurrentRoute = setupstudents_manage_page(app)
     return
   }
 
-  if (pathname === ROUTES.ADMINISTRATORS_POSTS) {
+  if (pathname === ROUTES.ADMINISTRATOR_POSTS) {
     app.innerHTML = renderposts_page()
-    cleanupCurrentRoute = setupadministrators_page(app)
+    cleanupCurrentRoute = setupadministrator_page(app)
     return
   }
 
-  if (pathname === ROUTES.ADMINISTRATORS_POSTS_CREATE) {
+  if (pathname === ROUTES.ADMINISTRATOR_POSTS_CREATE) {
     app.innerHTML = renderposts_create_page()
     cleanupCurrentRoute = setupposts_create_page(app)
     return
   }
 
-  if (pathname === ROUTES.ADMINISTRATORS_TESTIMONIALS) {
+  if (pathname === ROUTES.ADMINISTRATOR_TESTIMONIALS) {
     app.innerHTML = rendertestimonials_page()
-    cleanupCurrentRoute = setupadministrators_page(app)
+    cleanupCurrentRoute = setupadministrator_page(app)
     return
   }
 
-  if (pathname === ROUTES.ADMINISTRATORS_TESTIMONIALS_CREATE) {
+  if (pathname === ROUTES.ADMINISTRATOR_TESTIMONIALS_CREATE) {
     app.innerHTML = rendertestimonials_create_page()
     cleanupCurrentRoute = setuptestimonials_create_page(app)
     return
   }
 
-  if (pathname === ROUTES.ADMINISTRATORS_DEPARTMENTS) {
+  if (pathname === ROUTES.ADMINISTRATOR_DEPARTMENTS) {
     app.innerHTML = renderdepartments_page()
-    cleanupCurrentRoute = setupadministrators_page(app)
+    cleanupCurrentRoute = setupadministrator_page(app)
     return
   }
 
-  if (pathname === ROUTES.ADMINISTRATORS_REPORTS) {
+  if (pathname === ROUTES.ADMINISTRATOR_REPORTS) {
     app.innerHTML = renderreports_page()
-    cleanupCurrentRoute = setupadministrators_page(app)
+    cleanupCurrentRoute = setupadministrator_page(app)
     return
   }
 
-  if (pathname === ROUTES.ADMINISTRATORS_SETTINGS) {
+  if (pathname === ROUTES.ADMINISTRATOR_SETTINGS) {
     app.innerHTML = rendersettings_page()
-    cleanupCurrentRoute = setupadministrators_page(app)
+    cleanupCurrentRoute = setupadministrator_page(app)
     return
   }
 
@@ -531,6 +531,7 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   app.innerHTML = rendernot_found_page()
 }
+
 
 
 

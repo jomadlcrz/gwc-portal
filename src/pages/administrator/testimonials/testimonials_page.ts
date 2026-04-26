@@ -1,7 +1,7 @@
 import { ROUTES } from '../../../app/routes'
 import { ADMIN_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
-import { getPostPath, posts } from '../../../data/posts'
+import { getTestimonials } from '../../../api/testimonials'
 
 function escapeHtml(value: string): string {
   return value
@@ -12,50 +12,50 @@ function escapeHtml(value: string): string {
     .replaceAll("'", '&#39;')
 }
 
-function renderPostsRows(): string {
-  return posts
+function renderRows(): string {
+  return getTestimonials()
     .map(
-      (post) => `
-        <tr>
-          <td>${escapeHtml(post.title)}</td>
-          <td>${escapeHtml(post.category)}</td>
-          <td>${escapeHtml(post.date)}</td>
-          <td><a href="${getPostPath(post.slug)}" target="_blank" rel="noopener noreferrer">View</a></td>
-        </tr>
-      `,
+      (item) => `
+      <tr>
+        <td>${escapeHtml(item.name)}</td>
+        <td>${escapeHtml(item.role)}</td>
+        <td>${escapeHtml(item.message)}</td>
+        <td>${item.image ? `<a href="${escapeHtml(item.image)}" target="_blank" rel="noopener noreferrer">View</a>` : '-'}</td>
+      </tr>
+    `,
     )
     .join('')
 }
 
-export function renderposts_page(): string {
+export function rendertestimonials_page(): string {
   return renderPortalShell(
     ADMIN_SHELL_CONFIG,
-    'posts',
+    'testimonials',
     `
       <section class="admin-content">
         ${renderAdminBreadcrumbNav([
-          { label: 'Posts', active: true },
+          { label: 'Testimonials', active: true },
         ])}
 
         <article class="admin-panel admin-posts-panel">
           <header class="admin-posts-panel-head admin-posts-list-head">
             <div>
-              <h3>All Posts</h3>
-              <p>Manage and review all published posts.</p>
+              <h3>All Testimonials</h3>
+              <p>Manage and review all testimonials.</p>
             </div>
-            <a class="admin-posts-create-link" href="${ROUTES.ADMINISTRATORS_POSTS_CREATE}">Create Post</a>
+            <a class="admin-posts-create-link" href="${ROUTES.ADMINISTRATOR_TESTIMONIALS_CREATE}">Add New</a>
           </header>
           <div class="admin-post-table-wrap">
             <table class="admin-post-table">
               <thead>
                 <tr>
-                  <th>Title</th>
-                  <th>Category</th>
-                  <th>Date</th>
-                  <th>Link</th>
+                  <th>Name</th>
+                  <th>Role</th>
+                  <th>Message</th>
+                  <th>Image</th>
                 </tr>
               </thead>
-              <tbody>${renderPostsRows()}</tbody>
+              <tbody>${renderRows()}</tbody>
             </table>
           </div>
         </article>
@@ -63,3 +63,4 @@ export function renderposts_page(): string {
     `,
   )
 }
+

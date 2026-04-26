@@ -8,13 +8,13 @@ This feature enables quick navigation to key routes using keyboard combinations.
 ## Key Combinations
 
 ### Mac
-- `⌘ + Shift + A` → Administrators Login
+- `⌘ + Shift + A` → Administrator Login
 - `⌘ + Shift + R` → Registrar Staff Login
 - `⌘ + Shift + D` → Department Login
 - `⌘ + Shift + H` → HR Login
 
 ### Windows / Linux
-- `Ctrl + Shift + A` → Administrators Login
+- `Ctrl + Shift + A` → Administrator Login
 - `Ctrl + Shift + R` → Registrar Staff Login
 - `Ctrl + Shift + D` → Department Login
 - `Ctrl + Shift + H` → HR Login
@@ -65,7 +65,7 @@ Shortcuts are **disabled** when the user is typing in:
 
 | Key | Route Constant |
 |-----|--------------|
-| A   | `ROUTES.ADMINISTRATORS_LOGIN` |
+| A   | `ROUTES.ADMINISTRATOR_LOGIN` |
 | R   | `ROUTES.REGISTRAR_STAFF_LOGIN` |
 | D   | `ROUTES.DEPARTMENT_LOGIN` |
 

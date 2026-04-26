@@ -1,4 +1,4 @@
-﻿const gwcLogo = '/images/gwc_logo.avif'
+const gwcLogo = '/images/gwc_logo.avif'
 import { ROUTES } from '../../app/routes'
 import { setupSharedPopover } from '../ui/popover'
 import { renderMainSiteHeader } from './header'
@@ -88,20 +88,20 @@ export const ADMIN_SHELL_CONFIG: ShellConfig<AdminSection> = {
   headerBrandHref: ROUTES.HOME,
   headerLogoAlt: 'Golden West Colleges logo',
   menuItems: [
-    { label: 'Dashboard', icon: 'bi-speedometer2', href: ROUTES.ADMINISTRATORS, section: 'dashboard' },
+    { label: 'Dashboard', icon: 'bi-speedometer2', href: ROUTES.ADMINISTRATOR, section: 'dashboard' },
     {
       label: 'Registrar',
       icon: 'bi-folder2-open',
-      href: ROUTES.ADMINISTRATORS_REGISTRAR,
+      href: ROUTES.ADMINISTRATOR_REGISTRAR,
       section: 'registrar',
     },
-    { label: 'Faculty', icon: 'bi-mortarboard', href: ROUTES.ADMINISTRATORS_FACULTY, section: 'faculty' },
-    { label: 'Students', icon: 'bi-people', href: ROUTES.ADMINISTRATORS_STUDENTS, section: 'students' },
-    { label: 'Posts', icon: 'bi-megaphone', href: ROUTES.ADMINISTRATORS_POSTS, section: 'posts' },
-    { label: 'Testimonials', icon: 'bi-chat-quote', href: ROUTES.ADMINISTRATORS_TESTIMONIALS, section: 'testimonials' },
-    { label: 'Departments', icon: 'bi-building', href: ROUTES.ADMINISTRATORS_DEPARTMENTS, section: 'departments' },
-    { label: 'Reports', icon: 'bi-briefcase', href: ROUTES.ADMINISTRATORS_REPORTS, section: 'reports' },
-    { label: 'Settings', icon: 'bi-gear', href: ROUTES.ADMINISTRATORS_SETTINGS, section: 'settings' },
+    { label: 'Faculty', icon: 'bi-mortarboard', href: ROUTES.ADMINISTRATOR_FACULTY, section: 'faculty' },
+    { label: 'Students', icon: 'bi-people', href: ROUTES.ADMINISTRATOR_STUDENTS, section: 'students' },
+    { label: 'Posts', icon: 'bi-megaphone', href: ROUTES.ADMINISTRATOR_POSTS, section: 'posts' },
+    { label: 'Testimonials', icon: 'bi-chat-quote', href: ROUTES.ADMINISTRATOR_TESTIMONIALS, section: 'testimonials' },
+    { label: 'Departments', icon: 'bi-building', href: ROUTES.ADMINISTRATOR_DEPARTMENTS, section: 'departments' },
+    { label: 'Reports', icon: 'bi-briefcase', href: ROUTES.ADMINISTRATOR_REPORTS, section: 'reports' },
+    { label: 'Settings', icon: 'bi-gear', href: ROUTES.ADMINISTRATOR_SETTINGS, section: 'settings' },
   ],
 }
 
@@ -463,6 +463,7 @@ export const DEPARTMENT_SHELL_CONFIG: ShellConfig<DepartmentSection> = {
     { label: 'Schedule Review', icon: 'bi-calendar3', href: ROUTES.DEPARTMENT_SCHEDULE, section: 'schedule' },
   ],
 }
+
 
 
 

@@ -12,7 +12,7 @@ export function rendertestimonials_create_page(): string {
     `
       <section class="admin-content">
         ${renderAdminBreadcrumbNav([
-          { label: 'Testimonials', href: ROUTES.ADMINISTRATORS_TESTIMONIALS },
+          { label: 'Testimonials', href: ROUTES.ADMINISTRATOR_TESTIMONIALS },
           { label: 'Add New Testimonial', active: true },
         ])}
 
@@ -243,7 +243,7 @@ export function setuptestimonials_create_page(root: HTMLElement): () => void {
     }
 
     createTestimonial(payload)
-    feedback.innerHTML = `Testimonial published. <a href="${ROUTES.ADMINISTRATORS_TESTIMONIALS}">Back to Testimonials</a>`
+    feedback.innerHTML = `Testimonial published. <a href="${ROUTES.ADMINISTRATOR_TESTIMONIALS}">Back to Testimonials</a>`
     feedback.classList.remove('is-error')
     form.reset()
     if (imageDataInput) imageDataInput.value = ''
@@ -271,3 +271,4 @@ export function setuptestimonials_create_page(root: HTMLElement): () => void {
     form?.removeEventListener('submit', onSubmit)
   }
 }
+
