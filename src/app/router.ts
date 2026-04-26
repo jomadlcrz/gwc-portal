@@ -5,8 +5,10 @@ import {
   renderadmission_page,
   renderadmission_status_page,
   renderadmission_status_details_page,
+  renderadmission_status_verify_page,
   setupadmission_status_details_page,
   setupadmission_status_page,
+  setupadmission_status_verify_page,
 } from '../pages/admission/admission_page'
 import { renderadmission_registration_page as renderadmission_registration_form_page } from '../pages/admission/admission_registration_page'
 import { renderpost_lists_page } from '../pages/post/post_lists_page'
@@ -249,6 +251,18 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   if (pathname === ROUTES.ADMISSION_REGISTRATION) {
     app.innerHTML = renderadmission_registration_form_page()
     cleanupCurrentRoute = setupSiteInteractions(app)
+    return
+  }
+
+  if (pathname.startsWith(`${ROUTES.ADMISSION_STATUS}/verify/`)) {
+    const applicationNo = decodeURIComponent(pathname.slice(`${ROUTES.ADMISSION_STATUS}/verify/`.length))
+    app.innerHTML = renderadmission_status_verify_page(applicationNo)
+    const removeSiteInteractions = setupSiteInteractions(app)
+    const removeStatusVerificationHandlers = setupadmission_status_verify_page(app, applicationNo)
+    cleanupCurrentRoute = () => {
+      removeSiteInteractions()
+      removeStatusVerificationHandlers()
+    }
     return
   }
 

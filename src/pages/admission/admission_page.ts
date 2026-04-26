@@ -34,9 +34,62 @@ function renderApplicationCard(application: AdmissionApplication): string {
         <p class="admission-result-year">${application.schoolYear}</p>
       </div>
       <p class="admission-result-campus">${application.campus}</p>
-      <a class="admission-view-status-btn" href="${ROUTES.ADMISSION_STATUS}/${encodeURIComponent(application.applicationNo)}">
+      <a class="admission-view-status-btn" href="${ROUTES.ADMISSION_STATUS}/verify/${encodeURIComponent(application.applicationNo)}">
         View Status
       </a>
+    </article>
+  `
+}
+
+function formatBirthDateForInput(value: string): string | null {
+  const parsed = new Date(value)
+  if (Number.isNaN(parsed.getTime())) return null
+
+  const year = parsed.getFullYear()
+  const month = String(parsed.getMonth() + 1).padStart(2, '0')
+  const day = String(parsed.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
+function renderAdmissionVerificationContent(applicationNo: string): string {
+  const application = getAdmissionApplicationByNo(applicationNo)
+
+  if (!application) {
+    return `
+      <article class="admission-section-card admission-section-card-status">
+        <header class="admission-subhead">
+          <h3 class="admin-section-title admission-section-title">Verification</h3>
+        </header>
+        <section class="admission-content-block">
+          <p class="admission-status-message">Application record not found.</p>
+          <a class="admission-view-status-btn admission-back-link" href="${ROUTES.ADMISSION_STATUS}">Back to Search</a>
+        </section>
+      </article>
+    `
+  }
+
+  return `
+    <article class="admission-detail-section">
+      <header class="admission-detail-heading">
+        ${renderAdminSectionTitle('Verification')}
+      </header>
+      <section class="admission-section-card admission-section-card-no-margin admission-section-card-status">
+        <div class="admission-content-block">
+          <p class="admission-status-copy">Verify your birth date to continue.</p>
+          <div class="admission-details-grid">
+            <p><span>Applicant</span><strong>${application.lastName.toUpperCase()}, ${application.firstName.toUpperCase()}${application.middleName ? ` ${application.middleName.toUpperCase()}` : ''}</strong></p>
+            <p><span>Campus</span><strong>${application.campus}</strong></p>
+          </div>
+        </div>
+        <div class="admission-status-fields admission-status-inline">
+          <div>
+            <label for="status-birthdate-verify"><i class="bi bi-calendar-event" aria-hidden="true"></i>Birth Date</label>
+            <input id="status-birthdate-verify" type="date" />
+          </div>
+          <button id="status-verify-submit" type="button" data-application-no="${application.applicationNo}">Verify</button>
+        </div>
+        <div id="status-verify-message" class="admission-status-results" aria-live="polite"></div>
+      </section>
     </article>
   `
 }
@@ -454,6 +507,50 @@ export function renderadmission_status_page(): string {
   return renderadmission_shell('status')
 }
 
+export function renderadmission_status_verify_page(applicationNo: string): string {
+  return `
+    <main class="admission-page">
+      ${renderMainSiteHeader({
+        brandHref: ROUTES.HOME,
+        logoSrc: gwcLogo,
+        logoAlt: 'Golden West Colleges, Inc. logo',
+        actions: buildMainHeaderActions(ROUTES.ANNOUNCEMENTS, { showAnnouncementsIcon: false }),
+        solid: true,
+      })}
+
+      ${renderHomeOverlays({
+        logoSrc: gwcLogoWhite,
+        logoAlt: 'Golden West Colleges, Inc. logo',
+        shortBrand: 'GWC, INC.',
+        searchAriaLabel: 'Search admission details',
+      })}
+
+      <section class="admission-hero" style="--admission-cover-image: url('${coverImage}')">
+        <div class="post-container admission-hero-inner">
+          <div class="admission-hero-layout">
+            <div class="admission-hero-content">
+              <h1 class="admission-hero-title">Application Status</h1>
+              <p class="admission-hero-subtitle">Verify your information before viewing details</p>
+            </div>
+            <div class="admission-hero-people-wrap" aria-hidden="true">
+              <img class="admission-hero-people-image" src="${admissionCoverPeopleImage}" alt="" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="admission-shell">
+        <div class="post-container">
+          ${renderAdmissionTabs('status')}
+          ${renderAdmissionVerificationContent(applicationNo)}
+        </div>
+      </section>
+
+      ${renderMainSiteFooter()}
+    </main>
+  `
+}
+
 export function renderadmission_status_details_page(applicationNo: string): string {
   return `
     <main class="admission-page">
@@ -497,6 +594,55 @@ export function renderadmission_status_details_page(applicationNo: string): stri
       ${renderMainSiteFooter()}
     </main>
   `
+}
+
+export function setupadmission_status_verify_page(app: HTMLDivElement, applicationNo: string): () => void {
+  const birthDateInput = app.querySelector<HTMLInputElement>('#status-birthdate-verify')
+  const verifyButton = app.querySelector<HTMLButtonElement>('#status-verify-submit')
+  const verifyMessage = app.querySelector<HTMLDivElement>('#status-verify-message')
+  const application = getAdmissionApplicationByNo(applicationNo)
+
+  if (!birthDateInput || !verifyButton || !verifyMessage || !application) {
+    return () => {}
+  }
+
+  const expectedBirthDate = formatBirthDateForInput(application.personalInfo.birthDate)
+
+  const verify = (): void => {
+    if (!expectedBirthDate) {
+      verifyMessage.innerHTML = `<p class="admission-status-message">Unable to verify this record right now. Please contact admissions.</p>`
+      return
+    }
+
+    const selectedBirthDate = birthDateInput.value
+
+    if (!selectedBirthDate) {
+      verifyMessage.innerHTML = `<p class="admission-status-message">Please enter your birth date.</p>`
+      return
+    }
+
+    if (selectedBirthDate !== expectedBirthDate) {
+      verifyMessage.innerHTML = `<p class="admission-status-message">Verification failed. Birth date does not match our record.</p>`
+      return
+    }
+
+    window.location.href = `${ROUTES.ADMISSION_STATUS}/${encodeURIComponent(application.applicationNo)}`
+  }
+
+  verifyButton.addEventListener('click', verify)
+
+  const onKeydown = (event: KeyboardEvent): void => {
+    if (event.key !== 'Enter') return
+    event.preventDefault()
+    verify()
+  }
+
+  birthDateInput.addEventListener('keydown', onKeydown)
+
+  return () => {
+    verifyButton.removeEventListener('click', verify)
+    birthDateInput.removeEventListener('keydown', onKeydown)
+  }
 }
 
 export function setupadmission_status_details_page(app: HTMLDivElement): () => void {
