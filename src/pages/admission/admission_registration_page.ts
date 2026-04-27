@@ -258,6 +258,24 @@ const setMessage = (el: HTMLElement | null, message: string, isError = false): v
   el.classList.toggle('is-error', isError)
 }
 
+function enableFullDateInputClick(input: HTMLInputElement): () => void {
+  const openDatePicker = (): void => {
+    const dateInput = input as HTMLInputElement & { showPicker?: () => void }
+    if (typeof dateInput.showPicker !== 'function') return
+    try {
+      dateInput.showPicker()
+    } catch {
+      // Ignore browsers that block programmatic picker open in some cases.
+    }
+  }
+
+  input.addEventListener('click', openDatePicker)
+
+  return () => {
+    input.removeEventListener('click', openDatePicker)
+  }
+}
+
 export function setupadmission_registration_page(root: HTMLElement): () => void {
   const introSection = root.querySelector<HTMLElement>('#admission-registration-intro')
   const step1Section = root.querySelector<HTMLElement>('#admission-registration-step-1')
@@ -327,6 +345,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
   }
 
   let currentStep: 1 | 2 | 3 | 4 = 1
+  const cleanupBirthDateClick = enableFullDateInputClick(birthDateInput)
 
   const setFinishCheckState = (animated: boolean): void => {
     finishCheck.classList.remove('is-animate', 'is-static-complete')
@@ -501,5 +520,6 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     nextButton.removeEventListener('click', handleNextClick)
     backButton.removeEventListener('click', handleBackClick)
     submitButton.removeEventListener('click', handleSubmitClick)
+    cleanupBirthDateClick()
   }
 }

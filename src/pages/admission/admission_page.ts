@@ -72,6 +72,24 @@ function formatBirthDateForInput(value: string): string | null {
   return `${year}-${month}-${day}`
 }
 
+function enableFullDateInputClick(input: HTMLInputElement): () => void {
+  const openDatePicker = (): void => {
+    const dateInput = input as HTMLInputElement & { showPicker?: () => void }
+    if (typeof dateInput.showPicker !== 'function') return
+    try {
+      dateInput.showPicker()
+    } catch {
+      // Ignore browsers that block programmatic picker open in some cases.
+    }
+  }
+
+  input.addEventListener('click', openDatePicker)
+
+  return () => {
+    input.removeEventListener('click', openDatePicker)
+  }
+}
+
 function renderAdmissionVerificationContent(applicationNo: string): string {
   const application = admissionService.findByApplicationNo(applicationNo)
 
@@ -95,19 +113,22 @@ function renderAdmissionVerificationContent(applicationNo: string): string {
         ${renderAdminSectionTitle('Verification')}
       </header>
       <section class="admission-section-card admission-section-card-no-margin admission-section-card-status">
-        <div class="admission-content-block">
-          <p class="admission-status-copy">Verify your birth date to continue.</p>
-          <div class="admission-details-grid">
-            <p><span>Applicant</span><strong>${application.lastName.toUpperCase()}, ${application.firstName.toUpperCase()}${application.middleName ? ` ${application.middleName.toUpperCase()}` : ''}</strong></p>
-            <p><span>Campus</span><strong>${application.campus}</strong></p>
+        <div class="admission-content-block admission-verify-panel">
+          <div class="admission-verify-row">
+            <span class="admission-verify-label">Student's Name:</span>
+            <strong class="admission-verify-value">${application.lastName.toUpperCase()}, ${application.firstName.toUpperCase()}${application.middleName ? ` ${application.middleName.toUpperCase()}` : ''}</strong>
           </div>
-        </div>
-        <div class="admission-status-fields admission-status-inline">
-          <div>
-            <label for="status-birthdate-verify"><i class="bi bi-calendar-event" aria-hidden="true"></i>Birth Date</label>
+          <div class="admission-verify-row">
+            <span class="admission-verify-label">Campus:</span>
+            <strong class="admission-verify-value">${application.campus}</strong>
+          </div>
+          <div class="admission-verify-row admission-verify-row-input">
+            <label class="admission-verify-label" for="status-birthdate-verify">Birthday:</label>
             <input id="status-birthdate-verify" type="date" />
           </div>
-          <button id="status-verify-submit" type="button" data-application-no="${application.applicationNo}">Verify</button>
+          <div class="admission-verify-actions">
+            <button id="status-verify-submit" type="button" data-application-no="${application.applicationNo}">Verify</button>
+          </div>
         </div>
         <div id="status-verify-message" class="admission-status-results" aria-live="polite"></div>
       </section>
@@ -266,7 +287,7 @@ function renderAdmissionContent(active: AdmissionSection): string {
           </header>
 
           <section class="admission-content-block">
-            <h3 class="mb-3">Enrollment Requirements</h3>
+            <h3 class="mb-3">Admission Requirements</h3>
             <div class="accordion" id="enrollmentRequirementsAccordion">
               <div class="accordion-item">
                 <h4 class="accordion-header" id="freshmenRequirementsHeading">
@@ -654,6 +675,7 @@ export function setupadmission_status_verify_page(app: HTMLDivElement, applicati
   }
 
   const expectedBirthDate = formatBirthDateForInput(application.personalInfo.birthDate)
+  const cleanupDateClick = enableFullDateInputClick(birthDateInput)
 
   const verify = (): void => {
     if (!expectedBirthDate) {
@@ -689,6 +711,7 @@ export function setupadmission_status_verify_page(app: HTMLDivElement, applicati
   return () => {
     verifyButton.removeEventListener('click', verify)
     birthDateInput.removeEventListener('keydown', onKeydown)
+    cleanupDateClick()
   }
 }
 
