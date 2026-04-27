@@ -266,42 +266,69 @@ function renderAdmissionContent(active: AdmissionSection): string {
           </header>
 
           <section class="admission-content-block">
-            <ol class="admission-timeline" aria-label="Admission requirements timeline">
-              <li class="admission-timeline-item">
-                <div class="admission-timeline-marker" aria-hidden="true">1</div>
-                <div class="admission-timeline-content">
-                  <h3>2x2 Picture</h3>
-                  <ul>
-                    <li>White background</li>
-                  </ul>
+            <h3 class="mb-3">Enrollment Requirements</h3>
+            <div class="accordion" id="enrollmentRequirementsAccordion">
+              <div class="accordion-item">
+                <h4 class="accordion-header" id="freshmenRequirementsHeading">
+                  <button
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#freshmenRequirementsCollapse"
+                    aria-expanded="true"
+                    aria-controls="freshmenRequirementsCollapse"
+                  >
+                    New Students / Incoming Freshmen
+                  </button>
+                </h4>
+                <div
+                  id="freshmenRequirementsCollapse"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="freshmenRequirementsHeading"
+                  data-bs-parent="#enrollmentRequirementsAccordion"
+                >
+                  <div class="accordion-body">
+                    <ul class="mb-0">
+                      <li>Original Form 138</li>
+                      <li>Good Moral Certificate</li>
+                      <li>PSA Birth Certificate Copy</li>
+                      <li>2 pcs. 2x2 Picture with Name Tag and White Background</li>
+                    </ul>
+                  </div>
                 </div>
-              </li>
-              <li class="admission-timeline-item">
-                <div class="admission-timeline-marker" aria-hidden="true">2</div>
-                <div class="admission-timeline-content">
-                  <h3>Clear Copy of Grades</h3>
-                  <ul>
-                    <li>Grade 11 card for Senior High School students</li>
-                    <li>Grade 12 card for Senior High School graduates</li>
-                    <li>Transcript of Records or certification of grades for transferees</li>
-                    <li>ALS certificate with remarks for college-level qualification</li>
-                  </ul>
+              </div>
+
+              <div class="accordion-item">
+                <h4 class="accordion-header" id="transfereeRequirementsHeading">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#transfereeRequirementsCollapse"
+                    aria-expanded="false"
+                    aria-controls="transfereeRequirementsCollapse"
+                  >
+                    Transferees
+                  </button>
+                </h4>
+                <div
+                  id="transfereeRequirementsCollapse"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="transfereeRequirementsHeading"
+                  data-bs-parent="#enrollmentRequirementsAccordion"
+                >
+                  <div class="accordion-body">
+                    <ul class="mb-0">
+                      <li>Transfer Credentials</li>
+                      <li>Good Moral Certificate</li>
+                      <li>Photocopy of Marriage Contract (For Married: Female Only)</li>
+                      <li>Birth Certificate Copy</li>
+                      <li>2 pcs. 2x2 Picture with Name Tag and White Background</li>
+                    </ul>
+                  </div>
                 </div>
-              </li>
-              <li class="admission-timeline-item">
-                <div class="admission-timeline-marker" aria-hidden="true">3</div>
-                <div class="admission-timeline-content">
-                  <h3>Other Relevant IDs or Certificates</h3>
-                  <ul>
-                    <li>Persons with Disabilities (PWD)</li>
-                    <li>Indigenous Peoples (IP)</li>
-                    <li>Solo Parent</li>
-                    <li>Out of School Youth (OSY)</li>
-                    <li>4Ps beneficiary proof</li>
-                  </ul>
-                </div>
-              </li>
-            </ol>
+              </div>
+            </div>
           </section>
 
           <p class="admission-policy"><i class="bi bi-shield-check" aria-hidden="true"></i>Only one application is accepted per applicant for Golden West Colleges, Inc. Multiple submissions can lead to disqualification.</p>
