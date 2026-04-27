@@ -1568,6 +1568,18 @@
   grid-template-columns: minmax(0, 1fr) auto;
 }
 
+@media (max-width: 768px) {
+  .admission-status-inline {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .admission-status-fields button {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
 .admission-status-message {
   margin: 0;
   padding: 0.7rem 0.76rem;
