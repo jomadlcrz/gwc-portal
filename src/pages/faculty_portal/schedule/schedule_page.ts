@@ -101,6 +101,31 @@ function renderScheduleGrid(schedule: InstructorSchedule): string {
         </tbody>
       </table>
     </div>
+    <div class="faculty-schedule-mobile-list">
+      ${schedule.slots
+        .map(
+          (slot) => `
+            <article class="faculty-schedule-mobile-card">
+              <h5>${slot.time}</h5>
+              <div class="faculty-schedule-mobile-days">
+                ${dayOrder
+                  .map((day) => {
+                    const value = slot.values[day]
+                    if (!value) return ''
+                    return `
+                      <div class="faculty-schedule-mobile-item">
+                        <span>${day}</span>
+                        <strong>${schedule.name} - ${value}</strong>
+                      </div>
+                    `
+                  })
+                  .join('')}
+              </div>
+            </article>
+          `,
+        )
+        .join('')}
+    </div>
   `
 }
 

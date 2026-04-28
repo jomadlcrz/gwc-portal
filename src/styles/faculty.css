@@ -339,6 +339,10 @@
   overflow-x: auto;
 }
 
+.faculty-schedule-mobile-list {
+  display: none;
+}
+
 .faculty-schedule-grid {
   width: 100%;
   border-collapse: collapse;
@@ -457,6 +461,55 @@
 
   .faculty-schedule-instructor-list {
     grid-template-columns: 1fr;
+  }
+
+  .faculty-schedule-grid-wrap {
+    display: none;
+  }
+
+  .faculty-schedule-mobile-list {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .faculty-schedule-mobile-card {
+    border: 1px solid #d5e3f1;
+    border-radius: 0.55rem;
+    background: #fbfdff;
+    padding: 0.6rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .faculty-schedule-mobile-card h5 {
+    margin: 0;
+    font-size: 0.82rem;
+    color: #143552;
+  }
+
+  .faculty-schedule-mobile-days {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .faculty-schedule-mobile-item {
+    display: grid;
+    gap: 0.12rem;
+    border-radius: 0.45rem;
+    background: linear-gradient(180deg, #ffe57f 0%, #ffd64a 100%);
+    color: #322100;
+    padding: 0.4rem 0.45rem;
+  }
+
+  .faculty-schedule-mobile-item span {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+
+  .faculty-schedule-mobile-item strong {
+    font-size: 0.75rem;
+    line-height: 1.3;
   }
 }
 
