@@ -351,6 +351,115 @@
   text-align: center;
 }
 
+.registrar-schedule-panel {
+  display: grid;
+  gap: 1rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f6f9fc 100%);
+}
+
+.registrar-schedule-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--color-surface-300);
+  padding-bottom: 0.75rem;
+}
+
+.registrar-schedule-instructor-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.registrar-schedule-instructor {
+  border: 1px solid #cde0f4;
+  background: linear-gradient(130deg, #18456d 0%, #256197 100%);
+  color: #f6fbff;
+  border-radius: 0.65rem;
+  padding: 0.75rem;
+  display: grid;
+  gap: 0.16rem;
+}
+
+.registrar-schedule-instructor strong {
+  font-size: 1.05rem;
+}
+
+.registrar-schedule-instructor span {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.registrar-schedule-instructor small {
+  font-size: 0.74rem;
+  opacity: 0.8;
+}
+
+.registrar-schedule-table-section {
+  border: 1px solid var(--color-surface-300);
+  background: #ffffff;
+  border-radius: 0.6rem;
+  padding: 0.68rem;
+}
+
+.registrar-schedule-table-section h4 {
+  margin: 0 0 0.5rem;
+  color: var(--color-ink-900);
+  font-size: 0.92rem;
+}
+
+.registrar-schedule-grid-wrap {
+  overflow-x: auto;
+}
+
+.registrar-schedule-mobile-list {
+  display: none;
+}
+
+.registrar-schedule-grid {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+.registrar-schedule-grid th,
+.registrar-schedule-grid td {
+  border: 1px solid #d2deeb;
+  padding: 0.4rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.registrar-schedule-grid thead th {
+  background: #113654;
+  color: #fff;
+  font-size: 0.77rem;
+  letter-spacing: 0.04em;
+}
+
+.registrar-schedule-grid tbody th {
+  background: #eaf2fa;
+  color: #173553;
+  font-size: 0.74rem;
+  white-space: nowrap;
+}
+
+.registrar-schedule-grid td {
+  background: #fdfefe;
+  min-width: 92px;
+}
+
+.registrar-schedule-chip {
+  display: block;
+  border-radius: 0.45rem;
+  background: linear-gradient(180deg, #ffe57f 0%, #ffd64a 100%);
+  color: #322100;
+  font-size: 0.73rem;
+  font-weight: 700;
+  padding: 0.36rem 0.3rem;
+}
+
 @media (max-width: 991px) {
   .registrar-layout {
     grid-template-columns: 1fr;
@@ -404,6 +513,10 @@
 
   .schedule-ops-strip {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .registrar-schedule-instructor-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -862,6 +975,63 @@
     border-top: 1px solid var(--color-surface-200);
     padding-left: 0;
     padding-top: 0.6rem;
+  }
+
+  .registrar-schedule-head {
+    flex-direction: column;
+  }
+
+  .registrar-schedule-instructor-list {
+    grid-template-columns: 1fr;
+  }
+
+  .registrar-schedule-grid-wrap {
+    display: none;
+  }
+
+  .registrar-schedule-mobile-list {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .registrar-schedule-mobile-card {
+    border: 1px solid #d5e3f1;
+    border-radius: 0.55rem;
+    background: #fbfdff;
+    padding: 0.6rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .registrar-schedule-mobile-card h5 {
+    margin: 0;
+    font-size: 0.82rem;
+    color: #143552;
+  }
+
+  .registrar-schedule-mobile-days {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .registrar-schedule-mobile-item {
+    display: grid;
+    gap: 0.12rem;
+    border-radius: 0.45rem;
+    background: linear-gradient(180deg, #ffe57f 0%, #ffd64a 100%);
+    color: #322100;
+    padding: 0.4rem 0.45rem;
+  }
+
+  .registrar-schedule-mobile-item span {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+
+  .registrar-schedule-mobile-item strong {
+    font-size: 0.75rem;
+    line-height: 1.3;
   }
 }
 
