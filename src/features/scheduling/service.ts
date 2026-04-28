@@ -91,15 +91,15 @@ class SchedulingService {
   private seed(): void {
     if (this.schedules.length) return
 
-    const baseItems: ScheduleItem[] = [
+    const buildItems = (suffix: string, section: string, faculty: string, room: string): ScheduleItem[] => [
       {
         id: createId('item'),
-        subjectCode: 'CC101',
-        title: 'Introduction to Computing',
-        section: 'BSIT-1A',
-        faculty: 'Prof. Maria Dela Cruz',
+        subjectCode: `CC10${suffix}`,
+        title: `Introduction to Computing ${suffix}`,
+        section,
+        faculty,
         department: DEFAULT_DEPARTMENT_CODE,
-        room: 'Room 301',
+        room,
         day: 'Monday',
         startTime: '08:00',
         endTime: '09:30',
@@ -108,12 +108,12 @@ class SchedulingService {
       },
       {
         id: createId('item'),
-        subjectCode: 'CC201',
-        title: 'Data Structures',
-        section: 'BSIT-2A',
-        faculty: 'Prof. John Santos',
+        subjectCode: `CC20${suffix}`,
+        title: `Data Structures ${suffix}`,
+        section: `${section}-LAB`,
+        faculty: `Asst. ${faculty.replace('Prof. ', '')}`,
         department: DEFAULT_DEPARTMENT_CODE,
-        room: 'Computer Lab 2',
+        room: `${room} Lab`,
         day: 'Tuesday',
         startTime: '10:00',
         endTime: '11:30',
@@ -122,12 +122,94 @@ class SchedulingService {
       },
     ]
 
+    const createSeedSchedule = (label: string, items: ScheduleItem[]): Schedule =>
+      this.createSchedule(
+        {
+          term: '1st Semester AY 2026-2027',
+          department: DEFAULT_DEPARTMENT_CODE,
+          registrarNotes: label,
+          items,
+        },
+        'registrar-1',
+        false,
+      )
+
+    const approved = createSeedSchedule('Seed: approved schedule', buildItems('1', 'BSIT-1A', 'Prof. Maria Dela Cruz', 'Room 301'))
+    approved.status = 'REJECTED_BY_ADMIN'
+    this.submitForApproval(approved.id, 'registrar-1', 'Seed: submitted for approval')
+    this.approveSchedule({ scheduleId: approved.id, reviewerId: 'admin-1', comment: 'Seed approved', tags: ['seed'] })
+
+    const finalized = createSeedSchedule('Seed: finalized schedule', buildItems('2', 'BSIT-2A', 'Prof. John Santos', 'Room 302'))
+    finalized.status = 'REJECTED_BY_ADMIN'
+    this.submitForApproval(finalized.id, 'registrar-1', 'Seed: submitted for finalization flow')
+    this.approveSchedule({ scheduleId: finalized.id, reviewerId: 'admin-1', comment: 'Seed approved', tags: ['seed'] })
+    this.finalizeSchedule(finalized.id, 'admin-1')
+
+    const underReview = createSeedSchedule('Seed: under admin review', buildItems('3', 'BSIT-3A', 'Prof. Angela Reyes', 'Room 303'))
+    underReview.status = 'REJECTED_BY_ADMIN'
+    this.submitForApproval(underReview.id, 'registrar-1', 'Seed: pending admin review')
+    this.moveToAdminReview(underReview.id, 'admin-1')
+
+    const submitted = createSeedSchedule('Seed: submitted for approval', buildItems('4', 'BSIT-4A', 'Prof. Carlo Mendoza', 'Room 304'))
+    submitted.status = 'REJECTED_BY_ADMIN'
+    this.submitForApproval(submitted.id, 'registrar-1', 'Seed: waiting in queue')
+
+    const rejected = createSeedSchedule('Seed: rejected by admin', buildItems('5', 'BSIT-1B', 'Prof. Liza Ramos', 'Room 305'))
+    rejected.status = 'REJECTED_BY_ADMIN'
+
+    const draft = createSeedSchedule('Seed: draft schedule', buildItems('6', 'BSIT-2B', 'Prof. Kevin Flores', 'Room 306'))
+    draft.status = 'DRAFT'
+
+    const withModification = createSeedSchedule(
+      'Seed: modification requested',
+      buildItems('7', 'BSIT-3B', 'Prof. Nina Torres', 'Room 307'),
+    )
+    withModification.status = 'REJECTED_BY_ADMIN'
+    this.submitForApproval(withModification.id, 'registrar-1', 'Seed: mod request setup')
+    this.approveSchedule({ scheduleId: withModification.id, reviewerId: 'admin-1', comment: 'Seed approved', tags: ['seed'] })
+    this.createModificationRequest({
+      scheduleId: withModification.id,
+      requesterRole: 'DEPARTMENT',
+      requesterId: DEFAULT_DEPARTMENT_CODE,
+      reason: 'Adjust room due to maintenance',
+      proposedChange: 'Move Tuesday block to Room 210',
+    })
+
     this.createSchedule(
       {
         term: '1st Semester AY 2026-2027',
         department: DEFAULT_DEPARTMENT_CODE,
         registrarNotes: 'Initial publishing batch',
-        items: baseItems,
+        items: [
+          {
+            id: createId('item'),
+            subjectCode: 'CC101',
+            title: 'Introduction to Computing',
+            section: 'BSIT-1A',
+            faculty: 'Prof. Maria Dela Cruz',
+            department: DEFAULT_DEPARTMENT_CODE,
+            room: 'Room 301',
+            day: 'Monday',
+            startTime: '08:00',
+            endTime: '09:30',
+            deliveryMode: 'Face-to-Face',
+            capacity: 40,
+          },
+          {
+            id: createId('item'),
+            subjectCode: 'CC201',
+            title: 'Data Structures',
+            section: 'BSIT-2A',
+            faculty: 'Prof. John Santos',
+            department: DEFAULT_DEPARTMENT_CODE,
+            room: 'Computer Lab 2',
+            day: 'Tuesday',
+            startTime: '10:00',
+            endTime: '11:30',
+            deliveryMode: 'Face-to-Face',
+            capacity: 35,
+          },
+        ],
       },
       'registrar-1',
       true,

@@ -18,6 +18,8 @@ type LifecycleStatus =
   | 'Cancelled'
   | 'Archived'
 
+type ScheduleAction = 'view' | 'submit' | 'finalize'
+
 function mapToLifecycleStatus(rawStatus: string): LifecycleStatus {
   if (rawStatus === 'DRAFT') return 'Draft'
   if (rawStatus === 'SUBMITTED_FOR_APPROVAL' || rawStatus === 'UNDER_ADMIN_REVIEW' || rawStatus === 'APPROVED') return 'Approved'
@@ -31,8 +33,22 @@ function countLifecycleStatus(status: LifecycleStatus): number {
   return schedulingService.listSchedules().filter((item) => mapToLifecycleStatus(item.status) === status).length
 }
 
+function resolveActionsByLifecycleStatus(status: LifecycleStatus): ScheduleAction[] {
+  if (status === 'Draft' || status === 'Cancelled') return ['view', 'submit']
+  if (status === 'Approved') return ['view', 'finalize']
+  return ['view']
+}
+
+function actionToLabel(action: ScheduleAction): string {
+  if (action === 'submit') return 'Send to Admin'
+  if (action === 'finalize') return 'Finalize'
+  return 'View'
+}
+
 function renderRows(): string {
   return schedulingService.listSchedules().map((schedule) => {
+    const lifecycleStatus = mapToLifecycleStatus(schedule.status)
+    const actions = resolveActionsByLifecycleStatus(lifecycleStatus)
     const current = schedule.versions.find((version) => version.versionNumber === schedule.currentVersion) ?? schedule.versions[0]
     const first = current.snapshot[0]
     const searchValue = [
@@ -53,18 +69,14 @@ function renderRows(): string {
         <td>${schedule.term}</td>
         <td>${renderDepartmentDisplay(schedule.department)}</td>
         <td>${current.snapshot.length}</td>
-        <td><span class="admin-pill ${statusToBadgeClass(schedule.status)}">${mapToLifecycleStatus(schedule.status)}</span></td>
+        <td><span class="admin-pill ${statusToBadgeClass(schedule.status)}">${lifecycleStatus}</span></td>
         <td>${schedule.finalizedAt || schedule.approvedAt || schedule.submittedAt || '-'}</td>
         <td>
           ${renderSharedPopover({
             ariaLabel: 'Schedule row actions',
             triggerLabel: '<i class="bi bi-three-dots-vertical" aria-hidden="true"></i>',
             actionDataAttribute: 'data-schedule-action',
-            actions: [
-              { label: 'View', value: 'view' },
-              { label: 'Send to Admin', value: 'submit' },
-              { label: 'Finalize', value: 'finalize' },
-            ],
+            actions: actions.map((action) => ({ label: actionToLabel(action), value: action })),
           })}
         </td>
       </tr>
