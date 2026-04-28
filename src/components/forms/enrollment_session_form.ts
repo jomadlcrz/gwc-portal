@@ -1,4 +1,4 @@
-import { createEnrollmentSession } from '../../api/v1/enrollment_sessions'
+import { createEnrollmentSession } from '../../api/v1/enrollment_sessions/enrollments'
 
 function floatingInput(id: string, label: string, type = 'text', required = true): string {
   return `
