@@ -53,7 +53,7 @@ export type AdmissionApplication = {
 
 export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
   {
-    applicationNo: 'GWC-ADM-2026-0001',
+    applicationNo: 'GWC-ADM-2026-1',
     firstName: 'Maria',
     middleName: 'Santos',
     lastName: 'Dela Cruz',
@@ -107,7 +107,7 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
     ],
   },
   {
-    applicationNo: 'GWC-ADM-2026-0002',
+    applicationNo: 'GWC-ADM-2026-2',
     firstName: 'John Mark',
     middleName: 'Reyes',
     lastName: 'Garcia',
@@ -161,7 +161,7 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
     ],
   },
   {
-    applicationNo: 'GWC-ADM-2026-0003',
+    applicationNo: 'GWC-ADM-2026-3',
     firstName: 'Angela',
     middleName: 'Lopez',
     lastName: 'Mendoza',
@@ -215,7 +215,7 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
     ],
   },
   {
-    applicationNo: 'GWC-ADM-2026-0004',
+    applicationNo: 'GWC-ADM-2026-4',
     firstName: 'Paolo',
     middleName: 'Villanueva',
     lastName: 'Dela Cruz',
