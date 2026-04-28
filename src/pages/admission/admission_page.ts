@@ -532,7 +532,7 @@ function renderAdmissionContent(active: AdmissionSection): string {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Golden West Colleges, Inc.</td>
+                    <td>Alaminos City</td>
                     <td><a href="https://www.facebook.com/gwcalaminosofficial" target="_blank" rel="noreferrer">GWC Alaminos Official</a></td>
                   </tr>
                 </tbody>

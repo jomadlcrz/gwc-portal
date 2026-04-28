@@ -83,6 +83,7 @@ import { rendernot_found_page } from '../pages/not-found/not_found_page'
 import {
   renderregistrar_dashboard_page,
   renderregistrar_enrollments_page,
+  setupRegistrarEnrollmentsPage,
   renderregistrar_admission_page,
   renderregistrar_admission_review_page,
   renderregistrar_admission_details_page,
@@ -339,7 +340,12 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.REGISTRAR_ENROLLMENTS) {
     app.innerHTML = renderregistrar_enrollments_page()
-    cleanupCurrentRoute = setupregistrar_page(app)
+    const cleanupShell = setupregistrar_page(app)
+    const cleanupEnrollments = setupRegistrarEnrollmentsPage(app)
+    cleanupCurrentRoute = () => {
+      cleanupShell()
+      cleanupEnrollments()
+    }
     return
   }
 
