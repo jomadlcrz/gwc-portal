@@ -153,7 +153,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
     `
   }
 
-  const fullName = `${application.applicationNo}: ${application.lastName.toUpperCase()}, ${application.firstName.toUpperCase()}${application.middleName ? ` ${application.middleName.toUpperCase()}` : ''}`
+  const fullName = `${application.lastName.toUpperCase()}, ${application.firstName.toUpperCase()}${application.middleName ? ` ${application.middleName.toUpperCase()}` : ''}`
 
   return `
     <article class="admission-details-page-shell">
