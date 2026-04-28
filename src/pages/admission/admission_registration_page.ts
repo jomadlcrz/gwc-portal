@@ -414,6 +414,17 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     return true
   }
 
+  const validateProgramSelection = (): boolean => {
+    const admissionType = root.querySelector<HTMLInputElement>('input[name="admission-student-type"]:checked')
+    const program = root.querySelector<HTMLInputElement>('input[name="admission-program"]:checked')
+    if (!admissionType || !program) {
+      setMessage(messageEl, 'Please select your student type and program before continuing.', true)
+      return false
+    }
+    setMessage(messageEl, '')
+    return true
+  }
+
   const populateValidationDetails = (): void => {
     const admissionTypeInput = root.querySelector<HTMLInputElement>('input[name="admission-student-type"]:checked')
     const programInput = root.querySelector<HTMLInputElement>('input[name="admission-program"]:checked')
@@ -487,6 +498,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
 
   const handleNextClick = (): void => {
     if (currentStep === 1) {
+      if (!validateProgramSelection()) return
       setStep(2)
       return
     }
