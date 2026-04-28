@@ -353,10 +353,13 @@ export function renderregistrar_admission_review_page(): string {
         <article class="admin-student-page-shell">
           <header class="admin-student-head registrar-admission-head">
             <h2>Admission Queue</h2>
-            <p class="registrar-admission-total">
-              <span>Total Applications</span>
-              <strong>${admissionService.getStats().total}</strong>
-            </p>
+            <article class="registrar-admission-total" aria-label="Total applications summary">
+              <span class="registrar-admission-total-icon" aria-hidden="true"><i class="bi bi-people-fill"></i></span>
+              <span class="registrar-admission-total-copy">
+                <small>Total Applications</small>
+                <strong>${admissionService.getStats().total}</strong>
+              </span>
+            </article>
           </header>
 
           <section class="admin-student-toolbar registrar-admission-toolbar">
