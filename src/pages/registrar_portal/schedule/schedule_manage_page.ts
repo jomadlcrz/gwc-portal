@@ -74,6 +74,19 @@ function renderKpiCard(label: string, count: number, icon: string, tone: string)
   `
 }
 
+function formatLastUpdated(value: string | null | undefined): string {
+  if (!value) return '-'
+  const parsed = new Date(value)
+  if (Number.isNaN(parsed.getTime())) return value
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(parsed)
+}
+
 function renderRows(): string {
   return schedulingService.listSchedules().map((schedule) => {
     const lifecycleStatus = mapToLifecycleStatus(schedule.status)
@@ -98,7 +111,7 @@ function renderRows(): string {
         <td>${renderDepartmentDisplay(schedule.department)}</td>
         <td>${current.snapshot.length}</td>
         <td><span class="admin-pill registrar-lifecycle-pill ${lifecycleStatusClass(lifecycleStatus)}">${lifecycleStatus}</span></td>
-        <td>${schedule.finalizedAt || schedule.approvedAt || schedule.submittedAt || '-'}</td>
+        <td>${formatLastUpdated(schedule.finalizedAt || schedule.approvedAt || schedule.submittedAt)}</td>
         <td>
           ${renderSharedPopover({
             ariaLabel: 'Schedule row actions',
