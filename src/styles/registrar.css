@@ -713,6 +713,12 @@
   box-shadow: none;
 }
 
+.registrar-admission-doc-title {
+  margin: 0 0 0.45rem;
+  color: #223b6e;
+  font-size: 0.98rem;
+}
+
 .registrar-admission-toolbar {
   display: grid;
   grid-template-columns: minmax(280px, 1fr) auto;

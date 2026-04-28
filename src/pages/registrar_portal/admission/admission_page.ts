@@ -184,7 +184,7 @@ function renderAdmissionManageForm(applicationNo: string): string {
             .map(
               (item) => `
                 <article>
-                  <h4 class="mb-2">${item.title}</h4>
+                  <h4 class="registrar-admission-doc-title">${item.title}</h4>
                   <button
                     type="button"
                     data-admission-doc-full="${item.src}"
