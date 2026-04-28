@@ -65,7 +65,7 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
     program: 'BS Information Technology',
     schoolYear: 'S.Y. 2026 - 2027',
     submittedAt: 'January 12, 2026',
-    status: 'Application Received',
+    status: 'Not Selected',
     personalInfo: {
       address: 'Purok 3, Barangay San Jose',
       cityProvince: 'Alaminos City, Pangasinan',
@@ -102,7 +102,7 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
     },
     reminders: [
       'This is an application for admission and not yet enrollment.',
-      'Please wait for your interview or exam schedule announcement.',
+      'Please wait for the official admissions update on your application status.',
       'Bring original documents during onsite verification.',
     ],
   },
@@ -227,7 +227,7 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
     program: 'Bachelor of Elementary Education',
     schoolYear: 'S.Y. 2026 - 2027',
     submittedAt: 'February 08, 2026',
-    status: 'Application Received',
+    status: 'Approved',
     personalInfo: {
       address: 'Zone 2, Barangay Baleyadaan',
       cityProvince: 'Alaminos City, Pangasinan',
@@ -236,7 +236,7 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
       email: 'paolo.delacruz@example.com',
       birthDate: 'October 19, 2003',
       birthPlace: 'Labrador, Pangasinan',
-      sex: 'Male',
+      sex: 'Female',
       citizenship: 'Filipino',
       civilStatus: 'Single',
       religion: 'Iglesia ni Cristo',
@@ -274,3 +274,4 @@ export function getAdmissionApplicationByNo(applicationNo: string): AdmissionApp
   const normalized = applicationNo.trim().toLowerCase()
   return ADMISSION_APPLICATIONS.find((entry) => entry.applicationNo.toLowerCase() === normalized)
 }
+

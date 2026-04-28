@@ -1851,6 +1851,7 @@
   border-radius: var(--radius-sm);
   background: #f8fbff;
   padding: 0.88rem;
+  max-width: 100%;
 }
 
 .admission-docs-grid {
@@ -1904,12 +1905,48 @@
 
 .admission-reminders-list {
   margin: 0;
-  padding-left: 1.25rem;
+  padding: 0;
+  list-style: none;
   color: #2f4365;
 }
 
-.admission-reminders-list li {
-  margin-bottom: 0.28rem;
+.admission-reminders-list.has-approved-header {
+  border-top: 1px solid #c8d0da;
+}
+
+.admission-reminders-row {
+  display: grid;
+  grid-template-columns: minmax(0, 90px) minmax(0, 1fr);
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.92rem 1rem;
+  border-bottom: 1px solid #c8d0da;
+  max-width: 100%;
+}
+
+.admission-reminders-row:last-child {
+  border-bottom: 0;
+}
+
+.admission-reminders-row-head {
+  font-weight: 800;
+  color: #26303d;
+  border-bottom: 2px solid #b6c1cf;
+}
+
+.admission-reminders-row span:first-child {
+  min-width: 0;
+  font-weight: 800;
+  color: #1f2937;
+  white-space: nowrap;
+}
+
+.admission-reminders-row span:nth-child(2) {
+  color: #2f3642;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 @media (max-width: 768px) {
@@ -1946,5 +1983,11 @@
 
   .admission-docs-grid img {
     height: 200px;
+  }
+
+  .admission-reminders-row {
+    grid-template-columns: 32px minmax(0, 1fr);
+    padding: 0.8rem 0.72rem;
+    gap: 0.35rem;
   }
 }

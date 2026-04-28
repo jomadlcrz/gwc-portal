@@ -76,6 +76,38 @@ function getAdmissionRequirementReminders(admissionType: string): string[] {
   ]
 }
 
+function getAdmissionDetailReminders(application: AdmissionApplication): string[] {
+  if (application.status === 'Approved') {
+    return getAdmissionRequirementReminders(application.admissionType)
+  }
+
+  if (application.status === 'Under Review') {
+    return [
+      'Your application is currently under evaluation by the admissions office.',
+      'Please monitor this page regularly for status changes and announcements.',
+      'Keep your contact details active in case additional verification is needed.',
+    ]
+  }
+
+  if (application.status === 'Application Received') {
+    return [
+      'Your application has been received and queued for initial checking.',
+      'Ensure all submitted details and uploaded files are complete and readable.',
+      'Wait for the next status update once document checking is finished.',
+    ]
+  }
+
+  if (application.status === 'Not Selected') {
+    return [
+      'Your application was not selected for this intake period.',
+      'You may contact the admissions office for guidance on your next application.',
+      'You may apply again in the next available admission cycle.',
+    ]
+  }
+
+  return application.reminders
+}
+
 function getAdmissionUploadedDocumentItems(
   admissionType: string,
   uploadedDocuments: AdmissionApplication['uploadedDocuments'],
@@ -227,7 +259,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
   }
 
   const fullName = `${application.lastName.toUpperCase()}, ${application.firstName.toUpperCase()}${application.middleName ? ` ${application.middleName.toUpperCase()}` : ''}`
-  const requirementReminders = getAdmissionRequirementReminders(application.admissionType)
+  const requirementReminders = getAdmissionDetailReminders(application)
   const uploadedDocumentItems = getAdmissionUploadedDocumentItems(application.admissionType, application.uploadedDocuments)
 
   return `
@@ -340,8 +372,31 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
           ${renderAdminSectionTitle('Reminders')}
         </header>
         <div class="admission-detail-surface">
-          <ol class="admission-reminders-list">
-            ${requirementReminders.map((reminder) => `<li>${reminder}</li>`).join('')}
+          ${
+            application.status === 'Approved'
+              ? '<p>For <strong>ENROLLMENT REQUIREMENTS</strong>, please submit the following documents to the Registrar’s Office.</p>'
+              : ''
+          }
+          <ol class="admission-reminders-list ${application.status === 'Approved' ? 'has-approved-header' : ''}">
+            ${
+              application.status === 'Approved'
+                ? `
+            <li class="admission-reminders-row admission-reminders-row-head" aria-hidden="true">
+              <span>#</span>
+              <span>Document</span>
+            </li>
+            `
+                : ''
+            }
+            ${requirementReminders
+              .map(
+                (reminder, index) => `
+              <li class="admission-reminders-row">
+                <span>${index + 1}</span>
+                <span>${reminder}</span>
+              </li>`,
+              )
+              .join('')}
           </ol>
         </div>
       </section>
