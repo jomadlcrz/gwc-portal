@@ -1,7 +1,10 @@
 export type SharedModalController = {
   open: (options: SharedModalOpenOptions) => void
   setOnConfirm: (handler: (() => void) | null) => void
+  setOnClose: (handler: (() => void) | null) => void
   setMode: (mode: 'default' | 'form' | 'confirm') => void
+  show: () => void
+  hide: () => void
   close: () => void
   destroy: () => void
 }
@@ -148,13 +151,18 @@ export function setupSharedModal(root: HTMLElement, options: SharedModalSetupOpt
   const confirmBtn = modal?.querySelector<HTMLButtonElement>('[data-shared-modal-confirm]')
   let backdrop: HTMLDivElement | null = null
   let isOpen = false
+  let isVisible = false
   let onConfirm: (() => void) | null = null
+  let onClose: (() => void) | null = null
 
   if (!modal || !titleNode || !bodyNode || !confirmBtn) {
     return {
       open: () => undefined,
       setOnConfirm: () => undefined,
+      setOnClose: () => undefined,
       setMode: () => undefined,
+      show: () => undefined,
+      hide: () => undefined,
       close: () => undefined,
       destroy: () => undefined,
     }
@@ -166,14 +174,12 @@ export function setupSharedModal(root: HTMLElement, options: SharedModalSetupOpt
     if (mode === 'confirm') modal.classList.add('is-modal-confirm')
   }
 
-  const close = (): void => {
-    if (!isOpen) return
-    isOpen = false
+  const hide = (): void => {
+    if (!isOpen || !isVisible) return
+    isVisible = false
     modal.classList.remove('show')
     modal.style.display = 'none'
     modal.setAttribute('aria-hidden', 'true')
-    bodyNode.innerHTML = ''
-    onConfirm = null
     document.body.classList.remove('modal-open')
     document.body.style.removeProperty('--site-body-overflow')
     backdrop?.remove()
@@ -186,12 +192,9 @@ export function setupSharedModal(root: HTMLElement, options: SharedModalSetupOpt
     }
   }
 
-  const open = (options: SharedModalOpenOptions): void => {
-    titleNode.textContent = options.title
-    bodyNode.innerHTML = options.bodyHtml
-    confirmBtn.textContent = options.confirmLabel ?? 'Save'
-    confirmBtn.classList.toggle('d-none', options.hideConfirm ?? false)
-    isOpen = true
+  const show = (): void => {
+    if (!isOpen || isVisible) return
+    isVisible = true
     modal.style.display = 'block'
     modal.classList.add('show')
     modal.setAttribute('aria-hidden', 'false')
@@ -208,6 +211,24 @@ export function setupSharedModal(root: HTMLElement, options: SharedModalSetupOpt
     const stackIndex = OPEN_SHARED_MODAL_STACK.lastIndexOf(modal)
     if (stackIndex >= 0) OPEN_SHARED_MODAL_STACK.splice(stackIndex, 1)
     OPEN_SHARED_MODAL_STACK.push(modal)
+  }
+
+  const close = (): void => {
+    if (!isOpen) return
+    hide()
+    isOpen = false
+    bodyNode.innerHTML = ''
+    onConfirm = null
+    onClose?.()
+  }
+
+  const open = (options: SharedModalOpenOptions): void => {
+    titleNode.textContent = options.title
+    bodyNode.innerHTML = options.bodyHtml
+    confirmBtn.textContent = options.confirmLabel ?? 'Save'
+    confirmBtn.classList.toggle('d-none', options.hideConfirm ?? false)
+    isOpen = true
+    show()
   }
 
   const onRootClick = (event: Event): void => {
@@ -238,7 +259,7 @@ export function setupSharedModal(root: HTMLElement, options: SharedModalSetupOpt
   }
 
   const onEscape = (event: KeyboardEvent): void => {
-    if (event.key !== 'Escape' || !isOpen) return
+    if (event.key !== 'Escape' || !isOpen || !isVisible) return
     const topModal = OPEN_SHARED_MODAL_STACK[OPEN_SHARED_MODAL_STACK.length - 1]
     if (topModal !== modal) return
     close()
@@ -252,7 +273,12 @@ export function setupSharedModal(root: HTMLElement, options: SharedModalSetupOpt
     setOnConfirm: (handler): void => {
       onConfirm = handler
     },
+    setOnClose: (handler): void => {
+      onClose = handler
+    },
     setMode,
+    show,
+    hide,
     close,
     destroy: (): void => {
       close()

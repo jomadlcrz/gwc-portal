@@ -483,6 +483,13 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
   const rows = Array.from(root.querySelectorAll<HTMLTableRowElement>('[data-admission-row]'))
   const emptyRow = root.querySelector<HTMLTableRowElement>('[data-admission-empty-row]')
   let activeApplicationNo: string | null = null
+  let shouldRestoreManageModal = false
+
+  documentModal.setOnClose(() => {
+    if (!shouldRestoreManageModal) return
+    manageModal.show()
+    shouldRestoreManageModal = false
+  })
 
   const getFilteredApplications = () => {
     const query = (searchInput?.value ?? '').trim().toLowerCase()
@@ -577,6 +584,8 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
         </div>
       `
 
+      shouldRestoreManageModal = true
+      manageModal.hide()
       documentModal.setMode('form')
       documentModal.setOnConfirm(null)
       documentModal.open({
@@ -594,6 +603,8 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
     if (!applicationNo) return
     activeApplicationNo = applicationNo
 
+    shouldRestoreManageModal = false
+    documentModal.close()
     manageModal.setMode('form')
     manageModal.open({
       title: `Manage ${applicationNo}`,
