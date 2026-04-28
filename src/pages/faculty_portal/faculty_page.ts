@@ -4,6 +4,7 @@ import { setupSharedModal } from '../../components/ui/modal'
 import { schedulingService } from '../../features/scheduling/service'
 
 export { renderfaculty_dashboard_page } from './dashboard/dashboard_page'
+export { renderfaculty_schedule_page } from './schedule/schedule_page'
 export { renderfaculty_classes_page } from './classes/classes_page'
 export { renderfaculty_gradebook_page } from './gradebook/gradebook_page'
 export { renderfaculty_settings_page } from './settings/settings_page'

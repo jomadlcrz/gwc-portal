@@ -43,6 +43,7 @@ import {
   renderfaculty_classes_page,
   renderfaculty_dashboard_page,
   renderfaculty_gradebook_page,
+  renderfaculty_schedule_page,
   renderfaculty_settings_page,
   setupfaculty_page,
   setupfaculty_classes_page,
@@ -201,6 +202,12 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.FACULTY_PORTAL || pathname === ROUTES.FACULTY_DASHBOARD) {
     app.innerHTML = renderfaculty_dashboard_page()
+    cleanupCurrentRoute = setupfaculty_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.FACULTY_SCHEDULE) {
+    app.innerHTML = renderfaculty_schedule_page()
     cleanupCurrentRoute = setupfaculty_page(app)
     return
   }

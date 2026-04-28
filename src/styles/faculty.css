@@ -264,6 +264,124 @@
   display: none;
 }
 
+.faculty-schedule-panel {
+  display: grid;
+  gap: 1rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f6f9fc 100%);
+}
+
+.faculty-schedule-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--color-surface-300);
+  padding-bottom: 0.75rem;
+}
+
+.faculty-schedule-head p {
+  margin-top: 0.25rem;
+}
+
+.faculty-schedule-meta {
+  display: grid;
+  gap: 0.2rem;
+  text-align: right;
+  font-size: 0.76rem;
+  color: var(--color-slate-600);
+  font-weight: 700;
+}
+
+.faculty-schedule-instructor-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.faculty-schedule-instructor {
+  border: 1px solid #cde0f4;
+  background: linear-gradient(130deg, #18456d 0%, #256197 100%);
+  color: #f6fbff;
+  border-radius: 0.65rem;
+  padding: 0.75rem;
+  display: grid;
+  gap: 0.16rem;
+}
+
+.faculty-schedule-instructor strong {
+  font-size: 1.05rem;
+}
+
+.faculty-schedule-instructor span {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.faculty-schedule-instructor small {
+  font-size: 0.74rem;
+  opacity: 0.8;
+}
+
+.faculty-schedule-table-section {
+  border: 1px solid var(--color-surface-300);
+  background: #ffffff;
+  border-radius: 0.6rem;
+  padding: 0.68rem;
+}
+
+.faculty-schedule-table-section h4 {
+  margin: 0 0 0.5rem;
+  color: var(--color-ink-900);
+  font-size: 0.92rem;
+}
+
+.faculty-schedule-grid-wrap {
+  overflow-x: auto;
+}
+
+.faculty-schedule-grid {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+.faculty-schedule-grid th,
+.faculty-schedule-grid td {
+  border: 1px solid #d2deeb;
+  padding: 0.4rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.faculty-schedule-grid thead th {
+  background: #113654;
+  color: #fff;
+  font-size: 0.77rem;
+  letter-spacing: 0.04em;
+}
+
+.faculty-schedule-grid tbody th {
+  background: #eaf2fa;
+  color: #173553;
+  font-size: 0.74rem;
+  white-space: nowrap;
+}
+
+.faculty-schedule-grid td {
+  background: #fdfefe;
+  min-width: 92px;
+}
+
+.faculty-schedule-chip {
+  display: block;
+  border-radius: 0.45rem;
+  background: linear-gradient(180deg, #ffe57f 0%, #ffd64a 100%);
+  color: #322100;
+  font-size: 0.73rem;
+  font-weight: 700;
+  padding: 0.36rem 0.3rem;
+}
+
 @media (max-width: 991px) {
   .faculty-layout {
     grid-template-columns: 1fr;
@@ -313,6 +431,10 @@
   .faculty-kpi-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .faculty-schedule-instructor-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
@@ -322,6 +444,18 @@
 
   .faculty-dashboard-grid,
   .faculty-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .faculty-schedule-head {
+    flex-direction: column;
+  }
+
+  .faculty-schedule-meta {
+    text-align: left;
+  }
+
+  .faculty-schedule-instructor-list {
     grid-template-columns: 1fr;
   }
 }

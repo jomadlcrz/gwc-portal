@@ -52,6 +52,7 @@ export const ROUTES = {
   FACULTY_LOGIN: '/faculty-portal/login',
   FACULTY_PORTAL: '/faculty-portal',
   FACULTY_DASHBOARD: '/faculty-portal/dashboard',
+  FACULTY_SCHEDULE: '/faculty-portal/schedule',
   FACULTY_CLASSES: '/faculty-portal/classes',
   FACULTY_GRADEBOOK: '/faculty-portal/gradebook',
   FACULTY_SETTINGS: '/faculty-portal/settings',

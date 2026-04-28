@@ -24,7 +24,7 @@ export type RegistrarSection =
   | 'schedule'
   | 'settings'
 
-export type FacultySection = 'dashboard' | 'classes' | 'gradebook' | 'settings'
+export type FacultySection = 'dashboard' | 'schedule' | 'classes' | 'gradebook' | 'settings'
 export type StudentSection = 'dashboard' | 'subjects' | 'grades' | 'schedule' | 'settings'
 export type DeanSection = 'dashboard' | 'schedule'
 export type HrSection = 'dashboard' | 'faculty' | 'settings'
@@ -169,6 +169,7 @@ export const FACULTY_SHELL_CONFIG: ShellConfig<FacultySection> = {
   headerLogoAlt: 'Golden West Colleges logo',
   menuItems: [
     { label: 'Dashboard', icon: 'bi-speedometer2', href: ROUTES.FACULTY_DASHBOARD, section: 'dashboard' },
+    { label: 'Schedule', icon: 'bi-grid-3x3-gap', href: ROUTES.FACULTY_SCHEDULE, section: 'schedule' },
     { label: 'Classes', icon: 'bi-calendar3', href: ROUTES.FACULTY_CLASSES, section: 'classes' },
     { label: 'Gradebook', icon: 'bi-file-earmark-text', href: ROUTES.FACULTY_GRADEBOOK, section: 'gradebook' },
     { label: 'Settings', icon: 'bi-gear', href: ROUTES.FACULTY_SETTINGS, section: 'settings' },
