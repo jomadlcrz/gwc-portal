@@ -24,11 +24,32 @@ function renderStatusBadge(status: AdmissionApplicationStatus, attrs = ''): stri
   return `<span class="registrar-status-badge ${getStatusBadgeClass(status)}" ${attrs}>${status}</span>`
 }
 
+function getAdmissionRequirementReminders(admissionType: string): string[] {
+  const normalizedType = admissionType.trim().toLowerCase()
+  if (normalizedType.includes('transferee')) {
+    return [
+      'Transfer Credentials',
+      'Good Moral Certificate',
+      'Photocopy of Marriage Contract (For Married: Female Only)',
+      'Birth Certificate Copy',
+      '2 pcs. 2x2 Picture with Name Tag and White Background',
+    ]
+  }
+
+  return [
+    'Original Form 138',
+    'Good Moral Certificate',
+    'PSA Birth Certificate Copy',
+    '2 pcs. 2x2 Picture with Name Tag and White Background',
+  ]
+}
+
 function renderAdmissionManageForm(applicationNo: string): string {
   const application = admissionService.findByApplicationNo(applicationNo)
   if (!application) {
     return '<p class="mb-0">Admission record not found.</p>'
   }
+  const requirementReminders = getAdmissionRequirementReminders(application.admissionType)
 
   return `
     <div class="shared-modal-grid shared-modal-grid-1">
@@ -110,7 +131,7 @@ function renderAdmissionManageForm(applicationNo: string): string {
       <section>
         ${renderAdminSectionTitle('Reminder Notes')}
         <ul class="mb-0 ps-3">
-          ${application.reminders.map((reminder) => `<li>${reminder}</li>`).join('')}
+          ${requirementReminders.map((reminder) => `<li>${reminder}</li>`).join('')}
         </ul>
       </section>
     </div>

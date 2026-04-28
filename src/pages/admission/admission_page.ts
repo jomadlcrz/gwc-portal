@@ -56,6 +56,26 @@ function formatProgramName(program: string): string {
   return fullProgramByAlias[normalized] ?? program
 }
 
+function getAdmissionRequirementReminders(admissionType: string): string[] {
+  const normalizedType = admissionType.trim().toLowerCase()
+  if (normalizedType.includes('transferee')) {
+    return [
+      'Transfer Credentials',
+      'Good Moral Certificate',
+      'Photocopy of Marriage Contract (For Married: Female Only)',
+      'Birth Certificate Copy',
+      '2 pcs. 2x2 Picture with Name Tag and White Background',
+    ]
+  }
+
+  return [
+    'Original Form 138',
+    'Good Moral Certificate',
+    'PSA Birth Certificate Copy',
+    '2 pcs. 2x2 Picture with Name Tag and White Background',
+  ]
+}
+
 function getAdmissionStatusBadgeClass(status: AdmissionApplication['status']): string {
   if (status === 'Approved') return 'is-approved'
   if (status === 'Not Selected') return 'is-rejected'
@@ -163,6 +183,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
   }
 
   const fullName = `${application.lastName.toUpperCase()}, ${application.firstName.toUpperCase()}${application.middleName ? ` ${application.middleName.toUpperCase()}` : ''}`
+  const requirementReminders = getAdmissionRequirementReminders(application.admissionType)
 
   return `
     <article class="admission-details-page-shell">
@@ -281,7 +302,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
         </header>
         <div class="admission-detail-surface">
           <ol class="admission-reminders-list">
-            ${application.reminders.map((reminder) => `<li>${reminder}</li>`).join('')}
+            ${requirementReminders.map((reminder) => `<li>${reminder}</li>`).join('')}
           </ol>
         </div>
       </section>
