@@ -786,6 +786,7 @@
 }
 
 .admission-stepper-dot {
+  position: relative;
   width: 1.85rem;
   height: 1.85rem;
   border-radius: var(--radius-pill);
@@ -795,11 +796,32 @@
   color: #0f1f3f;
   background: #cdd7ea;
   border: 1px solid #b7c4dd;
+  overflow: hidden;
+  isolation: isolate;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
 }
 
-.admission-stepper-item.is-active .admission-stepper-dot {
-  background: #ffd34f;
+.admission-stepper-dot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #f5cf42;
+  transform: scale(0);
+  transform-origin: center;
+  transition: transform 0.25s ease;
+  z-index: -1;
+}
+
+.admission-stepper-item.is-active .admission-stepper-dot,
+.admission-stepper-item.is-completed .admission-stepper-dot {
   border-color: #e6b630;
+}
+
+.admission-stepper-item.is-active .admission-stepper-dot::before,
+.admission-stepper-item.is-completed .admission-stepper-dot::before {
+  transform: scale(1);
 }
 
 .admission-stepper-label {

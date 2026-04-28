@@ -372,6 +372,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     timelineItems.forEach((item) => {
       const itemStep = Number(item.dataset.stepIndex)
       item.classList.toggle('is-active', itemStep === step - 1)
+      item.classList.toggle('is-completed', itemStep < step - 1)
     })
     const progressRatio = (step - 1) / (registrationStepLabels.length - 1)
     stepperList?.style.setProperty('--admission-stepper-progress', String(progressRatio))
