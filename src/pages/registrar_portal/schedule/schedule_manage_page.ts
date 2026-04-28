@@ -262,12 +262,13 @@ export function setupschedule_manage_page(root: HTMLElement): () => void {
     const schedule = schedulingService.listSchedules().find((item) => item.id === scheduleId)
     if (!schedule) return '<p class="mb-0">Schedule not found.</p>'
 
+    const lifecycleStatus = mapToLifecycleStatus(schedule.status)
     const current = schedule.versions.find((version) => version.versionNumber === schedule.currentVersion) ?? schedule.versions[0]
     return renderActionView([
           {
             title: 'Schedule Information',
             fields: [
-          { label: 'Status', value: mapToLifecycleStatus(schedule.status) },
+          { label: 'Status', value: lifecycleStatus, pillClass: `registrar-lifecycle-pill ${lifecycleStatusClass(lifecycleStatus)}` },
           { label: 'Total Classes', value: String(current.snapshot.length) },
           { label: 'Department', value: schedule.department, valueHtml: renderDepartmentDisplay(schedule.department) },
           { label: 'Registrar Notes', value: schedule.registrarNotes || '-' },
