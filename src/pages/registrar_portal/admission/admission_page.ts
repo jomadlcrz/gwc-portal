@@ -24,6 +24,18 @@ function renderStatusBadge(status: AdmissionApplicationStatus, attrs = ''): stri
   return `<span class="registrar-status-badge ${getStatusBadgeClass(status)}" ${attrs}>${status}</span>`
 }
 
+function renderAdmissionKpiCard(label: string, count: number, icon: string, tone: string): string {
+  return `
+    <article class="registrar-kpi-card registrar-kpi-card-${tone}">
+      <span class="registrar-kpi-icon" aria-hidden="true"><i class="bi ${icon}"></i></span>
+      <div class="registrar-kpi-copy">
+        <p>${label}</p>
+        <strong>${count}</strong>
+      </div>
+    </article>
+  `
+}
+
 function getAdmissionRequirementReminders(admissionType: string): string[] {
   const normalizedType = admissionType.trim().toLowerCase()
   if (normalizedType.includes('transferee')) {
@@ -123,7 +135,6 @@ function renderAdmissionManageForm(applicationNo: string): string {
         <div class="shared-modal-grid shared-modal-grid-3">
           <div class="form-floating"><input class="form-control" value="${application.applicationNo}" readonly /><label>Application No.</label></div>
           <div class="form-floating"><input class="form-control" value="${application.admissionType}" readonly /><label>Admission Type</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.campus}" readonly /><label>Campus</label></div>
           <div class="form-floating"><input class="form-control" value="${application.submittedAt}" readonly /><label>Date Submitted</label></div>
           <div class="form-floating"><input class="form-control" value="${application.lastName}, ${application.firstName}${application.middleName ? ` ${application.middleName}` : ''}" readonly /><label>Applicant Name</label></div>
           <div class="form-floating"><input class="form-control" value="${application.schoolYear}" readonly /><label>School Year</label></div>
@@ -303,12 +314,11 @@ export function renderregistrar_admission_page(): string {
           </header>
 
           <section class="registrar-kpi-grid mt-3">
-            <article class="registrar-kpi-card"><p>Total Applications</p><strong>${stats.total}</strong></article>
-            <article class="registrar-kpi-card"><p>Application Received</p><strong>${stats.applicationReceived}</strong></article>
-            <article class="registrar-kpi-card"><p>Under Review</p><strong>${stats.underReview}</strong></article>
-            <article class="registrar-kpi-card"><p>Approved</p><strong>${stats.approved}</strong></article>
-            <article class="registrar-kpi-card"><p>Not Selected</p><strong>${stats.notSelected}</strong></article>
-            <article class="registrar-kpi-card"><p>Campus</p><strong>Alaminos</strong></article>
+            ${renderAdmissionKpiCard('Total Applications', stats.total, 'bi-people', 'total')}
+            ${renderAdmissionKpiCard('Application Received', stats.applicationReceived, 'bi-inbox', 'draft')}
+            ${renderAdmissionKpiCard('Under Review', stats.underReview, 'bi-search', 'published')}
+            ${renderAdmissionKpiCard('Approved', stats.approved, 'bi-patch-check', 'approved')}
+            ${renderAdmissionKpiCard('Not Selected', stats.notSelected, 'bi-x-circle', 'cancelled')}
           </section>
 
           <section class="mt-3">
@@ -452,7 +462,6 @@ export function renderregistrar_admission_details_page(applicationNo: string): s
             <article class="registrar-dashboard-card">
               <h4>Application Details</h4>
               <ul class="registrar-list">
-                <li><strong>Campus:</strong> ${application.campus}</li>
                 <li><strong>Admission Type:</strong> ${application.admissionType}</li>
                 <li><strong>Program:</strong> ${application.program}</li>
                 <li><strong>Submitted:</strong> ${application.submittedAt}</li>
