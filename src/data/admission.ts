@@ -14,7 +14,6 @@ export type AdmissionApplication = {
   schoolYear: string
   submittedAt: string
   status: AdmissionApplicationStatus
-  remarks: string
   personalInfo: {
     address: string
     cityProvince: string
@@ -67,7 +66,6 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
     schoolYear: 'S.Y. 2026 - 2027',
     submittedAt: 'January 12, 2026',
     status: 'Pending',
-    remarks: 'Please wait for your admissions schedule announcement through the official GWC Alaminos Facebook page.',
     personalInfo: {
       address: 'Purok 3, Barangay San Jose',
       cityProvince: 'Alaminos City, Pangasinan',
@@ -122,7 +120,6 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
     schoolYear: 'S.Y. 2026 - 2027',
     submittedAt: 'January 18, 2026',
     status: 'Pending',
-    remarks: 'Documents are under verification.',
     personalInfo: {
       address: 'Quezon Avenue, Barangay Poblacion',
       cityProvince: 'Alaminos City, Pangasinan',
@@ -177,7 +174,6 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
     schoolYear: 'S.Y. 2026 - 2027',
     submittedAt: 'February 01, 2026',
     status: 'Approved',
-    remarks: 'Proceed to enrollment on or before May 15, 2026.',
     personalInfo: {
       address: 'Rizal Street, Barangay Lucap',
       cityProvince: 'Alaminos City, Pangasinan',
@@ -232,7 +228,6 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
     schoolYear: 'S.Y. 2026 - 2027',
     submittedAt: 'February 08, 2026',
     status: 'Pending',
-    remarks: 'Waiting for final grade 12 card upload.',
     personalInfo: {
       address: 'Zone 2, Barangay Baleyadaan',
       cityProvince: 'Alaminos City, Pangasinan',

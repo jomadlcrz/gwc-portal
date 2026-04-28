@@ -52,13 +52,6 @@ export const admissionService = {
     return true
   },
 
-  updateRemarks(applicationNo: string, remarks: string): boolean {
-    const application = this.findByApplicationNo(applicationNo)
-    if (!application) return false
-    application.remarks = remarks.trim()
-    return true
-  },
-
   getStats(): AdmissionStats {
     const applications = this.list()
     return {

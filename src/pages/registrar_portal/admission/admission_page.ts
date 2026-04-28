@@ -43,14 +43,6 @@ function renderAdmissionManageForm(applicationNo: string): string {
       </section>
 
       <section>
-        ${renderAdminSectionTitle('Registrar Remarks')}
-        <div class="form-floating">
-          <textarea id="admission-modal-remarks" class="form-control" style="height: 140px;">${application.remarks}</textarea>
-          <label for="admission-modal-remarks">Registrar Remarks</label>
-        </div>
-      </section>
-
-      <section>
         ${renderAdminSectionTitle('Application Details')}
         <div class="shared-modal-grid shared-modal-grid-3">
           <div class="form-floating"><input class="form-control" value="${application.applicationNo}" readonly /><label>Application No.</label></div>
@@ -170,7 +162,7 @@ export function renderregistrar_admission_page(): string {
           <header class="registrar-dashboard-head">
             <div>
               <h3>Admission Control Center</h3>
-              <p>Review applications, update status decisions, and maintain registrar remarks.</p>
+              <p>Review applications and update status decisions.</p>
             </div>
             <div class="registrar-dashboard-actions">
               <a href="${ROUTES.REGISTRAR_ADMISSION_REVIEW}" class="btn btn-sm btn-primary">Open Full Queue</a>
@@ -350,9 +342,6 @@ export function renderregistrar_admission_details_page(applicationNo: string): s
                   ${ADMISSION_STATUSES.map((status) => `<option value="${status}" ${status === application.status ? 'selected' : ''}>${status}</option>`).join('')}
                 </select>
 
-                <label for="admission-remarks-input" class="form-label mt-2 mb-1">Registrar Remarks</label>
-                <textarea id="admission-remarks-input" class="form-control form-control-sm" rows="5">${application.remarks}</textarea>
-
                 <button type="button" class="btn btn-primary btn-sm mt-2" data-admission-save>Save Updates</button>
                 <p class="mb-0 small text-success d-none" data-admission-save-message>Admission record updated.</p>
               </div>
@@ -470,14 +459,11 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
     modal.setOnConfirm(() => {
       if (!activeApplicationNo) return
       const statusInput = root.querySelector<HTMLSelectElement>('#admission-modal-status')
-      const remarksInput = root.querySelector<HTMLTextAreaElement>('#admission-modal-remarks')
-      if (!statusInput || !remarksInput) return
+      if (!statusInput) return
 
       const nextStatus = statusInput.value as AdmissionApplicationStatus
-      const nextRemarks = remarksInput.value
       const statusSaved = admissionService.updateStatus(activeApplicationNo, nextStatus)
-      const remarksSaved = admissionService.updateRemarks(activeApplicationNo, nextRemarks)
-      if (!statusSaved || !remarksSaved) return
+      if (!statusSaved) return
 
       const row = root.querySelector<HTMLTableRowElement>(`[data-admission-row] [data-admission-manage][data-application-no="${activeApplicationNo}"]`)?.closest('tr')
       if (row) {
@@ -548,22 +534,19 @@ export function setupregistrar_admission_details_page(root: HTMLElement): () => 
   const controls = root.querySelector<HTMLElement>('[data-admission-controls]')
   const saveButton = root.querySelector<HTMLButtonElement>('[data-admission-save]')
   const statusInput = root.querySelector<HTMLSelectElement>('#admission-status-select')
-  const remarksInput = root.querySelector<HTMLTextAreaElement>('#admission-remarks-input')
   const message = root.querySelector<HTMLElement>('[data-admission-save-message]')
   const headerStatusBadge = root.querySelector<HTMLElement>('[data-admission-header-status-badge]')
 
-  if (!controls || !saveButton || !statusInput || !remarksInput) return () => {}
+  if (!controls || !saveButton || !statusInput) return () => {}
 
   const applicationNo = controls.dataset.applicationNo
   if (!applicationNo) return () => {}
 
   const onSave = (): void => {
     const updatedStatus = statusInput.value as AdmissionApplicationStatus
-    const updatedRemarks = remarksInput.value
 
     const statusSaved = admissionService.updateStatus(applicationNo, updatedStatus)
-    const remarksSaved = admissionService.updateRemarks(applicationNo, updatedRemarks)
-    if (!statusSaved || !remarksSaved) return
+    if (!statusSaved) return
 
     if (headerStatusBadge) {
       headerStatusBadge.textContent = updatedStatus

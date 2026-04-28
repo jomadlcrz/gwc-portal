@@ -166,7 +166,6 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
             <p class="admission-details-name"><span>Applicant Name:</span> ${fullName}</p>
             <p class="admission-details-badge ${getAdmissionStatusBadgeClass(application.status)}">${application.status}</p>
           </div>
-          <p class="admission-details-notice">${application.remarks}</p>
           <div class="admission-details-grid">
             <p><span>Campus</span><strong>${application.campus}</strong></p>
             <p><span>Admission</span><strong>${application.admissionType}</strong></p>
