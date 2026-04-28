@@ -76,6 +76,50 @@ function getAdmissionRequirementReminders(admissionType: string): string[] {
   ]
 }
 
+function getAdmissionUploadedDocumentItems(
+  admissionType: string,
+  uploadedDocuments: AdmissionApplication['uploadedDocuments'],
+): Array<{ title: string; src: string; alt: string }> {
+  const normalizedType = admissionType.trim().toLowerCase()
+  if (normalizedType.includes('transferee')) {
+    return [
+      {
+        title: 'Transfer Credentials',
+        src: uploadedDocuments.gradesCopy,
+        alt: 'Transfer credentials upload preview',
+      },
+      {
+        title: 'Good Moral Certificate',
+        src: uploadedDocuments.idOrCertificate,
+        alt: 'Good moral certificate upload preview',
+      },
+      {
+        title: '2x2 Photo',
+        src: uploadedDocuments.photo2x2,
+        alt: '2x2 photo upload preview',
+      },
+    ]
+  }
+
+  return [
+    {
+      title: 'Original Form 138',
+      src: uploadedDocuments.gradesCopy,
+      alt: 'Original Form 138 upload preview',
+    },
+    {
+      title: 'PSA Birth Certificate Copy',
+      src: uploadedDocuments.idOrCertificate,
+      alt: 'PSA birth certificate upload preview',
+    },
+    {
+      title: '2x2 Photo',
+      src: uploadedDocuments.photo2x2,
+      alt: '2x2 photo upload preview',
+    },
+  ]
+}
+
 function getAdmissionStatusBadgeClass(status: AdmissionApplication['status']): string {
   if (status === 'Approved') return 'is-approved'
   if (status === 'Not Selected') return 'is-rejected'
@@ -184,6 +228,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
 
   const fullName = `${application.lastName.toUpperCase()}, ${application.firstName.toUpperCase()}${application.middleName ? ` ${application.middleName.toUpperCase()}` : ''}`
   const requirementReminders = getAdmissionRequirementReminders(application.admissionType)
+  const uploadedDocumentItems = getAdmissionUploadedDocumentItems(application.admissionType, application.uploadedDocuments)
 
   return `
     <article class="admission-details-page-shell">
@@ -232,24 +277,18 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
         </header>
         <div class="admission-detail-surface">
           <div class="admission-docs-grid">
-            <article>
-              <h4>2x2 Photo</h4>
-              <button class="admission-doc-preview" type="button" data-admission-doc-full="${application.uploadedDocuments.photo2x2}" data-admission-doc-title="2x2 Photo">
-                <img src="${application.uploadedDocuments.photo2x2}" alt="2x2 photo upload preview" />
-              </button>
-            </article>
-            <article>
-              <h4>Copy of Grades</h4>
-              <button class="admission-doc-preview" type="button" data-admission-doc-full="${application.uploadedDocuments.gradesCopy}" data-admission-doc-title="Copy of Grades">
-                <img src="${application.uploadedDocuments.gradesCopy}" alt="Copy of grades upload preview" />
-              </button>
-            </article>
-            <article>
-              <h4>ID / Certificate</h4>
-              <button class="admission-doc-preview" type="button" data-admission-doc-full="${application.uploadedDocuments.idOrCertificate}" data-admission-doc-title="ID / Certificate">
-                <img src="${application.uploadedDocuments.idOrCertificate}" alt="ID or certificate upload preview" />
-              </button>
-            </article>
+            ${uploadedDocumentItems
+              .map(
+                (item) => `
+                  <article>
+                    <h4>${item.title}</h4>
+                    <button class="admission-doc-preview" type="button" data-admission-doc-full="${item.src}" data-admission-doc-title="${item.title}">
+                      <img src="${item.src}" alt="${item.alt}" />
+                    </button>
+                  </article>
+                `,
+              )
+              .join('')}
           </div>
         </div>
       </section>

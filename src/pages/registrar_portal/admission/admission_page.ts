@@ -44,12 +44,61 @@ function getAdmissionRequirementReminders(admissionType: string): string[] {
   ]
 }
 
+function getAdmissionUploadedDocumentItems(
+  admissionType: string,
+  uploadedDocuments: {
+    photo2x2: string
+    gradesCopy: string
+    idOrCertificate: string
+  },
+): Array<{ title: string; src: string; alt: string }> {
+  const normalizedType = admissionType.trim().toLowerCase()
+  if (normalizedType.includes('transferee')) {
+    return [
+      {
+        title: 'Transfer Credentials',
+        src: uploadedDocuments.gradesCopy,
+        alt: 'Transfer credentials upload preview',
+      },
+      {
+        title: 'Good Moral Certificate',
+        src: uploadedDocuments.idOrCertificate,
+        alt: 'Good moral certificate upload preview',
+      },
+      {
+        title: '2x2 Photo',
+        src: uploadedDocuments.photo2x2,
+        alt: '2x2 photo upload preview',
+      },
+    ]
+  }
+
+  return [
+    {
+      title: 'Original Form 138',
+      src: uploadedDocuments.gradesCopy,
+      alt: 'Original Form 138 upload preview',
+    },
+    {
+      title: 'PSA Birth Certificate Copy',
+      src: uploadedDocuments.idOrCertificate,
+      alt: 'PSA birth certificate upload preview',
+    },
+    {
+      title: '2x2 Photo',
+      src: uploadedDocuments.photo2x2,
+      alt: '2x2 photo upload preview',
+    },
+  ]
+}
+
 function renderAdmissionManageForm(applicationNo: string): string {
   const application = admissionService.findByApplicationNo(applicationNo)
   if (!application) {
     return '<p class="mb-0">Admission record not found.</p>'
   }
   const requirementReminders = getAdmissionRequirementReminders(application.admissionType)
+  const uploadedDocumentItems = getAdmissionUploadedDocumentItems(application.admissionType, application.uploadedDocuments)
 
   return `
     <div class="shared-modal-grid shared-modal-grid-1">
@@ -114,6 +163,33 @@ function renderAdmissionManageForm(applicationNo: string): string {
           <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastSchoolAttended}" readonly /><label>Last School Attended</label></div>
           <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastCourse}" readonly /><label>Course</label></div>
           <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastSchoolYear}" readonly /><label>Last School Year</label></div>
+        </div>
+      </section>
+
+      <section>
+        ${renderAdminSectionTitle('Uploaded Documents')}
+        <div class="shared-modal-grid shared-modal-grid-3">
+          ${uploadedDocumentItems
+            .map(
+              (item) => `
+                <article>
+                  <h4 class="mb-2">${item.title}</h4>
+                  <button
+                    type="button"
+                    data-admission-doc-full="${item.src}"
+                    data-admission-doc-title="${item.title}"
+                    style="border: 0; background: transparent; padding: 0; width: 100%; text-align: left; cursor: zoom-in;"
+                  >
+                    <img
+                      src="${item.src}"
+                      alt="${item.alt}"
+                      style="width: 100%; height: 140px; object-fit: cover; border: 1px solid #c7d5e8; border-radius: 0.5rem;"
+                    />
+                  </button>
+                </article>
+              `,
+            )
+            .join('')}
         </div>
       </section>
 
@@ -281,6 +357,7 @@ export function renderregistrar_admission_review_page(): string {
         </article>
       </section>
       ${renderSharedModal('registrar-admission-manage-modal')}
+      ${renderSharedModal('registrar-admission-document-modal')}
     `,
   )
 }
@@ -307,6 +384,7 @@ export function renderregistrar_admission_details_page(applicationNo: string): s
       `,
     )
   }
+  const uploadedDocumentItems = getAdmissionUploadedDocumentItems(application.admissionType, application.uploadedDocuments)
 
   return renderPortalShell(
     registrar_SHELL_CONFIG,
@@ -363,6 +441,22 @@ export function renderregistrar_admission_details_page(applicationNo: string): s
             </article>
 
             <article class="registrar-dashboard-card">
+              <h4>Uploaded Documents</h4>
+              <ul class="registrar-list">
+                ${uploadedDocumentItems
+                  .map(
+                    (item) => `
+                      <li>
+                        <strong>${item.title}:</strong>
+                        <a href="${item.src}" target="_blank" rel="noreferrer">View Document</a>
+                      </li>
+                    `,
+                  )
+                  .join('')}
+              </ul>
+            </article>
+
+            <article class="registrar-dashboard-card">
               <h4>Registrar Controls</h4>
               <div class="d-grid gap-2" data-admission-controls data-application-no="${application.applicationNo}">
                 <label for="admission-status-select" class="form-label mb-1">Application Status</label>
@@ -382,7 +476,8 @@ export function renderregistrar_admission_details_page(applicationNo: string): s
 }
 
 export function setupregistrar_admission_review_page(root: HTMLElement): () => void {
-  const modal = setupSharedModal(root, { modalSelector: '#registrar-admission-manage-modal' })
+  const manageModal = setupSharedModal(root, { modalSelector: '#registrar-admission-manage-modal' })
+  const documentModal = setupSharedModal(root, { modalSelector: '#registrar-admission-document-modal' })
   const searchInput = root.querySelector<HTMLInputElement>('[data-admission-search]')
   const statusFilter = root.querySelector<HTMLSelectElement>('[data-admission-status-filter]')
   const rows = Array.from(root.querySelectorAll<HTMLTableRowElement>('[data-admission-row]'))
@@ -470,6 +565,28 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
       return
     }
 
+    const previewButton = target.closest<HTMLButtonElement>('[data-admission-doc-full]')
+    if (previewButton) {
+      const imageSrc = previewButton.dataset.admissionDocFull
+      if (!imageSrc) return
+
+      const imageTitle = previewButton.dataset.admissionDocTitle ?? 'Uploaded Document'
+      const bodyHtml = `
+        <div class="admission-doc-full-view">
+          <img src="${imageSrc}" alt="${imageTitle}" />
+        </div>
+      `
+
+      documentModal.setMode('form')
+      documentModal.setOnConfirm(null)
+      documentModal.open({
+        title: imageTitle,
+        bodyHtml,
+        hideConfirm: true,
+      })
+      return
+    }
+
     const manageButton = target.closest<HTMLButtonElement>('[data-admission-manage]')
     if (!manageButton) return
 
@@ -477,14 +594,14 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
     if (!applicationNo) return
     activeApplicationNo = applicationNo
 
-    modal.setMode('form')
-    modal.open({
+    manageModal.setMode('form')
+    manageModal.open({
       title: `Manage ${applicationNo}`,
       bodyHtml: renderAdmissionManageForm(applicationNo),
       confirmLabel: 'Save Updates',
     })
 
-    modal.setOnConfirm(() => {
+    manageModal.setOnConfirm(() => {
       if (!activeApplicationNo) return
       const statusInput = root.querySelector<HTMLSelectElement>('#admission-modal-status')
       if (!statusInput) return
@@ -501,7 +618,7 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
       }
 
       applyFilters()
-      modal.close()
+      manageModal.close()
     })
   }
 
@@ -511,7 +628,8 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
   applyFilters()
 
   return () => {
-    modal.destroy()
+    manageModal.destroy()
+    documentModal.destroy()
     searchInput?.removeEventListener('input', applyFilters)
     statusFilter?.removeEventListener('change', applyFilters)
     root.removeEventListener('click', onRootClick)
