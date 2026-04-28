@@ -53,6 +53,98 @@ export const admissionService = {
     return true
   },
 
+  updateApplication(
+    applicationNo: string,
+    updates: {
+      status?: AdmissionApplicationStatus
+      fieldUpdates?: Record<string, string>
+    },
+  ): boolean {
+    const application = this.findByApplicationNo(applicationNo)
+    if (!application) return false
+
+    if (updates.status) {
+      application.status = updates.status
+    }
+
+    const fieldUpdates = updates.fieldUpdates ?? {}
+    Object.entries(fieldUpdates).forEach(([field, value]) => {
+      switch (field) {
+        case 'personalInfo.email':
+          application.personalInfo.email = value
+          break
+        case 'personalInfo.mobile':
+          application.personalInfo.mobile = value
+          break
+        case 'personalInfo.phone':
+          application.personalInfo.phone = value
+          break
+        case 'personalInfo.birthDate':
+          application.personalInfo.birthDate = value
+          break
+        case 'personalInfo.birthPlace':
+          application.personalInfo.birthPlace = value
+          break
+        case 'personalInfo.sex':
+          application.personalInfo.sex = value
+          break
+        case 'personalInfo.citizenship':
+          application.personalInfo.citizenship = value
+          break
+        case 'personalInfo.civilStatus':
+          application.personalInfo.civilStatus = value
+          break
+        case 'personalInfo.religion':
+          application.personalInfo.religion = value
+          break
+        case 'personalInfo.cityProvince':
+          application.personalInfo.cityProvince = value
+          break
+        case 'personalInfo.address':
+          application.personalInfo.address = value
+          break
+        case 'educationalInfo.seniorHighSchool':
+          application.educationalInfo.seniorHighSchool = value
+          break
+        case 'educationalInfo.strand':
+          application.educationalInfo.strand = value
+          break
+        case 'educationalInfo.yearGraduated':
+          application.educationalInfo.yearGraduated = value
+          break
+        case 'educationalInfo.generalAverage':
+          application.educationalInfo.generalAverage = value
+          break
+        case 'educationalInfo.lastSchoolAttended':
+          application.educationalInfo.lastSchoolAttended = value
+          break
+        case 'educationalInfo.lastCourse':
+          application.educationalInfo.lastCourse = value
+          break
+        case 'educationalInfo.lastSchoolYear':
+          application.educationalInfo.lastSchoolYear = value
+          break
+        case 'otherInfo.alsPasser':
+          application.otherInfo.alsPasser = value === 'Yes' ? 'Yes' : 'No'
+          break
+        case 'otherInfo.is4PsBeneficiary':
+          application.otherInfo.is4PsBeneficiary = value === 'Yes' ? 'Yes' : 'No'
+          break
+        case 'otherInfo.isPWD':
+          application.otherInfo.isPWD = value === 'Yes' ? 'Yes' : 'No'
+          break
+        case 'otherInfo.isIndigenous':
+          application.otherInfo.isIndigenous = value === 'Yes' ? 'Yes' : 'No'
+          break
+        case 'otherInfo.isSoloParent':
+          application.otherInfo.isSoloParent = value === 'Yes' ? 'Yes' : 'No'
+          break
+      }
+    })
+
+    return true
+  },
+
   getStats(): AdmissionStats {
     const applications = this.list()
     return {

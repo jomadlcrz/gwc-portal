@@ -463,6 +463,24 @@
   box-shadow: none;
 }
 
+.registrar-admission-manage-form input[readonly],
+.registrar-admission-manage-form select[readonly],
+.registrar-admission-manage-form textarea[readonly] {
+  background: #eef2f7;
+  color: #4b5563;
+  border-color: #cbd5e1;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.registrar-admission-manage-form input[readonly]:focus,
+.registrar-admission-manage-form select[readonly]:focus,
+.registrar-admission-manage-form textarea[readonly]:focus {
+  background: #eef2f7;
+  border-color: #cbd5e1;
+  box-shadow: none;
+}
+
 .schedule-card {
   border: var(--border-width-1) solid #d6e4ef;
   border-radius: 0.95rem;

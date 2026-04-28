@@ -101,7 +101,7 @@ function renderAdmissionManageForm(applicationNo: string): string {
   const uploadedDocumentItems = getAdmissionUploadedDocumentItems(application.admissionType, application.uploadedDocuments)
 
   return `
-    <div class="shared-modal-grid shared-modal-grid-1">
+    <div class="shared-modal-grid shared-modal-grid-1 registrar-admission-manage-form">
       <section>
         ${renderAdminSectionTitle('Registrar Decision')}
         <div class="shared-modal-grid shared-modal-grid-2">
@@ -133,36 +133,36 @@ function renderAdmissionManageForm(applicationNo: string): string {
       <section>
         ${renderAdminSectionTitle('Personal Information')}
         <div class="shared-modal-grid shared-modal-grid-3">
-          <div class="form-floating"><input class="form-control" value="${application.personalInfo.email}" readonly /><label>Email</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.personalInfo.mobile}" readonly /><label>Mobile</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.personalInfo.phone}" readonly /><label>Phone</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.personalInfo.birthDate}" readonly /><label>Birth Date</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.personalInfo.birthPlace}" readonly /><label>Birth Place</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.personalInfo.sex}" readonly /><label>Sex</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.personalInfo.citizenship}" readonly /><label>Citizenship</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.personalInfo.civilStatus}" readonly /><label>Civil Status</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.personalInfo.religion}" readonly /><label>Religion</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.personalInfo.cityProvince}" readonly /><label>City/Province</label></div>
-          <div class="form-floating" style="grid-column: 1 / -1;"><input class="form-control" value="${application.personalInfo.address}" readonly /><label>Address</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.email}" data-admission-edit="personalInfo.email" /><label>Email</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.mobile}" data-admission-edit="personalInfo.mobile" /><label>Mobile</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.phone}" data-admission-edit="personalInfo.phone" /><label>Phone</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.birthDate}" data-admission-edit="personalInfo.birthDate" /><label>Birth Date</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.birthPlace}" data-admission-edit="personalInfo.birthPlace" /><label>Birth Place</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.sex}" data-admission-edit="personalInfo.sex" /><label>Sex</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.citizenship}" data-admission-edit="personalInfo.citizenship" /><label>Citizenship</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.civilStatus}" data-admission-edit="personalInfo.civilStatus" /><label>Civil Status</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.religion}" data-admission-edit="personalInfo.religion" /><label>Religion</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.personalInfo.cityProvince}" data-admission-edit="personalInfo.cityProvince" /><label>City/Province</label></div>
+          <div class="form-floating" style="grid-column: 1 / -1;"><input class="form-control" value="${application.personalInfo.address}" data-admission-edit="personalInfo.address" /><label>Address</label></div>
         </div>
       </section>
 
       <section>
         ${renderAdminSectionTitle('Educational Information')}
         <div class="shared-modal-grid shared-modal-grid-3">
-          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.seniorHighSchool}" readonly /><label>Senior High School</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.strand}" readonly /><label>Strand</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.yearGraduated}" readonly /><label>Year Graduated</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.generalAverage}" readonly /><label>General Average</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.seniorHighSchool}" data-admission-edit="educationalInfo.seniorHighSchool" /><label>Senior High School</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.strand}" data-admission-edit="educationalInfo.strand" /><label>Strand</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.yearGraduated}" data-admission-edit="educationalInfo.yearGraduated" /><label>Year Graduated</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.generalAverage}" data-admission-edit="educationalInfo.generalAverage" /><label>General Average</label></div>
         </div>
       </section>
 
       <section>
         ${renderAdminSectionTitle('FOR TRANSFEREE / TECH-VOC COURSE GRADUATE / 2ND COURSE')}
         <div class="shared-modal-grid shared-modal-grid-3">
-          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastSchoolAttended}" readonly /><label>Last School Attended</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastCourse}" readonly /><label>Course</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastSchoolYear}" readonly /><label>Last School Year</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastSchoolAttended}" data-admission-edit="educationalInfo.lastSchoolAttended" /><label>Last School Attended</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastCourse}" data-admission-edit="educationalInfo.lastCourse" /><label>Course</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastSchoolYear}" data-admission-edit="educationalInfo.lastSchoolYear" /><label>Last School Year</label></div>
         </div>
       </section>
 
@@ -196,11 +196,41 @@ function renderAdmissionManageForm(applicationNo: string): string {
       <section>
         ${renderAdminSectionTitle('Other Information')}
         <div class="shared-modal-grid shared-modal-grid-3">
-          <div class="form-floating"><input class="form-control" value="${application.otherInfo.alsPasser}" readonly /><label>ALS Passer</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.otherInfo.is4PsBeneficiary}" readonly /><label>4Ps Beneficiary</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.otherInfo.isPWD}" readonly /><label>PWD</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.otherInfo.isIndigenous}" readonly /><label>Indigenous Peoples</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.otherInfo.isSoloParent}" readonly /><label>Solo Parent</label></div>
+          <div class="form-floating">
+            <select class="form-select" data-admission-edit="otherInfo.alsPasser">
+              <option value="Yes" ${application.otherInfo.alsPasser === 'Yes' ? 'selected' : ''}>Yes</option>
+              <option value="No" ${application.otherInfo.alsPasser === 'No' ? 'selected' : ''}>No</option>
+            </select>
+            <label>ALS Passer</label>
+          </div>
+          <div class="form-floating">
+            <select class="form-select" data-admission-edit="otherInfo.is4PsBeneficiary">
+              <option value="Yes" ${application.otherInfo.is4PsBeneficiary === 'Yes' ? 'selected' : ''}>Yes</option>
+              <option value="No" ${application.otherInfo.is4PsBeneficiary === 'No' ? 'selected' : ''}>No</option>
+            </select>
+            <label>4Ps Beneficiary</label>
+          </div>
+          <div class="form-floating">
+            <select class="form-select" data-admission-edit="otherInfo.isPWD">
+              <option value="Yes" ${application.otherInfo.isPWD === 'Yes' ? 'selected' : ''}>Yes</option>
+              <option value="No" ${application.otherInfo.isPWD === 'No' ? 'selected' : ''}>No</option>
+            </select>
+            <label>PWD</label>
+          </div>
+          <div class="form-floating">
+            <select class="form-select" data-admission-edit="otherInfo.isIndigenous">
+              <option value="Yes" ${application.otherInfo.isIndigenous === 'Yes' ? 'selected' : ''}>Yes</option>
+              <option value="No" ${application.otherInfo.isIndigenous === 'No' ? 'selected' : ''}>No</option>
+            </select>
+            <label>Indigenous Peoples</label>
+          </div>
+          <div class="form-floating">
+            <select class="form-select" data-admission-edit="otherInfo.isSoloParent">
+              <option value="Yes" ${application.otherInfo.isSoloParent === 'Yes' ? 'selected' : ''}>Yes</option>
+              <option value="No" ${application.otherInfo.isSoloParent === 'No' ? 'selected' : ''}>No</option>
+            </select>
+            <label>Solo Parent</label>
+          </div>
         </div>
       </section>
 
@@ -618,8 +648,19 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
       if (!statusInput) return
 
       const nextStatus = statusInput.value as AdmissionApplicationStatus
-      const statusSaved = admissionService.updateStatus(activeApplicationNo, nextStatus)
-      if (!statusSaved) return
+      const editableInputs = Array.from(root.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-admission-edit]'))
+      const fieldUpdates = editableInputs.reduce<Record<string, string>>((updates, input) => {
+        const field = input.dataset.admissionEdit
+        if (!field) return updates
+        updates[field] = input.value.trim()
+        return updates
+      }, {})
+
+      const updated = admissionService.updateApplication(activeApplicationNo, {
+        status: nextStatus,
+        fieldUpdates,
+      })
+      if (!updated) return
 
       const row = root.querySelector<HTMLTableRowElement>(`[data-admission-row] [data-admission-manage][data-application-no="${activeApplicationNo}"]`)?.closest('tr')
       if (row) {
