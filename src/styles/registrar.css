@@ -481,6 +481,62 @@
   box-shadow: none;
 }
 
+.registrar-admission-toolbar {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) auto;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.registrar-admission-toolbar-search .admin-student-search {
+  min-width: 0;
+  width: min(100%, 480px);
+}
+
+.registrar-admission-toolbar-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.registrar-admission-toolbar-controls .form-select {
+  min-width: 190px;
+}
+
+.registrar-admission-export-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@media (max-width: 991px) {
+  .registrar-admission-toolbar {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .registrar-admission-toolbar-search {
+    width: 100%;
+  }
+
+  .registrar-admission-toolbar-search .admin-student-search {
+    width: 100%;
+    max-width: none;
+  }
+
+  .registrar-admission-toolbar-controls {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .registrar-admission-toolbar-controls .form-select {
+    min-width: 180px;
+  }
+}
+
 .schedule-card {
   border: var(--border-width-1) solid #d6e4ef;
   border-radius: 0.95rem;

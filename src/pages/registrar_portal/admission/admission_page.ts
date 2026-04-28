@@ -346,16 +346,22 @@ export function renderregistrar_admission_review_page(): string {
             <p>Total Applications: <strong>${admissionService.getStats().total}</strong></p>
           </header>
 
-          <section class="admin-student-toolbar">
-            <div class="admin-student-toolbar-actions">
+          <section class="admin-student-toolbar registrar-admission-toolbar">
+            <div class="registrar-admission-toolbar-search">
               <label class="admin-directory-search admin-student-search">
                 <span class="admin-search-icon" aria-hidden="true"><i class="bi bi-search"></i></span>
-                <input type="search" placeholder="Search applications" aria-label="Search applications" data-admission-search />
+                <input
+                  type="search"
+                  placeholder="Search by application no, name, or program"
+                  aria-label="Search applications"
+                  data-admission-search
+                />
               </label>
             </div>
-            <div class="admin-student-toolbar-actions">
-              <button type="button" class="btn btn-outline-secondary btn-sm" data-admission-export>
-                Export
+            <div class="registrar-admission-toolbar-controls">
+              <button type="button" class="btn btn-outline-secondary btn-sm registrar-admission-export-btn" data-admission-export>
+                <i class="bi bi-download" aria-hidden="true"></i>
+                <span>Export CSV</span>
               </button>
               <select class="form-select form-select-sm" data-admission-status-filter aria-label="Filter by status">
                 <option value="">All Statuses</option>
