@@ -58,8 +58,17 @@ function formatProgramName(program: string): string {
 
 function getAdmissionStatusBadgeClass(status: AdmissionApplication['status']): string {
   if (status === 'Approved') return 'is-approved'
-  if (status === 'Rejected') return 'is-rejected'
+  if (status === 'Not Selected') return 'is-rejected'
+  if (status === 'Under Review') return 'is-pending'
   return 'is-pending'
+}
+
+function renderAdmissionStatusAction(status: AdmissionApplication['status']): string {
+  if (status === 'Approved') {
+    return '<a class="admission-view-status-btn admission-details-reminder-btn" href="#reminders">Please Check Reminders</a>'
+  }
+
+  return `<p class="admission-details-badge ${getAdmissionStatusBadgeClass(status)}">${status}</p>`
 }
 
 function formatBirthDateForInput(value: string): string | null {
@@ -164,7 +173,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
         <div class="admission-detail-surface">
           <div class="admission-details-header">
             <p class="admission-details-name"><span>Applicant Name:</span> ${fullName}</p>
-            <p class="admission-details-badge ${getAdmissionStatusBadgeClass(application.status)}">${application.status}</p>
+            ${renderAdmissionStatusAction(application.status)}
           </div>
           <div class="admission-details-grid">
             <p><span>Campus</span><strong>${application.campus}</strong></p>
@@ -266,7 +275,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
         </div>
       </section>
 
-      <section class="admission-detail-section">
+      <section id="reminders" class="admission-detail-section">
         <header class="admission-detail-heading">
           ${renderAdminSectionTitle('Reminders')}
         </header>

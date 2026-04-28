@@ -474,7 +474,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
         admissionType,
         currAddrId,
         permAddrId,
-        preRegStatus: 'Pending',
+        preRegStatus: 'Application Received',
       })
       setMessage(messageEl, '')
       setStep(4)

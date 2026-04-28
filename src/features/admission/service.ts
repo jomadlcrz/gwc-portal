@@ -6,9 +6,10 @@ import {
 
 type AdmissionStats = {
   total: number
-  pending: number
+  applicationReceived: number
+  underReview: number
   approved: number
-  rejected: number
+  notSelected: number
 }
 
 const ENROLLMENT_OPEN_STORAGE_KEY = 'gwc:admission:enrollment-open'
@@ -56,9 +57,10 @@ export const admissionService = {
     const applications = this.list()
     return {
       total: applications.length,
-      pending: applications.filter((entry) => entry.status === 'Pending').length,
+      applicationReceived: applications.filter((entry) => entry.status === 'Application Received').length,
+      underReview: applications.filter((entry) => entry.status === 'Under Review').length,
       approved: applications.filter((entry) => entry.status === 'Approved').length,
-      rejected: applications.filter((entry) => entry.status === 'Rejected').length,
+      notSelected: applications.filter((entry) => entry.status === 'Not Selected').length,
     }
   },
 

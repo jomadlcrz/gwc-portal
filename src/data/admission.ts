@@ -1,4 +1,4 @@
-export type AdmissionApplicationStatus = 'Pending' | 'Approved' | 'Rejected'
+export type AdmissionApplicationStatus = 'Application Received' | 'Under Review' | 'Approved' | 'Not Selected'
 
 export type AdmissionApplication = {
   applicationNo: string
@@ -65,7 +65,7 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
     program: 'BS Information Technology',
     schoolYear: 'S.Y. 2026 - 2027',
     submittedAt: 'January 12, 2026',
-    status: 'Pending',
+    status: 'Application Received',
     personalInfo: {
       address: 'Purok 3, Barangay San Jose',
       cityProvince: 'Alaminos City, Pangasinan',
@@ -119,7 +119,7 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
     program: 'BS Criminology',
     schoolYear: 'S.Y. 2026 - 2027',
     submittedAt: 'January 18, 2026',
-    status: 'Pending',
+    status: 'Under Review',
     personalInfo: {
       address: 'Quezon Avenue, Barangay Poblacion',
       cityProvince: 'Alaminos City, Pangasinan',
@@ -227,7 +227,7 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
     program: 'Bachelor of Elementary Education',
     schoolYear: 'S.Y. 2026 - 2027',
     submittedAt: 'February 08, 2026',
-    status: 'Pending',
+    status: 'Application Received',
     personalInfo: {
       address: 'Zone 2, Barangay Baleyadaan',
       cityProvince: 'Alaminos City, Pangasinan',

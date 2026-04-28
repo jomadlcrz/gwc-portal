@@ -6,11 +6,17 @@ import { renderSharedModal, setupSharedModal } from '../../../components/ui/moda
 import { type AdmissionApplicationStatus } from '../../../data/admission'
 import { admissionService } from '../../../features/admission/service'
 
-const ADMISSION_STATUSES: AdmissionApplicationStatus[] = ['Pending', 'Approved', 'Rejected']
+const ADMISSION_STATUSES: AdmissionApplicationStatus[] = [
+  'Application Received',
+  'Under Review',
+  'Approved',
+  'Not Selected',
+]
 
 function getStatusBadgeClass(status: AdmissionApplicationStatus): string {
   if (status === 'Approved') return 'is-approved'
-  if (status === 'Rejected') return 'is-rejected'
+  if (status === 'Not Selected') return 'is-rejected'
+  if (status === 'Under Review') return 'is-pending'
   return 'is-pending'
 }
 
@@ -171,9 +177,10 @@ export function renderregistrar_admission_page(): string {
 
           <section class="registrar-kpi-grid mt-3">
             <article class="registrar-kpi-card"><p>Total Applications</p><strong>${stats.total}</strong></article>
-            <article class="registrar-kpi-card"><p>Pending</p><strong>${stats.pending}</strong></article>
+            <article class="registrar-kpi-card"><p>Application Received</p><strong>${stats.applicationReceived}</strong></article>
+            <article class="registrar-kpi-card"><p>Under Review</p><strong>${stats.underReview}</strong></article>
             <article class="registrar-kpi-card"><p>Approved</p><strong>${stats.approved}</strong></article>
-            <article class="registrar-kpi-card"><p>Rejected</p><strong>${stats.rejected}</strong></article>
+            <article class="registrar-kpi-card"><p>Not Selected</p><strong>${stats.notSelected}</strong></article>
             <article class="registrar-kpi-card"><p>Campus</p><strong>Alaminos</strong></article>
           </section>
 
