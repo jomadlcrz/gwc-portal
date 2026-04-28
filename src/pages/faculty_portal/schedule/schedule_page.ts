@@ -160,8 +160,9 @@ function renderScheduleGrid(schedule: InstructorSchedule): string {
                   .map((day) => {
                     const value = slot.values[day]
                     if (!value) return ''
+                    const chipClass = getScheduleChipClass(value, schedule.room)
                     return `
-                      <div class="faculty-schedule-mobile-item">
+                      <div class="faculty-schedule-mobile-item faculty-schedule-chip ${chipClass}">
                         <span>${day}</span>
                         <strong>${schedule.name} - ${value}</strong>
                       </div>

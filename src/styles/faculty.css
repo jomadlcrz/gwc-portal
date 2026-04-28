@@ -577,9 +577,10 @@
     display: grid;
     gap: 0.12rem;
     border-radius: 0.45rem;
-    background: linear-gradient(180deg, #ffe57f 0%, #ffd64a 100%);
-    color: #322100;
     padding: 0.4rem 0.45rem;
+    justify-content: start;
+    text-align: left;
+    min-height: unset;
   }
 
   .faculty-schedule-mobile-item span {
