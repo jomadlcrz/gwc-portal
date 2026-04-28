@@ -1,6 +1,7 @@
 import { ROUTES } from '../../../app/routes'
 import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { DEPARTMENT_SELECT_OPTIONS, getDepartmentDisplayName } from '../../../data/departments'
 
 type ScheduleSlot = {
   time: string
@@ -8,6 +9,7 @@ type ScheduleSlot = {
 }
 
 type InstructorSchedule = {
+  department: string
   name: string
   room: string
   focus: string
@@ -18,6 +20,7 @@ const dayOrder: Array<'M' | 'T' | 'W' | 'TH' | 'F' | 'S'> = ['M', 'T', 'W', 'TH'
 
 const instructors: InstructorSchedule[] = [
   {
+    department: 'CITE',
     name: 'PAU',
     room: '303',
     focus: 'Programming Fundamentals',
@@ -29,6 +32,7 @@ const instructors: InstructorSchedule[] = [
     ],
   },
   {
+    department: 'CITE',
     name: 'JOY',
     room: '304',
     focus: 'Intro to Information Management',
@@ -40,6 +44,7 @@ const instructors: InstructorSchedule[] = [
     ],
   },
   {
+    department: 'CITE',
     name: 'JV',
     room: '302',
     focus: 'IT Electives and Research',
@@ -51,6 +56,7 @@ const instructors: InstructorSchedule[] = [
     ],
   },
   {
+    department: 'CITE',
     name: 'KAI',
     room: '402',
     focus: 'Information Management and IT Elective 4',
@@ -121,6 +127,8 @@ function renderScheduleGrid(instructor: InstructorSchedule): string {
 }
 
 export function renderregistrar_schedule_page(): string {
+  const departmentCodes = Array.from(new Set(instructors.map((item) => item.department)))
+
   return renderPortalShell(
     registrar_SHELL_CONFIG,
     'schedule',
@@ -132,8 +140,8 @@ export function renderregistrar_schedule_page(): string {
         <article class="registrar-panel registrar-schedule-panel">
           <header class="registrar-schedule-head">
             <div>
-              <h3>Instructor Schedule Board</h3>
-              <p>Registrar view for all instructor weekly schedules.</p>
+              <h3>Schedule Board Access</h3>
+              <p>Select a department first, then review its instructor schedules.</p>
             </div>
             <div class="registrar-dashboard-actions">
               <a href="${ROUTES.REGISTRAR_SCHEDULE_MANAGE}" class="btn btn-sm btn-outline-primary">Manage Schedule</a>
@@ -141,26 +149,50 @@ export function renderregistrar_schedule_page(): string {
             </div>
           </header>
 
-          <section class="registrar-schedule-instructor-list" aria-label="Instructor schedule">
-            ${instructors
-              .map(
-                (instructor) => `
-                  <article class="registrar-schedule-instructor">
-                    <strong>${instructor.name}</strong>
-                    <span>Room ${instructor.room}</span>
-                    <small>${instructor.focus}</small>
-                  </article>
-                `,
-              )
-              .join('')}
+          <section class="registrar-schedule-filter">
+            <label for="registrar-schedule-department" class="form-label">Department</label>
+            <select id="registrar-schedule-department" class="form-select" data-registrar-department-select>
+              <option value="">Select Department</option>
+              ${DEPARTMENT_SELECT_OPTIONS.map((option) => `<option value="${option.value}">${option.label}</option>`).join('')}
+            </select>
+            <p class="registrar-schedule-filter-hint">Instructor Schedule Board will appear after department selection.</p>
           </section>
 
-          ${instructors
+          <section data-registrar-empty-state class="registrar-schedule-empty-state">
+            Choose a department to view the Instructor Schedule Board.
+          </section>
+
+          ${departmentCodes
             .map(
-              (instructor) => `
-                <section class="registrar-schedule-table-section">
-                  <h4>${instructor.name} - Room ${instructor.room}</h4>
-                  ${renderScheduleGrid(instructor)}
+              (departmentCode) => `
+                <section class="registrar-schedule-department-board" data-registrar-department-board="${departmentCode}" hidden>
+                  <h4 class="registrar-schedule-department-title">${getDepartmentDisplayName(departmentCode)}</h4>
+                  <section class="registrar-schedule-instructor-list" aria-label="Instructor schedule">
+                    ${instructors
+                      .filter((instructor) => instructor.department === departmentCode)
+                      .map(
+                        (instructor) => `
+                          <article class="registrar-schedule-instructor">
+                            <strong>${instructor.name}</strong>
+                            <span>Room ${instructor.room}</span>
+                            <small>${instructor.focus}</small>
+                          </article>
+                        `,
+                      )
+                      .join('')}
+                  </section>
+
+                  ${instructors
+                    .filter((instructor) => instructor.department === departmentCode)
+                    .map(
+                      (instructor) => `
+                        <section class="registrar-schedule-table-section">
+                          <h4>${instructor.name} - Room ${instructor.room}</h4>
+                          ${renderScheduleGrid(instructor)}
+                        </section>
+                      `,
+                    )
+                    .join('')}
                 </section>
               `,
             )
@@ -170,4 +202,3 @@ export function renderregistrar_schedule_page(): string {
     `,
   )
 }
-

@@ -25,7 +25,31 @@ export function setupregistrar_page(root: HTMLElement): () => void {
 }
 
 export function setupregistrar_schedule_page(root: HTMLElement): () => void {
-  return setupPortalShell(root, registrar_SHELL_CONFIG)
+  const cleanupShell = setupPortalShell(root, registrar_SHELL_CONFIG)
+  const departmentSelect = root.querySelector<HTMLSelectElement>('[data-registrar-department-select]')
+  const departmentBoards = Array.from(root.querySelectorAll<HTMLElement>('[data-registrar-department-board]'))
+  const emptyState = root.querySelector<HTMLElement>('[data-registrar-empty-state]')
+
+  const updateDepartmentView = (): void => {
+    const selectedDepartment = departmentSelect?.value || ''
+    const hasSelection = selectedDepartment.length > 0
+
+    departmentBoards.forEach((board) => {
+      board.hidden = board.dataset.registrarDepartmentBoard !== selectedDepartment
+    })
+
+    if (emptyState) {
+      emptyState.hidden = hasSelection
+    }
+  }
+
+  departmentSelect?.addEventListener('change', updateDepartmentView)
+  updateDepartmentView()
+
+  return () => {
+    departmentSelect?.removeEventListener('change', updateDepartmentView)
+    cleanupShell()
+  }
 }
 
 export function setupregistrar_schedule_manage_page(root: HTMLElement): () => void {

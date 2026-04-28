@@ -357,6 +357,47 @@
   background: linear-gradient(180deg, #ffffff 0%, #f6f9fc 100%);
 }
 
+.registrar-schedule-filter {
+  border: 1px solid var(--color-surface-300);
+  border-radius: 0.6rem;
+  background: #fff;
+  padding: 0.75rem;
+}
+
+.registrar-schedule-filter .form-label {
+  margin-bottom: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-slate-700);
+}
+
+.registrar-schedule-filter-hint {
+  margin: 0.45rem 0 0;
+  color: var(--color-slate-600);
+  font-size: 0.76rem;
+}
+
+.registrar-schedule-empty-state {
+  border: 1px dashed #cbd9e7;
+  border-radius: 0.6rem;
+  padding: 0.9rem;
+  background: #f8fbff;
+  color: var(--color-slate-700);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.registrar-schedule-department-board {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.registrar-schedule-department-title {
+  margin: 0;
+  color: var(--color-ink-900);
+  font-size: 0.94rem;
+}
+
 .registrar-schedule-head {
   display: flex;
   justify-content: space-between;
