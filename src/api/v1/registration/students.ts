@@ -27,7 +27,7 @@ type RegistrationStudentResponse = {
 }
 
 export async function createRegistrationStudent(payload: RegistrationStudentPayload): Promise<RegistrationStudentResponse> {
-  const response = await fetch(`${API_BASE_URL}/${import.meta.env.VITE_REGISTRATION_STUDENTS_PATH}`, {
+  const response = await fetch(`${API_BASE_URL}/api/v1/registration/students`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
