@@ -512,7 +512,60 @@
   white-space: nowrap;
 }
 
+.registrar-admission-total {
+  margin-top: 0.45rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: fit-content;
+  padding: 0.24rem 0.28rem 0.24rem 0.6rem;
+  border: 1px solid #d4e0ef;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f8fbff 0%, #edf4fc 100%);
+  color: #3f536b;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.registrar-admission-total strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 999px;
+  background: #0f2f64;
+  color: #fff;
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+.registrar-admission-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.registrar-admission-head h2 {
+  margin: 0;
+}
+
+.registrar-admission-head .registrar-admission-total {
+  margin-top: 0;
+  margin-left: auto;
+}
+
 @media (max-width: 991px) {
+  .registrar-admission-head {
+    display: block;
+  }
+
+  .registrar-admission-head .registrar-admission-total {
+    margin-top: 0.45rem;
+    margin-left: 0;
+  }
+
   .registrar-admission-toolbar {
     grid-template-columns: 1fr;
     align-items: stretch;

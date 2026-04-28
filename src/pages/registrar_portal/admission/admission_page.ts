@@ -341,9 +341,12 @@ export function renderregistrar_admission_review_page(): string {
         ])}
 
         <article class="admin-student-page-shell">
-          <header class="admin-student-head">
+          <header class="admin-student-head registrar-admission-head">
             <h2>Admission Queue</h2>
-            <p>Total Applications: <strong>${admissionService.getStats().total}</strong></p>
+            <p class="registrar-admission-total">
+              <span>Total Applications</span>
+              <strong>${admissionService.getStats().total}</strong>
+            </p>
           </header>
 
           <section class="admin-student-toolbar registrar-admission-toolbar">
