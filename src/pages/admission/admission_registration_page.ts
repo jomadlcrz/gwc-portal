@@ -407,7 +407,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
       !Number.isFinite(currAddrId) ||
       !Number.isFinite(permAddrId)
     ) {
-      setMessage(messageEl, 'Complete all required personal information fields before continuing.', true)
+      setMessage(messageEl, 'Complete all required personal information fields.', true)
       return false
     }
 
@@ -419,7 +419,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     const admissionType = root.querySelector<HTMLInputElement>('input[name="admission-student-type"]:checked')
     const program = root.querySelector<HTMLInputElement>('input[name="admission-program"]:checked')
     if (!admissionType || !program) {
-      setMessage(messageEl, 'Please select your student type and program before continuing.', true)
+      setMessage(messageEl, 'Please select your student type and your preferred program.', true)
       return false
     }
     setMessage(messageEl, '')
