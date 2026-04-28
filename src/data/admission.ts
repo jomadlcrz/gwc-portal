@@ -227,7 +227,7 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
     program: 'Bachelor of Elementary Education',
     schoolYear: 'S.Y. 2026 - 2027',
     submittedAt: 'February 08, 2026',
-    status: 'Approved',
+    status: 'Application Received',
     personalInfo: {
       address: 'Zone 2, Barangay Baleyadaan',
       cityProvince: 'Alaminos City, Pangasinan',
@@ -236,7 +236,7 @@ export const ADMISSION_APPLICATIONS: AdmissionApplication[] = [
       email: 'paolo.delacruz@example.com',
       birthDate: 'October 19, 2003',
       birthPlace: 'Labrador, Pangasinan',
-      sex: 'Female',
+      sex: 'Male',
       citizenship: 'Filipino',
       civilStatus: 'Single',
       religion: 'Iglesia ni Cristo',
