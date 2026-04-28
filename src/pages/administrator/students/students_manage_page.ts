@@ -97,6 +97,18 @@ type DetailField = {
 const escapeHtml = (value: string): string =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
+function renderStudentKpiCard(label: string, count: number, icon: string, tone: string): string {
+  return `
+    <article class="admin-student-total admin-student-kpi-card-${tone}" aria-label="Total students summary">
+      <span class="admin-student-total-icon" aria-hidden="true"><i class="bi ${icon}"></i></span>
+      <span class="admin-student-total-copy">
+        <small>${label}</small>
+        <strong>${count}</strong>
+      </span>
+    </article>
+  `
+}
+
 function renderDetailField(field: DetailField): string {
   const valueHtml = field.pillClass
     ? `<span class="admin-pill ${field.pillClass}">${escapeHtml(field.value)}</span>`
@@ -227,9 +239,9 @@ export function renderstudents_manage_page(): string {
     `
       <section class="admin-content">
         <article class="admin-student-page-shell">
-          <header class="admin-student-head">
+          <header class="admin-student-head admin-student-list-head">
             <h2>Student List</h2>
-            <p>Total Students: <strong>${STUDENTS.length}</strong></p>
+            ${renderStudentKpiCard('Total Students', STUDENTS.length, 'bi-people-fill', 'total')}
           </header>
 
           <section class="admin-student-toolbar">
@@ -243,10 +255,14 @@ export function renderstudents_manage_page(): string {
               />
             </label>
             <div class="admin-student-toolbar-actions">
+              <button type="button" class="btn btn-outline-secondary btn-sm admin-student-export-btn" data-student-export>
+                <i class="bi bi-download" aria-hidden="true"></i>
+                <span>Export CSV</span>
+              </button>
               <div class="admin-actions-popover admin-student-filter-popover">
                 <button
                   type="button"
-                  class="admin-student-filter-trigger"
+                  class="btn btn-outline-secondary btn-sm admin-student-filter-trigger"
                   data-admin-actions-trigger
                   aria-haspopup="menu"
                   aria-expanded="false"
@@ -362,6 +378,36 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
 
   const onActionClick = (event: Event): void => {
     const target = event.target as HTMLElement | null
+    const exportBtn = target?.closest<HTMLButtonElement>('[data-student-export]')
+    if (exportBtn) {
+      const csvHeader = ['Student No.', 'Name', 'Course', 'Year', 'Email', 'Status']
+      const visibleRows = filteredRows
+      const csvRows = visibleRows.map((row) => {
+        const cells = Array.from(row.querySelectorAll<HTMLTableCellElement>('td'))
+        const studentNo = cells[0]?.textContent?.trim() ?? ''
+        const name = cells[1]?.textContent?.trim() ?? ''
+        const course = cells[2]?.textContent?.trim() ?? ''
+        const year = cells[3]?.textContent?.trim() ?? ''
+        const email = cells[4]?.textContent?.trim() ?? ''
+        const status = cells[5]?.textContent?.trim() ?? ''
+        return [studentNo, name, course, year, email, status]
+      })
+      const csvContent = [csvHeader, ...csvRows]
+        .map((row) => row.map((cell) => `"${cell.replace(/"/g, '""')}"`).join(','))
+        .join('\n')
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      const now = new Date().toISOString().slice(0, 10)
+      link.href = url
+      link.download = `students-${now}.csv`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      URL.revokeObjectURL(url)
+      return
+    }
+
     const actionButton = target?.closest<HTMLButtonElement>('[data-student-action]')
     if (!actionButton) return
 
