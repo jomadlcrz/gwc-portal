@@ -962,6 +962,48 @@
   letter-spacing: normal;
 }
 
+.registrar-lifecycle-pill.is-draft {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+
+.registrar-lifecycle-pill.is-approved {
+  background: #ecfdf3;
+  color: #166534;
+  border-color: #bbf7d0;
+}
+
+.registrar-lifecycle-pill.is-published {
+  background: #fff7ed;
+  color: #9a3412;
+  border-color: #fed7aa;
+}
+
+.registrar-lifecycle-pill.is-active {
+  background: #f0fdfa;
+  color: #0f766e;
+  border-color: #99f6e4;
+}
+
+.registrar-lifecycle-pill.is-completed {
+  background: #f5f3ff;
+  color: #5b21b6;
+  border-color: #ddd6fe;
+}
+
+.registrar-lifecycle-pill.is-cancelled {
+  background: #fef2f2;
+  color: #991b1b;
+  border-color: #fecaca;
+}
+
+.registrar-lifecycle-pill.is-archived {
+  background: #f8fafc;
+  color: #475569;
+  border-color: #cbd5e1;
+}
+
 @media (max-width: 960px) {
   .schedule-grid.two-col,
   .schedule-grid.four-col {

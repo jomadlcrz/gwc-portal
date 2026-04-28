@@ -7,7 +7,7 @@ import { renderSharedModal, setupSharedModal } from '../../../components/ui/moda
 import { renderActionView } from '../../../components/ui/action_view'
 import { renderDepartmentDisplay } from '../../../components/ui/department_badge'
 import { DEPARTMENT_SELECT_OPTIONS } from '../../../data/departments'
-import { schedulingService, statusToBadgeClass } from '../../../features/scheduling/service'
+import { schedulingService } from '../../../features/scheduling/service'
 
 type LifecycleStatus =
   | 'Draft'
@@ -45,6 +45,16 @@ function actionToLabel(action: ScheduleAction): string {
   return 'View'
 }
 
+function lifecycleStatusClass(status: LifecycleStatus): string {
+  if (status === 'Draft') return 'is-draft'
+  if (status === 'Approved') return 'is-approved'
+  if (status === 'Published') return 'is-published'
+  if (status === 'Active') return 'is-active'
+  if (status === 'Completed') return 'is-completed'
+  if (status === 'Cancelled') return 'is-cancelled'
+  return 'is-archived'
+}
+
 function renderRows(): string {
   return schedulingService.listSchedules().map((schedule) => {
     const lifecycleStatus = mapToLifecycleStatus(schedule.status)
@@ -65,11 +75,10 @@ function renderRows(): string {
 
     return `
       <tr data-schedule-row data-schedule-id="${schedule.id}" data-department="${schedule.department}" data-search-value="${searchValue}">
-        <td>${schedule.id}</td>
         <td>${schedule.term}</td>
         <td>${renderDepartmentDisplay(schedule.department)}</td>
         <td>${current.snapshot.length}</td>
-        <td><span class="admin-pill ${statusToBadgeClass(schedule.status)}">${lifecycleStatus}</span></td>
+        <td><span class="admin-pill registrar-lifecycle-pill ${lifecycleStatusClass(lifecycleStatus)}">${lifecycleStatus}</span></td>
         <td>${schedule.finalizedAt || schedule.approvedAt || schedule.submittedAt || '-'}</td>
         <td>
           ${renderSharedPopover({
@@ -141,7 +150,6 @@ export function renderregistrar_schedule_manage_page(): string {
             <table class="admin-table">
               <thead>
                 <tr>
-                  <th>ID</th>
                   <th>Term</th>
                   <th>Department</th>
                   <th>Classes</th>
@@ -153,7 +161,7 @@ export function renderregistrar_schedule_manage_page(): string {
               <tbody>
                 ${renderRows()}
                 <tr class="d-none" data-schedule-empty-row>
-                  <td colspan="7" class="text-center py-3">No schedules found.</td>
+                  <td colspan="6" class="text-center py-3">No schedules found.</td>
                 </tr>
               </tbody>
             </table>
