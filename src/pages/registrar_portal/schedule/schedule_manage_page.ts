@@ -62,6 +62,18 @@ function lifecycleStatusClass(status: LifecycleStatus): string {
   return 'is-archived'
 }
 
+function renderKpiCard(label: string, count: number, icon: string, tone: string): string {
+  return `
+    <article class="registrar-kpi-card registrar-kpi-card-${tone}">
+      <span class="registrar-kpi-icon" aria-hidden="true"><i class="bi ${icon}"></i></span>
+      <div class="registrar-kpi-copy">
+        <p>${label}</p>
+        <strong>${count}</strong>
+      </div>
+    </article>
+  `
+}
+
 function renderRows(): string {
   return schedulingService.listSchedules().map((schedule) => {
     const lifecycleStatus = mapToLifecycleStatus(schedule.status)
@@ -132,14 +144,14 @@ export function renderregistrar_schedule_manage_page(): string {
           </header>
 
           <section class="registrar-kpi-grid mt-2">
-            <article class="registrar-kpi-card"><p>Total</p><strong>${total}</strong></article>
-            <article class="registrar-kpi-card"><p>Draft</p><strong>${draftCount}</strong></article>
-            <article class="registrar-kpi-card"><p>Approved</p><strong>${approvedCount}</strong></article>
-            <article class="registrar-kpi-card"><p>Published</p><strong>${publishedCount}</strong></article>
-            <article class="registrar-kpi-card"><p>Active</p><strong>${activeCount}</strong></article>
-            <article class="registrar-kpi-card"><p>Completed</p><strong>${completedCount}</strong></article>
-            <article class="registrar-kpi-card"><p>Cancelled</p><strong>${cancelledCount}</strong></article>
-            <article class="registrar-kpi-card"><p>Archived</p><strong>${archivedCount}</strong></article>
+            ${renderKpiCard('Total', total, 'bi-collection', 'total')}
+            ${renderKpiCard('Draft', draftCount, 'bi-pencil-square', 'draft')}
+            ${renderKpiCard('Approved', approvedCount, 'bi-patch-check', 'approved')}
+            ${renderKpiCard('Published', publishedCount, 'bi-megaphone', 'published')}
+            ${renderKpiCard('Active', activeCount, 'bi-play-circle', 'active')}
+            ${renderKpiCard('Completed', completedCount, 'bi-check2-circle', 'completed')}
+            ${renderKpiCard('Cancelled', cancelledCount, 'bi-x-circle', 'cancelled')}
+            ${renderKpiCard('Archived', archivedCount, 'bi-archive', 'archived')}
           </section>
 
           <section class="admin-student-toolbar mt-3">
