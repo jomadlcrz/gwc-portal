@@ -130,6 +130,9 @@ function renderScheduleGrid(schedule: InstructorSchedule): string {
 }
 
 export function renderfaculty_schedule_page(): string {
+  // Faculty portal should only display the current instructor's own schedule.
+  const currentInstructor = instructorSchedules[0]
+
   return renderPortalShell(
     FACULTY_SHELL_CONFIG,
     'schedule',
@@ -141,8 +144,8 @@ export function renderfaculty_schedule_page(): string {
         <article class="faculty-panel faculty-schedule-panel">
           <header class="faculty-schedule-head">
             <div>
-              <h3>Instructor Schedule Board</h3>
-              <p>Weekly schedule view grouped per instructor using registrar-aligned entries.</p>
+              <h3>My Schedule</h3>
+              <p>Weekly schedule view for your assigned classes.</p>
             </div>
             <div class="faculty-schedule-meta">
               <span>Academic Term: 2nd Semester</span>
@@ -151,19 +154,13 @@ export function renderfaculty_schedule_page(): string {
           </header>
 
           <section class="faculty-schedule-instructor-list" aria-label="Instructor selection">
-            ${instructorSchedules.map((schedule) => renderInstructorCard(schedule)).join('')}
+            ${renderInstructorCard(currentInstructor)}
           </section>
 
-          ${instructorSchedules
-            .map(
-              (schedule) => `
-                <section class="faculty-schedule-table-section">
-                  <h4>${schedule.name} - Room ${schedule.room}</h4>
-                  ${renderScheduleGrid(schedule)}
-                </section>
-              `,
-            )
-            .join('')}
+          <section class="faculty-schedule-table-section">
+            <h4>${currentInstructor.name} - Room ${currentInstructor.room}</h4>
+            ${renderScheduleGrid(currentInstructor)}
+          </section>
         </article>
       </section>
     `,
