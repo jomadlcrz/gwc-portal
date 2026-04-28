@@ -102,7 +102,30 @@ function getInstructorDayHours(instructor: InstructorSchedule, day: (typeof dayO
   return formatHours(total)
 }
 
+function getCurrentScheduleDay(): (typeof dayOrder)[number] {
+  const jsDay = new Date().getDay()
+  const map: Record<number, (typeof dayOrder)[number]> = { 0: 'S', 1: 'M', 2: 'T', 3: 'W', 4: 'TH', 5: 'F', 6: 'S' }
+  return map[jsDay] ?? 'M'
+}
+function getDayLabel(day: (typeof dayOrder)[number]): string {
+  if (day === 'M') return 'Monday'
+  if (day === 'T') return 'Tuesday'
+  if (day === 'W') return 'Wednesday'
+  if (day === 'TH') return 'Thursday'
+  if (day === 'F') return 'Friday'
+  return 'Saturday'
+}
+function splitSlotTime(slotTime: string): { start: string; end: string } {
+  const [start = '', end = ''] = slotTime.split('-').map((value) => value.trim())
+  return { start, end }
+}
+function ensureMeridiem(timeText: string): string {
+  if (/\bAM\b|\bPM\b/i.test(timeText)) return timeText.toUpperCase()
+  return `${timeText} ${Number.parseInt(timeText, 10) >= 12 ? 'PM' : 'AM'}`
+}
+
 function renderScheduleGrid(instructor: InstructorSchedule): string {
+  const activeDay = getCurrentScheduleDay()
   return `
     <div class="dean-schedule-grid-wrap">
       <table class="dean-schedule-grid">
@@ -139,31 +162,21 @@ function renderScheduleGrid(instructor: InstructorSchedule): string {
         </tfoot>
       </table>
     </div>
-    <div class="dean-schedule-mobile-list">
-      ${instructor.slots
-        .map(
-          (slot) => `
-            <article class="dean-schedule-mobile-card">
-              <h5>${slot.time}</h5>
-              <div class="dean-schedule-mobile-days">
-                ${dayOrder
-                  .map((day) => {
-                    const value = slot.values[day]
-                    if (!value) return ''
-                    const chipClass = getScheduleChipClass(value, instructor.room)
-                    return `
-                      <div class="dean-schedule-mobile-item dean-schedule-chip ${chipClass}">
-                        <span>${day}</span>
-                        <strong>${instructor.name} - ${value}</strong>
-                      </div>
-                    `
-                  })
-                  .join('')}
-              </div>
-            </article>
-          `,
-        )
-        .join('')}
+    <div class="dean-schedule-mobile-shell" data-mobile-schedule>
+      <div class="dean-schedule-mobile-day-tabs">${dayOrder.map((day) => `<button type="button" data-mobile-day-tab="${day}" class="${day === activeDay ? 'is-active' : ''}" aria-pressed="${day === activeDay}">${day}</button>`).join('')}</div>
+      ${dayOrder.map((day) => `
+        <section class="dean-schedule-mobile-day-board" data-mobile-day-panel="${day}" ${day === activeDay ? '' : 'hidden'}>
+          <header><h6>${getDayLabel(day)}</h6><small>${day === activeDay ? 'Today' : day}</small></header>
+          ${instructor.slots.map((slot) => {
+            const value = slot.values[day]
+            if (!value) return ''
+            const chipClass = getScheduleChipClass(value, instructor.room)
+            const split = splitSlotTime(slot.time)
+            return `<article class="dean-schedule-mobile-block"><div class="dean-schedule-mobile-time"><i class="bi bi-clock"></i><div class="dean-schedule-mobile-time-values"><span>${ensureMeridiem(split.start)}</span><span>${ensureMeridiem(split.end)}</span></div></div><div class="dean-schedule-mobile-course dean-schedule-chip ${chipClass}"><strong>${value}</strong><span>Room ${instructor.room}</span></div></article>`
+          }).join('') || '<p>No assigned class blocks.</p>'}
+          <footer class="dean-schedule-mobile-stats"><div><small>Total Classes</small><strong>${instructor.slots.filter((slot) => Boolean(slot.values[day])).length}</strong></div><div><small>Total Hours</small><strong>${getInstructorDayHours(instructor, day) || '0'}</strong></div></footer>
+        </section>
+      `).join('')}
     </div>
   `
 }

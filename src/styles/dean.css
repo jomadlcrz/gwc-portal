@@ -318,6 +318,7 @@
 .dean-schedule-mobile-list {
   display: none;
 }
+.dean-schedule-mobile-shell { display: none; }
 
 .dean-schedule-grid {
   width: 100%;
@@ -474,9 +475,29 @@
   }
 
   .dean-schedule-mobile-list {
-    display: grid;
-    gap: 0.55rem;
+    display: none;
   }
+  .dean-schedule-mobile-shell { display: grid; gap: 0.55rem; }
+  .dean-schedule-mobile-day-tabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border: 1px solid #d8e2ee; border-radius: 0.55rem; overflow: hidden; background: #fff; }
+  .dean-schedule-mobile-day-tabs button { border: 0; background: transparent; padding: 0.42rem 0.15rem; font-weight: 800; color: #22364c; border-right: 1px solid #e3e9f1; font-size: 0.74rem; }
+  .dean-schedule-mobile-day-tabs button:last-child { border-right: 0; }
+  .dean-schedule-mobile-day-tabs button.is-active { background: #123f67; color: #fff; }
+  .dean-schedule-mobile-day-board { border: 1px solid #d6e1ed; border-radius: 0.9rem; background: #fff; padding: 0.58rem; display: grid; gap: 0.42rem; }
+  .dean-schedule-mobile-day-board > header { display: flex; justify-content: space-between; align-items: center; }
+  .dean-schedule-mobile-day-board h6 { margin: 0; font-size: 0.82rem; color: #0f2d43; }
+  .dean-schedule-mobile-day-board small { border: 1px solid #c8d8ea; border-radius: 999px; padding: 0.12rem 0.42rem; font-size: 0.67rem; font-weight: 700; }
+  .dean-schedule-mobile-block { border: 1px solid #e2e8f0; border-radius: 0.55rem; background: #fff; padding: 0.42rem 0.45rem; display: grid; grid-template-columns: 1fr 1.2fr; gap: 0.4rem; align-items: center; }
+  .dean-schedule-mobile-time { display: flex; align-items: center; gap: 0.3rem; font-size: 0.68rem; font-weight: 700; color: #1f3349; border-right: 1px solid #d7e0eb; padding-right: 0.4rem; line-height: 1.2; }
+  .dean-schedule-mobile-time i { font-size: 0.66rem; color: #6b7c90; }
+  .dean-schedule-mobile-time-values { display: grid; gap: 0.08rem; }
+  .dean-schedule-mobile-course { border-radius: 0.46rem; padding: 0.26rem 0.35rem; display: grid; gap: 0.08rem; justify-content: start; text-align: left; min-height: unset; }
+  .dean-schedule-mobile-course strong { font-size: 0.68rem; line-height: 1.2; }
+  .dean-schedule-mobile-course span { font-size: 0.63rem; opacity: 0.95; }
+  .dean-schedule-mobile-stats { margin-top: 0.28rem; border-radius: 0.62rem; background: #fff; padding: 0.5rem; display: grid; grid-template-columns: 52px 1fr 1fr; align-items: center; gap: 0.55rem; }
+  .dean-schedule-mobile-stats::before { content: '\f1f7'; font-family: 'Bootstrap-icons'; width: 2.2rem; height: 2.2rem; border-radius: 0.5rem; display: inline-flex; align-items: center; justify-content: center; background: #e7f0fb; color: #1f5f98; border: 1px solid #d0e1f4; font-size: 0.98rem; }
+  .dean-schedule-mobile-stats div:nth-child(2) { border-left: 1px solid #d8e2ed; padding-left: 0.62rem; }
+  .dean-schedule-mobile-stats small { display: block; font-size: 0.64rem; color: #4e6278; font-weight: 500; line-height: 1.2; white-space: nowrap; }
+  .dean-schedule-mobile-stats strong { display: block; margin-top: 0.12rem; font-size: 1rem; color: #102d44; font-weight: 800; line-height: 1.1; white-space: nowrap; text-align: center; }
 
   .dean-schedule-mobile-card {
     border: 1px solid #d5e3f1;

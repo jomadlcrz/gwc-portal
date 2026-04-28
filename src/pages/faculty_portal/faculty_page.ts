@@ -10,7 +10,31 @@ export { renderfaculty_gradebook_page } from './gradebook/gradebook_page'
 export { renderfaculty_settings_page } from './settings/settings_page'
 
 export function setupfaculty_page(root: HTMLElement): () => void {
-  return setupPortalShell(root, FACULTY_SHELL_CONFIG)
+  const cleanupShell = setupPortalShell(root, FACULTY_SHELL_CONFIG)
+  const onMobileDayClick = (event: Event): void => {
+    const target = event.target as HTMLElement | null
+    const button = target?.closest<HTMLButtonElement>('[data-mobile-day-tab]')
+    if (!button) return
+    const shell = button.closest<HTMLElement>('[data-mobile-schedule]')
+    if (!shell) return
+    const selectedDay = button.dataset.mobileDayTab
+    if (!selectedDay) return
+    const tabs = Array.from(shell.querySelectorAll<HTMLButtonElement>('[data-mobile-day-tab]'))
+    const panels = Array.from(shell.querySelectorAll<HTMLElement>('[data-mobile-day-panel]'))
+    tabs.forEach((tab) => {
+      const isActive = tab.dataset.mobileDayTab === selectedDay
+      tab.classList.toggle('is-active', isActive)
+      tab.setAttribute('aria-pressed', String(isActive))
+    })
+    panels.forEach((panel) => {
+      panel.hidden = panel.dataset.mobileDayPanel !== selectedDay
+    })
+  }
+  root.addEventListener('click', onMobileDayClick)
+  return () => {
+    root.removeEventListener('click', onMobileDayClick)
+    cleanupShell()
+  }
 }
 
 export function setupfaculty_classes_page(root: HTMLElement): () => void {
