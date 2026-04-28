@@ -3,6 +3,18 @@ import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { schedulingService } from '../../../features/scheduling/service'
 import { ROUTES } from '../../../app/routes'
 
+function renderKpiCard(label: string, count: number, icon: string, tone: string): string {
+  return `
+    <article class="hr-kpi-card hr-kpi-card-${tone}">
+      <span class="hr-kpi-icon" aria-hidden="true"><i class="bi ${icon}"></i></span>
+      <div class="hr-kpi-copy">
+        <p>${label}</p>
+        <strong>${count}</strong>
+      </div>
+    </article>
+  `
+}
+
 export function renderhr_dashboard_page(): string {
   const schedules = schedulingService.listSchedules()
   const allItems = schedules.flatMap((schedule) => {
@@ -36,22 +48,10 @@ export function renderhr_dashboard_page(): string {
           </header>
 
           <section class="hr-kpi-grid">
-            <article class="hr-kpi-card">
-              <p>Total Faculty on Schedules</p>
-              <strong>${uniqueFaculty.size}</strong>
-            </article>
-            <article class="hr-kpi-card">
-              <p>Total Schedule Items</p>
-              <strong>${allItems.length}</strong>
-            </article>
-            <article class="hr-kpi-card">
-              <p>Departments Covered</p>
-              <strong>${departments.size}</strong>
-            </article>
-            <article class="hr-kpi-card">
-              <p>Records Needing Attention</p>
-              <strong>${pendingApprovals}</strong>
-            </article>
+            ${renderKpiCard('Total Faculty on Schedules', uniqueFaculty.size, 'bi-people', 'total')}
+            ${renderKpiCard('Total Schedule Items', allItems.length, 'bi-collection', 'items')}
+            ${renderKpiCard('Departments Covered', departments.size, 'bi-diagram-3', 'departments')}
+            ${renderKpiCard('Records Needing Attention', pendingApprovals, 'bi-exclamation-circle', 'attention')}
           </section>
 
           <section class="hr-dashboard-grid">
