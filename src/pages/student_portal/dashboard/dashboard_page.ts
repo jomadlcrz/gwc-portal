@@ -2,6 +2,18 @@ import { ROUTES } from '../../../app/routes'
 import { STUDENT_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { schedulingService } from '../../../features/scheduling/service'
 
+function renderKpiCard(label: string, count: number, icon: string, tone: string): string {
+  return `
+    <article class="student-kpi-card student-kpi-card-${tone}">
+      <span class="student-kpi-icon" aria-hidden="true"><i class="bi ${icon}"></i></span>
+      <div class="student-kpi-copy">
+        <p>${label}</p>
+        <strong>${count}</strong>
+      </div>
+    </article>
+  `
+}
+
 export function renderstudent_dashboard_page(): string {
   const analytics = schedulingService.getAnalytics()
   const scheduleRows = schedulingService.listStudentSchedules()
@@ -24,11 +36,11 @@ export function renderstudent_dashboard_page(): string {
             </div>
           </header>
 
-          <section class="student-kpi-grid mt-3">
-            <article class="student-kpi-card"><p>Published Classes</p><strong>${scheduleRows.length}</strong></article>
-            <article class="student-kpi-card"><p>Schedule Updates</p><strong>${notes.length}</strong></article>
-            <article class="student-kpi-card"><p>Approved Batches</p><strong>${analytics.approvedSchedules}</strong></article>
-            <article class="student-kpi-card"><p>Finalized Batches</p><strong>${analytics.finalizedSchedules}</strong></article>
+          <section class="student-kpi-grid mt-2">
+            ${renderKpiCard('Published Classes', scheduleRows.length, 'bi-collection', 'published')}
+            ${renderKpiCard('Schedule Updates', notes.length, 'bi-bell', 'updates')}
+            ${renderKpiCard('Approved Batches', analytics.approvedSchedules, 'bi-patch-check', 'approved')}
+            ${renderKpiCard('Finalized Batches', analytics.finalizedSchedules, 'bi-check2-circle', 'finalized')}
           </section>
 
           <section class="student-dashboard-grid mt-3">

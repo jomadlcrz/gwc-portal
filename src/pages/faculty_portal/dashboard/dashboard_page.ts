@@ -3,6 +3,18 @@ import { FACULTY_SHELL_CONFIG, renderPortalShell } from '../../../components/lay
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { schedulingService } from '../../../features/scheduling/service'
 
+function renderKpiCard(label: string, count: number, icon: string, tone: string): string {
+  return `
+    <article class="faculty-kpi-card faculty-kpi-card-${tone}">
+      <span class="faculty-kpi-icon" aria-hidden="true"><i class="bi ${icon}"></i></span>
+      <div class="faculty-kpi-copy">
+        <p>${label}</p>
+        <strong>${count}</strong>
+      </div>
+    </article>
+  `
+}
+
 export function renderfaculty_dashboard_page(): string {
   const myItems = schedulingService.listFacultySchedules('Prof. Maria Dela Cruz')
   const notes = schedulingService.listNotifications('FACULTY').slice(0, 5)
@@ -32,23 +44,11 @@ export function renderfaculty_dashboard_page(): string {
             </div>
           </header>
 
-          <section class="faculty-kpi-grid">
-            <article class="faculty-kpi-card">
-              <p>Total Assigned Classes</p>
-              <strong>${myItems.length}</strong>
-            </article>
-            <article class="faculty-kpi-card">
-              <p>${today} Classes</p>
-              <strong>${todaysItems.length}</strong>
-            </article>
-            <article class="faculty-kpi-card">
-              <p>Online / Hybrid Load</p>
-              <strong>${onlineCount}</strong>
-            </article>
-            <article class="faculty-kpi-card">
-              <p>Rooms This Term</p>
-              <strong>${roomSet.size}</strong>
-            </article>
+          <section class="faculty-kpi-grid mt-2">
+            ${renderKpiCard('Total Assigned Classes', myItems.length, 'bi-collection', 'total')}
+            ${renderKpiCard(`${today} Classes`, todaysItems.length, 'bi-calendar-day', 'today')}
+            ${renderKpiCard('Online / Hybrid Load', onlineCount, 'bi-wifi', 'online')}
+            ${renderKpiCard('Rooms This Term', roomSet.size, 'bi-door-open', 'rooms')}
           </section>
 
           <section class="faculty-dashboard-grid">
