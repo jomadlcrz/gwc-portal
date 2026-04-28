@@ -399,7 +399,7 @@
 .faculty-schedule-grid th,
 .faculty-schedule-grid td {
   border: 1px solid #d2deeb;
-  padding: 0.4rem;
+  padding: 0;
   text-align: center;
   vertical-align: middle;
 }
@@ -431,13 +431,40 @@
 }
 
 .faculty-schedule-chip {
-  display: block;
-  border-radius: 0.45rem;
-  background: linear-gradient(180deg, #ffe57f 0%, #ffd64a 100%);
-  color: #322100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+  border-radius: 0;
+  border: 0;
   font-size: 0.73rem;
   font-weight: 700;
-  padding: 0.36rem 0.3rem;
+  padding: 0;
+}
+
+.faculty-schedule-chip-comlab {
+  background: #E5E7EB;
+  border-color: #E5E7EB;
+  color: #334155;
+}
+
+.faculty-schedule-chip-research {
+  background: #F97316;
+  border-color: #F97316;
+  color: #ffffff;
+}
+
+.faculty-schedule-chip-general-lecture {
+  background: #06B6D4;
+  border-color: #06B6D4;
+  color: #ffffff;
+}
+
+.faculty-schedule-chip-conflict {
+  background: #EF4444;
+  border-color: #EF4444;
+  color: #ffffff;
 }
 
 @media (max-width: 991px) {
@@ -566,6 +593,7 @@
     line-height: 1.3;
   }
 }
+
 
 
 

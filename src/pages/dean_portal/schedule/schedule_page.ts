@@ -15,10 +15,20 @@ type InstructorSchedule = {
 
 const dayOrder: Array<'M' | 'T' | 'W' | 'TH' | 'F' | 'S'> = ['M', 'T', 'W', 'TH', 'F', 'S']
 
+function getScheduleChipClass(value: string, room: string): string {
+  const subjectCode = value.split('-')[0]?.trim().toUpperCase() ?? ''
+  const normalizedRoom = room.trim().toUpperCase()
+  if (normalizedRoom.startsWith('CL')) return 'dean-schedule-chip-comlab'
+  if (!subjectCode) return 'dean-schedule-chip-general-lecture'
+  if (subjectCode.startsWith('CL') || subjectCode.includes('COMLAB')) return 'dean-schedule-chip-comlab'
+  if (subjectCode.startsWith('CAPS') || subjectCode.includes('THESIS') || subjectCode.includes('RES')) return 'dean-schedule-chip-research'
+  return 'dean-schedule-chip-general-lecture'
+}
+
 const instructors: InstructorSchedule[] = [
   {
     name: 'PAU',
-    room: '303',
+    room: 'CL1',
     focus: 'Programming Fundamentals',
     slots: [
       { time: '7:00 - 9:30', values: { T: 'SA101 - 4C', W: 'CC102 - 1A', TH: 'CC102 - 1A', F: 'SA101 - 4C' } },
@@ -29,7 +39,7 @@ const instructors: InstructorSchedule[] = [
   },
   {
     name: 'JOY',
-    room: '304',
+    room: 'CL2',
     focus: 'Intro to Information Management',
     slots: [
       { time: '7:00 - 9:30', values: { M: 'IM101 - 2A', T: 'CC101 - 1A', W: 'IM101 - 2E', TH: 'IM101 - 2A', F: 'CC101 - 1A' } },
@@ -111,7 +121,9 @@ function renderScheduleGrid(instructor: InstructorSchedule): string {
                   ${dayOrder
                     .map((day) => {
                       const value = slot.values[day]
-                      return `<td>${value ? `<span class="dean-schedule-chip">${instructor.name} - ${value}</span>` : ''}</td>`
+                      if (!value) return '<td></td>'
+                      const chipClass = getScheduleChipClass(value, instructor.room)
+                      return `<td><span class="dean-schedule-chip ${chipClass}">${instructor.name} - ${value}</span></td>`
                     })
                     .join('')}
                 </tr>

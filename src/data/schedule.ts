@@ -13,13 +13,27 @@ export type InstructorSchedule = {
   slots: ScheduleSlot[]
 }
 
+export type ScheduleSubjectType = 'COMLAB' | 'RESEARCH_THESIS' | 'GENERAL_LECTURE' | 'CONFLICT_ISSUE'
+
+export function getScheduleSubjectType(subjectValue: string): ScheduleSubjectType {
+  const subjectCode = subjectValue.split('-')[0]?.trim().toUpperCase() ?? ''
+
+  if (subjectCode.startsWith('CL') || subjectCode.includes('COMLAB')) return 'COMLAB'
+  if (subjectCode.startsWith('CAPS') || subjectCode.includes('THESIS') || subjectCode.includes('RES')) return 'RESEARCH_THESIS'
+  return 'GENERAL_LECTURE'
+}
+
+export function isComlabSubject(subjectValue: string): boolean {
+  return getScheduleSubjectType(subjectValue) === 'COMLAB'
+}
+
 export const SCHEDULE_DAY_ORDER: ScheduleDay[] = ['M', 'T', 'W', 'TH', 'F', 'S']
 
 export const INSTRUCTOR_SCHEDULES: InstructorSchedule[] = [
   {
     department: 'CITE',
     name: 'PAU',
-    room: '303',
+    room: 'CL1',
     focus: 'Programming Fundamentals',
     slots: [
       { time: '7:00 - 9:30', values: { T: 'SA101 - 4C', W: 'CC102 - 1A', TH: 'CC102 - 1A', F: 'SA101 - 4C' } },
@@ -31,7 +45,7 @@ export const INSTRUCTOR_SCHEDULES: InstructorSchedule[] = [
   {
     department: 'CITE',
     name: 'JOY',
-    room: '304',
+    room: 'CL2',
     focus: 'Intro to Information Management',
     slots: [
       { time: '7:00 - 9:30', values: { M: 'IM101 - 2A', T: 'CC101 - 1A', W: 'IM101 - 2E', TH: 'IM101 - 2A', F: 'CC101 - 1A' } },

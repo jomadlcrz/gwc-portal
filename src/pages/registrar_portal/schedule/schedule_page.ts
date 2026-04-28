@@ -4,6 +4,18 @@ import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { DEPARTMENT_SELECT_OPTIONS, getDepartmentDisplayName } from '../../../data/departments'
 import { INSTRUCTOR_SCHEDULES, SCHEDULE_DAY_ORDER, type InstructorSchedule } from '../../../data/schedule'
 
+function getScheduleChipClass(value: string, room: string): string {
+  const subjectCode = value.split('-')[0]?.trim().toUpperCase() ?? ''
+  const normalizedRoom = room.trim().toUpperCase()
+  if (normalizedRoom.startsWith('CL')) return 'registrar-schedule-chip-comlab'
+  if (!subjectCode) return 'registrar-schedule-chip-general-lecture'
+  if (subjectCode.startsWith('CL') || subjectCode.includes('COMLAB')) return 'registrar-schedule-chip-comlab'
+  if (subjectCode.startsWith('CAPS') || subjectCode.includes('THESIS') || subjectCode.includes('RES')) {
+    return 'registrar-schedule-chip-research'
+  }
+  return 'registrar-schedule-chip-general-lecture'
+}
+
 function parseHourValue(value: string): number {
   const [hourText, minuteText] = value.split(':')
   const hour = Number.parseInt(hourText, 10)
@@ -53,7 +65,9 @@ function renderScheduleGrid(instructor: InstructorSchedule): string {
                   ${SCHEDULE_DAY_ORDER
                     .map((day) => {
                       const value = slot.values[day]
-                      return `<td>${value ? `<span class="registrar-schedule-chip">${instructor.name} - ${value}</span>` : ''}</td>`
+                      if (!value) return '<td></td>'
+                      const chipClass = getScheduleChipClass(value, instructor.room)
+                      return `<td><span class="registrar-schedule-chip ${chipClass}">${instructor.name} - ${value}</span></td>`
                     })
                     .join('')}
                 </tr>
