@@ -360,9 +360,9 @@ function renderAdmissionContent(active: AdmissionSection): string {
           ${renderAdminSectionTitle('S.Y. 2026 - 2027 | First Semester')}
         </header>
         <article class="admission-section-card admission-section-card-no-margin">
-          <header class="admission-section-header">
-            <p class="admission-deadline"><i class="bi bi-calendar-event" aria-hidden="true"></i><span>Deadline of Application</span><strong>March 28, 2026</strong></p>
-          </header>
+          ${!isAdmissionOpen
+            ? '<header class="admission-section-header"><p class="admission-deadline"><i class="bi bi-calendar-event" aria-hidden="true"></i><span>Deadline of Application</span><strong>March 28, 2026</strong></p></header>'
+            : ''}
 
           <section class="admission-content-block">
             <h3 class="mb-3">Admission Requirements</h3>
