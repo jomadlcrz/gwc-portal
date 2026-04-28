@@ -46,7 +46,48 @@ function getInstructorDayHours(instructor: InstructorSchedule, day: (typeof SCHE
   return formatHours(total)
 }
 
+function splitSlotTime(slotTime: string): { start: string; end: string } {
+  const [start = '', end = ''] = slotTime.split('-').map((value) => value.trim())
+  return { start, end }
+}
+
+function ensureMeridiem(timeText: string): string {
+  if (!timeText) return timeText
+  if (/\bAM\b|\bPM\b/i.test(timeText)) return timeText.toUpperCase()
+  const match = timeText.match(/^(\d{1,2}):(\d{2})$/)
+  if (!match) return timeText
+  const hour = Number.parseInt(match[1], 10)
+  const minute = match[2]
+  const suffix = hour >= 12 ? 'PM' : 'AM'
+  const displayHour = hour % 12 === 0 ? 12 : hour % 12
+  return `${displayHour}:${minute} ${suffix}`
+}
+
+function getCurrentScheduleDay(): (typeof SCHEDULE_DAY_ORDER)[number] {
+  const jsDay = new Date().getDay()
+  const map: Record<number, (typeof SCHEDULE_DAY_ORDER)[number]> = {
+    0: 'S',
+    1: 'M',
+    2: 'T',
+    3: 'W',
+    4: 'TH',
+    5: 'F',
+    6: 'S',
+  }
+  return map[jsDay] ?? 'M'
+}
+
+function getDayLabel(day: (typeof SCHEDULE_DAY_ORDER)[number]): string {
+  if (day === 'M') return 'Monday'
+  if (day === 'T') return 'Tuesday'
+  if (day === 'W') return 'Wednesday'
+  if (day === 'TH') return 'Thursday'
+  if (day === 'F') return 'Friday'
+  return 'Saturday'
+}
+
 function renderScheduleGrid(instructor: InstructorSchedule): string {
+  const activeDay = getCurrentScheduleDay()
   return `
     <div class="registrar-schedule-grid-wrap">
       <table class="registrar-schedule-grid">
@@ -83,31 +124,44 @@ function renderScheduleGrid(instructor: InstructorSchedule): string {
         </tfoot>
       </table>
     </div>
-    <div class="registrar-schedule-mobile-list">
-      ${instructor.slots
-        .map(
-          (slot) => `
-            <article class="registrar-schedule-mobile-card">
-              <h5>${slot.time}</h5>
-              <div class="registrar-schedule-mobile-days">
-                ${SCHEDULE_DAY_ORDER
-                  .map((day) => {
-                    const value = slot.values[day]
-                    if (!value) return ''
-                    const chipClass = getScheduleChipClass(value, instructor.room)
-                    return `
-                      <div class="registrar-schedule-mobile-item registrar-schedule-chip ${chipClass}">
-                        <span>${day}</span>
-                        <strong>${instructor.name} - ${value}</strong>
-                      </div>
-                    `
-                  })
-                  .join('')}
-              </div>
-            </article>
-          `,
-        )
-        .join('')}
+    <div class="registrar-schedule-mobile-shell" data-mobile-schedule>
+      <div class="registrar-schedule-mobile-day-tabs" role="tablist" aria-label="Schedule days">
+        ${SCHEDULE_DAY_ORDER.map((day) => `<button type="button" data-mobile-day-tab="${day}" class="${day === activeDay ? 'is-active' : ''}" aria-pressed="${day === activeDay}">${day}</button>`).join('')}
+      </div>
+      ${SCHEDULE_DAY_ORDER.map((day) => {
+        const slots = instructor.slots
+          .map((slot) => {
+            const value = slot.values[day]
+            if (!value) return ''
+            const chipClass = getScheduleChipClass(value, instructor.room)
+            return `
+              <article class="registrar-schedule-mobile-block">
+                <div class="registrar-schedule-mobile-time">
+                  <i class="bi bi-clock" aria-hidden="true"></i>
+                  <div class="registrar-schedule-mobile-time-values">
+                    <span>${ensureMeridiem(splitSlotTime(slot.time).start)}</span>
+                    <span>${ensureMeridiem(splitSlotTime(slot.time).end)}</span>
+                  </div>
+                </div>
+                <div class="registrar-schedule-mobile-course registrar-schedule-chip ${chipClass}">
+                  <strong>${value}</strong>
+                  <span>Room ${instructor.room}</span>
+                </div>
+              </article>
+            `
+          })
+          .join('')
+        return `
+          <section class="registrar-schedule-mobile-day-board" data-mobile-day-panel="${day}" ${day === activeDay ? '' : 'hidden'}>
+            <header><h6>${getDayLabel(day)}</h6><small>${day === activeDay ? 'Today' : day}</small></header>
+            ${slots || '<p>No assigned class blocks.</p>'}
+            <footer class="registrar-schedule-mobile-stats">
+              <div><small>Total Classes</small><strong>${instructor.slots.filter((slot) => Boolean(slot.values[day])).length}</strong></div>
+              <div><small>Total Hours</small><strong>${getInstructorDayHours(instructor, day) || '0'}</strong></div>
+            </footer>
+          </section>
+        `
+      }).join('')}
     </div>
   `
 }

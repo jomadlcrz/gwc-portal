@@ -43,11 +43,38 @@ export function setupregistrar_schedule_page(root: HTMLElement): () => void {
     }
   }
 
+  const onMobileDayClick = (event: Event): void => {
+    const target = event.target as HTMLElement | null
+    const button = target?.closest<HTMLButtonElement>('[data-mobile-day-tab]')
+    if (!button) return
+
+    const scheduleShell = button.closest<HTMLElement>('[data-mobile-schedule]')
+    if (!scheduleShell) return
+
+    const selectedDay = button.dataset.mobileDayTab
+    if (!selectedDay) return
+
+    const tabs = Array.from(scheduleShell.querySelectorAll<HTMLButtonElement>('[data-mobile-day-tab]'))
+    const panels = Array.from(scheduleShell.querySelectorAll<HTMLElement>('[data-mobile-day-panel]'))
+
+    tabs.forEach((tab) => {
+      const isActive = tab.dataset.mobileDayTab === selectedDay
+      tab.classList.toggle('is-active', isActive)
+      tab.setAttribute('aria-pressed', String(isActive))
+    })
+
+    panels.forEach((panel) => {
+      panel.hidden = panel.dataset.mobileDayPanel !== selectedDay
+    })
+  }
+
   departmentSelect?.addEventListener('change', updateDepartmentView)
+  root.addEventListener('click', onMobileDayClick)
   updateDepartmentView()
 
   return () => {
     departmentSelect?.removeEventListener('change', updateDepartmentView)
+    root.removeEventListener('click', onMobileDayClick)
     cleanupShell()
   }
 }
