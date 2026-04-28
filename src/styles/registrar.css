@@ -1295,13 +1295,6 @@
 
   .registrar-schedule-mobile-day-board > header { display: flex; justify-content: space-between; align-items: center; }
   .registrar-schedule-mobile-day-board h6 { margin: 0; font-size: 0.82rem; color: #0f2d43; }
-  .registrar-schedule-mobile-day-board h6::before {
-    content: '\f1f7';
-    font-family: 'Bootstrap-icons';
-    margin-right: 0.32rem;
-    font-size: 0.74rem;
-    color: #1f3349;
-  }
   .registrar-schedule-mobile-day-board small { border: 1px solid #c8d8ea; border-radius: 999px; padding: 0.12rem 0.42rem; font-size: 0.67rem; font-weight: 700; }
   .registrar-schedule-mobile-day-board > p { margin: 0; font-size: 0.8rem; color: #4b6076; }
 
