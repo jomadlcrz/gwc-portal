@@ -1,4 +1,4 @@
-﻿import { ROUTES } from '../../../app/routes'
+import { ROUTES } from '../../../app/routes'
 import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderSharedPagination, setupSharedPagination } from '../../../components/ui/pagination'
@@ -6,7 +6,30 @@ import { renderSharedPopover } from '../../../components/ui/popover'
 import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
 import { renderActionView } from '../../../components/ui/action_view'
 import { renderDepartmentDisplay } from '../../../components/ui/department_badge'
-import { schedulingService, statusToBadgeClass, statusToLabel } from '../../../features/scheduling/service'
+import { DEPARTMENT_SELECT_OPTIONS } from '../../../data/departments'
+import { schedulingService, statusToBadgeClass } from '../../../features/scheduling/service'
+
+type LifecycleStatus =
+  | 'Draft'
+  | 'Approved'
+  | 'Published'
+  | 'Active'
+  | 'Completed'
+  | 'Cancelled'
+  | 'Archived'
+
+function mapToLifecycleStatus(rawStatus: string): LifecycleStatus {
+  if (rawStatus === 'DRAFT') return 'Draft'
+  if (rawStatus === 'SUBMITTED_FOR_APPROVAL' || rawStatus === 'UNDER_ADMIN_REVIEW' || rawStatus === 'APPROVED') return 'Approved'
+  if (rawStatus === 'FINALIZED') return 'Published'
+  if (rawStatus === 'REJECTED_BY_ADMIN') return 'Cancelled'
+  if (rawStatus === 'MODIFICATION_REQUESTED') return 'Active'
+  return 'Archived'
+}
+
+function countLifecycleStatus(status: LifecycleStatus): number {
+  return schedulingService.listSchedules().filter((item) => mapToLifecycleStatus(item.status) === status).length
+}
 
 function renderRows(): string {
   return schedulingService.listSchedules().map((schedule) => {
@@ -25,12 +48,13 @@ function renderRows(): string {
       .toLowerCase()
 
     return `
-      <tr data-schedule-row data-schedule-id="${schedule.id}" data-search-value="${searchValue}">
+      <tr data-schedule-row data-schedule-id="${schedule.id}" data-department="${schedule.department}" data-search-value="${searchValue}">
         <td>${schedule.id}</td>
         <td>${schedule.term}</td>
         <td>${renderDepartmentDisplay(schedule.department)}</td>
-        <td><span class="admin-pill ${statusToBadgeClass(schedule.status)}">${statusToLabel(schedule.status)}</span></td>
-        <td>${schedule.adminFeedback || '-'}</td>
+        <td>${current.snapshot.length}</td>
+        <td><span class="admin-pill ${statusToBadgeClass(schedule.status)}">${mapToLifecycleStatus(schedule.status)}</span></td>
+        <td>${schedule.finalizedAt || schedule.approvedAt || schedule.submittedAt || '-'}</td>
         <td>
           ${renderSharedPopover({
             ariaLabel: 'Schedule row actions',
@@ -50,11 +74,14 @@ function renderRows(): string {
 
 export function renderregistrar_schedule_manage_page(): string {
   const total = schedulingService.listSchedules().length
-  const draftCount = schedulingService.listSchedulesByStatus(['DRAFT']).length
-  const conflictCount = schedulingService.listSchedulesByStatus(['CONFLICT_DETECTED']).length
-  const reviewCount = schedulingService.listPendingApprovals().length
-  const returnedCount = schedulingService.listSchedulesByStatus(['REJECTED_BY_ADMIN']).length
-  const publishedCount = schedulingService.listSchedulesByStatus(['APPROVED', 'FINALIZED']).length
+  const draftCount = countLifecycleStatus('Draft')
+  const approvedCount = countLifecycleStatus('Approved')
+  const publishedCount = countLifecycleStatus('Published')
+  const activeCount = countLifecycleStatus('Active')
+  const completedCount = countLifecycleStatus('Completed')
+  const cancelledCount = countLifecycleStatus('Cancelled')
+  const archivedCount = countLifecycleStatus('Archived')
+
   return renderPortalShell(
     registrar_SHELL_CONFIG,
     'schedule',
@@ -65,46 +92,56 @@ export function renderregistrar_schedule_manage_page(): string {
           { label: 'Manage Schedule', active: true },
         ])}
 
-        <article class="admin-student-page-shell">
-          <header class="admin-student-head">
-            <h2>Manage Schedule</h2>
-            <p>Total Schedules: <strong>${total}</strong></p>
+        <article class="registrar-panel registrar-schedule-manage-panel">
+          <header class="registrar-dashboard-head">
+            <div>
+              <h3>Schedule Management</h3>
+              <p>Track draft, review, approved, and finalized schedules with department-level filtering.</p>
+            </div>
+            <div class="registrar-dashboard-actions">
+              <a href="${ROUTES.REGISTRAR_SCHEDULE_CREATE}" class="btn btn-sm btn-primary">Create Schedule</a>
+            </div>
           </header>
 
-          <section class="schedule-ops-strip">
-            <span class="schedule-ops-pill">Draft ${draftCount}</span>
-            <span class="schedule-ops-pill">Conflict ${conflictCount}</span>
-            <span class="schedule-ops-pill">In Admin ${reviewCount}</span>
-            <span class="schedule-ops-pill">Returned ${returnedCount}</span>
-            <span class="schedule-ops-pill">Published ${publishedCount}</span>
+          <section class="registrar-kpi-grid mt-2">
+            <article class="registrar-kpi-card"><p>Total</p><strong>${total}</strong></article>
+            <article class="registrar-kpi-card"><p>Draft</p><strong>${draftCount}</strong></article>
+            <article class="registrar-kpi-card"><p>Approved</p><strong>${approvedCount}</strong></article>
+            <article class="registrar-kpi-card"><p>Published</p><strong>${publishedCount}</strong></article>
+            <article class="registrar-kpi-card"><p>Active</p><strong>${activeCount}</strong></article>
+            <article class="registrar-kpi-card"><p>Completed</p><strong>${completedCount}</strong></article>
+            <article class="registrar-kpi-card"><p>Cancelled</p><strong>${cancelledCount}</strong></article>
+            <article class="registrar-kpi-card"><p>Archived</p><strong>${archivedCount}</strong></article>
           </section>
 
-          <section class="admin-student-toolbar">
-            <div class="admin-student-toolbar-actions">
-              <a href="${ROUTES.REGISTRAR_SCHEDULE_CREATE}" class="btn btn-primary btn-sm">+ Create Schedule</a>
-            </div>
+          <section class="admin-student-toolbar mt-3">
+            <select class="form-select form-select-sm w-auto" data-schedule-department-filter>
+              <option value="">All Departments</option>
+              ${DEPARTMENT_SELECT_OPTIONS.map((option) => `<option value="${option.value}">${option.label}</option>`).join('')}
+            </select>
             <label class="admin-directory-search admin-student-search">
               <span class="admin-search-icon" aria-hidden="true"><i class="bi bi-search"></i></span>
               <input type="search" placeholder="Search schedules" aria-label="Search schedules" data-schedule-search />
             </label>
           </section>
 
-          <div class="admin-table-wrap">
+          <div class="admin-table-wrap mt-2">
             <table class="admin-table">
               <thead>
                 <tr>
                   <th>ID</th>
                   <th>Term</th>
                   <th>Department</th>
+                  <th>Classes</th>
                   <th>Status</th>
-                  <th>Admin Feedback</th>
+                  <th>Last Update</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 ${renderRows()}
                 <tr class="d-none" data-schedule-empty-row>
-                  <td colspan="6" class="text-center py-3">No schedules found.</td>
+                  <td colspan="7" class="text-center py-3">No schedules found.</td>
                 </tr>
               </tbody>
             </table>
@@ -113,51 +150,6 @@ export function renderregistrar_schedule_manage_page(): string {
           <div class="admin-student-pagination" data-schedule-pagination>
             ${renderSharedPagination()}
           </div>
-
-          <section class="mt-4">
-            <h3 class="h6">Department / Faculty Modification Requests</h3>
-            <div class="admin-table-wrap">
-              <table class="admin-table">
-                <thead>
-                  <tr>
-                    <th>Request ID</th>
-                    <th>Schedule</th>
-                    <th>Role</th>
-                    <th>Reason</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${schedulingService
-                    .listModificationRequests()
-                    .map(
-                      (request) => `
-                        <tr data-mod-row data-mod-id="${request.id}">
-                          <td>${request.id}</td>
-                          <td>${request.scheduleId}</td>
-                          <td>${request.requesterRole}</td>
-                          <td>${request.reason}</td>
-                          <td>${request.status}</td>
-                          <td>
-                            ${renderSharedPopover({
-                              ariaLabel: 'Modification request actions',
-                              triggerLabel: '<i class="bi bi-three-dots-vertical" aria-hidden="true"></i>',
-                              actionDataAttribute: 'data-mod-action',
-                              actions: [
-                                { label: 'Accept', value: 'accept' },
-                                { label: 'Reject', value: 'reject', danger: true },
-                              ],
-                            })}
-                          </td>
-                        </tr>
-                      `,
-                    )
-                    .join('')}
-                </tbody>
-              </table>
-            </div>
-          </section>
         </article>
       </section>
       ${renderSharedModal('schedule-manage-modal')}
@@ -168,6 +160,7 @@ export function renderregistrar_schedule_manage_page(): string {
 export function setupschedule_manage_page(root: HTMLElement): () => void {
   const modal = setupSharedModal(root, { modalSelector: '#schedule-manage-modal' })
   const searchInput = root.querySelector<HTMLInputElement>('[data-schedule-search]')
+  const departmentFilter = root.querySelector<HTMLSelectElement>('[data-schedule-department-filter]')
   const allRows = Array.from(root.querySelectorAll<HTMLTableRowElement>('[data-schedule-row]'))
   const emptyRow = root.querySelector<HTMLTableRowElement>('[data-schedule-empty-row]')
   const paginationRoot = root.querySelector<HTMLElement>('[data-schedule-pagination]')
@@ -200,22 +193,28 @@ export function setupschedule_manage_page(root: HTMLElement): () => void {
     pagination?.update({ totalItems, currentPage })
   }
 
-  const applySearch = (): void => {
+  const applyFilters = (): void => {
     const query = (searchInput?.value ?? '').trim().toLowerCase()
-    filteredRows = allRows.filter((row) => (row.dataset.searchValue ?? '').includes(query))
+    const selectedDepartment = departmentFilter?.value ?? ''
+    filteredRows = allRows.filter((row) => {
+      const matchesSearch = (row.dataset.searchValue ?? '').includes(query)
+      const matchesDepartment = !selectedDepartment || row.dataset.department === selectedDepartment
+      return matchesSearch && matchesDepartment
+    })
     currentPage = 1
     renderVisibleRows()
   }
+
   const renderScheduleDetail = (scheduleId: string): string => {
     const schedule = schedulingService.listSchedules().find((item) => item.id === scheduleId)
     if (!schedule) return '<p class="mb-0">Schedule not found.</p>'
 
     const current = schedule.versions.find((version) => version.versionNumber === schedule.currentVersion) ?? schedule.versions[0]
     return renderActionView([
-      {
-        title: 'Schedule Information',
-        fields: [
-          { label: 'Status', value: statusToLabel(schedule.status) },
+          {
+            title: 'Schedule Information',
+            fields: [
+          { label: 'Status', value: mapToLifecycleStatus(schedule.status) },
           { label: 'Total Classes', value: String(current.snapshot.length) },
           { label: 'Department', value: schedule.department, valueHtml: renderDepartmentDisplay(schedule.department) },
           { label: 'Registrar Notes', value: schedule.registrarNotes || '-' },
@@ -224,32 +223,16 @@ export function setupschedule_manage_page(root: HTMLElement): () => void {
       },
       {
         title: 'Current Schedule Items',
-        fields: current.snapshot.slice(0, 6).map((item) => ({
+        fields: current.snapshot.slice(0, 8).map((item) => ({
           label: `${item.subjectCode} ${item.section}`,
           value: `${item.day} ${item.startTime}-${item.endTime} (${item.room})`,
         })),
       },
     ])
   }
+
   const onActionClick = (event: Event): void => {
     const target = event.target as HTMLElement | null
-    const modBtn = target?.closest<HTMLButtonElement>('[data-mod-action]')
-    if (modBtn) {
-      const modRow = modBtn.closest<HTMLTableRowElement>('[data-mod-row]')
-      const requestId = modRow?.dataset.modId
-      if (!requestId) return
-
-      schedulingService.resolveModificationRequest(requestId, modBtn.dataset.modAction === 'accept', 'registrar-1')
-      modal.setMode('confirm')
-      modal.setOnConfirm(() => window.location.reload())
-      modal.open({
-        title: 'Request Updated',
-        confirmLabel: 'Refresh',
-        bodyHtml: '<p class="mb-0">Modification request status updated.</p>',
-      })
-      return
-    }
-
     const actionBtn = target?.closest<HTMLButtonElement>('[data-schedule-action]')
     if (!actionBtn) return
 
@@ -260,7 +243,6 @@ export function setupschedule_manage_page(root: HTMLElement): () => void {
     if (!scheduleId) return
 
     const action = actionBtn.dataset.scheduleAction
-
     if (action === 'view') {
       modal.setMode('form')
       modal.setOnConfirm(null)
@@ -275,7 +257,7 @@ export function setupschedule_manage_page(root: HTMLElement): () => void {
       modal.open({
         title: sent ? 'Sent to Admin' : 'Cannot Send',
         confirmLabel: 'Refresh',
-        bodyHtml: `<p class="mb-0">${sent ? 'Schedule submitted to admin review queue.' : 'Only conflict-detected or returned schedules can be sent to admin.'}</p>`,
+        bodyHtml: `<p class="mb-0">${sent ? 'Schedule submitted to admin review queue.' : 'Only draft or returned schedules can be sent to admin.'}</p>`,
       })
       return
     }
@@ -289,22 +271,19 @@ export function setupschedule_manage_page(root: HTMLElement): () => void {
         confirmLabel: 'Refresh',
         bodyHtml: `<p class="mb-0">${done ? 'Schedule moved to FINALIZED.' : 'Only APPROVED schedules can be finalized.'}</p>`,
       })
-      return
     }
-
   }
 
-  searchInput?.addEventListener('input', applySearch)
+  searchInput?.addEventListener('input', applyFilters)
+  departmentFilter?.addEventListener('change', applyFilters)
   root.addEventListener('click', onActionClick)
   renderVisibleRows()
 
   return () => {
     modal.destroy()
     pagination?.destroy()
-    searchInput?.removeEventListener('input', applySearch)
+    searchInput?.removeEventListener('input', applyFilters)
+    departmentFilter?.removeEventListener('change', applyFilters)
     root.removeEventListener('click', onActionClick)
   }
 }
-
-
-
