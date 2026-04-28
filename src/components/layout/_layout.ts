@@ -27,7 +27,7 @@ export type RegistrarSection =
 export type FacultySection = 'dashboard' | 'schedule' | 'classes' | 'gradebook' | 'settings'
 export type StudentSection = 'dashboard' | 'subjects' | 'grades' | 'schedule' | 'settings'
 export type DeanSection = 'dashboard' | 'schedule'
-export type HrSection = 'dashboard' | 'faculty' | 'settings'
+export type HrSection = 'dashboard' | 'faculty' | 'dean' | 'settings'
 
 type ShellMenuItem<TSection extends string> = {
   label: string
@@ -234,6 +234,7 @@ export const HR_SHELL_CONFIG: ShellConfig<HrSection> = {
   menuItems: [
     { label: 'Dashboard', icon: 'bi-speedometer2', href: ROUTES.HR_DASHBOARD, section: 'dashboard' },
     { label: 'Faculty', icon: 'bi-mortarboard', href: ROUTES.HR_FACULTY, section: 'faculty' },
+    { label: 'Dean', icon: 'bi-person-workspace', href: ROUTES.HR_DEAN, section: 'dean' },
     { label: 'Settings', icon: 'bi-gear', href: ROUTES.HR_SETTINGS, section: 'settings' },
   ],
 }

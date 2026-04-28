@@ -69,7 +69,12 @@ import {
   renderhr_faculty_page,
   renderhr_faculty_create_page,
   renderhr_faculty_manage_page,
+  renderhr_dean_manage_page,
+  renderhr_dean_page,
+  renderhr_dean_create_page,
   renderhr_settings_page,
+  setuphr_dean_manage_page,
+  setuphr_dean_create_page,
   setuphr_faculty_create_page,
   setuphr_faculty_manage_page,
   setuphr_page,
@@ -521,6 +526,24 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   if (pathname === ROUTES.HR_FACULTY_CREATE) {
     app.innerHTML = renderhr_faculty_create_page()
     cleanupCurrentRoute = setuphr_faculty_create_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.HR_DEAN) {
+    app.innerHTML = renderhr_dean_page()
+    cleanupCurrentRoute = setuphr_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.HR_DEAN_MANAGE) {
+    app.innerHTML = renderhr_dean_manage_page()
+    cleanupCurrentRoute = setuphr_dean_manage_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.HR_DEAN_CREATE) {
+    app.innerHTML = renderhr_dean_create_page()
+    cleanupCurrentRoute = setuphr_dean_create_page(app)
     return
   }
 

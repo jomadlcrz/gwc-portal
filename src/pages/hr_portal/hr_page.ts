@@ -7,6 +7,9 @@ export { renderhr_dashboard_page } from './dashboard/dashboard_page'
 export { renderhr_faculty_page } from './faculty/faculty_page'
 export { renderhr_faculty_manage_page, setuphr_faculty_manage_page } from './faculty/faculty_manage_page'
 export { renderhr_faculty_create_page, setuphr_faculty_create_page } from './faculty/faculty_create_page'
+export { renderhr_dean_page } from './dean/dean_page'
+export { renderhr_dean_manage_page, setuphr_dean_manage_page } from './dean/dean_manage_page'
+export { renderhr_dean_create_page, setuphr_dean_create_page } from './dean/dean_create_page'
 export { renderhr_settings_page } from './settings/settings_page'
 
 export function setuphr_page(root: HTMLElement): () => void {

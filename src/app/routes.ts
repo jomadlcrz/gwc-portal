@@ -85,6 +85,9 @@ export const ROUTES = {
   HR_FACULTY: '/hr-portal/faculty',
   HR_FACULTY_MANAGE: '/hr-portal/faculty/manage',
   HR_FACULTY_CREATE: '/hr-portal/faculty/create',
+  HR_DEAN: '/hr-portal/dean',
+  HR_DEAN_MANAGE: '/hr-portal/dean/manage',
+  HR_DEAN_CREATE: '/hr-portal/dean/create',
   HR_SETTINGS: '/hr-portal/settings',
   
 } as const
