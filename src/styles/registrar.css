@@ -491,6 +491,13 @@
   min-width: 92px;
 }
 
+.registrar-schedule-grid tfoot th {
+  background: #f0f6fd;
+  color: #163552;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
 .registrar-schedule-chip {
   display: block;
   border-radius: 0.45rem;

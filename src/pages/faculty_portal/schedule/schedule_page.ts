@@ -72,6 +72,36 @@ function renderInstructorCard(schedule: InstructorSchedule): string {
   `
 }
 
+function parseHourValue(value: string): number {
+  const [hourText, minuteText] = value.split(':')
+  const hour = Number.parseInt(hourText, 10)
+  const minute = Number.parseInt(minuteText, 10)
+  const normalizedHour = hour >= 7 || hour === 12 ? hour : hour + 12
+  return normalizedHour + (Number.isFinite(minute) ? minute / 60 : 0)
+}
+
+function getSlotDuration(slotTime: string): number {
+  const [startText, endText] = slotTime.split('-').map((value) => value.trim())
+  const start = parseHourValue(startText)
+  const end = parseHourValue(endText)
+  return end > start ? end - start : 0
+}
+
+function formatHours(value: number): string {
+  const rounded = Math.round(value * 10) / 10
+  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1)
+}
+
+function getInstructorDayHours(instructor: InstructorSchedule, day: (typeof dayOrder)[number]): string {
+  const total = instructor.slots.reduce((sum, slot) => {
+    if (!slot.values[day]) return sum
+    return sum + getSlotDuration(slot.time)
+  }, 0)
+
+  if (total <= 0) return ''
+  return formatHours(total)
+}
+
 function renderScheduleGrid(schedule: InstructorSchedule): string {
   return `
     <div class="faculty-schedule-grid-wrap">
@@ -99,6 +129,12 @@ function renderScheduleGrid(schedule: InstructorSchedule): string {
             )
             .join('')}
         </tbody>
+        <tfoot>
+          <tr>
+            <th>Total</th>
+            ${dayOrder.map((day) => `<th>${getInstructorDayHours(schedule, day)}</th>`).join('')}
+          </tr>
+        </tfoot>
       </table>
     </div>
     <div class="faculty-schedule-mobile-list">
