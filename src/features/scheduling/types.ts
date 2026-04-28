@@ -9,6 +9,7 @@ export type ScheduleStatus =
   | 'APPROVED'
   | 'MODIFICATION_REQUESTED'
   | 'FINALIZED'
+  | 'COMPLETED'
 
 export type ConflictType = 'ROOM_OVERLAP' | 'FACULTY_OVERLAP' | 'SECTION_OVERLAP'
 

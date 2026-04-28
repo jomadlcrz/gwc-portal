@@ -24,6 +24,7 @@ function mapToLifecycleStatus(rawStatus: string): LifecycleStatus {
   if (rawStatus === 'DRAFT') return 'Draft'
   if (rawStatus === 'SUBMITTED_FOR_APPROVAL' || rawStatus === 'UNDER_ADMIN_REVIEW' || rawStatus === 'APPROVED') return 'Approved'
   if (rawStatus === 'FINALIZED') return 'Published'
+  if (rawStatus === 'COMPLETED') return 'Completed'
   if (rawStatus === 'REJECTED_BY_ADMIN') return 'Cancelled'
   if (rawStatus === 'MODIFICATION_REQUESTED') return 'Active'
   return 'Archived'

@@ -69,6 +69,7 @@ const statusLabel: Record<ScheduleStatus, string> = {
   APPROVED: 'Approved',
   MODIFICATION_REQUESTED: 'Modification Requested',
   FINALIZED: 'Finalized',
+  COMPLETED: 'Completed',
 }
 
 class SchedulingService {
@@ -159,6 +160,10 @@ class SchedulingService {
 
     const draft = createSeedSchedule('Seed: draft schedule', buildItems('6', 'BSIT-2B', 'Prof. Kevin Flores', 'Room 306'))
     draft.status = 'DRAFT'
+
+    const completed = createSeedSchedule('Seed: completed schedule', buildItems('8', 'BSIT-4B', 'Prof. Hazel Garcia', 'Room 308'))
+    completed.status = 'COMPLETED'
+    completed.finalizedAt = nowIso()
 
     const withModification = createSeedSchedule(
       'Seed: modification requested',
