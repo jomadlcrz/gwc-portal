@@ -1810,6 +1810,13 @@
   padding-bottom: 0;
 }
 
+@media (min-width: 769px) {
+  .admission-details-grid p:nth-last-child(2):nth-child(odd) {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
 .admission-details-grid span {
   font-size: 0.88rem;
   color: #4a607f;
