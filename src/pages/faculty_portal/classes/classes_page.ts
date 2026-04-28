@@ -47,7 +47,7 @@ export function renderfaculty_classes_page(): string {
                         <td>${item.day}</td>
                         <td>${item.startTime}-${item.endTime}</td>
                         <td>${item.room}</td>
-                        <td><button class="btn btn-sm btn-outline-warning" data-faculty-request data-schedule-id="${scheduleId}">Report Issue</button></td>
+                        <td><button class="btn btn-sm btn-outline-warning" data-faculty-request data-schedule-id="${scheduleId}" data-schedule-label="${item.subjectCode} ${item.section}">Report Issue</button></td>
                       </tr>
                     `,
                   )

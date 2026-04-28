@@ -14,6 +14,12 @@ function renderKpiCard(label: string, count: number, icon: string, tone: string)
     </article>
   `
 }
+function getScheduleDisplayName(schedule: ReturnType<typeof schedulingService.listSchedules>[number]): string {
+  const current = schedule.versions.find((version) => version.versionNumber === schedule.currentVersion) ?? schedule.versions[0]
+  const first = current.snapshot[0]
+  if (!first) return 'Untitled Schedule'
+  return `${first.subjectCode} ${first.section} - ${first.faculty}`
+}
 
 export function renderhr_dashboard_page(): string {
   const schedules = schedulingService.listSchedules()
@@ -74,7 +80,7 @@ export function renderhr_dashboard_page(): string {
                   schedules.length
                     ? schedules
                         .slice(0, 6)
-                        .map((schedule) => `<li><strong>${schedule.id}</strong> - ${schedule.status.replaceAll('_', ' ')}</li>`)
+                        .map((schedule) => `<li><strong>${getScheduleDisplayName(schedule)}</strong> - ${schedule.status.replaceAll('_', ' ')}</li>`)
                         .join('')
                     : '<li>No schedule records yet.</li>'
                 }

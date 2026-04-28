@@ -49,6 +49,7 @@ export function setupfaculty_classes_page(root: HTMLElement): () => void {
 
     const scheduleId = button.dataset.scheduleId
     if (!scheduleId) return
+    const scheduleLabel = button.dataset.scheduleLabel || 'Selected Class'
 
     selectedScheduleId = scheduleId
     modal.setMode('form')
@@ -73,7 +74,7 @@ export function setupfaculty_classes_page(root: HTMLElement): () => void {
     })
 
     modal.open({
-      title: `Adjustment Request: ${scheduleId}`,
+      title: `Adjustment Request: ${scheduleLabel}`,
       confirmLabel: 'Submit Request',
       bodyHtml: `
         <div class="shared-modal-grid shared-modal-grid-1">

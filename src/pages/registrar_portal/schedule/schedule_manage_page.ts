@@ -126,6 +126,15 @@ function renderRows(): string {
   }).join('')
 }
 
+function getScheduleDisplayName(scheduleId: string): string {
+  const schedule = schedulingService.listSchedules().find((item) => item.id === scheduleId)
+  if (!schedule) return 'Schedule Detail'
+  const current = schedule.versions.find((version) => version.versionNumber === schedule.currentVersion) ?? schedule.versions[0]
+  const first = current.snapshot[0]
+  if (!first) return 'Schedule Detail'
+  return `${first.subjectCode} ${first.section}`
+}
+
 export function renderregistrar_schedule_manage_page(): string {
   const total = schedulingService.listSchedules().length
   const draftCount = countLifecycleStatus('Draft')
@@ -300,7 +309,7 @@ export function setupschedule_manage_page(root: HTMLElement): () => void {
     if (action === 'view') {
       modal.setMode('form')
       modal.setOnConfirm(null)
-      modal.open({ title: `Schedule ${scheduleId}`, bodyHtml: renderScheduleDetail(scheduleId), hideConfirm: true })
+      modal.open({ title: getScheduleDisplayName(scheduleId), bodyHtml: renderScheduleDetail(scheduleId), hideConfirm: true })
       return
     }
 
