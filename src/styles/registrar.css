@@ -1,4 +1,4 @@
-﻿.registrar-shell-page {
+.registrar-shell-page {
   min-height: var(--layout-page-min-height);
   padding-top: var(--layout-page-top-offset);
   background: var(--layout-page-bg);
@@ -599,8 +599,8 @@
 }
 
 .registrar-schedule-chip-general-lecture {
-  background: #06B6D4;
-  border-color: #06B6D4;
+  background: #3B82F6;
+  border-color: #3B82F6;
   color: #ffffff;
 }
 
