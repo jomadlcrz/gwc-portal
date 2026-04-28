@@ -235,6 +235,16 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
             <p><span>Strand</span><strong>${application.educationalInfo.strand}</strong></p>
             <p><span>Year Graduated</span><strong>${application.educationalInfo.yearGraduated}</strong></p>
             <p><span>General Average</span><strong>${application.educationalInfo.generalAverage}</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="admission-detail-section">
+        <header class="admission-detail-heading">
+          ${renderAdminSectionTitle('FOR TRANSFEREE / TECH-VOC COURSE GRADUATE / 2ND COURSE')}
+        </header>
+        <div class="admission-detail-surface">
+          <div class="admission-details-grid">
             <p><span>Last School Attended</span><strong>${application.educationalInfo.lastSchoolAttended}</strong></p>
             <p><span>Course</span><strong>${application.educationalInfo.lastCourse}</strong></p>
             <p><span>Last School Year</span><strong>${application.educationalInfo.lastSchoolYear}</strong></p>

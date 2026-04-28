@@ -86,8 +86,14 @@ function renderAdmissionManageForm(applicationNo: string): string {
           <div class="form-floating"><input class="form-control" value="${application.educationalInfo.strand}" readonly /><label>Strand</label></div>
           <div class="form-floating"><input class="form-control" value="${application.educationalInfo.yearGraduated}" readonly /><label>Year Graduated</label></div>
           <div class="form-floating"><input class="form-control" value="${application.educationalInfo.generalAverage}" readonly /><label>General Average</label></div>
+        </div>
+      </section>
+
+      <section>
+        ${renderAdminSectionTitle('FOR TRANSFEREE / TECH-VOC COURSE GRADUATE / 2ND COURSE')}
+        <div class="shared-modal-grid shared-modal-grid-3">
           <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastSchoolAttended}" readonly /><label>Last School Attended</label></div>
-          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastCourse}" readonly /><label>Last Course</label></div>
+          <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastCourse}" readonly /><label>Course</label></div>
           <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastSchoolYear}" readonly /><label>Last School Year</label></div>
         </div>
       </section>
