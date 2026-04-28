@@ -64,10 +64,9 @@ export function renderadmission_registration_page(): string {
           <article id="admission-registration-intro" class="admission-registration-intro">
             <h2>Online Application</h2>
             <p>
-              We warmly welcome junior high school completers, senior high school graduates, college transferees,
-              second coursers, and foreign applicants to our campuses.
+              We are now accepting new students and transferees for the 1st Semester.
             </p>
-            <p>Kindly fill-out the online application form for a fast and efficient admissions procedure.</p>
+            <p>Please complete the online application form for a faster and more efficient admissions process.</p>
           </article>
 
           <section id="admission-registration-step-1">
@@ -99,7 +98,7 @@ export function renderadmission_registration_page(): string {
               </label>
               <label class="admission-registration-option" for="admission-program-ascs">
                 <input id="admission-program-ascs" name="admission-program" type="radio" value="4" />
-                <span>2-Year Associate in Computer Science</span>
+                <span>Associate in Computer Science (2-Years)</span>
               </label>
               <label class="admission-registration-option" for="admission-program-bsba">
                 <input id="admission-program-bsba" name="admission-program" type="radio" value="5" />
