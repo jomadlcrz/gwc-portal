@@ -18,6 +18,7 @@ export type SharedModalOpenOptions = {
 }
 
 const SHARED_MODAL_STYLE_ID = 'shared-modal-inline-styles'
+const OPEN_SHARED_MODAL_STACK: HTMLElement[] = []
 
 const SHARED_MODAL_CSS = `
 [data-shared-modal] {
@@ -177,6 +178,12 @@ export function setupSharedModal(root: HTMLElement, options: SharedModalSetupOpt
     document.body.style.removeProperty('--site-body-overflow')
     backdrop?.remove()
     backdrop = null
+    const stackIndex = OPEN_SHARED_MODAL_STACK.lastIndexOf(modal)
+    if (stackIndex >= 0) OPEN_SHARED_MODAL_STACK.splice(stackIndex, 1)
+    if (OPEN_SHARED_MODAL_STACK.length > 0) {
+      document.body.classList.add('modal-open')
+      document.body.style.setProperty('--site-body-overflow', 'hidden')
+    }
   }
 
   const open = (options: SharedModalOpenOptions): void => {
@@ -197,6 +204,10 @@ export function setupSharedModal(root: HTMLElement, options: SharedModalSetupOpt
       backdrop.dataset.sharedModalBackdrop = 'true'
       document.body.append(backdrop)
     }
+
+    const stackIndex = OPEN_SHARED_MODAL_STACK.lastIndexOf(modal)
+    if (stackIndex >= 0) OPEN_SHARED_MODAL_STACK.splice(stackIndex, 1)
+    OPEN_SHARED_MODAL_STACK.push(modal)
   }
 
   const onRootClick = (event: Event): void => {
@@ -211,6 +222,9 @@ export function setupSharedModal(root: HTMLElement, options: SharedModalSetupOpt
       return
     }
 
+    const ownerModal = target.closest<HTMLElement>('[data-shared-modal]')
+    if (ownerModal !== modal) return
+
     if (target.closest('[data-shared-modal-confirm]')) {
       onConfirm?.()
       return
@@ -224,7 +238,10 @@ export function setupSharedModal(root: HTMLElement, options: SharedModalSetupOpt
   }
 
   const onEscape = (event: KeyboardEvent): void => {
-    if (event.key === 'Escape') close()
+    if (event.key !== 'Escape' || !isOpen) return
+    const topModal = OPEN_SHARED_MODAL_STACK[OPEN_SHARED_MODAL_STACK.length - 1]
+    if (topModal !== modal) return
+    close()
   }
 
   root.addEventListener('click', onRootClick)
