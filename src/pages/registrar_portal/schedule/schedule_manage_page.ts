@@ -18,7 +18,7 @@ type LifecycleStatus =
   | 'Cancelled'
   | 'Archived'
 
-type ScheduleAction = 'view' | 'submit' | 'finalize'
+type ScheduleAction = 'view' | 'approve' | 'publish' | 'activate' | 'complete' | 'cancel' | 'archive'
 
 function mapToLifecycleStatus(rawStatus: string): LifecycleStatus {
   if (rawStatus === 'DRAFT') return 'Draft'
@@ -34,14 +34,21 @@ function countLifecycleStatus(status: LifecycleStatus): number {
 }
 
 function resolveActionsByLifecycleStatus(status: LifecycleStatus): ScheduleAction[] {
-  if (status === 'Draft' || status === 'Cancelled') return ['view', 'submit']
-  if (status === 'Approved') return ['view', 'finalize']
+  if (status === 'Draft') return ['view', 'approve', 'cancel']
+  if (status === 'Approved') return ['view', 'publish', 'cancel']
+  if (status === 'Published') return ['view', 'activate', 'cancel']
+  if (status === 'Active') return ['view', 'complete']
+  if (status === 'Completed' || status === 'Cancelled') return ['view', 'archive']
   return ['view']
 }
 
 function actionToLabel(action: ScheduleAction): string {
-  if (action === 'submit') return 'Send to Admin'
-  if (action === 'finalize') return 'Finalize'
+  if (action === 'approve') return 'Mark Approved'
+  if (action === 'publish') return 'Publish'
+  if (action === 'activate') return 'Mark Active'
+  if (action === 'complete') return 'Mark Completed'
+  if (action === 'cancel') return 'Cancel'
+  if (action === 'archive') return 'Archive'
   return 'View'
 }
 
@@ -270,26 +277,45 @@ export function setupschedule_manage_page(root: HTMLElement): () => void {
       return
     }
 
-    if (action === 'submit') {
+    if (action === 'approve') {
       const sent = schedulingService.submitForApproval(scheduleId, 'registrar-1', 'Sent from manage page')
+      if (sent) {
+        schedulingService.approveSchedule({
+          scheduleId,
+          reviewerId: 'admin-1',
+          comment: 'Approved from lifecycle flow',
+          tags: ['lifecycle'],
+        })
+      }
       modal.setMode('confirm')
       modal.setOnConfirm(() => window.location.reload())
       modal.open({
-        title: sent ? 'Sent to Admin' : 'Cannot Send',
+        title: sent ? 'Marked as Approved' : 'Cannot Approve',
         confirmLabel: 'Refresh',
-        bodyHtml: `<p class="mb-0">${sent ? 'Schedule submitted to admin review queue.' : 'Only draft or returned schedules can be sent to admin.'}</p>`,
+        bodyHtml: `<p class="mb-0">${sent ? 'Schedule advanced to Approved lifecycle status.' : 'Only eligible schedules can move to Approved.'}</p>`,
       })
       return
     }
 
-    if (action === 'finalize') {
+    if (action === 'publish') {
       const done = schedulingService.finalizeSchedule(scheduleId, 'admin-1')
       modal.setMode('confirm')
       modal.setOnConfirm(() => window.location.reload())
       modal.open({
-        title: done ? 'Finalized' : 'Cannot Finalize',
+        title: done ? 'Published' : 'Cannot Publish',
         confirmLabel: 'Refresh',
-        bodyHtml: `<p class="mb-0">${done ? 'Schedule moved to FINALIZED.' : 'Only APPROVED schedules can be finalized.'}</p>`,
+        bodyHtml: `<p class="mb-0">${done ? 'Schedule advanced to Published lifecycle status.' : 'Only Approved schedules can be published.'}</p>`,
+      })
+      return
+    }
+
+    if (action === 'activate' || action === 'complete' || action === 'cancel' || action === 'archive') {
+      modal.setMode('confirm')
+      modal.setOnConfirm(() => null)
+      modal.open({
+        title: 'Lifecycle Step',
+        hideConfirm: true,
+        bodyHtml: '<p class="mb-0">This lifecycle action is shown by workflow design and will be wired to backend status transitions next.</p>',
       })
     }
   }
