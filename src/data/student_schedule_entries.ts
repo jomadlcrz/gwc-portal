@@ -7,7 +7,7 @@ export type StudentScheduleSource = {
 }
 
 const REGULAR_ROWS: ScheduleItem[] = [
-  { id: '3y2s-1', subjectCode: 'LIT2', descriptiveTitle: 'Literatures of the World', section: 'BSIT-3D', faculty: 'Caburao', department: 'CITE', room: 'Room 304', day: 'Monday', startTime: '09:00', endTime: '10:00', deliveryMode: 'Face-to-Face', capacity: 40 },
+  { id: '3y2s-1', subjectCode: 'LIT2', descriptiveTitle: 'Literatures of the World', section: 'BSIT-3D', faculty: 'Mrs. Caburao', department: 'CITE', room: 'Room 304', day: 'Monday', startTime: '09:00', endTime: '10:00', deliveryMode: 'Face-to-Face', capacity: 40 },
   { id: '3y2s-2', subjectCode: 'PT102', descriptiveTitle: "Platform-based Dev't (Multimedia Systems)", section: 'BSIT-3D', faculty: 'Mr. John Vianney Manuel', department: 'CITE', room: '402/CL1', day: 'Monday', startTime: '12:00', endTime: '14:00', deliveryMode: 'Face-to-Face', capacity: 40 },
   { id: '3y2s-3', subjectCode: 'SE101', descriptiveTitle: 'Software Engineering 1', section: 'BSIT-3D', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '303/CL2', day: 'Monday', startTime: '15:00', endTime: '16:30', deliveryMode: 'Face-to-Face', capacity: 40 },
   { id: '3y2s-4', subjectCode: 'ITELEC2', descriptiveTitle: 'IT Major Elective 2 (Data Warehousing)', section: 'BSIT-3D', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '403/CL2', day: 'Monday', startTime: '16:30', endTime: '18:00', deliveryMode: 'Face-to-Face', capacity: 40 },
@@ -43,9 +43,9 @@ const IRREGULAR_ROWS: ScheduleItem[] = [
   { id: 'irr-5a', subjectCode: 'ITELEC2', descriptiveTitle: 'IT Major Elective 2 (Data Warehousing)', section: 'BSIT-3A', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '403/CL2', day: 'Tuesday', startTime: '14:00', endTime: '16:00', deliveryMode: 'Face-to-Face', capacity: 40 },
   { id: 'irr-5b', subjectCode: 'ITELEC2', descriptiveTitle: 'IT Major Elective 2 (Data Warehousing)', section: 'BSIT-3A', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '403/CL2', day: 'Thursday', startTime: '14:00', endTime: '16:00', deliveryMode: 'Face-to-Face', capacity: 40 },
   { id: 'irr-5c', subjectCode: 'ITELEC2', descriptiveTitle: 'IT Major Elective 2 (Data Warehousing)', section: 'BSIT-3A', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '403/CL2', day: 'Saturday', startTime: '14:00', endTime: '16:00', deliveryMode: 'Face-to-Face', capacity: 40 },
-  { id: 'irr-6', subjectCode: 'GE ELECTIVE 4', descriptiveTitle: 'Philippine Popular Culture', section: 'BSBA-3B', faculty: 'Bryan Necessito', department: 'CITE', room: '404/403', day: 'Wednesday', startTime: '09:00', endTime: '10:00', deliveryMode: 'Face-to-Face', capacity: 40 },
-  { id: 'irr-7a', subjectCode: 'PATHFIT 4', descriptiveTitle: 'Group Exercise - Aerobics', section: 'BSIT-2D', faculty: 'Dether Domaoal', department: 'CITE', room: 'SHS-502', day: 'Tuesday', startTime: '11:00', endTime: '12:00', deliveryMode: 'Face-to-Face', capacity: 35 },
-  { id: 'irr-7b', subjectCode: 'PATHFIT 4', descriptiveTitle: 'Group Exercise - Aerobics', section: 'BSIT-2D', faculty: 'Dether Domaoal', department: 'CITE', room: 'SHS-502', day: 'Thursday', startTime: '11:00', endTime: '12:00', deliveryMode: 'Face-to-Face', capacity: 35 },
+  { id: 'irr-6', subjectCode: 'GE ELECTIVE 4', descriptiveTitle: 'Philippine Popular Culture', section: 'BSBA-3B', faculty: 'Mr. Bryan Necessito', department: 'CITE', room: '404/403', day: 'Wednesday', startTime: '09:00', endTime: '10:00', deliveryMode: 'Face-to-Face', capacity: 40 },
+  { id: 'irr-7a', subjectCode: 'PATHFIT 4', descriptiveTitle: 'Group Exercise - Aerobics', section: 'BSIT-2D', faculty: 'Mr. Dether Domaoal', department: 'CITE', room: 'SHS-502', day: 'Tuesday', startTime: '11:00', endTime: '12:00', deliveryMode: 'Face-to-Face', capacity: 35 },
+  { id: 'irr-7b', subjectCode: 'PATHFIT 4', descriptiveTitle: 'Group Exercise - Aerobics', section: 'BSIT-2D', faculty: 'Mr. Dether Domaoal', department: 'CITE', room: 'SHS-502', day: 'Thursday', startTime: '11:00', endTime: '12:00', deliveryMode: 'Face-to-Face', capacity: 35 },
 ]
 
 const STUDENT_SCHEDULE_SOURCES: StudentScheduleSource[] = [

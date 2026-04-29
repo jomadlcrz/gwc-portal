@@ -220,7 +220,7 @@ export function renderstudent_schedule_page(): string {
           <p class="student-schedule-total-units">Total Units: <strong>${totalUnits}</strong></p>
 
           <footer class="student-schedule-signature">
-            <p>Signed:</p>
+            <p>Approved by:</p>
             <strong>${studentProfile.signedBy}</strong>
             <span>${studentProfile.signatoryRole}</span>
           </footer>
