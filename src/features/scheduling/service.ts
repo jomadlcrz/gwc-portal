@@ -213,7 +213,7 @@ class SchedulingService {
       { code: 'PT102', title: 'Platform-based Dev’t (Multimedia Systems)', units: 3 },
       { code: 'PT103', title: 'Platform-based Development (Android Programming)', units: 3 },
       { code: 'CAP101', title: 'Capstone Project and Research 1', units: 3 },
-      { code: 'GEELECTIVE4', title: 'GE Elective 4 - Philippine Popular Culture', units: 3 },
+      { code: 'GE ELECTIVE 4', title: 'GE Elective 4 - Philippine Popular Culture', units: 3 },
       { code: 'SE101', title: 'Software Engineering 1', units: 3 },
       { code: 'ITELEC2', title: 'IT Major Elective 2 (Data Warehousing)', units: 3 },
     ]

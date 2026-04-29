@@ -96,30 +96,41 @@ function buildThirdYearSecondSemMockRows(section: string): ScheduleItem[] {
   const term = BSIT_CURRICULUM_MOCK.find((item) => item.yearLabel === 'Third Year' && item.semesterLabel === '2nd Semester')
   if (!term) return []
 
-  const dayPatterns = [
-    { day: 'Monday', startTime: '08:00', endTime: '09:30' },
-    { day: 'Tuesday', startTime: '10:00', endTime: '11:30' },
-    { day: 'Wednesday', startTime: '08:00', endTime: '09:30' },
-    { day: 'Thursday', startTime: '10:00', endTime: '11:30' },
-    { day: 'Friday', startTime: '13:00', endTime: '14:30' },
-    { day: 'Monday', startTime: '15:00', endTime: '16:30' },
-    { day: 'Wednesday', startTime: '15:00', endTime: '16:30' },
+  const meetingPatterns: Array<Array<{ day: string; startTime: string; endTime: string }>> = [
+    [
+      { day: 'Monday', startTime: '08:00', endTime: '09:30' },
+      { day: 'Wednesday', startTime: '08:00', endTime: '09:30' },
+      { day: 'Friday', startTime: '08:00', endTime: '09:30' },
+    ],
+    [
+      { day: 'Tuesday', startTime: '10:00', endTime: '11:30' },
+      { day: 'Thursday', startTime: '10:00', endTime: '11:30' },
+      { day: 'Saturday', startTime: '10:00', endTime: '11:30' },
+    ],
+    [{ day: 'Friday', startTime: '13:00', endTime: '14:30' }],
+    [{ day: 'Monday', startTime: '15:00', endTime: '16:30' }],
+    [{ day: 'Tuesday', startTime: '13:00', endTime: '14:30' }],
+    [{ day: 'Wednesday', startTime: '15:00', endTime: '16:30' }],
+    [{ day: 'Thursday', startTime: '13:00', endTime: '14:30' }],
   ]
 
-  return term.subjects.map((subject, index) => ({
-    id: `mock-3y2s-${index + 1}`,
-    subjectCode: subject.code,
-    title: subject.title,
-    section,
-    faculty: index % 2 === 0 ? 'Prof. Maria Dela Cruz' : 'Prof. John Santos',
-    department: 'CITE',
-    room: index % 2 === 0 ? 'Room 301' : 'Room 302',
-    day: dayPatterns[index]?.day ?? 'Friday',
-    startTime: dayPatterns[index]?.startTime ?? '10:00',
-    endTime: dayPatterns[index]?.endTime ?? '11:30',
-    deliveryMode: 'Face-to-Face',
-    capacity: subject.units >= 9 ? 80 : subject.units >= 3 ? 40 : 35,
-  }))
+  return term.subjects.flatMap((subject, index) => {
+    const meetings = meetingPatterns[index % meetingPatterns.length]
+    return meetings.map((meeting, meetingIndex) => ({
+      id: `mock-3y2s-${index + 1}-${meetingIndex + 1}`,
+      subjectCode: subject.code,
+      title: subject.title,
+      section,
+      faculty: index % 2 === 0 ? 'Prof. Maria Dela Cruz' : 'Prof. John Santos',
+      department: 'CITE',
+      room: index % 2 === 0 ? 'Room 301' : 'Room 302',
+      day: meeting.day,
+      startTime: meeting.startTime,
+      endTime: meeting.endTime,
+      deliveryMode: 'Face-to-Face',
+      capacity: subject.units >= 9 ? 80 : subject.units >= 3 ? 40 : 35,
+    }))
+  })
 }
 
 export function renderstudent_schedule_page(): string {
