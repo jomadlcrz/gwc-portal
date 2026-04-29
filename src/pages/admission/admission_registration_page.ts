@@ -352,7 +352,23 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     const targetSection =
       stepsSection ?? (step === 1 ? step1Section : step === 2 ? step2Section : step === 3 ? step3Section : step4Section)
     window.requestAnimationFrame(() => {
-      targetSection.scrollIntoView({ behavior: 'instant', block: 'start' })
+      const headerEl = document.querySelector<HTMLElement>('.main-site-header')
+      const headerOffset = headerEl ? headerEl.getBoundingClientRect().height : 0
+      // Keep full timeline (dots + line + labels) comfortably below sticky header/menu.
+      const topPadding = 64
+      const bottomPadding = 10
+      const initialTop = window.scrollY + targetSection.getBoundingClientRect().top - headerOffset - topPadding
+      window.scrollTo({ top: Math.max(0, initialTop), behavior: 'instant' })
+
+      const rect = targetSection.getBoundingClientRect()
+      const allowedTop = headerOffset + topPadding
+      const allowedBottom = window.innerHeight - bottomPadding
+      if (rect.bottom > allowedBottom) {
+        window.scrollBy({ top: rect.bottom - allowedBottom, behavior: 'instant' })
+      }
+      if (rect.top < allowedTop) {
+        window.scrollBy({ top: rect.top - allowedTop, behavior: 'instant' })
+      }
     })
   }
 
