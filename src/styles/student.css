@@ -599,6 +599,39 @@
   }
 }
 
+@media print {
+  .site-header,
+  .site-topbar,
+  .student-sidebar,
+  .student-sidebar-backdrop,
+  .student-schedule-print-btn {
+    display: none !important;
+  }
+
+  .student-shell-page {
+    padding-top: 0 !important;
+    background: #fff;
+  }
+
+  .student-layout {
+    display: block;
+    min-height: auto;
+  }
+
+  .student-content {
+    padding: 0;
+  }
+
+  .student-schedule-table-wrap {
+    overflow: visible !important;
+  }
+
+  .student-schedule-table {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
 
 
 

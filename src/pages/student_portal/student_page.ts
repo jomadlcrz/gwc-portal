@@ -1,5 +1,6 @@
 import '../../styles/student.css'
 import { STUDENT_SHELL_CONFIG, setupPortalShell } from '../../components/layout/_layout'
+import { setupstudent_schedule_page as setupSchedulePrint } from './schedule/schedule_page'
 
 export { renderstudent_dashboard_page } from './dashboard/dashboard_page'
 export { renderstudent_subjects_page } from './subjects/subjects_page'
@@ -12,5 +13,11 @@ export function setupstudent_page(root: HTMLElement): () => void {
 }
 
 export function setupstudent_schedule_page(root: HTMLElement): () => void {
-  return setupPortalShell(root, STUDENT_SHELL_CONFIG)
+  const cleanupShell = setupPortalShell(root, STUDENT_SHELL_CONFIG)
+  const cleanupSchedulePrint = setupSchedulePrint(root)
+
+  return () => {
+    cleanupSchedulePrint()
+    cleanupShell()
+  }
 }

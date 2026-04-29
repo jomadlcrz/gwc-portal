@@ -119,3 +119,18 @@ export function renderstudent_schedule_page(): string {
     `,
   )
 }
+
+export function setupstudent_schedule_page(root: HTMLElement): () => void {
+  const printButton = root.querySelector<HTMLButtonElement>('.student-schedule-print-btn')
+  if (!printButton) return () => {}
+
+  const onPrint = (): void => {
+    window.print()
+  }
+
+  printButton.addEventListener('click', onPrint)
+
+  return () => {
+    printButton.removeEventListener('click', onPrint)
+  }
+}
