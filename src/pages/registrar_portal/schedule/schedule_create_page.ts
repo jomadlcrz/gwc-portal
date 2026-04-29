@@ -47,7 +47,8 @@ function floatingSelect(
 }
 
 function deriveUnits(subjectCode: string, title: string): string {
-  const normalized = `${subjectCode} ${title}`.toLowerCase()
+  const normalized = `${subjectCode} ${title}`.toLowerCase().trim()
+  if (!normalized) return ''
 
   if (normalized.includes('laboratory') || normalized.includes('lab')) {
     return '1'
@@ -333,7 +334,7 @@ export function setupclass_scheduling_form(root: HTMLElement): () => void {
   subjectCodeInput.addEventListener('input', onFieldInput)
   titleInput.addEventListener('input', onFieldInput)
   renumberSlots()
-  updateUnits()
+  unitsInput.value = ''
 
   return () => {
     addButton.removeEventListener('click', onAddSlot)

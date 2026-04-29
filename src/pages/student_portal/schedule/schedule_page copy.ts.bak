@@ -43,10 +43,10 @@ export function renderstudent_schedule_page(): string {
 
           <section class="student-schedule-info-row">
             <div class="student-schedule-meta">
-              <p><i class="bi bi-person" aria-hidden="true"></i><span>Name of Student:</span> <strong>${studentProfile.name}</strong></p>
-              <p><i class="bi bi-mortarboard" aria-hidden="true"></i><span>Year Level and Section:</span> <strong>${studentProfile.yearLevelSection}</strong></p>
-              <p><i class="bi bi-journal-text" aria-hidden="true"></i><span>Program:</span> <strong>${studentProfile.course}</strong></p>
-              <p><i class="bi bi-gear" aria-hidden="true"></i><span>Status:</span> <strong class="student-schedule-status-badge ${isRegular ? 'is-regular' : 'is-irregular'}">${studentProfile.status}</strong></p>
+              <p><span>Name of Student:</span> <strong>${studentProfile.name}</strong></p>
+              <p><span>Year Level and Section:</span> <strong>${studentProfile.yearLevelSection}</strong></p>
+              <p><span>Program:</span> <strong>${studentProfile.course}</strong></p>
+              <p><span>Status:</span> <strong class="student-schedule-status-badge ${isRegular ? 'is-regular' : 'is-irregular'}">${studentProfile.status}</strong></p>
             </div>
             <button type="button" class="btn btn-primary student-schedule-print-btn">
               <i class="bi bi-printer-fill" aria-hidden="true"></i>
@@ -103,32 +103,6 @@ export function renderstudent_schedule_page(): string {
                 }
               </tbody>
             </table>
-          </div>
-          <div class="student-schedule-mobile-list" data-student-schedule-mobile>
-            ${
-              rows.length
-                ? rows
-                    .map(
-                      (item, index) => `
-                        <article class="student-schedule-mobile-card">
-                          <div class="student-schedule-mobile-subject">
-                            <h4>${item.subjectCode}</h4>
-                            <p>${item.title}</p>
-                            <span>Units: ${item.capacity >= 40 ? 3 : 2}</span>
-                          </div>
-                          <div class="student-schedule-mobile-details">
-                            <p><i class="bi bi-person" aria-hidden="true"></i><span>${item.faculty}</span></p>
-                            <p><i class="bi bi-calendar3" aria-hidden="true"></i><span>${item.day}</span></p>
-                            <p><i class="bi bi-clock" aria-hidden="true"></i><span>${item.startTime} - ${item.endTime}</span></p>
-                            <p><i class="bi bi-geo-alt" aria-hidden="true"></i><span>${item.room}</span></p>
-                            <p><i class="bi bi-collection" aria-hidden="true"></i><span>Set: ${isRegular ? item.section : irregularSetOptions[index % irregularSetOptions.length]}</span></p>
-                          </div>
-                        </article>
-                      `,
-                    )
-                    .join('')
-                : '<p class="student-schedule-mobile-empty">No schedules published yet.</p>'
-            }
           </div>
           <p class="student-schedule-total-units">Total Units: <strong>${totalUnits}</strong></p>
 
