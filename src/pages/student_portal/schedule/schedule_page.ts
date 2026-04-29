@@ -1,6 +1,6 @@
 import { STUDENT_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
-import { STUDENT_SCHEDULE } from '../../../data/student_schedule'
+import { resolveStudentScheduleById } from '../../../data/student_schedule'
 import { schedulingService } from '../../../features/scheduling/service'
 
 function formatDay(day: string): string {
@@ -18,8 +18,11 @@ function formatDay(day: string): string {
 
 export function renderstudent_schedule_page(): string {
   const rows = schedulingService.listStudentSchedules()
-  const studentProfile = STUDENT_SCHEDULE
+  const params = new URLSearchParams(window.location.search)
+  const studentProfile = resolveStudentScheduleById(params.get('student'))
+  const isRegular = studentProfile.status === 'Regular'
   const totalUnits = rows.reduce((sum, item) => sum + (item.capacity >= 40 ? 3 : 2), 0)
+  const irregularSetOptions = ['N/A', 'BSIT-3A', 'BSIT-3B', 'BSIT-3C']
 
   return renderPortalShell(
     STUDENT_SHELL_CONFIG,
@@ -43,7 +46,7 @@ export function renderstudent_schedule_page(): string {
               <p><span>Name of Student:</span> <strong>${studentProfile.name}</strong></p>
               <p><span>Year Level and Section:</span> <strong>${studentProfile.yearLevelSection}</strong></p>
               <p><span>Program:</span> <strong>${studentProfile.course}</strong></p>
-              <p><span>Status:</span> <strong class="student-schedule-status-badge is-regular">${studentProfile.status}</strong></p>
+              <p><span>Status:</span> <strong class="student-schedule-status-badge ${isRegular ? 'is-regular' : 'is-irregular'}">${studentProfile.status}</strong></p>
             </div>
             <button type="button" class="btn btn-primary student-schedule-print-btn">
               <i class="bi bi-printer-fill" aria-hidden="true"></i>
@@ -82,7 +85,7 @@ export function renderstudent_schedule_page(): string {
                   rows.length
                     ? rows
                         .map(
-                          (item) => `
+                          (item, index) => `
                             <tr>
                               <td>${item.subjectCode}</td>
                               <td>${item.title}</td>
@@ -91,7 +94,7 @@ export function renderstudent_schedule_page(): string {
                               <td>${formatDay(item.day)}</td>
                               <td>${item.startTime}-${item.endTime}</td>
                               <td>${item.room}</td>
-                              <td>${item.section}</td>
+                              <td>${isRegular ? item.section : irregularSetOptions[index % irregularSetOptions.length]}</td>
                             </tr>
                           `,
                         )

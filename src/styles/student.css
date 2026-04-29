@@ -231,6 +231,11 @@
   background: #d9f7e5;
 }
 
+.student-schedule-status-badge.is-irregular {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
 .student-schedule-print-btn {
   display: inline-flex;
   align-items: center;
