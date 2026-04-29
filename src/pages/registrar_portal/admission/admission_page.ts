@@ -327,8 +327,9 @@ export function renderregistrar_admission_page(): string {
               <h4>Enrollment Control</h4>
               <p class="mb-2">Current Status: <strong class="registrar-enrollment-status ${enrollmentOpen ? 'is-open' : 'is-closed'}" data-enrollment-status-text>${enrollmentOpen ? 'OPEN' : 'CLOSED'}</strong></p>
               <div class="registrar-dashboard-actions">
-                <button type="button" class="btn btn-sm btn-primary" data-enrollment-open ${enrollmentOpen ? 'disabled' : ''}>Open Enrollment</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary" data-enrollment-close ${enrollmentOpen ? '' : 'disabled'}>Close Enrollment</button>
+                <button type="button" class="btn btn-sm ${enrollmentOpen ? 'btn-outline-secondary' : 'btn-primary'}" data-enrollment-toggle>
+                  ${enrollmentOpen ? 'Close Enrollment' : 'Open Enrollment'}
+                </button>
               </div>
             </article>
           </section>
@@ -354,7 +355,6 @@ export function renderregistrar_admission_page(): string {
               </div>
               <div class="registrar-dashboard-actions mt-2 registrar-admission-req-actions">
                 <button type="button" class="btn btn-sm btn-primary" data-admission-req-add>Add Requirement</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary" data-admission-req-refresh>Refresh</button>
               </div>
               <p class="mb-2 mt-2 small registrar-admission-req-message" data-admission-req-message></p>
               <div data-admission-req-list class="small registrar-admission-req-list"></div>
@@ -739,25 +739,24 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
 }
 
 export function setupregistrar_admission_page(root: HTMLElement): () => void {
-  const openButton = root.querySelector<HTMLButtonElement>('[data-enrollment-open]')
-  const closeButton = root.querySelector<HTMLButtonElement>('[data-enrollment-close]')
+  const toggleButton = root.querySelector<HTMLButtonElement>('[data-enrollment-toggle]')
   const statusText = root.querySelector<HTMLElement>('[data-enrollment-status-text]')
   const reqType = root.querySelector<HTMLSelectElement>('[data-admission-req-type]')
   const reqDocs = root.querySelector<HTMLTextAreaElement>('[data-admission-req-docs]')
   const reqAddBtn = root.querySelector<HTMLButtonElement>('[data-admission-req-add]')
-  const reqRefreshBtn = root.querySelector<HTMLButtonElement>('[data-admission-req-refresh]')
   const reqMessage = root.querySelector<HTMLElement>('[data-admission-req-message]')
   const reqList = root.querySelector<HTMLElement>('[data-admission-req-list]')
 
-  if (!openButton || !closeButton || !statusText || !reqType || !reqDocs || !reqAddBtn || !reqRefreshBtn || !reqMessage || !reqList) return () => {}
+  if (!toggleButton || !statusText || !reqType || !reqDocs || !reqAddBtn || !reqMessage || !reqList) return () => {}
 
   const syncState = (): void => {
     const isOpen = admissionService.isEnrollmentOpen()
     statusText.textContent = isOpen ? 'OPEN' : 'CLOSED'
     statusText.classList.toggle('is-open', isOpen)
     statusText.classList.toggle('is-closed', !isOpen)
-    openButton.disabled = isOpen
-    closeButton.disabled = !isOpen
+    toggleButton.textContent = isOpen ? 'Close Enrollment' : 'Open Enrollment'
+    toggleButton.classList.toggle('btn-primary', !isOpen)
+    toggleButton.classList.toggle('btn-outline-secondary', isOpen)
   }
 
   const onOpen = (): void => {
@@ -784,8 +783,15 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
       })
   }
 
-  openButton.addEventListener('click', onOpen)
-  closeButton.addEventListener('click', onClose)
+  const onToggle = (): void => {
+    if (admissionService.isEnrollmentOpen()) {
+      onClose()
+      return
+    }
+    onOpen()
+  }
+
+  toggleButton.addEventListener('click', onToggle)
   syncState()
   void admissionService.refreshEnrollmentOpenFromBackend().then(() => syncState()).catch(() => {})
 
@@ -840,10 +846,6 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
     } finally {
       reqAddBtn.disabled = false
     }
-  }
-
-  const onRefreshRequirement = (): void => {
-    void loadRequirements()
   }
 
   const formatBulletLines = (): void => {
@@ -909,7 +911,6 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
   }
 
   reqAddBtn.addEventListener('click', () => void onAddRequirement())
-  reqRefreshBtn.addEventListener('click', onRefreshRequirement)
   reqDocs.addEventListener('focus', () => {
     if (!reqDocs.value.trim()) reqDocs.value = '• '
     autoResizeReqDocs()
@@ -924,9 +925,7 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
   void loadRequirements()
 
   return () => {
-    openButton.removeEventListener('click', onOpen)
-    closeButton.removeEventListener('click', onClose)
-    reqRefreshBtn.removeEventListener('click', onRefreshRequirement)
+    toggleButton.removeEventListener('click', onToggle)
     reqDocs.removeEventListener('blur', formatBulletLines)
     reqDocs.removeEventListener('keydown', onReqDocsKeydown)
     reqDocs.removeEventListener('input', autoResizeReqDocs)
