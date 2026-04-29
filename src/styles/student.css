@@ -631,6 +631,17 @@
     min-width: 0;
     width: 100%;
   }
+
+  .student-schedule-table th {
+    background: #ffffff !important;
+    color: #111827 !important;
+    font-weight: 700;
+  }
+
+  .student-schedule-table th,
+  .student-schedule-table td {
+    border-color: #9ca3af !important;
+  }
 }
 
 
