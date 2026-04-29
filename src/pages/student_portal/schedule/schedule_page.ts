@@ -104,43 +104,46 @@ function mergeScheduleRows(items: ScheduleItem[], isRegular: boolean): StudentSc
 
 function buildThirdYearSecondSemRows(section: string): ScheduleItem[] {
   const term = BSIT_CURRICULUM_DATA.find((item) => item.yearLabel === 'Third Year' && item.semesterLabel === '2nd Semester')
-  if (!term) return []
+  const titleByCode = new Map((term?.subjects ?? []).map((subject) => [subject.code.toUpperCase(), subject.title]))
+  const getTitle = (code: string, fallback: string): string => titleByCode.get(code.toUpperCase()) ?? fallback
+  const getCapacity = (code: string): number => (code === 'PATHFIT4' ? 35 : 40)
 
-  const meetingPatterns: Array<Array<{ day: string; startTime: string; endTime: string }>> = [
-    [
-      { day: 'Monday', startTime: '08:00', endTime: '09:30' },
-      { day: 'Wednesday', startTime: '08:00', endTime: '09:30' },
-      { day: 'Friday', startTime: '08:00', endTime: '09:30' },
-    ],
-    [
-      { day: 'Tuesday', startTime: '10:00', endTime: '11:30' },
-      { day: 'Thursday', startTime: '10:00', endTime: '11:30' },
-      { day: 'Saturday', startTime: '10:00', endTime: '11:30' },
-    ],
-    [{ day: 'Friday', startTime: '13:00', endTime: '14:30' }],
-    [{ day: 'Monday', startTime: '15:00', endTime: '16:30' }],
-    [{ day: 'Tuesday', startTime: '13:00', endTime: '14:30' }],
-    [{ day: 'Wednesday', startTime: '15:00', endTime: '16:30' }],
-    [{ day: 'Thursday', startTime: '13:00', endTime: '14:30' }],
+  const rows: Array<{ code: string; titleFallback: string; day: string; startTime: string; endTime: string; room: string; faculty: string }> = [
+    { code: 'LIT2', titleFallback: 'Literatures of the World', day: 'Monday', startTime: '09:00', endTime: '10:00', room: 'Room 304', faculty: 'Caburao' },
+    { code: 'PT102', titleFallback: "Platform-based Dev't (Multimedia Systems)", day: 'Monday', startTime: '12:00', endTime: '14:00', room: '402/CL1', faculty: 'Mr. John Vianney Manuel' },
+    { code: 'SE101', titleFallback: 'Software Engineering 1', day: 'Monday', startTime: '15:00', endTime: '16:30', room: '303/CL2', faculty: 'Ms. Joyce Raon' },
+    { code: 'ITELEC2', titleFallback: 'IT Major Elective 2 (Data Warehousing)', day: 'Monday', startTime: '16:30', endTime: '18:00', room: '403/CL2', faculty: 'Ms. Joyce Raon' },
+    { code: 'IT312', titleFallback: 'Computer Accounting (with SAP)', day: 'Tuesday', startTime: '10:30', endTime: '11:30', room: 'Room 305', faculty: 'Ms. Joyce Raon' },
+    { code: 'PT103', titleFallback: 'Platform-based Development (Android Programming)', day: 'Tuesday', startTime: '12:00', endTime: '13:30', room: '303/CL2', faculty: 'Mr. Paulo Balgua' },
+    { code: 'LIT2', titleFallback: 'Literatures of the World', day: 'Wednesday', startTime: '09:00', endTime: '10:00', room: 'Room 304', faculty: 'Caburao' },
+    { code: 'PT102', titleFallback: "Platform-based Dev't (Multimedia Systems)", day: 'Wednesday', startTime: '12:00', endTime: '14:00', room: '402/CL1', faculty: 'Mr. John Vianney Manuel' },
+    { code: 'SE101', titleFallback: 'Software Engineering 1', day: 'Wednesday', startTime: '15:00', endTime: '16:30', room: '303/CL2', faculty: 'Ms. Joyce Raon' },
+    { code: 'ITELEC2', titleFallback: 'IT Major Elective 2 (Data Warehousing)', day: 'Wednesday', startTime: '16:30', endTime: '18:00', room: '403/CL2', faculty: 'Ms. Joyce Raon' },
+    { code: 'PT103', titleFallback: 'Platform-based Development (Android Programming)', day: 'Thursday', startTime: '12:00', endTime: '13:30', room: '303/CL2', faculty: 'Mr. Paulo Balgua' },
+    { code: 'CAPS101', titleFallback: 'Capstone Project and Research 1', day: 'Thursday', startTime: '13:00', endTime: '16:00', room: 'Room 306', faculty: 'Mr. Willmher John Regaspi' },
+    { code: 'LIT2', titleFallback: 'Literatures of the World', day: 'Friday', startTime: '09:00', endTime: '10:00', room: 'Room 304', faculty: 'Caburao' },
+    { code: 'IT312', titleFallback: 'Computer Accounting (with SAP)', day: 'Friday', startTime: '10:30', endTime: '11:30', room: 'Room 305', faculty: 'Ms. Joyce Raon' },
+    { code: 'PT102', titleFallback: "Platform-based Dev't (Multimedia Systems)", day: 'Friday', startTime: '12:00', endTime: '14:00', room: '402/CL1', faculty: 'Mr. John Vianney Manuel' },
+    { code: 'SE101', titleFallback: 'Software Engineering 1', day: 'Friday', startTime: '15:00', endTime: '16:30', room: '303/CL2', faculty: 'Ms. Joyce Raon' },
+    { code: 'ITELEC2', titleFallback: 'IT Major Elective 2 (Data Warehousing)', day: 'Friday', startTime: '16:30', endTime: '18:00', room: '403/CL2', faculty: 'Ms. Joyce Raon' },
+    { code: 'IT312', titleFallback: 'Computer Accounting (with SAP)', day: 'Saturday', startTime: '10:30', endTime: '11:30', room: 'Room 305', faculty: 'Ms. Joyce Raon' },
+    { code: 'PT103', titleFallback: 'Platform-based Development (Android Programming)', day: 'Saturday', startTime: '12:00', endTime: '13:30', room: '303/CL2', faculty: 'Mr. Paulo Balgua' },
   ]
 
-  return term.subjects.flatMap((subject, index) => {
-    const meetings = meetingPatterns[index % meetingPatterns.length]
-    return meetings.map((meeting, meetingIndex) => ({
-      id: `3y2s-${index + 1}-${meetingIndex + 1}`,
-      subjectCode: subject.code,
-      title: subject.title,
-      section,
-      faculty: index % 2 === 0 ? 'Prof. Maria Dela Cruz' : 'Prof. John Santos',
-      department: 'CITE',
-      room: index % 2 === 0 ? 'Room 301' : 'Room 302',
-      day: meeting.day,
-      startTime: meeting.startTime,
-      endTime: meeting.endTime,
-      deliveryMode: 'Face-to-Face',
-      capacity: subject.units >= 9 ? 80 : subject.units >= 3 ? 40 : 35,
-    }))
-  })
+  return rows.map((row, index) => ({
+    id: `3y2s-${index + 1}`,
+    subjectCode: row.code,
+    title: getTitle(row.code, row.titleFallback),
+    section,
+    faculty: row.faculty,
+    department: 'CITE',
+    room: row.room,
+    day: row.day,
+    startTime: row.startTime,
+    endTime: row.endTime,
+    deliveryMode: 'Face-to-Face',
+    capacity: getCapacity(row.code),
+  }))
 }
 
 function buildIrregularRows(): ScheduleItem[] {
