@@ -12,7 +12,7 @@ const registrationStepLabels = ['Choose Program', 'Personal Information', 'Valid
 
 function renderRegistrationSteps(): string {
   return `
-    <section class="admission-registration-steps" aria-label="Admission registration steps">
+    <section class="admission-registration-steps" aria-label="Admission registration steps" data-aos="fade-right" data-aos-delay="100">
       <ol class="admission-stepper-list">
         ${registrationStepLabels
           .map(
@@ -62,7 +62,9 @@ export function renderadmission_registration_page(): string {
       <section class="admission-shell admission-registration-shell">
         <div class="post-container">
           <article id="admission-registration-intro" class="admission-registration-intro">
-            <h2>Online Application</h2>
+            <h2 class="admission-registration-title" data-aos="fade-up">
+              Online Application
+            </h2>
             <p>
               We are now accepting new students and transferees for the 1st Semester.
             </p>
@@ -70,7 +72,7 @@ export function renderadmission_registration_page(): string {
           </article>
 
           <section id="admission-registration-step-1">
-            <article class="admission-registration-card">
+            <article class="admission-registration-card" data-aos="fade-up" data-aos-duration="700">
               <h3>What type of student are you?</h3>
               <label class="admission-registration-option" for="admission-student-type-new">
                 <input id="admission-student-type-new" name="admission-student-type" type="radio" value="Freshmen" />
@@ -82,7 +84,7 @@ export function renderadmission_registration_page(): string {
               </label>
             </article>
 
-            <article class="admission-registration-card">
+            <article class="admission-registration-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
               <h3>Programs:</h3>
               <label class="admission-registration-option" for="admission-program-bscrim">
                 <input id="admission-program-bscrim" name="admission-program" type="radio" value="1" />
