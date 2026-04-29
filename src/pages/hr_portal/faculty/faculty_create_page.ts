@@ -3,7 +3,7 @@ import { HR_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../../c
 import { hydrateLocationSelects, setupProvinceCityCascade } from '../../../api/psgc'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderDepartmentCodeBadge } from '../../../components/ui/department_badge'
-import { renderAdminSectionTitle } from '../../../components/ui/section_title_heading'
+import { renderSectionTitle } from '../../../components/ui/section_title_heading'
 import { DEPARTMENTS, DEPARTMENT_SELECT_OPTIONS } from '../../../data/departments'
 
 function renderDepartmentCodeLegend(): string {
@@ -36,7 +36,7 @@ function renderFacultyFormFields(): string {
 
   return `
     <section class="hr-faculty-section">
-      ${renderAdminSectionTitle('Faculty Information', { titleClass: 'hr-faculty-section-title' })}
+      ${renderSectionTitle('Faculty Information', { titleClass: 'hr-faculty-section-title' })}
       <div class="hr-faculty-form-grid">
         ${floatingInput('faculty-school-id', 'School ID')}
         ${floatingInput('faculty-first-name', 'First Name')}
@@ -49,7 +49,7 @@ function renderFacultyFormFields(): string {
     </section>
 
     <section class="hr-faculty-section">
-      ${renderAdminSectionTitle('Contact Information', { titleClass: 'hr-faculty-section-title' })}
+      ${renderSectionTitle('Contact Information', { titleClass: 'hr-faculty-section-title' })}
       <div class="hr-faculty-form-grid">
         ${floatingInput('faculty-email', 'Email', 'email')}
         ${floatingInput('faculty-mobile', 'Mobile Number')}
@@ -61,7 +61,7 @@ function renderFacultyFormFields(): string {
     </section>
 
     <section class="hr-faculty-section">
-      ${renderAdminSectionTitle('Faculty Assignment', { titleClass: 'hr-faculty-section-title' })}
+      ${renderSectionTitle('Faculty Assignment', { titleClass: 'hr-faculty-section-title' })}
       <div class="hr-faculty-form-grid">
         ${floatingSelect('faculty-department-id', 'Department', DEPARTMENT_SELECT_OPTIONS)}
       </div>
@@ -69,7 +69,7 @@ function renderFacultyFormFields(): string {
     </section>
 
     <section class="hr-faculty-section">
-      ${renderAdminSectionTitle('Role Assignment', { titleClass: 'hr-faculty-section-title' })}
+      ${renderSectionTitle('Role Assignment', { titleClass: 'hr-faculty-section-title' })}
       <div class="hr-faculty-form-grid">
         <div class="form-floating">
           <input type="text" class="form-control form-control-sm" id="faculty-role" value="Instructor" readonly />

@@ -1,4 +1,4 @@
-﻿import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
+import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { ROUTES } from '../../../app/routes'
 import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { schedulingService } from '../../../features/scheduling/service'

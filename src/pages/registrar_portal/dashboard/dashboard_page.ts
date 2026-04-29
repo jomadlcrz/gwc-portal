@@ -1,4 +1,4 @@
-﻿import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
+import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 
 export function renderregistrar_dashboard_page(): string {
   return renderPortalShell(

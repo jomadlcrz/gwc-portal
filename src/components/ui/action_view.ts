@@ -20,7 +20,7 @@ export function renderActionView(sections: ActionViewSection[]): string {
         .map(
           (section) => `
             <section class="action-view-section">
-              <h3><span class="admin-section-title">${escapeHtml(section.title)}</span></h3>
+              <h3><span class="section-title">${escapeHtml(section.title)}</span></h3>
               <div class="action-view-grid">
                 ${section.fields
                   .map((field) => {

@@ -17,14 +17,14 @@ function escapeHtml(value: string): string {
     .replaceAll("'", '&#39;')
 }
 
-export function renderAdminSectionTitle(title: string, options: SectionTitleOptions = {}): string {
+export function renderSectionTitle(title: string, options: SectionTitleOptions = {}): string {
   const headingTag = options.headingTag ?? 'h3'
-  const titleClass = options.titleClass ?? 'admin-section-title'
+  const titleClass = options.titleClass ?? 'section-title'
   return `<${headingTag}><span class="${titleClass}">${escapeHtml(title)}</span></${headingTag}>`
 }
 
-export function renderAdminSubheading(title: string, options: SubheadingOptions = {}): string {
+export function renderSectionSubheading(title: string, options: SubheadingOptions = {}): string {
   const headingTag = options.headingTag ?? 'h4'
-  const className = options.className ?? 'admin-section-subheading'
+  const className = options.className ?? 'section-subheading'
   return `<${headingTag} class="${className}">${escapeHtml(title)}</${headingTag}>`
 }

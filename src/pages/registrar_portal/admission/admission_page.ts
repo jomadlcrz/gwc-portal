@@ -1,7 +1,7 @@
 import { ROUTES } from '../../../app/routes'
 import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
-import { renderAdminSectionTitle } from '../../../components/ui/section_title_heading'
+import { renderSectionTitle } from '../../../components/ui/section_title_heading'
 import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
 import { type AdmissionApplicationStatus } from '../../../data/admission'
 import { admissionService } from '../../../features/admission/service'
@@ -115,7 +115,7 @@ function renderAdmissionManageForm(applicationNo: string): string {
   return `
     <div class="shared-modal-grid shared-modal-grid-1 registrar-admission-manage-form">
       <section>
-        ${renderAdminSectionTitle('Registrar Decision')}
+        ${renderSectionTitle('Registrar Decision')}
         <div class="shared-modal-grid shared-modal-grid-2">
           <div class="form-floating">
             <select id="admission-modal-status" class="form-select">
@@ -131,7 +131,7 @@ function renderAdmissionManageForm(applicationNo: string): string {
       </section>
 
       <section>
-        ${renderAdminSectionTitle('Application Details')}
+        ${renderSectionTitle('Application Details')}
         <div class="shared-modal-grid shared-modal-grid-3">
           <div class="form-floating"><input class="form-control" value="${application.applicationNo}" readonly /><label>Application No.</label></div>
           <div class="form-floating"><input class="form-control" value="${application.admissionType}" readonly /><label>Admission Type</label></div>
@@ -142,7 +142,7 @@ function renderAdmissionManageForm(applicationNo: string): string {
       </section>
 
       <section>
-        ${renderAdminSectionTitle('Personal Information')}
+        ${renderSectionTitle('Personal Information')}
         <div class="shared-modal-grid shared-modal-grid-3">
           <div class="form-floating"><input class="form-control" value="${application.personalInfo.email}" data-admission-edit="personalInfo.email" /><label>Email</label></div>
           <div class="form-floating"><input class="form-control" value="${application.personalInfo.mobile}" data-admission-edit="personalInfo.mobile" /><label>Mobile</label></div>
@@ -159,7 +159,7 @@ function renderAdmissionManageForm(applicationNo: string): string {
       </section>
 
       <section>
-        ${renderAdminSectionTitle('Educational Information')}
+        ${renderSectionTitle('Educational Information')}
         <div class="shared-modal-grid shared-modal-grid-3">
           <div class="form-floating"><input class="form-control" value="${application.educationalInfo.seniorHighSchool}" data-admission-edit="educationalInfo.seniorHighSchool" /><label>Senior High School</label></div>
           <div class="form-floating"><input class="form-control" value="${application.educationalInfo.strand}" data-admission-edit="educationalInfo.strand" /><label>Strand</label></div>
@@ -169,7 +169,7 @@ function renderAdmissionManageForm(applicationNo: string): string {
       </section>
 
       <section>
-        ${renderAdminSectionTitle('FOR TRANSFEREE / TECH-VOC COURSE GRADUATE / 2ND COURSE')}
+        ${renderSectionTitle('FOR TRANSFEREE / TECH-VOC COURSE GRADUATE / 2ND COURSE')}
         <div class="shared-modal-grid shared-modal-grid-3">
           <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastSchoolAttended}" data-admission-edit="educationalInfo.lastSchoolAttended" /><label>Last School Attended</label></div>
           <div class="form-floating"><input class="form-control" value="${application.educationalInfo.lastCourse}" data-admission-edit="educationalInfo.lastCourse" /><label>Course</label></div>
@@ -178,7 +178,7 @@ function renderAdmissionManageForm(applicationNo: string): string {
       </section>
 
       <section>
-        ${renderAdminSectionTitle('Uploaded Documents')}
+        ${renderSectionTitle('Uploaded Documents')}
         <div class="shared-modal-grid shared-modal-grid-3">
           ${uploadedDocumentItems
             .map(
@@ -205,7 +205,7 @@ function renderAdmissionManageForm(applicationNo: string): string {
       </section>
 
       <section>
-        ${renderAdminSectionTitle('Other Information')}
+        ${renderSectionTitle('Other Information')}
         <div class="shared-modal-grid shared-modal-grid-3">
           <div class="form-floating">
             <select class="form-select" data-admission-edit="otherInfo.alsPasser">
@@ -246,7 +246,7 @@ function renderAdmissionManageForm(applicationNo: string): string {
       </section>
 
       <section>
-        ${renderAdminSectionTitle('Reminder Notes')}
+        ${renderSectionTitle('Reminder Notes')}
         <ul class="mb-0 ps-3">
           ${requirementReminders.map((reminder) => `<li>${reminder}</li>`).join('')}
         </ul>

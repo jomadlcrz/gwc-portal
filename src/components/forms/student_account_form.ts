@@ -1,4 +1,4 @@
-import { renderAdminSectionTitle, renderAdminSubheading } from '../ui/section_title_heading'
+import { renderSectionSubheading, renderSectionTitle } from '../ui/section_title_heading'
 
 function floatingInput(id: string, label: string, type = 'text'): string {
   return `
@@ -46,7 +46,7 @@ function renderGuardianFields(prefix: string, title: string): string {
   const key = title.toLowerCase()
   const isGuardian = key === 'guardian'
   return `
-    ${renderAdminSubheading(title)}
+    ${renderSectionSubheading(title)}
     <div class="admin-student-form-grid admin-student-form-grid-4">
       ${floatingInput(`${prefix}-${key}-first-name`, 'First Name')}
       ${floatingInput(`${prefix}-${key}-middle-name`, 'Middle Name (Optional)')}
@@ -64,12 +64,12 @@ function renderGuardianFields(prefix: string, title: string): string {
 export function renderStudentAccountForm(prefix: string): string {
   return `
     <section class="admin-student-section">
-      ${renderAdminSectionTitle('Student Information')}
+      ${renderSectionTitle('Student Information')}
       ${renderStudentInfoFields(prefix)}
     </section>
 
     <section class="admin-student-section">
-      ${renderAdminSectionTitle("Parent and Guardian's Information")}
+      ${renderSectionTitle("Parent and Guardian's Information")}
       <div class="admin-student-guardian-stack">
         ${renderGuardianFields(prefix, 'Father')}
         ${renderGuardianFields(prefix, 'Mother')}

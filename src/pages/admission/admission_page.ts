@@ -8,7 +8,7 @@ import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/l
 import { renderMainSiteFooter } from '../../components/layout/footer'
 import { renderHomeOverlays } from '../../components/layout/overlay'
 import { renderSharedModal, setupSharedModal } from '../../components/ui/modal'
-import { renderAdminSectionTitle } from '../../components/ui/section_title_heading'
+import { renderSectionTitle } from '../../components/ui/section_title_heading'
 import { type AdmissionApplication } from '../../data/admission'
 import { admissionService } from '../../features/admission/service'
 
@@ -202,7 +202,7 @@ function renderAdmissionVerificationContent(applicationNo: string): string {
     return `
       <article class="admission-section-card admission-section-card-status">
         <header class="admission-subhead">
-          <h3 class="admin-section-title admission-section-title">Verification</h3>
+          <h3 class="section-title admission-section-title">Verification</h3>
         </header>
         <section class="admission-content-block">
           <p class="admission-status-message">Application record not found.</p>
@@ -215,7 +215,7 @@ function renderAdmissionVerificationContent(applicationNo: string): string {
   return `
     <article class="admission-detail-section">
       <header class="admission-detail-heading">
-        ${renderAdminSectionTitle('Verification')}
+        ${renderSectionTitle('Verification')}
       </header>
       <section class="admission-section-card admission-section-card-no-margin admission-section-card-status">
         <div class="admission-content-block admission-verify-panel">
@@ -248,7 +248,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
     return `
       <article class="admission-section-card admission-section-card-status">
         <header class="admission-subhead">
-          <h3 class="admin-section-title admission-section-title">Admission Details</h3>
+          <h3 class="section-title admission-section-title">Admission Details</h3>
         </header>
         <section class="admission-content-block">
           <p class="admission-status-message">Application record not found.</p>
@@ -266,7 +266,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
     <article class="admission-details-page-shell">
       <section class="admission-detail-section">
         <header class="admission-detail-heading">
-          ${renderAdminSectionTitle('Admission Details')}
+          ${renderSectionTitle('Admission Details')}
         </header>
         <div class="admission-detail-surface">
           <div class="admission-details-header">
@@ -284,7 +284,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
 
       <section class="admission-detail-section">
         <header class="admission-detail-heading">
-          ${renderAdminSectionTitle('Personal Information')}
+          ${renderSectionTitle('Personal Information')}
         </header>
         <div class="admission-detail-surface">
           <div class="admission-details-grid">
@@ -305,7 +305,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
 
       <section class="admission-detail-section">
         <header class="admission-detail-heading">
-          ${renderAdminSectionTitle('Uploaded Documents')}
+          ${renderSectionTitle('Uploaded Documents')}
         </header>
         <div class="admission-detail-surface">
           <div class="admission-docs-grid">
@@ -327,7 +327,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
 
       <section class="admission-detail-section">
         <header class="admission-detail-heading">
-          ${renderAdminSectionTitle('Educational Information')}
+          ${renderSectionTitle('Educational Information')}
         </header>
         <div class="admission-detail-surface">
           <div class="admission-details-grid">
@@ -341,7 +341,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
 
       <section class="admission-detail-section">
         <header class="admission-detail-heading">
-          ${renderAdminSectionTitle('FOR TRANSFEREE / TECH-VOC COURSE GRADUATE / 2ND COURSE')}
+          ${renderSectionTitle('FOR TRANSFEREE / TECH-VOC COURSE GRADUATE / 2ND COURSE')}
         </header>
         <div class="admission-detail-surface">
           <div class="admission-details-grid">
@@ -354,7 +354,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
 
       <section class="admission-detail-section">
         <header class="admission-detail-heading">
-          ${renderAdminSectionTitle('Other Information')}
+          ${renderSectionTitle('Other Information')}
         </header>
         <div class="admission-detail-surface">
           <div class="admission-details-grid">
@@ -369,7 +369,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
 
       <section id="reminders" class="admission-detail-section">
         <header class="admission-detail-heading">
-          ${renderAdminSectionTitle('Reminders')}
+          ${renderSectionTitle('Reminders')}
         </header>
         <div class="admission-detail-surface">
           ${
@@ -412,7 +412,7 @@ function renderAdmissionContent(active: AdmissionSection): string {
     return `
       <section class="admission-detail-section">
         <header class="admission-detail-heading">
-          ${renderAdminSectionTitle('S.Y. 2026 - 2027 | First Semester')}
+          ${renderSectionTitle('S.Y. 2026 - 2027 | First Semester')}
         </header>
         <article class="admission-section-card admission-section-card-no-margin">
           ${!isAdmissionOpen
@@ -491,7 +491,7 @@ function renderAdmissionContent(active: AdmissionSection): string {
 
       <article id="admission-process" class="admission-detail-section">
         <header class="admission-detail-heading">
-          ${renderAdminSectionTitle('Admission Process')}
+          ${renderSectionTitle('Admission Process')}
         </header>
         <section class="admission-section-card admission-section-card-no-margin">
           <div class="admission-content-block">
@@ -553,7 +553,7 @@ function renderAdmissionContent(active: AdmissionSection): string {
     return `
       <article class="admission-detail-section">
         <header class="admission-detail-heading">
-          ${renderAdminSectionTitle('Verification')}
+          ${renderSectionTitle('Verification')}
         </header>
         <section class="admission-section-card admission-section-card-no-margin admission-section-card-status">
           <div class="admission-status-fields admission-status-inline">
@@ -573,7 +573,7 @@ function renderAdmissionContent(active: AdmissionSection): string {
     return `
       <article class="admission-detail-section">
         <header class="admission-detail-heading">
-          ${renderAdminSectionTitle('Campus Contact Information')}
+          ${renderSectionTitle('Campus Contact Information')}
         </header>
         <section class="admission-section-card admission-section-card-no-margin">
           <div class="admission-content-block">
