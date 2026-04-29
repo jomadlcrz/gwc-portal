@@ -1,6 +1,6 @@
 import { ROUTES } from '../../../app/routes'
 import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
-import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderSharedPagination, setupSharedPagination } from '../../../components/ui/pagination'
 import { renderSharedPopover } from '../../../components/ui/popover'
 import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
@@ -150,7 +150,7 @@ export function renderregistrar_schedule_manage_page(): string {
     'schedule',
     `
       <section class="registrar-content">
-        ${renderAdminBreadcrumbNav([
+        ${renderBreadcrumbNav([
           { label: 'Schedule', href: ROUTES.REGISTRAR_SCHEDULE },
           { label: 'Manage Schedule', active: true },
         ])}

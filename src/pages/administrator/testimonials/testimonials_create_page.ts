@@ -1,7 +1,7 @@
 import { ROUTES } from '../../../app/routes'
 import { createTestimonial } from '../../../api/testimonials'
 import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../../components/layout/_layout'
-import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 
 const TESTIMONIAL_CATEGORIES = ['General', 'Parents', 'Students', 'Alumni', 'Teachers'] as const
 
@@ -11,7 +11,7 @@ export function rendertestimonials_create_page(): string {
     'testimonials',
     `
       <section class="admin-content">
-        ${renderAdminBreadcrumbNav([
+        ${renderBreadcrumbNav([
           { label: 'Testimonials', href: ROUTES.ADMINISTRATOR_TESTIMONIALS },
           { label: 'Add New Testimonial', active: true },
         ])}

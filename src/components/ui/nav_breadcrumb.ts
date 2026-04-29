@@ -11,8 +11,8 @@ export function renderBreadcrumbNav(items: BreadcrumbItem[]): string {
   }
   
   return `
-    <nav class="admin-breadcrumb-shell" aria-label="Breadcrumb">
-      <ol class="breadcrumb admin-breadcrumb mb-0">
+    <nav class="breadcrumb-shell" aria-label="Breadcrumb">
+      <ol class="breadcrumb section-breadcrumb mb-0">
         ${items
           .map((item) => {
             if (item.active || !item.href) {
@@ -24,10 +24,6 @@ export function renderBreadcrumbNav(items: BreadcrumbItem[]): string {
       </ol>
     </nav>
   `
-}
-
-export function renderAdminBreadcrumbNav(items: BreadcrumbItem[]): string {
-  return renderBreadcrumbNav(items)
 }
 
 

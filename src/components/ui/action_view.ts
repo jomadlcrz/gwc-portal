@@ -25,7 +25,7 @@ export function renderActionView(sections: ActionViewSection[]): string {
                 ${section.fields
                   .map((field) => {
                     const valueHtml = field.pillClass
-                      ? `<span class="admin-pill ${field.pillClass}">${escapeHtml(field.value)}</span>`
+                      ? `<span class="status-pill ${field.pillClass}">${escapeHtml(field.value)}</span>`
                       : field.valueHtml
                         ? field.valueHtml
                       : `<strong>${escapeHtml(field.value)}</strong>`

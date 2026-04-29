@@ -1,6 +1,6 @@
 import { ROUTES } from '../../../app/routes'
 import { ADMIN_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
-import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { getPostPath, posts } from '../../../data/posts'
 
 function escapeHtml(value: string): string {
@@ -33,7 +33,7 @@ export function renderposts_page(): string {
     'posts',
     `
       <section class="admin-content">
-        ${renderAdminBreadcrumbNav([
+        ${renderBreadcrumbNav([
           { label: 'Posts', active: true },
         ])}
 

@@ -1,6 +1,6 @@
 import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { ROUTES } from '../../../app/routes'
-import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { schedulingService } from '../../../features/scheduling/service'
 import type { ScheduleItem } from '../../../features/scheduling/types'
 import { DEFAULT_DEPARTMENT_CODE, DEPARTMENT_SELECT_OPTIONS } from '../../../data/departments'
@@ -94,7 +94,7 @@ export function renderregistrar_schedule_create_page(): string {
     'schedule',
     `
       <section class="registrar-content class-scheduling-content">
-        ${renderAdminBreadcrumbNav([
+        ${renderBreadcrumbNav([
           { label: 'Schedule', href: ROUTES.REGISTRAR_SCHEDULE },
           { label: 'Manage Schedule', href: ROUTES.REGISTRAR_SCHEDULE_MANAGE },
           { label: 'Create Schedule', active: true },

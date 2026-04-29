@@ -29,6 +29,7 @@
   font-weight: 700;
 }
 
+.breadcrumb-shell,
 .admin-breadcrumb-shell {
   border: var(--border-width-1) solid var(--color-surface-400);
   border-radius: var(--radius-sm);
@@ -37,21 +38,26 @@
   margin-bottom: 0.7rem;
 }
 
+.section-breadcrumb,
 .admin-breadcrumb {
   --bs-breadcrumb-divider: '/';
   font-size: 0.85rem;
 }
 
+.section-breadcrumb a,
 .admin-breadcrumb a {
   color: var(--color-slate-600);
   text-decoration: none;
 }
 
+.section-breadcrumb a:hover,
+.section-breadcrumb a:focus,
 .admin-breadcrumb a:hover,
 .admin-breadcrumb a:focus {
   text-decoration: underline;
 }
 
+.section-breadcrumb .active,
 .admin-breadcrumb .active {
   color: #0f2f64;
   font-weight: 700;

@@ -1,6 +1,6 @@
 import { ROUTES } from '../../../app/routes'
 import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../../components/layout/_layout'
-import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import type { PostCategory } from '../../../data/posts'
 import { createPost } from '../../../api/posts'
 
@@ -18,7 +18,7 @@ export function renderposts_create_page(): string {
     'posts',
     `
       <section class="admin-content">
-        ${renderAdminBreadcrumbNav([
+        ${renderBreadcrumbNav([
           { label: 'Posts', href: ROUTES.ADMINISTRATOR_POSTS },
           { label: 'Create Post', active: true },
         ])}

@@ -102,11 +102,13 @@
   color: var(--color-slate-700);
 }
 
+.actions-popover,
 .admin-actions-popover {
   position: relative;
   display: inline-flex;
 }
 
+.actions-trigger,
 .admin-actions-trigger {
   border: 0;
   background: transparent;
@@ -123,17 +125,21 @@
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
+.actions-trigger:hover,
+.actions-trigger:focus,
 .admin-actions-trigger:hover,
 .admin-actions-trigger:focus {
   background: #e9f1fb;
   color: #102338;
 }
 
+.actions-trigger:focus-visible,
 .admin-actions-trigger:focus-visible {
   outline: 2px solid #9bb7df;
   outline-offset: 2px;
 }
 
+.actions-menu,
 .admin-actions-menu {
   position: fixed;
   left: var(--menu-left, 0);
@@ -148,15 +154,18 @@
   z-index: 5;
 }
 
+.actions-popover.is-open .actions-menu,
 .admin-actions-popover.is-open .admin-actions-menu {
   display: grid;
   gap: 0.15rem;
 }
 
+.actions-menu.is-dropup,
 .admin-actions-menu.is-dropup {
   transform-origin: bottom right;
 }
 
+.actions-menu button,
 .admin-actions-menu button {
   text-align: left;
   border: 0;
@@ -168,15 +177,20 @@
   padding: 0.32rem 0.4rem;
 }
 
+.actions-menu button:hover,
+.actions-menu button:focus,
 .admin-actions-menu button:hover,
 .admin-actions-menu button:focus {
   background: var(--color-surface-50);
 }
 
+.actions-menu button.is-danger,
 .admin-actions-menu button.is-danger {
   color: var(--color-text-danger);
 }
 
+.actions-menu button.is-danger:hover,
+.actions-menu button.is-danger:focus,
 .admin-actions-menu button.is-danger:hover,
 .admin-actions-menu button.is-danger:focus {
   background: #fee2e2;

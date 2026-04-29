@@ -1,6 +1,6 @@
 import { ROUTES } from '../../../app/routes'
 import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
-import { renderAdminBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderSectionTitle } from '../../../components/ui/section_title_heading'
 import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
 import { type AdmissionApplicationStatus } from '../../../data/admission'
@@ -298,7 +298,7 @@ export function renderregistrar_admission_page(): string {
     'admission',
     `
       <section class="registrar-content">
-        ${renderAdminBreadcrumbNav([
+        ${renderBreadcrumbNav([
           { label: 'Admission', active: true },
         ])}
 
@@ -345,7 +345,7 @@ export function renderregistrar_admission_review_page(): string {
     'admission',
     `
       <section class="registrar-content">
-        ${renderAdminBreadcrumbNav([
+        ${renderBreadcrumbNav([
           { label: 'Admission', href: ROUTES.REGISTRAR_ADMISSION },
           { label: 'Queue', active: true },
         ])}
@@ -423,7 +423,7 @@ export function renderregistrar_admission_details_page(applicationNo: string): s
       'admission',
       `
         <section class="registrar-content">
-          ${renderAdminBreadcrumbNav([
+          ${renderBreadcrumbNav([
             { label: 'Admission', href: ROUTES.REGISTRAR_ADMISSION },
             { label: 'Queue', href: ROUTES.REGISTRAR_ADMISSION_REVIEW },
             { label: 'Details', active: true },
@@ -443,7 +443,7 @@ export function renderregistrar_admission_details_page(applicationNo: string): s
     'admission',
     `
       <section class="registrar-content">
-        ${renderAdminBreadcrumbNav([
+        ${renderBreadcrumbNav([
           { label: 'Admission', href: ROUTES.REGISTRAR_ADMISSION },
           { label: 'Queue', href: ROUTES.REGISTRAR_ADMISSION_REVIEW },
           { label: application.applicationNo, active: true },

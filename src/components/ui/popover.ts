@@ -13,7 +13,7 @@ export type RenderSharedPopoverOptions = {
 
 export function renderSharedPopover(options: RenderSharedPopoverOptions): string {
   const triggerLabel = options.triggerLabel ?? 'Actions'
-  const actionDataAttribute = options.actionDataAttribute ?? 'data-admin-action'
+  const actionDataAttribute = options.actionDataAttribute ?? 'data-action'
 
   const actionsHtml = options.actions
     .map((action) => {
@@ -23,17 +23,17 @@ export function renderSharedPopover(options: RenderSharedPopoverOptions): string
     .join('')
 
   return `
-    <div class="admin-actions-popover">
+    <div class="actions-popover">
       <button
         type="button"
-        class="admin-actions-trigger"
-        data-admin-actions-trigger
+        class="actions-trigger"
+        data-actions-trigger
         aria-haspopup="menu"
         aria-expanded="false"
       >
         ${triggerLabel}
       </button>
-      <div class="admin-actions-menu" data-admin-actions-menu role="menu" aria-label="${options.ariaLabel}">
+      <div class="actions-menu" data-actions-menu role="menu" aria-label="${options.ariaLabel}">
         ${actionsHtml}
       </div>
     </div>
@@ -41,15 +41,15 @@ export function renderSharedPopover(options: RenderSharedPopoverOptions): string
 }
 
 export function setupSharedPopover(root: HTMLElement): () => void {
-  const actionTriggers = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-admin-actions-trigger]'))
-  const actionMenus = Array.from(root.querySelectorAll<HTMLElement>('[data-admin-actions-menu]'))
+  const actionTriggers = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-actions-trigger]'))
+  const actionMenus = Array.from(root.querySelectorAll<HTMLElement>('[data-actions-menu]'))
 
   const closeAllActions = (): void => {
     actionTriggers.forEach((trigger) => {
       trigger.setAttribute('aria-expanded', 'false')
-      const wrapper = trigger.closest<HTMLElement>('.admin-actions-popover')
+      const wrapper = trigger.closest<HTMLElement>('.actions-popover')
       wrapper?.classList.remove('is-open')
-      const menu = wrapper?.querySelector<HTMLElement>('[data-admin-actions-menu]')
+      const menu = wrapper?.querySelector<HTMLElement>('[data-actions-menu]')
       menu?.style.removeProperty('--menu-left')
       menu?.style.removeProperty('--menu-top')
       menu?.classList.remove('is-dropup')
@@ -57,7 +57,7 @@ export function setupSharedPopover(root: HTMLElement): () => void {
   }
 
   const placeActionsMenu = (wrapper: HTMLElement, trigger: HTMLButtonElement): void => {
-    const menu = wrapper.querySelector<HTMLElement>('[data-admin-actions-menu]')
+    const menu = wrapper.querySelector<HTMLElement>('[data-actions-menu]')
     if (!menu) return
 
     const gap = 6
@@ -79,7 +79,7 @@ export function setupSharedPopover(root: HTMLElement): () => void {
 
   const onActionTriggerClick = (event: Event): void => {
     const trigger = event.currentTarget as HTMLButtonElement
-    const wrapper = trigger.closest<HTMLElement>('.admin-actions-popover')
+    const wrapper = trigger.closest<HTMLElement>('.actions-popover')
     if (!wrapper) return
 
     const isOpen = wrapper.classList.contains('is-open')
@@ -101,7 +101,7 @@ export function setupSharedPopover(root: HTMLElement): () => void {
 
   const onViewportChange = (): void => {
     actionTriggers.forEach((trigger) => {
-      const wrapper = trigger.closest<HTMLElement>('.admin-actions-popover')
+      const wrapper = trigger.closest<HTMLElement>('.actions-popover')
       if (!wrapper?.classList.contains('is-open')) return
       placeActionsMenu(wrapper, trigger)
     })

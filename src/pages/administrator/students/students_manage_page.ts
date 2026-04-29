@@ -259,18 +259,18 @@ export function renderstudents_manage_page(): string {
                 <i class="bi bi-download" aria-hidden="true"></i>
                 <span>Export CSV</span>
               </button>
-              <div class="admin-actions-popover admin-student-filter-popover">
+              <div class="actions-popover admin-student-filter-popover">
                 <button
                   type="button"
                   class="btn btn-outline-secondary btn-sm admin-student-filter-trigger"
-                  data-admin-actions-trigger
+                  data-actions-trigger
                   aria-haspopup="menu"
                   aria-expanded="false"
                 >
                   <span>Filters</span>
                   <i class="bi bi-caret-down-fill" aria-hidden="true"></i>
                 </button>
-                <div class="admin-actions-menu admin-student-filter-menu" data-admin-actions-menu role="menu" aria-label="Student Filters">
+                <div class="actions-menu admin-student-filter-menu" data-actions-menu role="menu" aria-label="Student Filters">
                   <label class="admin-student-filter-field">
                     <span>Course</span>
                     <select class="form-select form-select-sm" data-student-filter-course>
