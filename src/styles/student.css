@@ -258,21 +258,21 @@
 
 .student-schedule-table {
   width: 100%;
-  table-layout: fixed;
+  table-layout: auto;
   border-collapse: collapse;
   background: #fff;
   border-radius: 0;
-  min-width: 700px;
+  min-width: 760px;
 }
 
-.student-schedule-col-code { width: 12%; }
-.student-schedule-col-title { width: 22%; }
-.student-schedule-col-units { width: 6.5%; }
-.student-schedule-col-day { width: 9%; }
-.student-schedule-col-time { width: 13%; }
-.student-schedule-col-instructor { width: 14%; }
-.student-schedule-col-room { width: 10.5%; }
-.student-schedule-col-set { width: 13%; }
+.student-schedule-col-code { width: 11%; }
+.student-schedule-col-title { width: 25%; }
+.student-schedule-col-units { width: 5%; }
+.student-schedule-col-day { width: 4%; }
+.student-schedule-col-time { width: 10%; }
+.student-schedule-col-instructor { width: 16%; }
+.student-schedule-col-room { width: 12%; }
+.student-schedule-col-set { width: 10%; }
 
 .student-schedule-table th,
 .student-schedule-table td {
@@ -304,6 +304,7 @@
 .student-schedule-table th:nth-child(5),
 .student-schedule-table th:nth-child(6) {
   text-align: center;
+  white-space: nowrap;
 }
 
 .student-schedule-signature {

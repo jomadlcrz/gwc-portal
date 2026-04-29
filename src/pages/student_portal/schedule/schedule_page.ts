@@ -66,9 +66,9 @@ export function renderstudent_schedule_page(): string {
                 <col class="student-schedule-col-code" />
                 <col class="student-schedule-col-title" />
                 <col class="student-schedule-col-units" />
+                <col class="student-schedule-col-instructor" />
                 <col class="student-schedule-col-day" />
                 <col class="student-schedule-col-time" />
-                <col class="student-schedule-col-instructor" />
                 <col class="student-schedule-col-room" />
                 <col class="student-schedule-col-set" />
               </colgroup>
