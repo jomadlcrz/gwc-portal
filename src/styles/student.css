@@ -326,6 +326,15 @@
   white-space: nowrap;
 }
 
+.student-schedule-row-today td {
+  background: #eef6ff;
+}
+
+.student-schedule-day-today {
+  font-weight: 700;
+  color: #0f3f74;
+}
+
 .student-schedule-signature {
   margin-top: 0.75rem;
 }
@@ -628,6 +637,11 @@
     overflow: hidden;
   }
 
+  .student-schedule-mobile-card.is-today {
+    border-color: #7fa8d8;
+    box-shadow: 0 0 0 1px #cfe0f5 inset;
+  }
+
   .student-schedule-mobile-subject {
     padding: 0.72rem;
     border-left: 3px solid #11478a;
@@ -638,6 +652,19 @@
     color: #0f2f64;
     font-size: 1.08rem;
     line-height: 1.1;
+  }
+
+  .student-schedule-mobile-subject h4 small {
+    margin-left: 0.35rem;
+    display: inline-block;
+    padding: 0.08rem 0.3rem;
+    border-radius: 0.35rem;
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-size: 0.64rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    vertical-align: middle;
   }
 
   .student-schedule-mobile-subject p {

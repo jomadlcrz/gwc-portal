@@ -16,8 +16,34 @@ function formatDay(day: string): string {
   return map[day] || day
 }
 
+function isTodayScheduleDay(day: string): boolean {
+  const today = new Date().toLocaleDateString('en-US', { weekday: 'long' })
+  return day.trim().toLowerCase() === today.toLowerCase()
+}
+
+function sortScheduleRowsTodayFirst<T extends { day: string }>(items: T[]): T[] {
+  const withIndex = items.map((item, index) => ({ item, index }))
+  withIndex.sort((a, b) => {
+    const aToday = isTodayScheduleDay(a.item.day) ? 1 : 0
+    const bToday = isTodayScheduleDay(b.item.day) ? 1 : 0
+    if (aToday !== bToday) return bToday - aToday
+    return a.index - b.index
+  })
+  return withIndex.map((entry) => entry.item)
+}
+
+function to12Hour(time: string): string {
+  const [hourText, minuteText = '00'] = time.trim().split(':')
+  const hour = Number.parseInt(hourText, 10)
+  const minute = Number.parseInt(minuteText, 10)
+  if (!Number.isFinite(hour) || !Number.isFinite(minute)) return time
+  const meridiem = hour >= 12 ? 'PM' : 'AM'
+  const normalizedHour = hour % 12 === 0 ? 12 : hour % 12
+  return `${normalizedHour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')} ${meridiem}`
+}
+
 export function renderstudent_schedule_page(): string {
-  const rows = schedulingService.listStudentSchedules()
+  const rows = sortScheduleRowsTodayFirst(schedulingService.listStudentSchedules())
   const params = new URLSearchParams(window.location.search)
   const studentProfile = resolveStudentScheduleById(params.get('student'))
   const isRegular = studentProfile.status === 'Regular'
@@ -86,13 +112,13 @@ export function renderstudent_schedule_page(): string {
                     ? rows
                         .map(
                           (item, index) => `
-                            <tr>
+                            <tr class="${isTodayScheduleDay(item.day) ? 'student-schedule-row-today' : ''}">
                               <td>${item.subjectCode}</td>
                               <td>${item.title}</td>
                               <td>${item.capacity >= 40 ? 3 : 2}</td>
                               <td>${item.faculty}</td>
-                              <td>${formatDay(item.day)}</td>
-                              <td>${item.startTime}-${item.endTime}</td>
+                              <td class="${isTodayScheduleDay(item.day) ? 'student-schedule-day-today' : ''}">${formatDay(item.day)}</td>
+                              <td>${to12Hour(item.startTime)} - ${to12Hour(item.endTime)}</td>
                               <td>${item.room}</td>
                               <td>${isRegular ? item.section : irregularSetOptions[index % irregularSetOptions.length]}</td>
                             </tr>
@@ -110,16 +136,16 @@ export function renderstudent_schedule_page(): string {
                 ? rows
                     .map(
                       (item, index) => `
-                        <article class="student-schedule-mobile-card">
+                        <article class="student-schedule-mobile-card ${isTodayScheduleDay(item.day) ? 'is-today' : ''}">
                           <div class="student-schedule-mobile-subject">
-                            <h4>${item.subjectCode}</h4>
+                            <h4>${item.subjectCode}${isTodayScheduleDay(item.day) ? ' <small>Today</small>' : ''}</h4>
                             <p>${item.title}</p>
                             <span>Units: ${item.capacity >= 40 ? 3 : 2}</span>
                           </div>
                           <div class="student-schedule-mobile-details">
                             <p><i class="bi bi-person" aria-hidden="true"></i><span>${item.faculty}</span></p>
                             <p><i class="bi bi-calendar3" aria-hidden="true"></i><span>${item.day}</span></p>
-                            <p><i class="bi bi-clock" aria-hidden="true"></i><span>${item.startTime} - ${item.endTime}</span></p>
+                            <p><i class="bi bi-clock" aria-hidden="true"></i><span>${to12Hour(item.startTime)} - ${to12Hour(item.endTime)}</span></p>
                             <p><i class="bi bi-geo-alt" aria-hidden="true"></i><span>${item.room}</span></p>
                             <p><i class="bi bi-collection" aria-hidden="true"></i><span>Set: ${isRegular ? item.section : irregularSetOptions[index % irregularSetOptions.length]}</span></p>
                           </div>
