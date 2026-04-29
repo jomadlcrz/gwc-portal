@@ -482,10 +482,6 @@
   padding: 0.58rem 0.7rem;
 }
 
-.admission-page input[type='date'] {
-  cursor: pointer;
-}
-
 .admission-status-fields input:focus,
 .admission-status-fields input:focus-visible,
 .admission-status-fields button:focus,
