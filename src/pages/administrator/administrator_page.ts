@@ -1,5 +1,5 @@
 import '../../styles/administrator/layout.css'
-import '../../styles/administrator/shared_admin.css'
+import '../../styles/administrator/shared_ui.css'
 import '../../styles/administrator/students.css'
 import '../../styles/administrator/posts.css'
 import '../../styles/administrator/testimonials.css'
