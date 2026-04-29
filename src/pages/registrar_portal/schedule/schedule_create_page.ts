@@ -275,7 +275,7 @@ export function setupclass_scheduling_form(root: HTMLElement): () => void {
   const collectItems = (): ScheduleItem[] => {
     const slotNodes = Array.from(slotContainer.querySelectorAll<HTMLElement>('.time-slot'))
     const subjectCode = getValue('#schedule-subject-code')
-    const title = getValue('#schedule-descriptive-title')
+    const descriptiveTitle = getValue('#schedule-descriptive-title')
     const section = getValue('#schedule-section')
     const faculty = getValue('#schedule-faculty')
     const department = getValue('#schedule-department')
@@ -288,7 +288,7 @@ export function setupclass_scheduling_form(root: HTMLElement): () => void {
       return {
         id: `manual-${Date.now()}-${index}`,
         subjectCode,
-        title,
+        descriptiveTitle,
         section,
         faculty,
         department,

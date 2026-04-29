@@ -42,7 +42,7 @@ export function renderfaculty_classes_page(): string {
                   .map(
                     ({ scheduleId, item }) => `
                       <tr>
-                        <td>${item.subjectCode} - ${item.title}</td>
+                        <td>${item.subjectCode} - ${item.descriptiveTitle}</td>
                         <td>${item.section}</td>
                         <td>${item.day}</td>
                         <td>${item.startTime}-${item.endTime}</td>

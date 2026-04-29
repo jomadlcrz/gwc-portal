@@ -1,7 +1,7 @@
 import { STUDENT_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { resolveStudentScheduleById } from '../../../data/student_schedule'
-import { BSIT_CURRICULUM_MOCK as BSIT_CURRICULUM_DATA } from '../../../features/scheduling/service'
+import { resolveStudentScheduleRows } from '../../../data/student_schedule_rows'
 import type { ScheduleItem } from '../../../features/scheduling/types'
 
 function formatDay(day: string): string {
@@ -73,14 +73,14 @@ function mergeScheduleRows(items: ScheduleItem[], isRegular: boolean): StudentSc
     const key = isRegular
       ? [
           item.subjectCode,
-          item.title,
+          item.descriptiveTitle,
           item.startTime,
           item.endTime,
           item.capacity >= 40 ? '3' : '2',
         ].join('|')
       : [
           item.subjectCode,
-          item.title,
+          item.descriptiveTitle,
           item.faculty,
           item.room,
           item.startTime,
@@ -102,79 +102,11 @@ function mergeScheduleRows(items: ScheduleItem[], isRegular: boolean): StudentSc
   return Array.from(grouped.values())
 }
 
-function buildThirdYearSecondSemRows(section: string): ScheduleItem[] {
-  const term = BSIT_CURRICULUM_DATA.find((item) => item.yearLabel === 'Third Year' && item.semesterLabel === '2nd Semester')
-  const titleByCode = new Map((term?.subjects ?? []).map((subject) => [subject.code.toUpperCase(), subject.title]))
-  const getTitle = (code: string, fallback: string): string => titleByCode.get(code.toUpperCase()) ?? fallback
-  const getCapacity = (code: string): number => (code === 'PATHFIT4' ? 35 : 40)
-
-  const rows: Array<{ code: string; titleFallback: string; day: string; startTime: string; endTime: string; room: string; faculty: string }> = [
-    { code: 'LIT2', titleFallback: 'Literatures of the World', day: 'Monday', startTime: '09:00', endTime: '10:00', room: 'Room 304', faculty: 'Caburao' },
-    { code: 'PT102', titleFallback: "Platform-based Dev't (Multimedia Systems)", day: 'Monday', startTime: '12:00', endTime: '14:00', room: '402/CL1', faculty: 'Mr. John Vianney Manuel' },
-    { code: 'SE101', titleFallback: 'Software Engineering 1', day: 'Monday', startTime: '15:00', endTime: '16:30', room: '303/CL2', faculty: 'Ms. Joyce Raon' },
-    { code: 'ITELEC2', titleFallback: 'IT Major Elective 2 (Data Warehousing)', day: 'Monday', startTime: '16:30', endTime: '18:00', room: '403/CL2', faculty: 'Ms. Joyce Raon' },
-    { code: 'IT312', titleFallback: 'Computer Accounting (with SAP)', day: 'Tuesday', startTime: '10:30', endTime: '11:30', room: 'Room 305', faculty: 'Ms. Joyce Raon' },
-    { code: 'PT103', titleFallback: 'Platform-based Development (Android Programming)', day: 'Tuesday', startTime: '12:00', endTime: '13:30', room: '303/CL2', faculty: 'Mr. Paulo Balgua' },
-    { code: 'LIT2', titleFallback: 'Literatures of the World', day: 'Wednesday', startTime: '09:00', endTime: '10:00', room: 'Room 304', faculty: 'Caburao' },
-    { code: 'PT102', titleFallback: "Platform-based Dev't (Multimedia Systems)", day: 'Wednesday', startTime: '12:00', endTime: '14:00', room: '402/CL1', faculty: 'Mr. John Vianney Manuel' },
-    { code: 'SE101', titleFallback: 'Software Engineering 1', day: 'Wednesday', startTime: '15:00', endTime: '16:30', room: '303/CL2', faculty: 'Ms. Joyce Raon' },
-    { code: 'ITELEC2', titleFallback: 'IT Major Elective 2 (Data Warehousing)', day: 'Wednesday', startTime: '16:30', endTime: '18:00', room: '403/CL2', faculty: 'Ms. Joyce Raon' },
-    { code: 'PT103', titleFallback: 'Platform-based Development (Android Programming)', day: 'Thursday', startTime: '12:00', endTime: '13:30', room: '303/CL2', faculty: 'Mr. Paulo Balgua' },
-    { code: 'CAPS101', titleFallback: 'Capstone Project and Research 1', day: 'Thursday', startTime: '13:00', endTime: '16:00', room: 'Room 306', faculty: 'Mr. Willmher John Regaspi' },
-    { code: 'LIT2', titleFallback: 'Literatures of the World', day: 'Friday', startTime: '09:00', endTime: '10:00', room: 'Room 304', faculty: 'Caburao' },
-    { code: 'IT312', titleFallback: 'Computer Accounting (with SAP)', day: 'Friday', startTime: '10:30', endTime: '11:30', room: 'Room 305', faculty: 'Ms. Joyce Raon' },
-    { code: 'PT102', titleFallback: "Platform-based Dev't (Multimedia Systems)", day: 'Friday', startTime: '12:00', endTime: '14:00', room: '402/CL1', faculty: 'Mr. John Vianney Manuel' },
-    { code: 'SE101', titleFallback: 'Software Engineering 1', day: 'Friday', startTime: '15:00', endTime: '16:30', room: '303/CL2', faculty: 'Ms. Joyce Raon' },
-    { code: 'ITELEC2', titleFallback: 'IT Major Elective 2 (Data Warehousing)', day: 'Friday', startTime: '16:30', endTime: '18:00', room: '403/CL2', faculty: 'Ms. Joyce Raon' },
-    { code: 'IT312', titleFallback: 'Computer Accounting (with SAP)', day: 'Saturday', startTime: '10:30', endTime: '11:30', room: 'Room 305', faculty: 'Ms. Joyce Raon' },
-    { code: 'PT103', titleFallback: 'Platform-based Development (Android Programming)', day: 'Saturday', startTime: '12:00', endTime: '13:30', room: '303/CL2', faculty: 'Mr. Paulo Balgua' },
-  ]
-
-  return rows.map((row, index) => ({
-    id: `3y2s-${index + 1}`,
-    subjectCode: row.code,
-    title: getTitle(row.code, row.titleFallback),
-    section,
-    faculty: row.faculty,
-    department: 'CITE',
-    room: row.room,
-    day: row.day,
-    startTime: row.startTime,
-    endTime: row.endTime,
-    deliveryMode: 'Face-to-Face',
-    capacity: getCapacity(row.code),
-  }))
-}
-
-function buildIrregularRows(): ScheduleItem[] {
-  return [
-    { id: 'irr-1a', subjectCode: 'MS102', title: 'Quantitative Methods (incl. Modeling & Simulation)', section: 'BSIT-2F', faculty: 'Ms. Luilyn Raguindin', department: 'CITE', room: 'SHS-304', day: 'Tuesday', startTime: '10:00', endTime: '11:00', deliveryMode: 'Face-to-Face', capacity: 40 },
-    { id: 'irr-1b', subjectCode: 'MS102', title: 'Quantitative Methods (incl. Modeling & Simulation)', section: 'BSIT-2F', faculty: 'Ms. Luilyn Raguindin', department: 'CITE', room: 'SHS-304', day: 'Thursday', startTime: '10:00', endTime: '11:00', deliveryMode: 'Face-to-Face', capacity: 40 },
-    { id: 'irr-2a', subjectCode: 'PT102', title: "Platform-based Dev't (Multimedia Systems)", section: 'BSIT-3D', faculty: 'Mr. John Vianney Manuel', department: 'CITE', room: '402/CL1', day: 'Monday', startTime: '12:00', endTime: '13:30', deliveryMode: 'Face-to-Face', capacity: 40 },
-    { id: 'irr-2b', subjectCode: 'PT102', title: "Platform-based Dev't (Multimedia Systems)", section: 'BSIT-3D', faculty: 'Mr. John Vianney Manuel', department: 'CITE', room: '402/CL1', day: 'Wednesday', startTime: '12:00', endTime: '13:30', deliveryMode: 'Face-to-Face', capacity: 40 },
-    { id: 'irr-2c', subjectCode: 'PT102', title: "Platform-based Dev't (Multimedia Systems)", section: 'BSIT-3D', faculty: 'Mr. John Vianney Manuel', department: 'CITE', room: '402/CL1', day: 'Friday', startTime: '12:00', endTime: '13:30', deliveryMode: 'Face-to-Face', capacity: 40 },
-    { id: 'irr-3a', subjectCode: 'PT103', title: 'Platform-based Development (Android Programming)', section: 'BSIT-3D', faculty: 'Mr. Paulo Balgua', department: 'CITE', room: '303/CL2', day: 'Tuesday', startTime: '12:00', endTime: '14:00', deliveryMode: 'Face-to-Face', capacity: 40 },
-    { id: 'irr-3b', subjectCode: 'PT103', title: 'Platform-based Development (Android Programming)', section: 'BSIT-3D', faculty: 'Mr. Paulo Balgua', department: 'CITE', room: '303/CL2', day: 'Thursday', startTime: '12:00', endTime: '14:00', deliveryMode: 'Face-to-Face', capacity: 40 },
-    { id: 'irr-3c', subjectCode: 'PT103', title: 'Platform-based Development (Android Programming)', section: 'BSIT-3D', faculty: 'Mr. Paulo Balgua', department: 'CITE', room: '303/CL2', day: 'Saturday', startTime: '12:00', endTime: '14:00', deliveryMode: 'Face-to-Face', capacity: 40 },
-    { id: 'irr-4a', subjectCode: 'SE101', title: 'Software Engineering 1', section: 'BSIT-3D', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '303/CL2', day: 'Monday', startTime: '15:00', endTime: '16:30', deliveryMode: 'Face-to-Face', capacity: 40 },
-    { id: 'irr-4b', subjectCode: 'SE101', title: 'Software Engineering 1', section: 'BSIT-3D', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '303/CL2', day: 'Wednesday', startTime: '15:00', endTime: '16:30', deliveryMode: 'Face-to-Face', capacity: 40 },
-    { id: 'irr-4c', subjectCode: 'SE101', title: 'Software Engineering 1', section: 'BSIT-3D', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '303/CL2', day: 'Friday', startTime: '15:00', endTime: '16:30', deliveryMode: 'Face-to-Face', capacity: 40 },
-    { id: 'irr-5a', subjectCode: 'ITELEC2', title: 'IT Major Elective 2 (Data Warehousing)', section: 'BSIT-3A', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '403/CL2', day: 'Tuesday', startTime: '14:00', endTime: '16:00', deliveryMode: 'Face-to-Face', capacity: 40 },
-    { id: 'irr-5b', subjectCode: 'ITELEC2', title: 'IT Major Elective 2 (Data Warehousing)', section: 'BSIT-3A', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '403/CL2', day: 'Thursday', startTime: '14:00', endTime: '16:00', deliveryMode: 'Face-to-Face', capacity: 40 },
-    { id: 'irr-5c', subjectCode: 'ITELEC2', title: 'IT Major Elective 2 (Data Warehousing)', section: 'BSIT-3A', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '403/CL2', day: 'Saturday', startTime: '14:00', endTime: '16:00', deliveryMode: 'Face-to-Face', capacity: 40 },
-    { id: 'irr-6', subjectCode: 'GE ELECTIVE 4', title: 'Philippine Popular Culture', section: 'BSBA-3B', faculty: 'Bryan Necessito', department: 'CITE', room: '404/403', day: 'Wednesday', startTime: '09:00', endTime: '10:00', deliveryMode: 'Face-to-Face', capacity: 40 },
-    { id: 'irr-7a', subjectCode: 'PATHFIT 4', title: 'Group Exercise - Aerobics', section: 'BSIT-2D', faculty: 'Dether Domaoal', department: 'CITE', room: 'SHS-502', day: 'Tuesday', startTime: '11:00', endTime: '12:00', deliveryMode: 'Face-to-Face', capacity: 35 },
-    { id: 'irr-7b', subjectCode: 'PATHFIT 4', title: 'Group Exercise - Aerobics', section: 'BSIT-2D', faculty: 'Dether Domaoal', department: 'CITE', room: 'SHS-502', day: 'Thursday', startTime: '11:00', endTime: '12:00', deliveryMode: 'Face-to-Face', capacity: 35 },
-  ]
-}
-
 export function renderstudent_schedule_page(): string {
   const params = new URLSearchParams(window.location.search)
   const studentProfile = resolveStudentScheduleById(params.get('student'))
   const isRegular = studentProfile.status === 'Regular'
-  const baseRows = isRegular
-    ? buildThirdYearSecondSemRows('BSIT-3D')
-    : buildIrregularRows()
+  const baseRows = resolveStudentScheduleRows(studentProfile.id, studentProfile.status)
   const mergedRows = mergeScheduleRows(baseRows, isRegular)
   const rows = sortScheduleRowsTodayFirst(mergedRows.map((item) => ({ ...item, day: item.days.find((day) => isTodayScheduleDay(day)) ?? item.days[0] })))
   const totalUnits = mergedRows.reduce((sum, item) => sum + (item.capacity >= 40 ? 3 : 2), 0)
@@ -243,7 +175,7 @@ export function renderstudent_schedule_page(): string {
                           (item) => `
                             <tr class="${isTodayScheduleDay(item.day) ? 'student-schedule-row-today' : ''}">
                               <td>${item.subjectCode}</td>
-                              <td>${item.title}</td>
+                              <td>${item.descriptiveTitle}</td>
                               <td>${item.capacity >= 40 ? 3 : 2}</td>
                               <td>${item.faculty}</td>
                               <td class="${item.days.some((day) => isTodayScheduleDay(day)) ? 'student-schedule-day-today' : ''}">${formatDayCompact(item.days)}</td>
@@ -268,7 +200,7 @@ export function renderstudent_schedule_page(): string {
                         <article class="student-schedule-mobile-card ${item.days.some((day) => isTodayScheduleDay(day)) ? 'is-today' : ''}">
                           <div class="student-schedule-mobile-subject">
                             <h4>${item.subjectCode}${item.days.some((day) => isTodayScheduleDay(day)) ? ' <small>Today</small>' : ''}</h4>
-                            <p>${item.title}</p>
+                            <p>${item.descriptiveTitle}</p>
                             <span>Units: ${item.capacity >= 40 ? 3 : 2}</span>
                           </div>
                           <div class="student-schedule-mobile-details">

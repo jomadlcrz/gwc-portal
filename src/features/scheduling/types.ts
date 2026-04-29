@@ -25,7 +25,7 @@ export type ConflictRecord = {
 export type ScheduleItem = {
   id: string
   subjectCode: string
-  title: string
+  descriptiveTitle: string
   section: string
   faculty: string
   department: string
@@ -122,7 +122,7 @@ export type ScheduleExportRow = {
   term: string
   department: string
   subjectCode: string
-  title: string
+  descriptiveTitle: string
   section: string
   faculty: string
   room: string

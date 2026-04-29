@@ -45,7 +45,7 @@ type CsvImportSummary = {
 
 type BsitSeedSubject = {
   code: string
-  title: string
+  descriptiveTitle: string
   units: number
 }
 
@@ -60,101 +60,101 @@ export const BSIT_CURRICULUM_MOCK: BsitCurriculumTerm[] = [
     yearLabel: 'First Year',
     semesterLabel: '1st Semester',
     subjects: [
-      { code: 'CC101', title: 'Introduction to Computing', units: 3 },
-      { code: 'CC102', title: 'Fundamentals of Programming (Java)', units: 3 },
-      { code: 'PSYCH1', title: 'Understanding the Self', units: 3 },
-      { code: 'SOCSCI1', title: 'Readings in Philippine History', units: 3 },
-      { code: 'MATH1', title: 'Mathematics in the Modern World', units: 3 },
-      { code: 'GEELECTIVE1', title: 'Religion, Religious Experiences and Spirituality', units: 3 },
-      { code: 'NSTP1', title: 'Civic Welfare Training Service 1', units: 3 },
-      { code: 'PATHFIT1', title: 'Movement Competency Training', units: 2 },
+      { code: 'CC101', descriptiveTitle: 'Introduction to Computing', units: 3 },
+      { code: 'CC102', descriptiveTitle: 'Fundamentals of Programming (Java)', units: 3 },
+      { code: 'PSYCH1', descriptiveTitle: 'Understanding the Self', units: 3 },
+      { code: 'SOCSCI1', descriptiveTitle: 'Readings in Philippine History', units: 3 },
+      { code: 'MATH1', descriptiveTitle: 'Mathematics in the Modern World', units: 3 },
+      { code: 'GEELECTIVE1', descriptiveTitle: 'Religion, Religious Experiences and Spirituality', units: 3 },
+      { code: 'NSTP1', descriptiveTitle: 'Civic Welfare Training Service 1', units: 3 },
+      { code: 'PATHFIT1', descriptiveTitle: 'Movement Competency Training', units: 2 },
     ],
   },
   {
     yearLabel: 'First Year',
     semesterLabel: '2nd Semester',
     subjects: [
-      { code: 'DS101', title: 'Discrete Structures', units: 3 },
-      { code: 'CC103', title: 'Intermediate Programming (Adv. Java)', units: 3 },
-      { code: 'ENGL1', title: 'Purposive Communication', units: 3 },
-      { code: 'SCI1', title: 'Science, Technology and Society', units: 3 },
-      { code: 'PHILO1', title: 'Ethics', units: 3 },
-      { code: 'GEELECTIVE2', title: 'Environmental Science', units: 3 },
-      { code: 'NSTP2', title: 'Civic Welfare Training Service 2', units: 3 },
-      { code: 'PATHFIT2', title: 'Exercise-based Fitness Activities', units: 2 },
+      { code: 'DS101', descriptiveTitle: 'Discrete Structures', units: 3 },
+      { code: 'CC103', descriptiveTitle: 'Intermediate Programming (Adv. Java)', units: 3 },
+      { code: 'ENGL1', descriptiveTitle: 'Purposive Communication', units: 3 },
+      { code: 'SCI1', descriptiveTitle: 'Science, Technology and Society', units: 3 },
+      { code: 'PHILO1', descriptiveTitle: 'Ethics', units: 3 },
+      { code: 'GEELECTIVE2', descriptiveTitle: 'Environmental Science', units: 3 },
+      { code: 'NSTP2', descriptiveTitle: 'Civic Welfare Training Service 2', units: 3 },
+      { code: 'PATHFIT2', descriptiveTitle: 'Exercise-based Fitness Activities', units: 2 },
     ],
   },
   {
     yearLabel: 'Second Year',
     semesterLabel: '1st Semester',
     subjects: [
-      { code: 'CC104', title: 'Data Structures & Algorithms', units: 3 },
-      { code: 'OOP101', title: 'Object Oriented Programming', units: 3 },
-      { code: 'SPI101', title: 'Social and Professional Issues', units: 3 },
-      { code: 'HCI101', title: 'Introduction to Human Computer Interaction 1', units: 3 },
-      { code: 'IM101', title: 'Fundamentals of Database Systems', units: 3 },
-      { code: 'GIV101', title: 'Intro to Graphics Design', units: 3 },
-      { code: 'HUM1', title: 'Art Appreciation', units: 3 },
-      { code: 'PATHFIT3', title: 'Dance - Folk Dance', units: 2 },
+      { code: 'CC104', descriptiveTitle: 'Data Structures & Algorithms', units: 3 },
+      { code: 'OOP101', descriptiveTitle: 'Object Oriented Programming', units: 3 },
+      { code: 'SPI101', descriptiveTitle: 'Social and Professional Issues', units: 3 },
+      { code: 'HCI101', descriptiveTitle: 'Introduction to Human Computer Interaction 1', units: 3 },
+      { code: 'IM101', descriptiveTitle: 'Fundamentals of Database Systems', units: 3 },
+      { code: 'GIV101', descriptiveTitle: 'Intro to Graphics Design', units: 3 },
+      { code: 'HUM1', descriptiveTitle: 'Art Appreciation', units: 3 },
+      { code: 'PATHFIT3', descriptiveTitle: 'Dance - Folk Dance', units: 2 },
     ],
   },
   {
     yearLabel: 'Second Year',
     semesterLabel: '2nd Semester',
     subjects: [
-      { code: 'CC105', title: 'Information Management 1', units: 3 },
-      { code: 'NET101', title: 'Networking 1', units: 3 },
-      { code: 'IPT101', title: 'Integrative Programming and Technologies 1', units: 3 },
-      { code: 'MS102', title: 'Quantitative Methods (incl. modeling & simulation)', units: 3 },
-      { code: 'GEELECTIVE3', title: 'Living in the IT Era', units: 3 },
-      { code: 'PT101', title: 'Platform-based Development (Web Systems)', units: 3 },
-      { code: 'SOCSCI2', title: 'The Contemporary World', units: 3 },
-      { code: 'PATHFIT4', title: 'Group Exercise - Aerobics', units: 2 },
+      { code: 'CC105', descriptiveTitle: 'Information Management 1', units: 3 },
+      { code: 'NET101', descriptiveTitle: 'Networking 1', units: 3 },
+      { code: 'IPT101', descriptiveTitle: 'Integrative Programming and Technologies 1', units: 3 },
+      { code: 'MS102', descriptiveTitle: 'Quantitative Methods (incl. modeling & simulation)', units: 3 },
+      { code: 'GEELECTIVE3', descriptiveTitle: 'Living in the IT Era', units: 3 },
+      { code: 'PT101', descriptiveTitle: 'Platform-based Development (Web Systems)', units: 3 },
+      { code: 'SOCSCI2', descriptiveTitle: 'The Contemporary World', units: 3 },
+      { code: 'PATHFIT4', descriptiveTitle: 'Group Exercise - Aerobics', units: 2 },
     ],
   },
   {
     yearLabel: 'Third Year',
     semesterLabel: '1st Semester',
     subjects: [
-      { code: 'SAD311', title: 'System Analysis and Design', units: 3 },
-      { code: 'IM102', title: 'Advance Database Systems', units: 3 },
-      { code: 'NET102', title: 'Networking 2', units: 3 },
-      { code: 'SIA101', title: 'System Integration and Architecture 1', units: 3 },
-      { code: 'IAS101', title: 'Information Assurance and Security 1', units: 3 },
-      { code: 'CC106', title: 'Application Dev’t and Emerging Technologies', units: 3 },
-      { code: 'ITELEC1', title: 'IT Major Elective 1 (Graphics & Visual Computing)', units: 3 },
-      { code: 'RIZAL1', title: "Rizal's Life and Works", units: 3 },
+      { code: 'SAD311', descriptiveTitle: 'System Analysis and Design', units: 3 },
+      { code: 'IM102', descriptiveTitle: 'Advance Database Systems', units: 3 },
+      { code: 'NET102', descriptiveTitle: 'Networking 2', units: 3 },
+      { code: 'SIA101', descriptiveTitle: 'System Integration and Architecture 1', units: 3 },
+      { code: 'IAS101', descriptiveTitle: 'Information Assurance and Security 1', units: 3 },
+      { code: 'CC106', descriptiveTitle: 'Application Dev’t and Emerging Technologies', units: 3 },
+      { code: 'ITELEC1', descriptiveTitle: 'IT Major Elective 1 (Graphics & Visual Computing)', units: 3 },
+      { code: 'RIZAL1', descriptiveTitle: "Rizal's Life and Works", units: 3 },
     ],
   },
   {
     yearLabel: 'Third Year',
     semesterLabel: '2nd Semester',
     subjects: [
-      { code: 'IT312', title: 'Computer Accounting (with SAP)', units: 3 },
-      { code: 'PT102', title: 'Platform-based Dev’t (Multimedia Systems)', units: 3 },
-      { code: 'PT103', title: 'Platform-based Development (Android Programming)', units: 3 },
-      { code: 'CAPS101', title: 'Capstone Project and Research 1', units: 3 },
-      { code: 'GEELECTIVE4', title: 'Philippine Popular Culture', units: 3 },
-      { code: 'SE101', title: 'Software Engineering 1', units: 3 },
-      { code: 'ITELEC2', title: 'IT Major Elective 2 (Data Warehousing)', units: 3 },
+      { code: 'IT312', descriptiveTitle: 'Computer Accounting (with SAP)', units: 3 },
+      { code: 'PT102', descriptiveTitle: 'Platform-based Dev’t (Multimedia Systems)', units: 3 },
+      { code: 'PT103', descriptiveTitle: 'Platform-based Development (Android Programming)', units: 3 },
+      { code: 'CAPS101', descriptiveTitle: 'Capstone Project and Research 1', units: 3 },
+      { code: 'GEELECTIVE4', descriptiveTitle: 'Philippine Popular Culture', units: 3 },
+      { code: 'SE101', descriptiveTitle: 'Software Engineering 1', units: 3 },
+      { code: 'ITELEC2', descriptiveTitle: 'IT Major Elective 2 (Data Warehousing)', units: 3 },
     ],
   },
   {
     yearLabel: 'Fourth Year',
     semesterLabel: '1st Semester',
     subjects: [
-      { code: 'CAP102', title: 'Capstone Project and Research 2', units: 3 },
-      { code: 'SA101', title: 'System Administration and Maintenance 1', units: 3 },
-      { code: 'ITELEC3', title: 'IT Major Elective 3 (Management Information Systems)', units: 3 },
-      { code: 'OS101', title: 'Operating Systems', units: 3 },
-      { code: 'ITELEC4', title: 'IT Major Elective 4 (Web Systems & Development 2)', units: 3 },
+      { code: 'CAP102', descriptiveTitle: 'Capstone Project and Research 2', units: 3 },
+      { code: 'SA101', descriptiveTitle: 'System Administration and Maintenance 1', units: 3 },
+      { code: 'ITELEC3', descriptiveTitle: 'IT Major Elective 3 (Management Information Systems)', units: 3 },
+      { code: 'OS101', descriptiveTitle: 'Operating Systems', units: 3 },
+      { code: 'ITELEC4', descriptiveTitle: 'IT Major Elective 4 (Web Systems & Development 2)', units: 3 },
     ],
   },
   {
     yearLabel: 'Fourth Year',
     semesterLabel: '2nd Semester',
     subjects: [
-      { code: 'PRAC101', title: 'OJT Practicum (486 hours)', units: 9 },
+      { code: 'PRAC101', descriptiveTitle: 'OJT Practicum (486 hours)', units: 9 },
     ],
   },
 ]
@@ -209,13 +209,13 @@ class SchedulingService {
     if (this.schedules.length) return
 
     const BSIT_SEED_SUBJECTS: BsitSeedSubject[] = [
-      { code: 'IT312', title: 'Computer Accounting (with SAP)', units: 3 },
-      { code: 'PT102', title: 'Platform-based Dev’t (Multimedia Systems)', units: 3 },
-      { code: 'PT103', title: 'Platform-based Development (Android Programming)', units: 3 },
-      { code: 'CAPS101', title: 'Capstone Project and Research 1', units: 3 },
-      { code: 'GE ELECTIVE 4', title: 'GE Elective 4 - Philippine Popular Culture', units: 3 },
-      { code: 'SE101', title: 'Software Engineering 1', units: 3 },
-      { code: 'ITELEC2', title: 'IT Major Elective 2 (Data Warehousing)', units: 3 },
+      { code: 'IT312', descriptiveTitle: 'Computer Accounting (with SAP)', units: 3 },
+      { code: 'PT102', descriptiveTitle: 'Platform-based Dev’t (Multimedia Systems)', units: 3 },
+      { code: 'PT103', descriptiveTitle: 'Platform-based Development (Android Programming)', units: 3 },
+      { code: 'CAPS101', descriptiveTitle: 'Capstone Project and Research 1', units: 3 },
+      { code: 'GE ELECTIVE 4', descriptiveTitle: 'GE Elective 4 - Philippine Popular Culture', units: 3 },
+      { code: 'SE101', descriptiveTitle: 'Software Engineering 1', units: 3 },
+      { code: 'ITELEC2', descriptiveTitle: 'IT Major Elective 2 (Data Warehousing)', units: 3 },
     ]
 
     const pickSubject = (seedIndex: number): BsitSeedSubject =>
@@ -225,7 +225,7 @@ class SchedulingService {
       {
         id: createId('item'),
         subjectCode: pickSubject(Number.parseInt(suffix, 10)).code,
-        title: pickSubject(Number.parseInt(suffix, 10)).title,
+        descriptiveTitle: pickSubject(Number.parseInt(suffix, 10)).descriptiveTitle,
         section,
         faculty,
         department: DEFAULT_DEPARTMENT_CODE,
@@ -239,7 +239,7 @@ class SchedulingService {
       {
         id: createId('item'),
         subjectCode: pickSubject(Number.parseInt(suffix, 10)).code,
-        title: pickSubject(Number.parseInt(suffix, 10)).title,
+        descriptiveTitle: pickSubject(Number.parseInt(suffix, 10)).descriptiveTitle,
         section,
         faculty,
         department: DEFAULT_DEPARTMENT_CODE,
@@ -253,7 +253,7 @@ class SchedulingService {
       {
         id: createId('item'),
         subjectCode: pickSubject(Number.parseInt(suffix, 10)).code,
-        title: pickSubject(Number.parseInt(suffix, 10)).title,
+        descriptiveTitle: pickSubject(Number.parseInt(suffix, 10)).descriptiveTitle,
         section,
         faculty,
         department: DEFAULT_DEPARTMENT_CODE,
@@ -267,7 +267,7 @@ class SchedulingService {
       {
         id: createId('item'),
         subjectCode: pickSubject(Number.parseInt(suffix, 10) + 1).code,
-        title: pickSubject(Number.parseInt(suffix, 10) + 1).title,
+        descriptiveTitle: pickSubject(Number.parseInt(suffix, 10) + 1).descriptiveTitle,
         section: `${section}-LAB`,
         faculty: `Asst. ${faculty.replace('Prof. ', '')}`,
         department: DEFAULT_DEPARTMENT_CODE,
@@ -281,7 +281,7 @@ class SchedulingService {
       {
         id: createId('item'),
         subjectCode: pickSubject(Number.parseInt(suffix, 10) + 1).code,
-        title: pickSubject(Number.parseInt(suffix, 10) + 1).title,
+        descriptiveTitle: pickSubject(Number.parseInt(suffix, 10) + 1).descriptiveTitle,
         section: `${section}-LAB`,
         faculty: `Asst. ${faculty.replace('Prof. ', '')}`,
         department: DEFAULT_DEPARTMENT_CODE,
@@ -360,7 +360,7 @@ class SchedulingService {
           {
             id: createId('item'),
             subjectCode: 'CC101',
-            title: 'Introduction to Computing',
+            descriptiveTitle: 'Introduction to Computing',
             section: 'BSIT-1A',
             faculty: 'Prof. Maria Dela Cruz',
             department: DEFAULT_DEPARTMENT_CODE,
@@ -374,7 +374,7 @@ class SchedulingService {
           {
             id: createId('item'),
             subjectCode: 'CC201',
-            title: 'Data Structures',
+            descriptiveTitle: 'Data Structures',
             section: 'BSIT-2A',
             faculty: 'Prof. John Santos',
             department: DEFAULT_DEPARTMENT_CODE,
@@ -745,7 +745,7 @@ class SchedulingService {
         term: schedule.term,
         department: schedule.department,
         subjectCode: item.subjectCode,
-        title: item.title,
+        descriptiveTitle: item.descriptiveTitle,
         section: item.section,
         faculty: item.faculty,
         room: item.room,
@@ -781,7 +781,7 @@ class SchedulingService {
         row.term,
         row.department,
         row.subjectCode,
-        row.title,
+        row.descriptiveTitle,
         row.section,
         row.faculty,
         row.room,
@@ -813,7 +813,7 @@ class SchedulingService {
         continue
       }
 
-      const [, , term, department, subjectCode, title, section, faculty, room, day, startTime, endTime] = columns
+      const [, , term, department, subjectCode, descriptiveTitle, section, faculty, room, day, startTime, endTime] = columns
       if (!term || !department || !subjectCode || !section || !faculty || !room || !day || !startTime || !endTime) {
         rejectedLines.push(index + 1)
         continue
@@ -828,7 +828,7 @@ class SchedulingService {
             {
               id: createId('item'),
               subjectCode,
-              title,
+              descriptiveTitle,
               section,
               faculty,
               department,
