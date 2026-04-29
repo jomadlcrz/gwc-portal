@@ -130,8 +130,8 @@ class SchedulingService {
         department: DEFAULT_DEPARTMENT_CODE,
         room,
         day: 'Wednesday',
-        startTime: '13:00',
-        endTime: '14:30',
+        startTime: '12:00',
+        endTime: '15:00',
         deliveryMode: 'Face-to-Face',
         capacity: 40,
       },
@@ -145,7 +145,7 @@ class SchedulingService {
         room,
         day: 'Thursday',
         startTime: '15:00',
-        endTime: '16:30',
+        endTime: '18:00',
         deliveryMode: 'Hybrid',
         capacity: 40,
       },
@@ -158,8 +158,8 @@ class SchedulingService {
         department: DEFAULT_DEPARTMENT_CODE,
         room,
         day: 'Friday',
-        startTime: '09:00',
-        endTime: '10:30',
+        startTime: '07:00',
+        endTime: '09:30',
         deliveryMode: 'Face-to-Face',
         capacity: 40,
       },
@@ -272,8 +272,8 @@ class SchedulingService {
         department: DEFAULT_DEPARTMENT_CODE,
         room: 'Room 305',
         day: 'Wednesday',
-        startTime: '09:00',
-        endTime: '10:30',
+        startTime: '07:00',
+        endTime: '09:30',
         deliveryMode: 'Face-to-Face',
         capacity: 40,
       },
@@ -872,3 +872,4 @@ export const statusToBadgeClass = (status: ScheduleStatus): string => {
 }
 
 export const statusToLabel = (status: ScheduleStatus): string => statusLabel[status]
+

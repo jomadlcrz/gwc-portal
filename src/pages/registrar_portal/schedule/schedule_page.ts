@@ -102,7 +102,7 @@ function renderScheduleGrid(instructor: InstructorSchedule): string {
             .map(
               (slot) => `
                 <tr>
-                  <th>${slot.time}</th>
+                  <th>${ensureMeridiem(splitSlotTime(slot.time).start)} - ${ensureMeridiem(splitSlotTime(slot.time).end)}</th>
                   ${SCHEDULE_DAY_ORDER
                     .map((day) => {
                       const value = slot.values[day]
@@ -242,3 +242,4 @@ export function renderregistrar_schedule_page(): string {
     `,
   )
 }
+
