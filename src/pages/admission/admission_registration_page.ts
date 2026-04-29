@@ -283,6 +283,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
   const step4Section = root.querySelector<HTMLElement>('#admission-registration-step-4')
   const timelineItems = Array.from(root.querySelectorAll<HTMLElement>('.admission-stepper-item'))
   const stepperList = root.querySelector<HTMLOListElement>('.admission-stepper-list')
+  const stepsSection = root.querySelector<HTMLElement>('.admission-registration-steps')
   const timelineMobileLabel = root.querySelector<HTMLElement>('#admission-stepper-mobile-label')
   const backButton = root.querySelector<HTMLButtonElement>('#admission-registration-back')
   const nextButton = root.querySelector<HTMLButtonElement>('#admission-registration-next')
@@ -308,6 +309,8 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
   const emergencyContactIdInput = root.querySelector<HTMLInputElement>('#admission-emergency-contact-id')
   const currentAddressIdInput = root.querySelector<HTMLInputElement>('#admission-current-address-id')
   const permanentAddressIdInput = root.querySelector<HTMLInputElement>('#admission-permanent-address-id')
+  const step1Cards = Array.from(step1Section?.querySelectorAll<HTMLElement>('.admission-registration-card') ?? [])
+  const programCard = step1Cards[1] ?? null
 
   if (
     !introSection ||
@@ -345,6 +348,60 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
 
   let currentStep: 1 | 2 | 3 | 4 = 1
   const cleanupBirthDateClick = enableFullDateInputClick(birthDateInput)
+  const scrollToStep = (step: 1 | 2 | 3 | 4): void => {
+    const targetSection =
+      stepsSection ?? (step === 1 ? step1Section : step === 2 ? step2Section : step === 3 ? step3Section : step4Section)
+    window.requestAnimationFrame(() => {
+      targetSection.scrollIntoView({ behavior: 'instant', block: 'start' })
+    })
+  }
+
+  const isStep1Complete = (): boolean =>
+    Boolean(root.querySelector<HTMLInputElement>('input[name="admission-student-type"]:checked')) &&
+    Boolean(root.querySelector<HTMLInputElement>('input[name="admission-program"]:checked'))
+
+  const isStep2Complete = (): boolean => {
+    const firstName = firstNameInput.value.trim()
+    const lastName = lastNameInput.value.trim()
+    const birthDate = birthDateInput.value
+    const contactInfoId = Number(contactInfoIdInput.value)
+    const emergencyContactId = Number(emergencyContactIdInput.value)
+    const currAddrId = Number(currentAddressIdInput.value)
+    const permAddrId = Number(permanentAddressIdInput.value)
+    return Boolean(
+      firstName &&
+        lastName &&
+        birthDate &&
+        Number.isFinite(contactInfoId) &&
+        Number.isFinite(emergencyContactId) &&
+        Number.isFinite(currAddrId) &&
+        Number.isFinite(permAddrId),
+    )
+  }
+
+  const updateStep1CardFlow = (): void => {
+    const hasStudentType = Boolean(root.querySelector<HTMLInputElement>('input[name="admission-student-type"]:checked'))
+    if (programCard) {
+      programCard.classList.toggle('admission-registration-step-hidden', !hasStudentType)
+    }
+  }
+
+  const updateNextButtonState = (): void => {
+    if (currentStep === 1) {
+      const canProceed = isStep1Complete()
+      nextButton.disabled = !canProceed
+      nextButton.classList.toggle('admission-registration-step-hidden', !canProceed)
+      return
+    }
+    if (currentStep === 2) {
+      const canProceed = isStep2Complete()
+      nextButton.disabled = !canProceed
+      nextButton.classList.toggle('admission-registration-step-hidden', !canProceed)
+      return
+    }
+    nextButton.disabled = false
+    nextButton.classList.add('admission-registration-step-hidden')
+  }
 
   const setFinishCheckState = (animated: boolean): void => {
     finishCheck.classList.remove('is-animate', 'is-static-complete')
@@ -357,7 +414,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     finishCheck.classList.add('is-static-complete')
   }
 
-  const setStep = (step: 1 | 2 | 3 | 4): void => {
+  const setStep = (step: 1 | 2 | 3 | 4, shouldScrollToStep = true): void => {
     currentStep = step
     step1Section.classList.toggle('admission-registration-step-hidden', step !== 1)
     step2Section.classList.toggle('admission-registration-step-hidden', step !== 2)
@@ -377,6 +434,11 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     const progressRatio = (step - 1) / (registrationStepLabels.length - 1)
     stepperList?.style.setProperty('--admission-stepper-progress', String(progressRatio))
     timelineMobileLabel.textContent = registrationStepLabels[step - 1]
+    updateNextButtonState()
+    updateStep1CardFlow()
+    if (shouldScrollToStep) {
+      scrollToStep(step)
+    }
 
     if (step === 4) {
       setFinishCheckState(true)
@@ -523,12 +585,46 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
   const handleSubmitClick = (): void => {
     void onSubmit()
   }
+  const syncStepState = (): void => {
+    updateStep1CardFlow()
+    updateNextButtonState()
+  }
+
+  const inputWatchSelectors = [
+    'input[name="admission-student-type"]',
+    'input[name="admission-program"]',
+    '#admission-first-name',
+    '#admission-middle-name',
+    '#admission-last-name',
+    '#admission-gender',
+    '#admission-birth-date',
+    '#admission-contact-info-id',
+    '#admission-emergency-contact-id',
+    '#admission-current-address-id',
+    '#admission-permanent-address-id',
+  ]
+  const watchedInputs = inputWatchSelectors
+    .flatMap((selector) => Array.from(root.querySelectorAll<HTMLInputElement | HTMLSelectElement>(selector)))
+    .filter((el, index, arr) => arr.indexOf(el) === index)
+
+  watchedInputs.forEach((input) => {
+    input.addEventListener('change', syncStepState)
+    input.addEventListener('input', syncStepState)
+  })
+
   nextButton.addEventListener('click', handleNextClick)
   backButton.addEventListener('click', handleBackClick)
   submitButton.addEventListener('click', handleSubmitClick)
-  setStep(1)
+  if (programCard) {
+    programCard.classList.add('admission-registration-step-hidden')
+  }
+  setStep(1, false)
 
   return () => {
+    watchedInputs.forEach((input) => {
+      input.removeEventListener('change', syncStepState)
+      input.removeEventListener('input', syncStepState)
+    })
     nextButton.removeEventListener('click', handleNextClick)
     backButton.removeEventListener('click', handleBackClick)
     submitButton.removeEventListener('click', handleSubmitClick)
