@@ -74,6 +74,20 @@ export function setupEnrollmentSessionForm(root: HTMLElement, onSuccess?: (data:
 
   if (!form) return () => {}
 
+  const enableFullDateInputClick = (input: HTMLInputElement): (() => void) => {
+    const openDatePicker = (): void => {
+      const dateInput = input as HTMLInputElement & { showPicker?: () => void }
+      if (typeof dateInput.showPicker !== 'function') return
+      try {
+        dateInput.showPicker()
+      } catch {
+        // Ignore browser restrictions for programmatic picker opening.
+      }
+    }
+    input.addEventListener('click', openDatePicker)
+    return () => input.removeEventListener('click', openDatePicker)
+  }
+
   const setMessage = (message: string, isError: boolean): void => {
     if (!messageEl) return
     messageEl.textContent = message
@@ -81,6 +95,11 @@ export function setupEnrollmentSessionForm(root: HTMLElement, onSuccess?: (data:
     messageEl.classList.toggle('text-success', !isError)
     messageEl.style.display = 'block'
   }
+
+  const openingDateInput = form.querySelector<HTMLInputElement>('#opening-date')
+  const closingDateInput = form.querySelector<HTMLInputElement>('#closing-date')
+  const cleanupOpeningDateClick = openingDateInput ? enableFullDateInputClick(openingDateInput) : () => {}
+  const cleanupClosingDateClick = closingDateInput ? enableFullDateInputClick(closingDateInput) : () => {}
 
   const onSubmit = async (event: Event): Promise<void> => {
     event.preventDefault()
@@ -139,5 +158,7 @@ export function setupEnrollmentSessionForm(root: HTMLElement, onSuccess?: (data:
 
   return () => {
     form.removeEventListener('submit', onSubmit)
+    cleanupOpeningDateClick()
+    cleanupClosingDateClick()
   }
 }

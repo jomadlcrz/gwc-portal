@@ -6,6 +6,7 @@ import {
   renderadmission_status_page,
   renderadmission_status_details_page,
   renderadmission_status_verify_page,
+  setupadmission_page,
   setupadmission_status_details_page,
   setupadmission_status_page,
   setupadmission_status_verify_page,
@@ -258,7 +259,12 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.ADMISSION) {
     app.innerHTML = renderadmission_page()
-    cleanupCurrentRoute = setupSiteInteractions(app)
+    const cleanupSiteInteractions = setupSiteInteractions(app)
+    const cleanupAdmissionPage = setupadmission_page(app)
+    cleanupCurrentRoute = () => {
+      cleanupAdmissionPage()
+      cleanupSiteInteractions()
+    }
     return
   }
 

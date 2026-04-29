@@ -704,6 +704,23 @@ export function renderadmission_page(): string {
   return renderadmission_shell('requirements')
 }
 
+export function setupadmission_page(app: HTMLDivElement): () => void {
+  const availabilitySection = app.querySelector<HTMLElement>('.admission-availability')
+  const statusText = app.querySelector<HTMLElement>('.admission-status-text')
+  if (!availabilitySection || !statusText) return () => {}
+
+  void admissionService
+    .refreshEnrollmentOpenFromBackend()
+    .then((isOpen) => {
+      availabilitySection.classList.toggle('is-open', isOpen)
+      availabilitySection.classList.toggle('is-closed', !isOpen)
+      statusText.textContent = isOpen ? 'ONLINE ADMISSION IS NOW OPEN' : 'Application Closed'
+    })
+    .catch(() => {})
+
+  return () => {}
+}
+
 export function renderadmission_status_page(): string {
   return renderadmission_shell('status')
 }

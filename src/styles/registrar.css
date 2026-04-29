@@ -101,11 +101,6 @@
   opacity: 0.9;
 }
 
-.registrar-menu a i svg {
-  width: 0.84rem;
-  height: 0.84rem;
-}
-
 .registrar-menu a.is-active {
   background: var(--overlay-slate-24);
   color: var(--color-slate-50);
@@ -845,6 +840,105 @@
   margin-left: auto;
 }
 
+.registrar-admission-req-textarea {
+  min-height: 150px;
+  max-height: 260px;
+  resize: none;
+  overflow-y: hidden;
+  line-height: 1.45;
+}
+
+.registrar-admission-req-list {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 0.35rem;
+}
+
+.registrar-admission-req-group {
+  border: 1px solid #cfdded;
+  border-radius: 0.8rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f3f8ff 100%);
+  padding: 0.72rem 0.82rem;
+  box-shadow: 0 8px 16px rgb(15 47 100 / 6%);
+}
+
+.registrar-admission-req-group h5 {
+  margin: 0 0 0.42rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #123f69;
+}
+
+.registrar-admission-req-group ul {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.28rem;
+  color: #2b435b;
+}
+
+.registrar-admission-req-group li {
+  line-height: 1.35;
+}
+
+.registrar-admission-req-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+  border-color: #cad7e5;
+}
+
+.registrar-admission-req-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 0.62rem;
+  margin-bottom: 0.7rem;
+  border-bottom: 1px solid #d8e3ef;
+}
+
+.registrar-admission-req-head h4 {
+  margin: 0;
+}
+
+.registrar-admission-req-head p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #4f647a;
+}
+
+.registrar-admission-req-form .form-control,
+.registrar-admission-req-form .form-select {
+  border-color: #c7d5e3;
+  background-color: #fcfdff;
+  min-height: 58px;
+}
+
+.registrar-admission-req-form .form-select {
+  padding-right: 2.25rem;
+}
+
+.registrar-admission-req-form .form-control:focus,
+.registrar-admission-req-form .form-select:focus {
+  border-color: #295f93;
+  box-shadow: 0 0 0 3px rgb(41 95 147 / 15%);
+}
+
+.registrar-admission-req-form .form-floating {
+  margin-bottom: 0.7rem;
+}
+
+.registrar-admission-req-actions .btn {
+  min-width: 148px;
+}
+
+.registrar-admission-req-message {
+  min-height: 1.35rem;
+  margin-bottom: 0.35rem !important;
+  color: #36506b;
+}
+
 @media (max-width: 991px) {
   .registrar-admission-head {
     display: block;
@@ -876,6 +970,20 @@
 
   .registrar-admission-toolbar-controls .form-select {
     min-width: 180px;
+  }
+
+  .registrar-admission-req-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .registrar-admission-req-actions {
+    flex-wrap: wrap;
+  }
+
+  .registrar-admission-req-actions .btn {
+    min-width: 0;
+    flex: 1 1 180px;
   }
 }
 

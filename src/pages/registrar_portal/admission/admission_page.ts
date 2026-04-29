@@ -5,6 +5,7 @@ import { renderSectionTitle } from '../../../components/ui/section_title_heading
 import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
 import { type AdmissionApplicationStatus } from '../../../data/admission'
 import { admissionService } from '../../../features/admission/service'
+import { createAdmissionRequirement, getAdmissionRequirements } from '../../../api/v1/admissions/admissions'
 
 const ADMISSION_STATUSES: AdmissionApplicationStatus[] = [
   'Application Received',
@@ -329,6 +330,34 @@ export function renderregistrar_admission_page(): string {
                 <button type="button" class="btn btn-sm btn-primary" data-enrollment-open ${enrollmentOpen ? 'disabled' : ''}>Open Enrollment</button>
                 <button type="button" class="btn btn-sm btn-outline-secondary" data-enrollment-close ${enrollmentOpen ? '' : 'disabled'}>Close Enrollment</button>
               </div>
+            </article>
+          </section>
+          <section class="mt-3">
+            <article class="registrar-dashboard-card registrar-admission-req-card">
+              <div class="registrar-admission-req-head">
+                <h4>Admission Requirements</h4>
+                <p>Manage required documents by admission type.</p>
+              </div>
+              <div class="shared-modal-grid shared-modal-grid-3 registrar-admission-req-form">
+                <div class="form-floating">
+                  <select class="form-select" data-admission-req-type>
+                    <option value="" selected disabled>Select admission type</option>
+                    <option value="Freshmen">Freshmen</option>
+                    <option value="Transferee">Transferee</option>
+                  </select>
+                  <label>Admission Type</label>
+                </div>
+                <div class="form-floating" style="grid-column: 1 / -1;">
+                  <textarea class="form-control registrar-admission-req-textarea" placeholder=" " data-admission-req-docs></textarea>
+                  <label>Documents (One per line)</label>
+                </div>
+              </div>
+              <div class="registrar-dashboard-actions mt-2 registrar-admission-req-actions">
+                <button type="button" class="btn btn-sm btn-primary" data-admission-req-add>Add Requirement</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-admission-req-refresh>Refresh</button>
+              </div>
+              <p class="mb-2 mt-2 small registrar-admission-req-message" data-admission-req-message></p>
+              <div data-admission-req-list class="small registrar-admission-req-list"></div>
             </article>
           </section>
         </article>
@@ -713,8 +742,14 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
   const openButton = root.querySelector<HTMLButtonElement>('[data-enrollment-open]')
   const closeButton = root.querySelector<HTMLButtonElement>('[data-enrollment-close]')
   const statusText = root.querySelector<HTMLElement>('[data-enrollment-status-text]')
+  const reqType = root.querySelector<HTMLSelectElement>('[data-admission-req-type]')
+  const reqDocs = root.querySelector<HTMLTextAreaElement>('[data-admission-req-docs]')
+  const reqAddBtn = root.querySelector<HTMLButtonElement>('[data-admission-req-add]')
+  const reqRefreshBtn = root.querySelector<HTMLButtonElement>('[data-admission-req-refresh]')
+  const reqMessage = root.querySelector<HTMLElement>('[data-admission-req-message]')
+  const reqList = root.querySelector<HTMLElement>('[data-admission-req-list]')
 
-  if (!openButton || !closeButton || !statusText) return () => {}
+  if (!openButton || !closeButton || !statusText || !reqType || !reqDocs || !reqAddBtn || !reqRefreshBtn || !reqMessage || !reqList) return () => {}
 
   const syncState = (): void => {
     const isOpen = admissionService.isEnrollmentOpen()
@@ -728,24 +763,173 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
   const onOpen = (): void => {
     const confirmed = window.confirm('Open enrollment now? Applicants will be able to submit online admission forms.')
     if (!confirmed) return
-    admissionService.setEnrollmentOpen(true)
-    syncState()
+    void admissionService
+      .setEnrollmentOpenFromBackend(true)
+      .then(() => syncState())
+      .catch((error) => {
+        const message = error instanceof Error ? error.message : 'Unable to open enrollment.'
+        window.alert(message)
+      })
   }
 
   const onClose = (): void => {
     const confirmed = window.confirm('Close enrollment now? Applicants will no longer be able to submit online admission forms.')
     if (!confirmed) return
-    admissionService.setEnrollmentOpen(false)
-    syncState()
+    void admissionService
+      .setEnrollmentOpenFromBackend(false)
+      .then(() => syncState())
+      .catch((error) => {
+        const message = error instanceof Error ? error.message : 'Unable to close enrollment.'
+        window.alert(message)
+      })
   }
 
   openButton.addEventListener('click', onOpen)
   closeButton.addEventListener('click', onClose)
   syncState()
+  void admissionService.refreshEnrollmentOpenFromBackend().then(() => syncState()).catch(() => {})
+
+  const renderRequirementList = (items: Awaited<ReturnType<typeof getAdmissionRequirements>>): void => {
+    if (items.length === 0) {
+      reqList.innerHTML = '<p class="mb-0">No admission requirements found.</p>'
+      return
+    }
+    reqList.innerHTML = items
+      .map((item) => {
+        const documents = (item.documents ?? []).map((doc) => `<li>${doc}</li>`).join('')
+        return `
+          <article class="registrar-admission-req-group">
+            <h5>${item.admission_type}</h5>
+            <ul>${documents || '<li>No requirements added yet.</li>'}</ul>
+          </article>
+        `
+      })
+      .join('')
+  }
+
+  const loadRequirements = async (): Promise<void> => {
+    reqMessage.textContent = 'Loading requirements...'
+    try {
+      const items = await getAdmissionRequirements()
+      renderRequirementList(items)
+      reqMessage.textContent = ''
+    } catch (error) {
+      reqMessage.textContent = error instanceof Error ? error.message : 'Unable to load requirements.'
+    }
+  }
+
+  const onAddRequirement = async (): Promise<void> => {
+    const type = reqType.value.trim()
+    const docs = reqDocs.value
+      .split('\n')
+      .map((entry) => entry.trim())
+      .filter((entry) => entry.length > 0)
+    if (!type || docs.length === 0) {
+      reqMessage.textContent = 'Select an admission type and add at least one document line.'
+      return
+    }
+    reqAddBtn.disabled = true
+    reqMessage.textContent = 'Saving requirement...'
+    try {
+      await createAdmissionRequirement({ admissionTypeName: type, documentName: docs })
+      reqDocs.value = ''
+      reqMessage.textContent = `${docs.length} requirement(s) saved.`
+      await loadRequirements()
+    } catch (error) {
+      reqMessage.textContent = error instanceof Error ? error.message : 'Unable to save requirement.'
+    } finally {
+      reqAddBtn.disabled = false
+    }
+  }
+
+  const onRefreshRequirement = (): void => {
+    void loadRequirements()
+  }
+
+  const formatBulletLines = (): void => {
+    const rawLines = reqDocs.value.split('\n')
+    const normalized = rawLines.map((line) => {
+      const trimmed = line.trim()
+      if (!trimmed) return ''
+      const withoutBullet = trimmed.replace(/^[-*•]\s*/, '')
+      return `• ${withoutBullet}`
+    })
+    const nextValue = normalized.join('\n')
+    if (nextValue === reqDocs.value) return
+    reqDocs.value = nextValue
+  }
+
+  const ensureLockedBullets = (): void => {
+    const lines = reqDocs.value.split('\n')
+    const normalized = lines.map((line) => {
+      if (!line.trim()) return ''
+      const content = line.replace(/^[-*•]?\s*/, '')
+      return `• ${content}`
+    })
+    const nextValue = normalized.join('\n')
+    if (nextValue !== reqDocs.value) {
+      const caret = reqDocs.selectionStart ?? nextValue.length
+      reqDocs.value = nextValue
+      reqDocs.setSelectionRange(caret, caret)
+    }
+  }
+
+  const onReqDocsKeydown = (event: KeyboardEvent): void => {
+    const start = reqDocs.selectionStart ?? 0
+    const end = reqDocs.selectionEnd ?? 0
+    const value = reqDocs.value
+
+    if (event.key === 'Backspace' || event.key === 'Delete') {
+      if (start === end) {
+        const lineStart = value.lastIndexOf('\n', Math.max(0, start - 1)) + 1
+        const linePrefix = value.slice(lineStart, lineStart + 2)
+        const caretInPrefix = start <= lineStart + 2
+        if (linePrefix === '• ' && caretInPrefix) {
+          event.preventDefault()
+          return
+        }
+      }
+    }
+
+    if (event.key !== 'Enter') return
+    event.preventDefault()
+    const insert = '\n• '
+    reqDocs.value = `${reqDocs.value.slice(0, start)}${insert}${reqDocs.value.slice(end)}`
+    const nextCaret = start + insert.length
+    reqDocs.setSelectionRange(nextCaret, nextCaret)
+  }
+
+  const autoResizeReqDocs = (): void => {
+    reqDocs.style.height = 'auto'
+    const minHeight = 150
+    const maxHeight = 260
+    const next = Math.min(Math.max(reqDocs.scrollHeight, minHeight), maxHeight)
+    reqDocs.style.height = `${next}px`
+    reqDocs.style.overflowY = reqDocs.scrollHeight > maxHeight ? 'auto' : 'hidden'
+  }
+
+  reqAddBtn.addEventListener('click', () => void onAddRequirement())
+  reqRefreshBtn.addEventListener('click', onRefreshRequirement)
+  reqDocs.addEventListener('focus', () => {
+    if (!reqDocs.value.trim()) reqDocs.value = '• '
+    autoResizeReqDocs()
+  })
+  reqDocs.addEventListener('blur', formatBulletLines)
+  reqDocs.addEventListener('keydown', onReqDocsKeydown)
+  reqDocs.addEventListener('input', () => {
+    ensureLockedBullets()
+    autoResizeReqDocs()
+  })
+  autoResizeReqDocs()
+  void loadRequirements()
 
   return () => {
     openButton.removeEventListener('click', onOpen)
     closeButton.removeEventListener('click', onClose)
+    reqRefreshBtn.removeEventListener('click', onRefreshRequirement)
+    reqDocs.removeEventListener('blur', formatBulletLines)
+    reqDocs.removeEventListener('keydown', onReqDocsKeydown)
+    reqDocs.removeEventListener('input', autoResizeReqDocs)
   }
 }
 

@@ -3,6 +3,7 @@ import {
   type AdmissionApplication,
   type AdmissionApplicationStatus,
 } from '../../data/admission'
+import { createAdmissionSession, getAdmissionSessionStatus } from '../../api/v1/admissions/admissions'
 
 type AdmissionStats = {
   total: number
@@ -158,6 +159,26 @@ export const admissionService = {
 
   isEnrollmentOpen(): boolean {
     return enrollmentState.isOpen
+  },
+
+  async refreshEnrollmentOpenFromBackend(): Promise<boolean> {
+    const session = await getAdmissionSessionStatus()
+    const isOpen = session.status === 'APPLICATION OPEN'
+    this.setEnrollmentOpen(isOpen)
+    return isOpen
+  },
+
+  async setEnrollmentOpenFromBackend(isOpen: boolean): Promise<boolean> {
+    const now = new Date()
+    const openingDate = isOpen
+      ? now.toISOString().slice(0, 10)
+      : new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString().slice(0, 10)
+    const closingDate = isOpen ? new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10) : openingDate
+
+    const session = await createAdmissionSession({ openingDate, closingDate })
+    const nextOpen = session.status === 'APPLICATION OPEN'
+    this.setEnrollmentOpen(nextOpen)
+    return nextOpen
   },
 
   setEnrollmentOpen(isOpen: boolean): void {

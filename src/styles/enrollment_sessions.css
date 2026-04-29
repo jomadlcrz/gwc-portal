@@ -11,7 +11,7 @@
 
 .page-title {
   font-size: 1.75rem;
-  font-weight: 700;
+  font-weight: 500;
   margin: 0 0 0.5rem 0;
   color: var(--color-ink-900);
 }
@@ -40,7 +40,7 @@
 .enrollment-status-card .card-title {
   margin-bottom: 1rem;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-ink-900);
 }
 
@@ -49,6 +49,10 @@
   align-items: center;
   min-height: 100px;
   padding: 1rem 0;
+}
+
+.enrollment-status-content .alert strong {
+  font-weight: 500;
 }
 
 .enrollment-status-details {
@@ -67,6 +71,11 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.status-item strong {
+  font-weight: 500;
 }
 
 .enrollment-session-form-container {
@@ -85,7 +94,7 @@
 .form-section h5 {
   margin: 0 0 1rem 0;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-ink-900);
 }
 
