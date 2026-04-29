@@ -82,7 +82,7 @@
 | IT312         | Computer Accounting (with SAP)                   | 3     |
 | PT102         | Platform-based Dev’t (Multimedia Systems)        | 3     |
 | PT103         | Platform-based Development (Android Programming) | 3     |
-| CAP101        | Capstone Project and Research 1                  | 3     |
+| CAPS101        | Capstone Project and Research 1                  | 3     |
 | GE Elective 4 | Philippine Popular Culture                       | 3     |
 | SE101         | Software Engineering 1                           | 3     |
 | ITELEC2       | IT Major Elective 2 (Data Warehousing)           | 3     |
@@ -93,7 +93,7 @@
 
 | Subject Code | Descriptive Title                                    | Units |
 | ------------ | ---------------------------------------------------- | ----- |
-| CAP102       | Capstone Project and Research 2                      | 3     |
+| CAPS102       | Capstone Project and Research 2                      | 3     |
 | SA101        | System Administration and Maintenance 1              | 3     |
 | ITELEC3      | IT Major Elective 3 (Management Information Systems) | 3     |
 | OS101        | Operating Systems                                    | 3     |
