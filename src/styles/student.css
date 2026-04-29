@@ -764,6 +764,13 @@
     display: none !important;
   }
 
+  .student-schedule-status-badge,
+  .student-schedule-status-badge.is-regular,
+  .student-schedule-status-badge.is-irregular {
+    background: transparent !important;
+    color: #111827 !important;
+  }
+
   .student-shell-page {
     padding-top: 0 !important;
     background: #fff;
