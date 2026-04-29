@@ -1,5 +1,6 @@
 import { STUDENT_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { STUDENT_SCHEDULE } from '../../../data/student_schedule'
 import { schedulingService } from '../../../features/scheduling/service'
 
 function formatDay(day: string): string {
@@ -17,16 +18,7 @@ function formatDay(day: string): string {
 
 export function renderstudent_schedule_page(): string {
   const rows = schedulingService.listStudentSchedules()
-  const studentProfile = {
-    name: 'Dela Cruz, Joma Manaois',
-    yearLevelSection: '3rd Year - SET D',
-    course: 'BSIT',
-    status: 'Regular',
-    semesterLabel: 'Class Schedule for 2nd Semester',
-    signedBy: 'Denzel James B. Valdez',
-    signatoryRole: 'OIC DEAN, CITE Department',
-    schoolYear: 'School Year 2025-2026',
-  }
+  const studentProfile = STUDENT_SCHEDULE
 
   return renderPortalShell(
     STUDENT_SHELL_CONFIG,
@@ -38,10 +30,10 @@ export function renderstudent_schedule_page(): string {
         ])}
         <article class="student-panel student-schedule-panel">
           <header class="student-schedule-school-head">
-            <h2>Golden West Colleges, Inc.</h2>
-            <h3>College of Information Technology Education</h3>
-            <p>San Jose Drive, Alaminos City, Pangasinan</p>
-            <h4>Student Schedule</h4>
+            <h2>${studentProfile.schoolName}</h2>
+            <h3>${studentProfile.collegeName}</h3>
+            <p>${studentProfile.campusAddress}</p>
+            <h4>${studentProfile.scheduleHeading}</h4>
             <small>${studentProfile.schoolYear}</small>
           </header>
 
