@@ -290,6 +290,7 @@ class SchedulingService {
     return this.schedules
       .filter((schedule) => ['APPROVED', 'FINALIZED'].includes(schedule.status))
       .flatMap((schedule) => this.getCurrentVersion(schedule).snapshot)
+      .map((item) => ({ ...item, section: 'BSIT-3D' }))
   }
 
   listConflicts(scheduleId?: string): ConflictRecord[] {
