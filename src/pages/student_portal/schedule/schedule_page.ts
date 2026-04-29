@@ -29,12 +29,22 @@ function isTodayScheduleDay(day: string): boolean {
   return day.trim().toLowerCase() === today.toLowerCase()
 }
 
-function sortScheduleRowsTodayFirst<T extends { day: string }>(items: T[]): T[] {
+function toMinutes(time: string): number {
+  const [hourText, minuteText = '0'] = time.trim().split(':')
+  const hour = Number.parseInt(hourText, 10)
+  const minute = Number.parseInt(minuteText, 10)
+  if (!Number.isFinite(hour) || !Number.isFinite(minute)) return Number.MAX_SAFE_INTEGER
+  return hour * 60 + minute
+}
+
+function sortScheduleRowsTodayFirst<T extends { day: string; startTime: string }>(items: T[]): T[] {
   const withIndex = items.map((item, index) => ({ item, index }))
   withIndex.sort((a, b) => {
     const aToday = isTodayScheduleDay(a.item.day) ? 1 : 0
     const bToday = isTodayScheduleDay(b.item.day) ? 1 : 0
     if (aToday !== bToday) return bToday - aToday
+    const timeDelta = toMinutes(a.item.startTime) - toMinutes(b.item.startTime)
+    if (timeDelta !== 0) return timeDelta
     return a.index - b.index
   })
   return withIndex.map((entry) => entry.item)
