@@ -19,6 +19,7 @@ function formatDay(day: string): string {
 export function renderstudent_schedule_page(): string {
   const rows = schedulingService.listStudentSchedules()
   const studentProfile = STUDENT_SCHEDULE
+  const totalUnits = rows.reduce((sum, item) => sum + (item.capacity >= 40 ? 3 : 2), 0)
 
   return renderPortalShell(
     STUDENT_SHELL_CONFIG,
@@ -100,6 +101,7 @@ export function renderstudent_schedule_page(): string {
               </tbody>
             </table>
           </div>
+          <p class="student-schedule-total-units">Total Units: <strong>${totalUnits}</strong></p>
 
           <footer class="student-schedule-signature">
             <p>Signed:</p>
