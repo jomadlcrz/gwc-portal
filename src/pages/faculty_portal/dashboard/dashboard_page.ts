@@ -1,6 +1,7 @@
 import { ROUTES } from '../../../app/routes'
 import { FACULTY_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { FACULTY_DASHBOARD_CONTENT as content } from '../../../data/faculty_dashboard'
 import { schedulingService } from '../../../features/scheduling/service'
 
 function renderKpiCard(label: string, count: number, icon: string, tone: string): string {
@@ -35,25 +36,25 @@ export function renderfaculty_dashboard_page(): string {
         <article class="faculty-panel faculty-dashboard">
           <header class="faculty-dashboard-head">
             <div>
-              <h3>Faculty Dashboard</h3>
-              <p>Teaching overview, schedule highlights, and latest updates.</p>
+              <h3>${content.title}</h3>
+              <p>${content.subtitle}</p>
             </div>
             <div class="faculty-dashboard-actions">
-              <a href="${ROUTES.FACULTY_CLASSES}" class="btn btn-sm btn-primary">Open Classes</a>
-              <a href="${ROUTES.FACULTY_GRADEBOOK}" class="btn btn-sm btn-outline-primary">Open Gradebook</a>
+              <a href="${ROUTES.FACULTY_CLASSES}" class="btn btn-sm btn-primary">${content.actions.openClasses}</a>
+              <a href="${ROUTES.FACULTY_GRADEBOOK}" class="btn btn-sm btn-outline-primary">${content.actions.openGradebook}</a>
             </div>
           </header>
 
           <section class="faculty-kpi-grid mt-2">
-            ${renderKpiCard('Total Assigned Classes', myItems.length, 'bi-collection', 'total')}
-            ${renderKpiCard(`${today} Classes`, todaysItems.length, 'bi-calendar-day', 'today')}
-            ${renderKpiCard('Online / Hybrid Load', onlineCount, 'bi-wifi', 'online')}
-            ${renderKpiCard('Rooms This Term', roomSet.size, 'bi-door-open', 'rooms')}
+            ${renderKpiCard(content.kpis.totalAssigned, myItems.length, 'bi-collection', 'total')}
+            ${renderKpiCard(`${today} ${content.kpis.todaySuffix}`, todaysItems.length, 'bi-calendar-day', 'today')}
+            ${renderKpiCard(content.kpis.onlineHybrid, onlineCount, 'bi-wifi', 'online')}
+            ${renderKpiCard(content.kpis.roomsThisTerm, roomSet.size, 'bi-door-open', 'rooms')}
           </section>
 
           <section class="faculty-dashboard-grid">
             <article class="faculty-dashboard-card">
-              <h4>Today's Classes</h4>
+              <h4>${content.panels.todayClasses}</h4>
               <ul class="faculty-list">
                 ${
                   todaysItems.length
@@ -62,13 +63,13 @@ export function renderfaculty_dashboard_page(): string {
                           (item) => `<li><strong>${item.subjectCode}</strong> ${item.section} - ${item.startTime}-${item.endTime} - ${item.room}</li>`,
                         )
                         .join('')
-                    : '<li>No classes scheduled for today.</li>'
+                    : `<li>${content.emptyStates.today}</li>`
                 }
               </ul>
             </article>
 
             <article class="faculty-dashboard-card">
-              <h4>Upcoming Weekly Load</h4>
+              <h4>${content.panels.weeklyLoad}</h4>
               <ul class="faculty-list">
                 ${
                   myItems.length
@@ -76,24 +77,24 @@ export function renderfaculty_dashboard_page(): string {
                         .slice(0, 6)
                         .map((item) => `<li><strong>${item.day}</strong> - ${item.subjectCode} ${item.section} - ${item.startTime}-${item.endTime}</li>`)
                         .join('')
-                    : '<li>No assigned classes yet.</li>'
+                    : `<li>${content.emptyStates.weekly}</li>`
                 }
               </ul>
             </article>
 
             <article class="faculty-dashboard-card">
-              <h4>Notifications</h4>
+              <h4>${content.panels.notifications}</h4>
               <ul class="faculty-list">
-                ${notes.length ? notes.map((note) => `<li>${note.message}</li>`).join('') : '<li>No notifications yet.</li>'}
+                ${notes.length ? notes.map((note) => `<li>${note.message}</li>`).join('') : `<li>${content.emptyStates.notifications}</li>`}
               </ul>
             </article>
 
             <article class="faculty-dashboard-card">
-              <h4>Quick Actions</h4>
+              <h4>${content.panels.quickActions}</h4>
               <div class="faculty-quick-links">
-                <a href="${ROUTES.FACULTY_CLASSES}" class="btn btn-sm btn-outline-primary">Report Schedule Issue</a>
-                <a href="${ROUTES.FACULTY_GRADEBOOK}" class="btn btn-sm btn-outline-primary">Update Gradebook</a>
-                <a href="${ROUTES.FACULTY_SETTINGS}" class="btn btn-sm btn-outline-primary">Portal Settings</a>
+                <a href="${ROUTES.FACULTY_CLASSES}" class="btn btn-sm btn-outline-primary">${content.links.reportIssue}</a>
+                <a href="${ROUTES.FACULTY_GRADEBOOK}" class="btn btn-sm btn-outline-primary">${content.links.updateGradebook}</a>
+                <a href="${ROUTES.FACULTY_SETTINGS}" class="btn btn-sm btn-outline-primary">${content.links.settings}</a>
               </div>
             </article>
           </section>

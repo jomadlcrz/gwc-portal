@@ -1,5 +1,6 @@
 import { ROUTES } from '../../../app/routes'
 import { STUDENT_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
+import { STUDENT_DASHBOARD_CONTENT as content } from '../../../data/student_dashboard'
 import { schedulingService } from '../../../features/scheduling/service'
 
 function renderKpiCard(label: string, count: number, icon: string, tone: string): string {
@@ -27,37 +28,37 @@ export function renderstudent_dashboard_page(): string {
         <article class="student-panel student-dashboard">
           <header class="student-dashboard-head">
             <div>
-              <h3>Student Dashboard</h3>
-              <p>Overview of your schedules and latest registrar announcements.</p>
+              <h3>${content.title}</h3>
+              <p>${content.subtitle}</p>
             </div>
             <div class="student-dashboard-actions">
-              <a href="${ROUTES.STUDENT_SUBJECTS}" class="btn btn-sm btn-outline-primary">View Subjects</a>
-              <a href="${ROUTES.STUDENT_SCHEDULE}" class="btn btn-sm btn-primary">Open Schedule</a>
+              <a href="${ROUTES.STUDENT_SUBJECTS}" class="btn btn-sm btn-outline-primary">${content.actions.viewSubjects}</a>
+              <a href="${ROUTES.STUDENT_SCHEDULE}" class="btn btn-sm btn-primary">${content.actions.openSchedule}</a>
             </div>
           </header>
 
           <section class="student-kpi-grid mt-2">
-            ${renderKpiCard('Published Classes', scheduleRows.length, 'bi-collection', 'published')}
-            ${renderKpiCard('Schedule Updates', notes.length, 'bi-bell', 'updates')}
-            ${renderKpiCard('Approved Batches', analytics.approvedSchedules, 'bi-patch-check', 'approved')}
-            ${renderKpiCard('Finalized Batches', analytics.finalizedSchedules, 'bi-check2-circle', 'finalized')}
+            ${renderKpiCard(content.kpis.published, scheduleRows.length, 'bi-collection', 'published')}
+            ${renderKpiCard(content.kpis.updates, notes.length, 'bi-bell', 'updates')}
+            ${renderKpiCard(content.kpis.approved, analytics.approvedSchedules, 'bi-patch-check', 'approved')}
+            ${renderKpiCard(content.kpis.finalized, analytics.finalizedSchedules, 'bi-check2-circle', 'finalized')}
           </section>
 
           <section class="student-dashboard-grid mt-3">
             <article class="student-dashboard-card">
-              <h4>Latest Notifications</h4>
+              <h4>${content.panels.latestNotifications}</h4>
               <ul class="student-list">
-                ${notes.length ? notes.map((note) => `<li>${note.message}</li>`).join('') : '<li>No updates yet.</li>'}
+                ${notes.length ? notes.map((note) => `<li>${note.message}</li>`).join('') : `<li>${content.emptyStates.updates}</li>`}
               </ul>
             </article>
 
             <article class="student-dashboard-card">
-              <h4>Quick Access</h4>
+              <h4>${content.panels.quickAccess}</h4>
               <div class="student-quick-links">
-                <a href="${ROUTES.STUDENT_SCHEDULE}" class="btn btn-sm btn-outline-primary">My Schedule</a>
-                <a href="${ROUTES.STUDENT_GRADES}" class="btn btn-sm btn-outline-primary">My Grades</a>
-                <a href="${ROUTES.STUDENT_SUBJECTS}" class="btn btn-sm btn-outline-primary">My Subjects</a>
-                <a href="${ROUTES.STUDENT_SETTINGS}" class="btn btn-sm btn-outline-primary">Settings</a>
+                <a href="${ROUTES.STUDENT_SCHEDULE}" class="btn btn-sm btn-outline-primary">${content.links.mySchedule}</a>
+                <a href="${ROUTES.STUDENT_GRADES}" class="btn btn-sm btn-outline-primary">${content.links.myGrades}</a>
+                <a href="${ROUTES.STUDENT_SUBJECTS}" class="btn btn-sm btn-outline-primary">${content.links.mySubjects}</a>
+                <a href="${ROUTES.STUDENT_SETTINGS}" class="btn btn-sm btn-outline-primary">${content.links.settings}</a>
               </div>
             </article>
           </section>

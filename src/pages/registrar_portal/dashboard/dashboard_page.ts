@@ -1,4 +1,5 @@
 import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
+import { REGISTRAR_DASHBOARD_CONTENT as content } from '../../../data/registrar_dashboard'
 
 export function renderregistrar_dashboard_page(): string {
   return renderPortalShell(
@@ -7,8 +8,8 @@ export function renderregistrar_dashboard_page(): string {
     `
       <section class="registrar-content">
         <article class="registrar-panel">
-          <h3>Registrar Dashboard</h3>
-          <p>Monitor daily office transactions, pending requests, and record processing status.</p>
+          <h3>${content.title}</h3>
+          <p>${content.subtitle}</p>
         </article>
       </section>
     `,
