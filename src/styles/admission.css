@@ -307,6 +307,20 @@
   background: #f8fbff;
 }
 
+.accordion-button {
+  padding: 0.9rem 1.1rem;
+  border: 1px solid #d3ddec;
+  border-radius: var(--radius-md);
+  background: #f8fafc;
+  color: var(--dark-blue);
+}
+
+.accordion-button:focus,
+.accordion-button:focus-visible {
+  box-shadow: none;
+  outline: none;
+}
+
 .admission-timeline-content h3,
 .admission-timeline-content strong {
   margin: 0 0 0.5rem;

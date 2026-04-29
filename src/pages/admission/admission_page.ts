@@ -421,7 +421,7 @@ function renderAdmissionContent(active: AdmissionSection): string {
 
           <section class="admission-content-block">
             <h3 class="mb-3">Admission Requirements</h3>
-            <div class="accordion" id="enrollmentRequirementsAccordion">
+            <div class="accordion accordion-flush" id="enrollmentRequirementsAccordion">
               <div class="accordion-item">
                 <h4 class="accordion-header" id="freshmenRequirementsHeading">
                   <button
@@ -499,29 +499,29 @@ function renderAdmissionContent(active: AdmissionSection): string {
               <li class="admission-timeline-item">
                 <div class="admission-timeline-marker" aria-hidden="true">1</div>
                 <div class="admission-timeline-content">
-                  <strong>Create an online account</strong>
-                  <span>Register using a valid email address.</span>
+                  <strong>Open the online application form</strong>
+                  <span>Go to the Admissions Registration page and choose your student type and program.</span>
                 </div>
               </li>
               <li class="admission-timeline-item">
                 <div class="admission-timeline-marker" aria-hidden="true">2</div>
                 <div class="admission-timeline-content">
-                  <strong>Fill out the admission form</strong>
-                  <span>Provide personal and academic information.</span>
+                  <strong>Complete personal information</strong>
+                  <span>Enter your required personal details accurately before proceeding.</span>
                 </div>
               </li>
               <li class="admission-timeline-item">
                 <div class="admission-timeline-marker" aria-hidden="true">3</div>
                 <div class="admission-timeline-content">
-                  <strong>Upload requirements</strong>
-                  <span>Submit scanned copies of required documents.</span>
+                  <strong>Review and submit application</strong>
+                  <span>Validate your details and submit your online application.</span>
                 </div>
               </li>
               <li class="admission-timeline-item">
                 <div class="admission-timeline-marker" aria-hidden="true">4</div>
                 <div class="admission-timeline-content">
-                  <strong>Wait for approval</strong>
-                  <span>The admissions office will review your application.</span>
+                  <strong>Wait for admissions confirmation</strong>
+                  <span>The admissions office will review your submitted application.</span>
                 </div>
               </li>
               <li class="admission-timeline-item">
