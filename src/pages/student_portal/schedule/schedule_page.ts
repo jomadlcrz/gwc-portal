@@ -17,6 +17,16 @@ function formatDay(day: string): string {
 
 export function renderstudent_schedule_page(): string {
   const rows = schedulingService.listStudentSchedules()
+  const studentProfile = {
+    name: 'Dela Cruz, Joma Manaois',
+    yearLevelSection: '3rd Year - SET D',
+    course: 'BSIT',
+    status: 'Regular',
+    semesterLabel: 'Class Schedule for 2nd Semester',
+    signedBy: 'Denzel James B. Valdez',
+    signatoryRole: 'OIC DEAN, CITE Department',
+    schoolYear: 'School Year 2025-2026',
+  }
 
   return renderPortalShell(
     STUDENT_SHELL_CONFIG,
@@ -26,19 +36,52 @@ export function renderstudent_schedule_page(): string {
         ${renderBreadcrumbNav([
           { label: 'Schedule', active: true },
         ])}
-        <article class="student-panel">
-          <h3>Class Schedule</h3>
-          <p>Published schedule view with subject, section, instructor, room, and meeting time.</p>
-          <div class="admin-table-wrap mt-3">
-            <table class="admin-table">
+        <article class="student-panel student-schedule-panel">
+          <header class="student-schedule-school-head">
+            <h2>Golden West Colleges, Inc.</h2>
+            <h3>College of Information Technology Education</h3>
+            <p>San Jose Drive, Alaminos City, Pangasinan</p>
+            <h4>Student Schedule</h4>
+            <small>${studentProfile.schoolYear}</small>
+          </header>
+
+          <section class="student-schedule-info-row">
+            <div class="student-schedule-meta">
+              <p><span>Name of Student:</span> <strong>${studentProfile.name}</strong></p>
+              <p><span>Year Level and Section:</span> <strong>${studentProfile.yearLevelSection}</strong></p>
+              <p><span>Program:</span> <strong>${studentProfile.course}</strong></p>
+              <p><span>Status:</span> <strong class="student-schedule-status-badge is-regular">${studentProfile.status}</strong></p>
+            </div>
+            <button type="button" class="btn btn-primary student-schedule-print-btn">
+              <i class="bi bi-printer-fill" aria-hidden="true"></i>
+              <span>Print Schedule</span>
+            </button>
+          </section>
+
+          <h3 class="student-schedule-title">${studentProfile.semesterLabel}</h3>
+
+          <div class="student-schedule-table-wrap">
+            <table class="student-schedule-table">
+              <colgroup>
+                <col class="student-schedule-col-code" />
+                <col class="student-schedule-col-title" />
+                <col class="student-schedule-col-units" />
+                <col class="student-schedule-col-day" />
+                <col class="student-schedule-col-time" />
+                <col class="student-schedule-col-instructor" />
+                <col class="student-schedule-col-room" />
+                <col class="student-schedule-col-set" />
+              </colgroup>
               <thead>
                 <tr>
-                  <th>Subject Code - Descriptive Title</th>
-                  <th>Section</th>
+                  <th>Subject Code</th>
+                  <th>Descriptive Title</th>
+                  <th>Units</th>
                   <th>Instructor</th>
                   <th>Day</th>
                   <th>Time</th>
                   <th>Room</th>
+                  <th>Set</th>
                 </tr>
               </thead>
               <tbody data-student-schedule-body>
@@ -48,21 +91,29 @@ export function renderstudent_schedule_page(): string {
                         .map(
                           (item) => `
                             <tr>
-                              <td>${item.subjectCode} - ${item.title}</td>
-                              <td>${item.section}</td>
+                              <td>${item.subjectCode}</td>
+                              <td>${item.title}</td>
+                              <td>${item.capacity >= 40 ? 3 : 2}</td>
                               <td>${item.faculty}</td>
                               <td>${formatDay(item.day)}</td>
                               <td>${item.startTime}-${item.endTime}</td>
                               <td>${item.room}</td>
+                              <td>${item.section}</td>
                             </tr>
                           `,
                         )
                         .join('')
-                    : '<tr><td colspan="6" class="text-center py-3">No schedules published yet.</td></tr>'
+                    : '<tr><td colspan="8" class="text-center py-3">No schedules published yet.</td></tr>'
                 }
               </tbody>
             </table>
           </div>
+
+          <footer class="student-schedule-signature">
+            <p>Signed:</p>
+            <strong>${studentProfile.signedBy}</strong>
+            <span>${studentProfile.signatoryRole}</span>
+          </footer>
         </article>
       </section>
     `,
