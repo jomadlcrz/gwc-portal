@@ -1,7 +1,7 @@
 import { STUDENT_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { resolveStudentScheduleById } from '../../../data/student_schedule'
-import { BSIT_CURRICULUM_MOCK, schedulingService } from '../../../features/scheduling/service'
+import { BSIT_CURRICULUM_MOCK as BSIT_CURRICULUM_DATA } from '../../../features/scheduling/service'
 import type { ScheduleItem } from '../../../features/scheduling/types'
 
 function formatDay(day: string): string {
@@ -56,10 +56,10 @@ type StudentScheduleDisplayItem = ScheduleItem & {
   sets: string[]
 }
 
-function mergeScheduleRows(items: ScheduleItem[], isRegular: boolean, irregularSetOptions: string[]): StudentScheduleDisplayItem[] {
+function mergeScheduleRows(items: ScheduleItem[], isRegular: boolean): StudentScheduleDisplayItem[] {
   const grouped = new Map<string, StudentScheduleDisplayItem>()
-  items.forEach((item, index) => {
-    const displaySet = isRegular ? item.section : irregularSetOptions[index % irregularSetOptions.length]
+  items.forEach((item) => {
+    const displaySet = item.section
     const key = isRegular
       ? [
           item.subjectCode,
@@ -92,8 +92,8 @@ function mergeScheduleRows(items: ScheduleItem[], isRegular: boolean, irregularS
   return Array.from(grouped.values())
 }
 
-function buildThirdYearSecondSemMockRows(section: string): ScheduleItem[] {
-  const term = BSIT_CURRICULUM_MOCK.find((item) => item.yearLabel === 'Third Year' && item.semesterLabel === '2nd Semester')
+function buildThirdYearSecondSemRows(section: string): ScheduleItem[] {
+  const term = BSIT_CURRICULUM_DATA.find((item) => item.yearLabel === 'Third Year' && item.semesterLabel === '2nd Semester')
   if (!term) return []
 
   const meetingPatterns: Array<Array<{ day: string; startTime: string; endTime: string }>> = [
@@ -117,7 +117,7 @@ function buildThirdYearSecondSemMockRows(section: string): ScheduleItem[] {
   return term.subjects.flatMap((subject, index) => {
     const meetings = meetingPatterns[index % meetingPatterns.length]
     return meetings.map((meeting, meetingIndex) => ({
-      id: `mock-3y2s-${index + 1}-${meetingIndex + 1}`,
+      id: `3y2s-${index + 1}-${meetingIndex + 1}`,
       subjectCode: subject.code,
       title: subject.title,
       section,
@@ -133,15 +133,36 @@ function buildThirdYearSecondSemMockRows(section: string): ScheduleItem[] {
   })
 }
 
+function buildIrregularRows(): ScheduleItem[] {
+  return [
+    { id: 'irr-1a', subjectCode: 'MS102', title: 'Quantitative Methods (incl. Modeling & Simulation)', section: 'BSIT-2F', faculty: 'Ms. Luilyn Raguindin', department: 'CITE', room: 'SH-304', day: 'Tuesday', startTime: '10:00', endTime: '11:00', deliveryMode: 'Face-to-Face', capacity: 40 },
+    { id: 'irr-1b', subjectCode: 'MS102', title: 'Quantitative Methods (incl. Modeling & Simulation)', section: 'BSIT-2F', faculty: 'Ms. Luilyn Raguindin', department: 'CITE', room: 'SH-304', day: 'Thursday', startTime: '10:00', endTime: '11:00', deliveryMode: 'Face-to-Face', capacity: 40 },
+    { id: 'irr-2a', subjectCode: 'PT102', title: "Platform-based Dev't (Multimedia Systems)", section: 'BSIT-3D', faculty: 'Mr. John Vianney Manuel', department: 'CITE', room: '402/402 CL1', day: 'Monday', startTime: '12:00', endTime: '13:30', deliveryMode: 'Face-to-Face', capacity: 40 },
+    { id: 'irr-2b', subjectCode: 'PT102', title: "Platform-based Dev't (Multimedia Systems)", section: 'BSIT-3D', faculty: 'Mr. John Vianney Manuel', department: 'CITE', room: '402/402 CL1', day: 'Wednesday', startTime: '12:00', endTime: '13:30', deliveryMode: 'Face-to-Face', capacity: 40 },
+    { id: 'irr-2c', subjectCode: 'PT102', title: "Platform-based Dev't (Multimedia Systems)", section: 'BSIT-3D', faculty: 'Mr. John Vianney Manuel', department: 'CITE', room: '402/402 CL1', day: 'Friday', startTime: '12:00', endTime: '13:30', deliveryMode: 'Face-to-Face', capacity: 40 },
+    { id: 'irr-3a', subjectCode: 'PT103', title: 'Platform-based Development (Android Programming)', section: 'BSIT-3D', faculty: 'Mr. Paulo Balgua', department: 'CITE', room: '303/302 CL2', day: 'Tuesday', startTime: '12:00', endTime: '14:00', deliveryMode: 'Face-to-Face', capacity: 40 },
+    { id: 'irr-3b', subjectCode: 'PT103', title: 'Platform-based Development (Android Programming)', section: 'BSIT-3D', faculty: 'Mr. Paulo Balgua', department: 'CITE', room: '303/302 CL2', day: 'Thursday', startTime: '12:00', endTime: '14:00', deliveryMode: 'Face-to-Face', capacity: 40 },
+    { id: 'irr-3c', subjectCode: 'PT103', title: 'Platform-based Development (Android Programming)', section: 'BSIT-3D', faculty: 'Mr. Paulo Balgua', department: 'CITE', room: '303/302 CL2', day: 'Saturday', startTime: '12:00', endTime: '14:00', deliveryMode: 'Face-to-Face', capacity: 40 },
+    { id: 'irr-4a', subjectCode: 'SE101', title: 'Software Engineering 1', section: 'BSIT-3D', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '303/303 CL2', day: 'Monday', startTime: '15:00', endTime: '16:30', deliveryMode: 'Face-to-Face', capacity: 40 },
+    { id: 'irr-4b', subjectCode: 'SE101', title: 'Software Engineering 1', section: 'BSIT-3D', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '303/303 CL2', day: 'Wednesday', startTime: '15:00', endTime: '16:30', deliveryMode: 'Face-to-Face', capacity: 40 },
+    { id: 'irr-4c', subjectCode: 'SE101', title: 'Software Engineering 1', section: 'BSIT-3D', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '303/303 CL2', day: 'Friday', startTime: '15:00', endTime: '16:30', deliveryMode: 'Face-to-Face', capacity: 40 },
+    { id: 'irr-5a', subjectCode: 'ITELEC2', title: 'IT Major Elective 2 (Data Warehousing)', section: 'BSIT-3A', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '403/403 CL2', day: 'Tuesday', startTime: '14:00', endTime: '16:00', deliveryMode: 'Face-to-Face', capacity: 40 },
+    { id: 'irr-5b', subjectCode: 'ITELEC2', title: 'IT Major Elective 2 (Data Warehousing)', section: 'BSIT-3A', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '403/403 CL2', day: 'Thursday', startTime: '14:00', endTime: '16:00', deliveryMode: 'Face-to-Face', capacity: 40 },
+    { id: 'irr-5c', subjectCode: 'ITELEC2', title: 'IT Major Elective 2 (Data Warehousing)', section: 'BSIT-3A', faculty: 'Ms. Joyce Raon', department: 'CITE', room: '403/403 CL2', day: 'Saturday', startTime: '14:00', endTime: '16:00', deliveryMode: 'Face-to-Face', capacity: 40 },
+    { id: 'irr-6', subjectCode: 'GE ELECTIVE 4', title: 'Philippine Popular Culture', section: 'BSBA-3B', faculty: 'Bryan Necessito', department: 'CITE', room: '404/403', day: 'Wednesday', startTime: '09:00', endTime: '10:00', deliveryMode: 'Face-to-Face', capacity: 40 },
+    { id: 'irr-7a', subjectCode: 'PATHFIT 4', title: 'Group Exercise - Aerobics', section: 'BSIT-2F', faculty: 'Dether Domaoal', department: 'CITE', room: 'SH-502', day: 'Tuesday', startTime: '11:00', endTime: '12:00', deliveryMode: 'Face-to-Face', capacity: 35 },
+    { id: 'irr-7b', subjectCode: 'PATHFIT 4', title: 'Group Exercise - Aerobics', section: 'BSIT-2F', faculty: 'Dether Domaoal', department: 'CITE', room: 'SH-502', day: 'Thursday', startTime: '11:00', endTime: '12:00', deliveryMode: 'Face-to-Face', capacity: 35 },
+  ]
+}
+
 export function renderstudent_schedule_page(): string {
   const params = new URLSearchParams(window.location.search)
   const studentProfile = resolveStudentScheduleById(params.get('student'))
   const isRegular = studentProfile.status === 'Regular'
   const baseRows = isRegular
-    ? buildThirdYearSecondSemMockRows('BSIT-3D')
-    : schedulingService.listStudentSchedules()
-  const irregularSetOptions = ['N/A', 'BSIT-3A', 'BSIT-3B', 'BSIT-3C']
-  const mergedRows = mergeScheduleRows(baseRows, isRegular, irregularSetOptions)
+    ? buildThirdYearSecondSemRows('BSIT-3D')
+    : buildIrregularRows()
+  const mergedRows = mergeScheduleRows(baseRows, isRegular)
   const rows = sortScheduleRowsTodayFirst(mergedRows.map((item) => ({ ...item, day: item.days.find((day) => isTodayScheduleDay(day)) ?? item.days[0] })))
   const totalUnits = mergedRows.reduce((sum, item) => sum + (item.capacity >= 40 ? 3 : 2), 0)
 

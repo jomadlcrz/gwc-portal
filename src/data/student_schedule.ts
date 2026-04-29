@@ -38,14 +38,14 @@ export const STUDENT_USERS: StudentSchedule[] = [
     campusAddress: 'San Jose Drive, Alaminos City, Pangasinan',
     scheduleHeading: 'Student Schedule',
     schoolYear: 'School Year 2025-2026',
-    name: 'Santos, Arielle Mae',
-    yearLevelSection: '3rd Year - Irregular',
+    name: 'Dela Cruz, Joma Manaois',
+    yearLevelSection: '3rd Year - SET D',
     course: 'BSIT',
     status: 'Irregular',
     semesterLabel: 'Class Schedule for 2nd Semester',
     signedBy: 'Denzel James B. Valdez',
     signatoryRole: 'OIC DEAN, CITE Department',
-    irregularSetDisplay: 'N/A',
+    irregularSetDisplay: 'IT-2F / IT-3D / IT-3A',
   },
 ]
 
