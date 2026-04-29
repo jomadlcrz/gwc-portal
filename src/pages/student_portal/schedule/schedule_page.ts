@@ -234,13 +234,30 @@ export function setupstudent_schedule_page(root: HTMLElement): () => void {
   const printButton = root.querySelector<HTMLButtonElement>('.student-schedule-print-btn')
   if (!printButton) return () => {}
 
-  const onPrint = (): void => {
+  const triggerPrint = async (): Promise<void> => {
+    if ('fonts' in document) {
+      await document.fonts.ready
+    }
     window.print()
   }
 
+  const onPrint = (): void => {
+    void triggerPrint()
+  }
+
+  const onPrintShortcut = (event: KeyboardEvent): void => {
+    const isPrintKey = event.key.toLowerCase() === 'p'
+    const withModifier = event.ctrlKey || event.metaKey
+    if (!isPrintKey || !withModifier) return
+    event.preventDefault()
+    void triggerPrint()
+  }
+
   printButton.addEventListener('click', onPrint)
+  window.addEventListener('keydown', onPrintShortcut)
 
   return () => {
     printButton.removeEventListener('click', onPrint)
+    window.removeEventListener('keydown', onPrintShortcut)
   }
 }
