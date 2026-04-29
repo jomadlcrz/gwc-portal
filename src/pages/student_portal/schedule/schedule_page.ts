@@ -1,7 +1,7 @@
 import { STUDENT_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { resolveStudentScheduleById } from '../../../data/student_schedule'
-import { resolveStudentScheduleRows } from '../../../data/student_schedule_rows'
+import { resolveStudentScheduleRows } from '../../../data/student_schedule_entries'
 import type { ScheduleItem } from '../../../features/scheduling/types'
 
 function formatDay(day: string): string {
