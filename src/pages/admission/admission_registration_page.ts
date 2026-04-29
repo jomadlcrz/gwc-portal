@@ -355,7 +355,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
       const headerEl = document.querySelector<HTMLElement>('.main-site-header')
       const headerOffset = headerEl ? headerEl.getBoundingClientRect().height : 0
       // Keep full timeline (dots + line + labels) comfortably below sticky header/menu.
-      const topPadding = 64
+      const topPadding = 62
       const bottomPadding = 10
       const initialTop = window.scrollY + targetSection.getBoundingClientRect().top - headerOffset - topPadding
       window.scrollTo({ top: Math.max(0, initialTop), behavior: 'instant' })
