@@ -1798,9 +1798,12 @@
     font-size: 0.98rem;
   }
 
-  .registrar-schedule-mobile-stats div:nth-child(2) {
-    border-left: 1px solid #d8e2ed;
-    padding-left: 0.62rem;
+  .registrar-schedule-mobile-stats > div {
+    border: 1px solid #d8e2ed;
+    border-radius: 0.5rem;
+    padding: 0.4rem 0.5rem;
+    background: #f8fbff;
+    text-align: center;
   }
   .registrar-schedule-mobile-stats small {
     display: block;
