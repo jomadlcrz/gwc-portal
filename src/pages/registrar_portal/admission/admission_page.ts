@@ -802,7 +802,11 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
     }
     reqList.innerHTML = items
       .map((item) => {
-        const documents = (item.documents ?? []).map((doc) => `<li>${doc}</li>`).join('')
+        const documents = (item.documents ?? [])
+          .map((doc) => doc.trim().replace(/^[-*•]\s*/, ''))
+          .filter((doc) => doc.length > 0)
+          .map((doc) => `<li>${doc}</li>`)
+          .join('')
         return `
           <article class="registrar-admission-req-group">
             <h5>${item.admission_type}</h5>
@@ -828,7 +832,7 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
     const type = reqType.value.trim()
     const docs = reqDocs.value
       .split('\n')
-      .map((entry) => entry.trim())
+      .map((entry) => entry.trim().replace(/^[-*•]\s*/, ''))
       .filter((entry) => entry.length > 0)
     if (!type || docs.length === 0) {
       reqMessage.textContent = 'Select an admission type and add at least one document line.'
