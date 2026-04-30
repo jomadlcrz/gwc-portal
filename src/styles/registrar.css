@@ -977,6 +977,15 @@
   margin-bottom: 0.7rem;
 }
 
+.class-scheduling-content .admin-student-page-shell {
+  border-radius: var(--radius-lg);
+}
+
+.class-scheduling-content .admin-student-page-shell .form-control,
+.class-scheduling-content .admin-student-page-shell .form-select {
+  border-radius: var(--radius-md);
+}
+
 .class-scheduling-header {
   box-shadow: var(--shadow-none);
 }
