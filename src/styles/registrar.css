@@ -504,6 +504,11 @@
   font-weight: 600;
 }
 
+.registrar-schedule-select-wrap:focus-within {
+  border-color: var(--color-border-focus);
+  box-shadow: var(--shadow-focus-primary);
+}
+
 .registrar-schedule-actions {
   display: grid;
   grid-template-columns: auto auto;
@@ -1076,6 +1081,15 @@
 
 .registrar-schedule-manage-panel .admin-directory-search input {
   border-radius: var(--radius-md);
+}
+
+.registrar-schedule-manage-panel [data-schedule-department-filter]:focus {
+  border-color: var(--color-border-focus);
+  box-shadow: var(--shadow-focus-primary);
+}
+
+.registrar-schedule-manage-panel .admin-search-icon {
+  color: #1f5f98;
 }
 
 .registrar-admission-toolbar-controls {
