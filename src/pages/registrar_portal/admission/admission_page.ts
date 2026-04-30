@@ -1,4 +1,4 @@
-import { ROUTES } from '../../../app/routes'
+﻿import { ROUTES } from '../../../app/routes'
 import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderSectionTitle } from '../../../components/ui/section_title_heading'
@@ -749,6 +749,15 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
 
   if (!toggleButton || !statusText || !reqType || !reqDocs || !reqAddBtn || !reqMessage || !reqList) return () => {}
 
+  const REQUIREMENTS_OVERRIDE_KEY = 'gwc:admission:requirements:overrides'
+  const requirementOverrides = new Map<string, string[]>(
+    JSON.parse(window.localStorage.getItem(REQUIREMENTS_OVERRIDE_KEY) ?? '[]') as Array<[string, string[]]>,
+  )
+  const requirementMap = new Map<string, string[]>()
+  const persistOverrides = (): void => {
+    window.localStorage.setItem(REQUIREMENTS_OVERRIDE_KEY, JSON.stringify(Array.from(requirementOverrides.entries())))
+  }
+
   const syncState = (): void => {
     const isOpen = admissionService.isEnrollmentOpen()
     statusText.textContent = isOpen ? 'OPEN' : 'CLOSED'
@@ -795,21 +804,29 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
   syncState()
   void admissionService.refreshEnrollmentOpenFromBackend().then(() => syncState()).catch(() => {})
 
-  const renderRequirementList = (items: Awaited<ReturnType<typeof getAdmissionRequirements>>): void => {
-    if (items.length === 0) {
+  const sanitizeDocs = (docs: string[]): string[] => {
+    const unique: string[] = []
+    docs
+      .map((entry) => entry.trim().replace(/^[-*•]\s*/, ''))
+      .filter((entry) => entry.length > 0)
+      .forEach((entry) => {
+        if (!unique.some((existing) => existing.toLowerCase() === entry.toLowerCase())) unique.push(entry)
+      })
+    return unique
+  }
+
+  const renderRequirementList = (): void => {
+    if (requirementMap.size === 0) {
       reqList.innerHTML = '<p class="mb-0">No admission requirements found.</p>'
       return
     }
-    reqList.innerHTML = items
-      .map((item) => {
-        const documents = (item.documents ?? [])
-          .map((doc) => doc.trim().replace(/^[-*•]\s*/, ''))
-          .filter((doc) => doc.length > 0)
-          .map((doc) => `<li>${doc}</li>`)
-          .join('')
+
+    reqList.innerHTML = Array.from(requirementMap.entries())
+      .map(([type, docs]) => {
+        const documents = sanitizeDocs(docs).map((doc) => `<li>${doc}</li>`).join('')
         return `
           <article class="registrar-admission-req-group">
-            <h5>${item.admission_type}</h5>
+            <h5>${type}</h5>
             <ul>${documents || '<li>No requirements added yet.</li>'}</ul>
           </article>
         `
@@ -821,7 +838,12 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
     reqMessage.textContent = 'Loading requirements...'
     try {
       const items = await getAdmissionRequirements()
-      renderRequirementList(items)
+      requirementMap.clear()
+      items.forEach((item) => {
+        const merged = requirementOverrides.get(item.admission_type) ?? (item.documents ?? [])
+        requirementMap.set(item.admission_type, sanitizeDocs(merged))
+      })
+      renderRequirementList()
       reqMessage.textContent = ''
     } catch (error) {
       reqMessage.textContent = error instanceof Error ? error.message : 'Unable to load requirements.'
@@ -830,26 +852,37 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
 
   const onAddRequirement = async (): Promise<void> => {
     const type = reqType.value.trim()
-    const docs = reqDocs.value
-      .split('\n')
-      .map((entry) => entry.trim().replace(/^[-*•]\s*/, ''))
-      .filter((entry) => entry.length > 0)
+    const docs = sanitizeDocs(reqDocs.value.split('\n'))
     if (!type || docs.length === 0) {
       reqMessage.textContent = 'Select an admission type and add at least one document line.'
       return
     }
     reqAddBtn.disabled = true
-    reqMessage.textContent = 'Saving requirement...'
+    reqMessage.textContent = 'Saving requirements...'
     try {
-      await createAdmissionRequirement({ admissionTypeName: type, documentName: docs })
-      reqDocs.value = ''
-      reqMessage.textContent = `${docs.length} requirement(s) saved.`
-      await loadRequirements()
+      const existingDocs = requirementMap.get(type) ?? []
+      const toCreate = docs.filter((doc) => !existingDocs.some((x) => x.toLowerCase() === doc.toLowerCase()))
+      if (toCreate.length > 0) {
+        await createAdmissionRequirement({ admissionTypeName: type, documentName: toCreate })
+      }
+      requirementOverrides.set(type, docs)
+      persistOverrides()
+      requirementMap.set(type, docs)
+      reqMessage.textContent = `Requirements updated for ${type}.`
+      renderRequirementList()
     } catch (error) {
       reqMessage.textContent = error instanceof Error ? error.message : 'Unable to save requirement.'
     } finally {
       reqAddBtn.disabled = false
     }
+  }
+
+  const onRequirementTypeChange = (): void => {
+    const type = reqType.value.trim()
+    const docs = requirementMap.get(type) ?? []
+    reqDocs.value = docs.map((entry) => `• ${entry}`).join('\n')
+    if (!reqDocs.value.trim()) reqDocs.value = '• '
+    autoResizeReqDocs()
   }
 
   const formatBulletLines = (): void => {
@@ -915,6 +948,7 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
   }
 
   reqAddBtn.addEventListener('click', () => void onAddRequirement())
+  reqType.addEventListener('change', onRequirementTypeChange)
   reqDocs.addEventListener('focus', () => {
     if (!reqDocs.value.trim()) reqDocs.value = '• '
     autoResizeReqDocs()
@@ -930,13 +964,12 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
 
   return () => {
     toggleButton.removeEventListener('click', onToggle)
+    reqType.removeEventListener('change', onRequirementTypeChange)
     reqDocs.removeEventListener('blur', formatBulletLines)
     reqDocs.removeEventListener('keydown', onReqDocsKeydown)
     reqDocs.removeEventListener('input', autoResizeReqDocs)
   }
-}
-
-export function setupregistrar_admission_details_page(root: HTMLElement): () => void {
+}export function setupregistrar_admission_details_page(root: HTMLElement): () => void {
   const controls = root.querySelector<HTMLElement>('[data-admission-controls]')
   const saveButton = root.querySelector<HTMLButtonElement>('[data-admission-save]')
   const statusInput = root.querySelector<HTMLSelectElement>('#admission-status-select')
@@ -967,3 +1000,5 @@ export function setupregistrar_admission_details_page(root: HTMLElement): () => 
     saveButton.removeEventListener('click', onSave)
   }
 }
+
+

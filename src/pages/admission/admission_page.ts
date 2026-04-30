@@ -1,4 +1,4 @@
-import '../../styles/admission.css'
+﻿import '../../styles/admission.css'
 const gwcLogo = '/images/gwc_logo.avif'
 const gwcLogoWhite = '/images/gwc_logo_white.avif'
 const coverImage = '/images/cover.avif'
@@ -11,8 +11,10 @@ import { renderSharedModal, setupSharedModal } from '../../components/ui/modal'
 import { renderSectionTitle } from '../../components/ui/section_title_heading'
 import { type AdmissionApplication } from '../../data/admission'
 import { admissionService } from '../../features/admission/service'
+import { getAdmissionRequirements } from '../../api/v1/admissions/admissions'
 
 type AdmissionSection = 'requirements' | 'status' | 'contact'
+const REQUIREMENTS_OVERRIDE_KEY = 'gwc:admission:requirements:overrides'
 
 function renderAdmissionTabs(active: AdmissionSection): string {
   return `
@@ -374,7 +376,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
         <div class="admission-detail-surface">
           ${
             application.status === 'Approved'
-              ? '<p>For <strong>ENROLLMENT REQUIREMENTS</strong>, please submit the following documents to the Registrar’s Office.</p>'
+              ? '<p>For <strong>ENROLLMENT REQUIREMENTS</strong>, please submit the following documents to the Registrarâ€™s Office.</p>'
               : ''
           }
           <ol class="admission-reminders-list ${application.status === 'Approved' ? 'has-approved-header' : ''}">
@@ -421,67 +423,8 @@ function renderAdmissionContent(active: AdmissionSection): string {
 
           <section class="admission-content-block">
             <h3 class="mb-3">Admission Requirements</h3>
-            <div class="accordion accordion-flush" id="enrollmentRequirementsAccordion">
-              <div class="accordion-item">
-                <h4 class="accordion-header" id="freshmenRequirementsHeading">
-                  <button
-                    class="accordion-button"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#freshmenRequirementsCollapse"
-                    aria-expanded="true"
-                    aria-controls="freshmenRequirementsCollapse"
-                  >
-                    New Students / Incoming Freshmen
-                  </button>
-                </h4>
-                <div
-                  id="freshmenRequirementsCollapse"
-                  class="accordion-collapse collapse show"
-                  aria-labelledby="freshmenRequirementsHeading"
-                  data-bs-parent="#enrollmentRequirementsAccordion"
-                >
-                  <div class="accordion-body">
-                    <ul class="mb-0">
-                      <li>Original Form 138</li>
-                      <li>Good Moral Certificate</li>
-                      <li>PSA Birth Certificate Copy</li>
-                      <li>2 pcs. 2x2 Picture with Name Tag and White Background</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <h4 class="accordion-header" id="transfereeRequirementsHeading">
-                  <button
-                    class="accordion-button collapsed"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#transfereeRequirementsCollapse"
-                    aria-expanded="false"
-                    aria-controls="transfereeRequirementsCollapse"
-                  >
-                    Transferees
-                  </button>
-                </h4>
-                <div
-                  id="transfereeRequirementsCollapse"
-                  class="accordion-collapse collapse"
-                  aria-labelledby="transfereeRequirementsHeading"
-                  data-bs-parent="#enrollmentRequirementsAccordion"
-                >
-                  <div class="accordion-body">
-                    <ul class="mb-0">
-                      <li>Transfer Credentials</li>
-                      <li>Good Moral Certificate</li>
-                      <li>Photocopy of Marriage Contract (For Married: Female Only)</li>
-                      <li>Birth Certificate Copy</li>
-                      <li>2 pcs. 2x2 Picture with Name Tag and White Background</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+            <div class="accordion accordion-flush" id="enrollmentRequirementsAccordion" data-admission-requirements-container>
+              <p class="admission-status-message">Loading requirements...</p>
             </div>
           </section>
 
@@ -707,7 +650,60 @@ export function renderadmission_page(): string {
 export function setupadmission_page(app: HTMLDivElement): () => void {
   const availabilitySection = app.querySelector<HTMLElement>('.admission-availability')
   const statusText = app.querySelector<HTMLElement>('.admission-status-text')
+  const requirementsContainer = app.querySelector<HTMLElement>('[data-admission-requirements-container]')
   if (!availabilitySection || !statusText) return () => {}
+
+  const sanitizeDocs = (docs: string[]): string[] =>
+    docs
+      .map((entry) => entry.trim().replace(/^([-*•]|â€¢)\s*/, ''))
+      .filter((entry) => entry.length > 0)
+
+  const renderRequirements = async (): Promise<void> => {
+    if (!requirementsContainer) return
+    requirementsContainer.innerHTML = '<p class="admission-status-message">Loading requirements...</p>'
+    try {
+      const items = await getAdmissionRequirements()
+      const overrides = new Map<string, string[]>(
+        JSON.parse(window.localStorage.getItem(REQUIREMENTS_OVERRIDE_KEY) ?? '[]') as Array<[string, string[]]>,
+      )
+      requirementsContainer.innerHTML =
+        items
+          .map((item, index) => {
+            const docs = sanitizeDocs(overrides.get(item.admission_type) ?? (item.documents ?? []))
+            const collapseId = `admissionRequirementsCollapse${index}`
+            const headingId = `admissionRequirementsHeading${index}`
+            return `
+              <div class="accordion-item">
+                <h4 class="accordion-header" id="${headingId}">
+                  <button
+                    class="accordion-button ${index === 0 ? '' : 'collapsed'}"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#${collapseId}"
+                    aria-expanded="${index === 0 ? 'true' : 'false'}"
+                    aria-controls="${collapseId}"
+                  >
+                    ${item.admission_type}
+                  </button>
+                </h4>
+                <div
+                  id="${collapseId}"
+                  class="accordion-collapse collapse ${index === 0 ? 'show' : ''}"
+                  aria-labelledby="${headingId}"
+                  data-bs-parent="#enrollmentRequirementsAccordion"
+                >
+                  <div class="accordion-body">
+                    <ul class="mb-0">${docs.map((doc) => `<li>${doc}</li>`).join('') || '<li>No requirements added yet.</li>'}</ul>
+                  </div>
+                </div>
+              </div>
+            `
+          })
+          .join('') || '<p class="admission-status-message">No admission requirements found.</p>'
+    } catch {
+      requirementsContainer.innerHTML = '<p class="admission-status-message">Unable to load admission requirements.</p>'
+    }
+  }
 
   void admissionService
     .refreshEnrollmentOpenFromBackend()
@@ -717,6 +713,7 @@ export function setupadmission_page(app: HTMLDivElement): () => void {
       statusText.textContent = isOpen ? 'ONLINE ADMISSION IS NOW OPEN' : 'Application Closed'
     })
     .catch(() => {})
+  void renderRequirements()
 
   return () => {}
 }
@@ -903,3 +900,6 @@ export function setupadmission_status_details_page(app: HTMLDivElement): () => v
 export function renderadmission_contact_page(): string {
   return renderadmission_shell('contact')
 }
+
+
+
