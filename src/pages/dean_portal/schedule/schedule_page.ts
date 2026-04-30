@@ -163,7 +163,7 @@ function renderScheduleGrid(instructor: InstructorSchedule): string {
         </tbody>
         <tfoot>
           <tr>
-            <th>Total</th>
+            <th>Total Hours</th>
             ${dayOrder.map((day) => `<th>${getInstructorDayHours(instructor, day)}</th>`).join('')}
           </tr>
         </tfoot>
