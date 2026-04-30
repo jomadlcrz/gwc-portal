@@ -29,7 +29,10 @@ type RegistrationStudentResponse = {
 export async function createRegistrationStudent(payload: RegistrationStudentPayload): Promise<RegistrationStudentResponse> {
   const response = await fetch(`${API_BASE_URL}/api/v1/registration/students`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': 'true',
+    },
     body: JSON.stringify(payload),
   })
 

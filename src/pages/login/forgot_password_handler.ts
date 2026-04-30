@@ -568,6 +568,7 @@ class PasswordResetFlow {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
         },
         body: JSON.stringify({ email, dob }),
       })
@@ -585,6 +586,7 @@ class PasswordResetFlow {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
         },
         body: JSON.stringify({ email, otp }),
       })
@@ -602,6 +604,7 @@ class PasswordResetFlow {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
         },
         body: JSON.stringify({ email, newPassword }),
       })

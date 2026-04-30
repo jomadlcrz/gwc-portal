@@ -37,7 +37,10 @@ export async function createEnrollmentSession(
 ): Promise<EnrollmentSessionResponse> {
   const response = await fetch(`${API_BASE_URL}/api/v1/enrollment_sessions`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': 'true',
+    },
     body: JSON.stringify(payload),
   })
 

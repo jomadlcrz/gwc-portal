@@ -18,7 +18,10 @@ type CreatePostResponse = {
 export async function createPost(payload: CreatePostPayload): Promise<CreatePostResponse> {
   const response = await fetch(`${API_BASE_URL}/api/admin/posts`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': 'true',
+    },
     body: JSON.stringify(payload),
   })
 

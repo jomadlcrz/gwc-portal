@@ -40,7 +40,10 @@ export function setupStudentLoginPage(root: HTMLElement): () => void {
     try {
       const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
+        },
         body: JSON.stringify({ email, password }),
       })
 
@@ -110,7 +113,10 @@ export function setupChangePasswordPage(root: HTMLElement): () => void {
     try {
       const response = await fetch(`${API_BASE_URL}/api/auth/update-password/${storedUserId}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
+        },
         body: JSON.stringify({ newPassword }),
       })
 
