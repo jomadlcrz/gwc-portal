@@ -221,14 +221,14 @@ class SchedulingService {
     const pickSubject = (seedIndex: number): BsitSeedSubject =>
       BSIT_SEED_SUBJECTS[(seedIndex - 1) % BSIT_SEED_SUBJECTS.length]
 
-    const buildItems = (suffix: string, section: string, faculty: string, room: string): ScheduleItem[] => [
+    const buildItems = (suffix: string, section: string, faculty: string, room: string, department = DEFAULT_DEPARTMENT_CODE): ScheduleItem[] => [
       {
         id: createId('item'),
         subjectCode: pickSubject(Number.parseInt(suffix, 10)).code,
         descriptiveTitle: pickSubject(Number.parseInt(suffix, 10)).descriptiveTitle,
         section,
         faculty,
-        department: DEFAULT_DEPARTMENT_CODE,
+        department,
         room,
         day: 'Monday',
         startTime: '08:00',
@@ -242,7 +242,7 @@ class SchedulingService {
         descriptiveTitle: pickSubject(Number.parseInt(suffix, 10)).descriptiveTitle,
         section,
         faculty,
-        department: DEFAULT_DEPARTMENT_CODE,
+        department,
         room,
         day: 'Wednesday',
         startTime: '08:00',
@@ -256,7 +256,7 @@ class SchedulingService {
         descriptiveTitle: pickSubject(Number.parseInt(suffix, 10)).descriptiveTitle,
         section,
         faculty,
-        department: DEFAULT_DEPARTMENT_CODE,
+        department,
         room,
         day: 'Friday',
         startTime: '08:00',
@@ -270,7 +270,7 @@ class SchedulingService {
         descriptiveTitle: pickSubject(Number.parseInt(suffix, 10) + 1).descriptiveTitle,
         section: `${section}-LAB`,
         faculty: `Asst. ${faculty.replace('Prof. ', '')}`,
-        department: DEFAULT_DEPARTMENT_CODE,
+        department,
         room: `${room} Lab`,
         day: 'Tuesday',
         startTime: '10:00',
@@ -284,7 +284,7 @@ class SchedulingService {
         descriptiveTitle: pickSubject(Number.parseInt(suffix, 10) + 1).descriptiveTitle,
         section: `${section}-LAB`,
         faculty: `Asst. ${faculty.replace('Prof. ', '')}`,
-        department: DEFAULT_DEPARTMENT_CODE,
+        department,
         room: `${room} Lab`,
         day: 'Thursday',
         startTime: '10:00',
@@ -294,11 +294,11 @@ class SchedulingService {
       },
     ]
 
-    const createSeedSchedule = (label: string, items: ScheduleItem[]): Schedule =>
+    const createSeedSchedule = (label: string, items: ScheduleItem[], department = DEFAULT_DEPARTMENT_CODE): Schedule =>
       this.createSchedule(
         {
           term: '1st Semester AY 2026-2027',
-          department: DEFAULT_DEPARTMENT_CODE,
+          department,
           registrarNotes: label,
           items,
         },
@@ -306,39 +306,68 @@ class SchedulingService {
         false,
       )
 
-    const approved = createSeedSchedule('Seed: approved schedule', buildItems('1', 'BSIT-1A', 'Prof. Maria Dela Cruz', 'Room 301'))
+    const approved = createSeedSchedule(
+      'Seed: approved schedule',
+      buildItems('1', 'BSIT-1A', 'Prof. Maria Dela Cruz', 'Room 301', 'CITE'),
+      'CITE',
+    )
     approved.status = 'REJECTED_BY_ADMIN'
     this.submitForApproval(approved.id, 'registrar-1', 'Seed: submitted for approval')
     this.approveSchedule({ scheduleId: approved.id, reviewerId: 'admin-1', comment: 'Seed approved', tags: ['seed'] })
 
-    const finalized = createSeedSchedule('Seed: finalized schedule', buildItems('2', 'BSIT-2A', 'Prof. John Santos', 'Room 302'))
+    const finalized = createSeedSchedule(
+      'Seed: finalized schedule',
+      buildItems('2', 'BSA-2A', 'Prof. John Santos', 'Room 302', 'CBA'),
+      'CBA',
+    )
     finalized.status = 'REJECTED_BY_ADMIN'
     this.submitForApproval(finalized.id, 'registrar-1', 'Seed: submitted for finalization flow')
     this.approveSchedule({ scheduleId: finalized.id, reviewerId: 'admin-1', comment: 'Seed approved', tags: ['seed'] })
     this.finalizeSchedule(finalized.id, 'admin-1')
 
-    const underReview = createSeedSchedule('Seed: under admin review', buildItems('3', 'BSIT-3A', 'Prof. Angela Reyes', 'Room 303'))
+    const underReview = createSeedSchedule(
+      'Seed: under admin review',
+      buildItems('3', 'BSEE-3A', 'Prof. Angela Reyes', 'Room 303', 'COE'),
+      'COE',
+    )
     underReview.status = 'REJECTED_BY_ADMIN'
     this.submitForApproval(underReview.id, 'registrar-1', 'Seed: pending admin review')
     this.moveToAdminReview(underReview.id, 'admin-1')
 
-    const submitted = createSeedSchedule('Seed: submitted for approval', buildItems('4', 'BSIT-4A', 'Prof. Carlo Mendoza', 'Room 304'))
+    const submitted = createSeedSchedule(
+      'Seed: submitted for approval',
+      buildItems('4', 'BSCRIM-4A', 'Prof. Carlo Mendoza', 'Room 304', 'CCJ'),
+      'CCJ',
+    )
     submitted.status = 'REJECTED_BY_ADMIN'
     this.submitForApproval(submitted.id, 'registrar-1', 'Seed: waiting in queue')
 
-    const rejected = createSeedSchedule('Seed: rejected by admin', buildItems('5', 'BSIT-1B', 'Prof. Liza Ramos', 'Room 305'))
+    const rejected = createSeedSchedule(
+      'Seed: rejected by admin',
+      buildItems('5', 'BSEd-1B', 'Prof. Liza Ramos', 'Room 305', 'CTE'),
+      'CTE',
+    )
     rejected.status = 'REJECTED_BY_ADMIN'
 
-    const draft = createSeedSchedule('Seed: draft schedule', buildItems('6', 'BSIT-2B', 'Prof. Kevin Flores', 'Room 306'))
+    const draft = createSeedSchedule(
+      'Seed: draft schedule',
+      buildItems('6', 'BSIT-2B', 'Prof. Kevin Flores', 'Room 306', 'CITE'),
+      'CITE',
+    )
     draft.status = 'DRAFT'
 
-    const completed = createSeedSchedule('Seed: completed schedule', buildItems('8', 'BSIT-4B', 'Prof. Hazel Garcia', 'Room 308'))
+    const completed = createSeedSchedule(
+      'Seed: completed schedule',
+      buildItems('8', 'BSA-4B', 'Prof. Hazel Garcia', 'Room 308', 'CBA'),
+      'CBA',
+    )
     completed.status = 'COMPLETED'
     completed.finalizedAt = nowIso()
 
     const withModification = createSeedSchedule(
       'Seed: modification requested',
-      buildItems('7', 'BSIT-3B', 'Prof. Nina Torres', 'Room 307'),
+      buildItems('7', 'BSEE-3B', 'Prof. Nina Torres', 'Room 307', 'COE'),
+      'COE',
     )
     withModification.status = 'REJECTED_BY_ADMIN'
     this.submitForApproval(withModification.id, 'registrar-1', 'Seed: mod request setup')
