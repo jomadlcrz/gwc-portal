@@ -29,6 +29,7 @@ export function setupregistrar_schedule_page(root: HTMLElement): () => void {
   const departmentSelect = root.querySelector<HTMLSelectElement>('[data-registrar-department-select]')
   const departmentBoards = Array.from(root.querySelectorAll<HTMLElement>('[data-registrar-department-board]'))
   const emptyState = root.querySelector<HTMLElement>('[data-registrar-empty-state]')
+  const searchInput = root.querySelector<HTMLInputElement>('[data-registrar-schedule-search]')
 
   const updateDepartmentView = (): void => {
     const selectedDepartment = departmentSelect?.value || ''
@@ -40,6 +41,28 @@ export function setupregistrar_schedule_page(root: HTMLElement): () => void {
 
     if (emptyState) {
       emptyState.hidden = hasSelection
+    }
+
+    updateSearchView()
+  }
+
+  const updateSearchView = (): void => {
+    const query = (searchInput?.value || '').trim().toLowerCase()
+    const visibleBoard = departmentBoards.find((board) => !board.hidden)
+    if (!visibleBoard) return
+
+    const items = Array.from(visibleBoard.querySelectorAll<HTMLElement>('[data-registrar-schedule-item]'))
+    const noResults = visibleBoard.querySelector<HTMLElement>('[data-registrar-schedule-no-results]')
+    let visibleCount = 0
+
+    items.forEach((item) => {
+      const matches = !query || (item.dataset.searchValue || '').includes(query)
+      item.hidden = !matches
+      if (matches) visibleCount += 1
+    })
+
+    if (noResults) {
+      noResults.hidden = visibleCount > 0
     }
   }
 
@@ -68,13 +91,37 @@ export function setupregistrar_schedule_page(root: HTMLElement): () => void {
     })
   }
 
+  const onInstructorJumpClick = (event: Event): void => {
+    const target = event.target as HTMLElement | null
+    const button = target?.closest<HTMLButtonElement>('[data-registrar-schedule-jump]')
+    const targetId = button?.dataset.registrarScheduleJump
+    if (!targetId) return
+
+    const tableSection = root.querySelector<HTMLElement>(`#${CSS.escape(targetId)}`)
+    if (!tableSection || tableSection.hidden) return
+
+    tableSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    tableSection.focus({ preventScroll: true })
+    tableSection.classList.remove('is-highlighted')
+    window.requestAnimationFrame(() => {
+      tableSection.classList.add('is-highlighted')
+    })
+    window.setTimeout(() => {
+      tableSection.classList.remove('is-highlighted')
+    }, 2200)
+  }
+
   departmentSelect?.addEventListener('change', updateDepartmentView)
+  searchInput?.addEventListener('input', updateSearchView)
   root.addEventListener('click', onMobileDayClick)
+  root.addEventListener('click', onInstructorJumpClick)
   updateDepartmentView()
 
   return () => {
     departmentSelect?.removeEventListener('change', updateDepartmentView)
+    searchInput?.removeEventListener('input', updateSearchView)
     root.removeEventListener('click', onMobileDayClick)
+    root.removeEventListener('click', onInstructorJumpClick)
     cleanupShell()
   }
 }

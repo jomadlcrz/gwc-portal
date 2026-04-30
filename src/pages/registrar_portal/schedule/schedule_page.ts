@@ -4,6 +4,16 @@ import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { DEPARTMENT_SELECT_OPTIONS, getDepartmentDisplayName } from '../../../data/departments'
 import { INSTRUCTOR_SCHEDULES, SCHEDULE_DAY_ORDER, type InstructorSchedule } from '../../../data/schedule'
 
+const SCHEDULE_DISPLAY_DAYS = [
+  { key: 'M', label: 'Mon' },
+  { key: 'T', label: 'Tue' },
+  { key: 'W', label: 'Wed' },
+  { key: 'TH', label: 'Thu' },
+  { key: 'F', label: 'Fri' },
+  { key: 'S', label: 'Sat' },
+  { key: 'SUN', label: 'Sun' },
+] as const
+
 function getScheduleChipClass(value: string, room: string): string {
   const subjectCode = value.split('-')[0]?.trim().toUpperCase() ?? ''
   const normalizedRoom = room.trim().toUpperCase()
@@ -86,6 +96,57 @@ function getDayLabel(day: (typeof SCHEDULE_DAY_ORDER)[number]): string {
   return 'Saturday'
 }
 
+function getInstructorWeeklyHours(instructor: InstructorSchedule): string {
+  const total = SCHEDULE_DAY_ORDER.reduce((sum, day) => {
+    const hours = Number.parseFloat(getInstructorDayHours(instructor, day) || '0')
+    return sum + (Number.isFinite(hours) ? hours : 0)
+  }, 0)
+
+  return formatHours(total)
+}
+
+function getDepartmentStats(instructors: InstructorSchedule[]): {
+  instructorCount: number
+  roomCount: number
+  timeSlotCount: number
+  subjectCount: number
+} {
+  const rooms = new Set<string>()
+  const timeSlots = new Set<string>()
+  const subjects = new Set<string>()
+
+  instructors.forEach((instructor) => {
+    rooms.add(instructor.room)
+    instructor.slots.forEach((slot) => {
+      Object.values(slot.values).forEach((value) => {
+        if (!value) return
+        timeSlots.add(`${instructor.name}-${slot.time}-${value}`)
+        subjects.add(value.split('-')[0]?.trim() || value.trim())
+      })
+    })
+  })
+
+  return {
+    instructorCount: instructors.length,
+    roomCount: rooms.size,
+    timeSlotCount: timeSlots.size,
+    subjectCount: subjects.size,
+  }
+}
+
+function renderScheduleMetric(label: string, value: number, note: string, icon: string, tone: string): string {
+  return `
+    <article class="registrar-schedule-metric registrar-schedule-metric-${tone}">
+      <span class="registrar-schedule-metric-icon" aria-hidden="true"><i class="bi ${icon}"></i></span>
+      <span class="registrar-schedule-metric-copy">
+        <small>${label}</small>
+        <strong>${value}</strong>
+        <em>${note}</em>
+      </span>
+    </article>
+  `
+}
+
 function renderScheduleGrid(instructor: InstructorSchedule): string {
   const activeDay = getCurrentScheduleDay()
   return `
@@ -94,7 +155,7 @@ function renderScheduleGrid(instructor: InstructorSchedule): string {
         <thead>
           <tr>
             <th>Time</th>
-            ${SCHEDULE_DAY_ORDER.map((day) => `<th>${day}</th>`).join('')}
+            ${SCHEDULE_DISPLAY_DAYS.map((day) => `<th>${day.label}</th>`).join('')}
           </tr>
         </thead>
         <tbody>
@@ -103,10 +164,11 @@ function renderScheduleGrid(instructor: InstructorSchedule): string {
               (slot) => `
                 <tr>
                   <th>${ensureMeridiem(splitSlotTime(slot.time).start)} - ${ensureMeridiem(splitSlotTime(slot.time).end)}</th>
-                  ${SCHEDULE_DAY_ORDER
+                  ${SCHEDULE_DISPLAY_DAYS
                     .map((day) => {
-                      const value = slot.values[day]
-                      if (!value) return '<td></td>'
+                      if (day.key === 'SUN') return '<td><span class="registrar-schedule-empty-mark">-</span></td>'
+                      const value = slot.values[day.key]
+                      if (!value) return '<td><span class="registrar-schedule-empty-mark">-</span></td>'
                       const chipClass = getScheduleChipClass(value, instructor.room)
                       return `<td><span class="registrar-schedule-chip ${chipClass}">${instructor.name} - ${value}</span></td>`
                     })
@@ -119,7 +181,7 @@ function renderScheduleGrid(instructor: InstructorSchedule): string {
         <tfoot>
           <tr>
             <th>Total Hours</th>
-            ${SCHEDULE_DAY_ORDER.map((day) => `<th>${getInstructorDayHours(instructor, day)}</th>`).join('')}
+            ${SCHEDULE_DISPLAY_DAYS.map((day) => `<th>${day.key === 'SUN' ? '-' : getInstructorDayHours(instructor, day.key) || '-'}</th>`).join('')}
           </tr>
         </tfoot>
       </table>
@@ -168,6 +230,8 @@ function renderScheduleGrid(instructor: InstructorSchedule): string {
 
 export function renderregistrar_schedule_page(): string {
   const departmentCodes = Array.from(new Set(INSTRUCTOR_SCHEDULES.map((item) => item.department)))
+  const getInstructorTargetId = (departmentCode: string, instructor: InstructorSchedule): string =>
+    `registrar-schedule-${departmentCode.toLowerCase()}-${instructor.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
 
   return renderPortalShell(
     registrar_SHELL_CONFIG,
@@ -183,59 +247,85 @@ export function renderregistrar_schedule_page(): string {
               <h3>Schedule Board Access</h3>
               <p>Select a department first, then review its instructor schedules.</p>
             </div>
-            <div class="registrar-dashboard-actions">
-              <a href="${ROUTES.REGISTRAR_SCHEDULE_MANAGE}" class="btn btn-sm btn-outline-primary">Manage Schedule</a>
-              <a href="${ROUTES.REGISTRAR_SCHEDULE_CREATE}" class="btn btn-sm btn-primary">Create Schedule</a>
-            </div>
+            <label class="registrar-schedule-search">
+              <i class="bi bi-search" aria-hidden="true"></i>
+              <span class="visually-hidden">Search instructor</span>
+              <input type="search" placeholder="Search instructor..." data-registrar-schedule-search />
+            </label>
           </header>
 
-          <section class="registrar-schedule-filter">
-            <label for="registrar-schedule-department" class="form-label">Department</label>
-            <select id="registrar-schedule-department" class="form-select" data-registrar-department-select>
-              <option value="">Select Department</option>
-              ${DEPARTMENT_SELECT_OPTIONS.map((option) => `<option value="${option.value}">${option.label}</option>`).join('')}
-            </select>
-            <p class="registrar-schedule-filter-hint">Instructor Schedule Board will appear after department selection.</p>
+          <section class="registrar-schedule-toolbar" aria-label="Schedule controls">
+            <div class="registrar-schedule-filter">
+              <label for="registrar-schedule-department" class="form-label">Department</label>
+              <div class="registrar-schedule-select-wrap">
+                <i class="bi bi-calendar3" aria-hidden="true"></i>
+                <select id="registrar-schedule-department" class="form-select" data-registrar-department-select>
+                  <option value="">Select Department</option>
+                  ${DEPARTMENT_SELECT_OPTIONS.map((option) => `<option value="${option.value}">${option.label}</option>`).join('')}
+                </select>
+              </div>
+            </div>
+            <div class="registrar-schedule-actions">
+              <a href="${ROUTES.REGISTRAR_SCHEDULE_MANAGE}" class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-gear" aria-hidden="true"></i>
+                Manage Schedule
+              </a>
+              <a href="${ROUTES.REGISTRAR_SCHEDULE_CREATE}" class="btn btn-sm btn-primary">
+                <i class="bi bi-plus-lg" aria-hidden="true"></i>
+                Create Schedule
+              </a>
+            </div>
           </section>
 
-          <section data-registrar-empty-state class="registrar-schedule-empty-state">
+          <section data-registrar-empty-state class="registrar-schedule-empty-state" hidden>
             Choose a department to view the Instructor Schedule Board.
           </section>
 
           ${departmentCodes
-            .map(
-              (departmentCode) => `
+            .map((departmentCode) => {
+              const instructors = INSTRUCTOR_SCHEDULES.filter((instructor) => instructor.department === departmentCode)
+              const stats = getDepartmentStats(instructors)
+              return `
                 <section class="registrar-schedule-department-board" data-registrar-department-board="${departmentCode}" hidden>
-                  <h4 class="registrar-schedule-department-title">${getDepartmentDisplayName(departmentCode)}</h4>
+                  <section class="registrar-schedule-metric-grid" aria-label="${getDepartmentDisplayName(departmentCode)} schedule summary">
+                    ${renderScheduleMetric('Total Instructors', stats.instructorCount, 'Active', 'bi-people', 'instructors')}
+                    ${renderScheduleMetric('Total Rooms', stats.roomCount, 'Assigned', 'bi-calendar3', 'rooms')}
+                    ${renderScheduleMetric('Total Time Slots', stats.timeSlotCount, 'Scheduled', 'bi-clock', 'slots')}
+                    ${renderScheduleMetric('Total Subjects', stats.subjectCount, 'This Department', 'bi-book', 'subjects')}
+                  </section>
                   <section class="registrar-schedule-instructor-list" aria-label="Instructor schedule">
-                    ${INSTRUCTOR_SCHEDULES
-                      .filter((instructor) => instructor.department === departmentCode)
+                    ${instructors
                       .map(
                         (instructor) => `
-                          <article class="registrar-schedule-instructor">
-                            <strong>${instructor.name}</strong>
-                            <span>Room ${instructor.room}</span>
-                            <small>${instructor.focus}</small>
-                          </article>
+                          <button type="button" class="registrar-schedule-instructor" data-registrar-schedule-jump="${getInstructorTargetId(departmentCode, instructor)}" data-registrar-schedule-item data-search-value="${`${instructor.name} ${instructor.room} ${instructor.focus}`.toLowerCase()}">
+                            <span class="registrar-schedule-instructor-avatar">${instructor.name}</span>
+                            <span class="registrar-schedule-instructor-copy">
+                              <strong>${instructor.name}</strong>
+                              <span>Room ${instructor.room}</span>
+                              <small>${instructor.focus}</small>
+                              <em><i class="bi bi-calendar3" aria-hidden="true"></i>${getInstructorWeeklyHours(instructor)} hrs/week</em>
+                            </span>
+                            <i class="bi bi-chevron-right" aria-hidden="true"></i>
+                          </button>
                         `,
                       )
                       .join('')}
                   </section>
 
-                  ${INSTRUCTOR_SCHEDULES
-                    .filter((instructor) => instructor.department === departmentCode)
+                  ${instructors
                     .map(
                       (instructor) => `
-                        <section class="registrar-schedule-table-section">
-                          <h4>${instructor.name} - Room ${instructor.room}</h4>
+                        <section id="${getInstructorTargetId(departmentCode, instructor)}" class="registrar-schedule-table-section" data-registrar-schedule-item data-search-value="${`${instructor.name} ${instructor.room} ${instructor.focus}`.toLowerCase()}">
+                          <h4><i class="bi bi-calendar3" aria-hidden="true"></i>${instructor.name} - Room ${instructor.room}</h4>
                           ${renderScheduleGrid(instructor)}
                         </section>
                       `,
                     )
                     .join('')}
+                  <p class="registrar-schedule-no-results" data-registrar-schedule-no-results hidden>No instructors match your search.</p>
                 </section>
-              `,
-            )
+              `
+            })
             .join('')}
         </article>
       </section>

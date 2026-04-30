@@ -3,7 +3,7 @@ import { ROUTES } from '../../app/routes'
 import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/layout/header'
 import { renderMainSiteFooter } from '../../components/layout/footer'
 import { renderHomeOverlays } from '../../components/layout/overlay'
-import { createRegistrationStudent } from '../../api/v1/registration/students'
+import { createRegistrationStudent } from '../../api/v1/applications/applications'
 
 const gwcLogo = '/images/gwc_logo.avif'
 const gwcLogoWhite = '/images/gwc_logo_white.avif'
@@ -525,6 +525,12 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
   const onSubmit = async (): Promise<void> => {
     const admissionType = root.querySelector<HTMLInputElement>('input[name="admission-student-type"]:checked')?.value
     const programIdRaw = root.querySelector<HTMLInputElement>('input[name="admission-program"]:checked')?.value
+    const programName =
+      root
+        .querySelector<HTMLInputElement>('input[name="admission-program"]:checked')
+        ?.closest('label')
+        ?.querySelector('span')
+        ?.textContent?.trim() || ''
     const firstName = firstNameInput.value.trim()
     const midName = middleNameInput.value.trim()
     const lastName = lastNameInput.value.trim()
@@ -537,6 +543,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     if (
       !admissionType ||
       !programIdRaw ||
+      !programName ||
       !firstName ||
       !lastName ||
       !birthDate ||
@@ -554,18 +561,18 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
 
     try {
       await createRegistrationStudent({
-        programId: Number(programIdRaw),
-        firstName,
-        midName: midName || undefined,
-        lastName,
+        admission_type: admissionType,
+        program_name: programName,
+        first_name: firstName,
+        mid_name: midName || undefined,
+        last_name: lastName,
         gender: genderInput.value,
-        birthDate,
-        contactInfoId,
-        emergencyContactId,
-        admissionType,
-        currAddrId,
-        permAddrId,
-        preRegStatus: 'Application Received',
+        birth_date: birthDate,
+        applicant_contact_info_id: contactInfoId,
+        applicant_emergency_contact_id: emergencyContactId,
+        applicant_curr_addr_id: currAddrId,
+        applicant_perm_addr_id: permAddrId,
+        registration_status: 'Pending',
       })
       setMessage(messageEl, '')
       setStep(4)
