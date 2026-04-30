@@ -77,8 +77,8 @@ function renderTimeSlot(slot: number): string {
           'Friday',
           'Saturday',
         ], '', 'required')}
-        ${floatingInputWithFeedback(`slot-start-${slot}`, 'Start Time', 'time', 'Start Time', 'Please choose a start time.', 'required')}
-        ${floatingInputWithFeedback(`slot-end-${slot}`, 'End Time', 'time', 'End Time', 'Please choose an end time.', 'required')}
+        ${floatingInputWithFeedback(`slot-start-${slot}`, 'Start Time', 'time', 'Start Time', 'Please choose a start time.', 'required min="07:00" max="18:00"')}
+        ${floatingInputWithFeedback(`slot-end-${slot}`, 'End Time', 'time', 'End Time', 'Please choose an end time.', 'required min="07:00" max="18:00"')}
         ${floatingSelect(`slot-mode-${slot}`, 'Delivery Mode', 'Select Delivery Mode', [
           'Face-to-Face',
           'Online',
@@ -294,8 +294,8 @@ export function setupclass_scheduling_form(root: HTMLElement): () => void {
         department,
         room,
         day: selects[0]?.value ?? 'Monday',
-        startTime: times[0]?.value ?? '08:00',
-        endTime: times[1]?.value ?? '09:00',
+        startTime: times[0]?.value ?? '07:00',
+        endTime: times[1]?.value ?? '18:00',
         deliveryMode: (selects[1]?.value as ScheduleItem['deliveryMode']) || 'Face-to-Face',
         capacity,
       }
