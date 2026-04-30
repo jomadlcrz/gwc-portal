@@ -542,6 +542,11 @@
   color: #9aa8bd;
 }
 
+.registrar-schedule-search:focus-within {
+  border-color: var(--color-border-focus);
+  box-shadow: var(--shadow-focus-primary);
+}
+
 .registrar-schedule-filter-hint {
   margin: 0.45rem 0 0;
   color: var(--color-slate-600);
@@ -1067,6 +1072,10 @@
 .registrar-admission-toolbar-search .admin-student-search {
   min-width: 0;
   width: min(100%, 480px);
+}
+
+.registrar-schedule-manage-panel .admin-directory-search input {
+  border-radius: var(--radius-md);
 }
 
 .registrar-admission-toolbar-controls {
