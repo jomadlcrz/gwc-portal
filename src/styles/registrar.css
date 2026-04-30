@@ -474,7 +474,7 @@
   gap: 0.5rem;
   border: 1px solid #dbe5f1;
   border-radius: 0.45rem;
-  min-height: 2.18rem;
+  min-height: 1.95rem;
   padding: 0 0.65rem;
   color: #2f63a6;
 }
@@ -497,10 +497,10 @@
   box-shadow: none;
   width: 100%;
   min-width: 0;
-  min-height: 2.18rem;
+  min-height: 1.95rem;
   padding-left: 2.15rem;
   color: #24364d;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 600;
 }
 
@@ -516,10 +516,10 @@
   align-items: center;
   justify-content: center;
   gap: 0.48rem;
-  min-height: 2.42rem;
+  min-height: 1.95rem;
   border-radius: 0.38rem;
-  padding-inline: 1rem;
-  font-weight: 800;
+  padding-inline: 0.7rem;
+  font-weight: 700;
   white-space: nowrap;
 }
 
