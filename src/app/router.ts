@@ -64,6 +64,7 @@ import {
   renderdean_dashboard_page,
   renderdean_schedule_page,
   setupdean_page,
+  setupdean_schedule_page,
 } from '../pages/dean_portal/dean_page'
 import {
   renderhr_dashboard_page,
@@ -172,7 +173,7 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.DEAN_SCHEDULE) {
     app.innerHTML = renderdean_schedule_page()
-    cleanupCurrentRoute = setupdean_page(app)
+    cleanupCurrentRoute = setupdean_schedule_page(app)
     return
   }
 
