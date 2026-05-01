@@ -95,6 +95,12 @@ import {
   renderregistrar_student_records_page,
   renderregistrar_requests_page,
   renderregistrar_curriculum_facilities_page,
+  renderregistrar_curriculum_programs_page,
+  renderregistrar_curriculum_departments_page,
+  renderregistrar_curriculum_buildings_page,
+  renderregistrar_curriculum_rooms_page,
+  renderregistrar_curriculum_sets_page,
+  renderregistrar_curriculum_subjects_page,
   renderregistrar_schedule_page,
   renderregistrar_schedule_manage_page,
   renderregistrar_schedule_create_page,
@@ -103,6 +109,7 @@ import {
   setupregistrar_schedule_page,
   setupregistrar_schedule_manage_page,
   setupregistrar_schedule_create_page,
+  setupregistrar_curriculum_lists_shell_page,
 } from '../pages/registrar_portal/registrar_page'
 import { rendersearch_page } from '../pages/search/search_page'
 import { renderpost_page } from '../pages/post/post_page'
@@ -400,6 +407,42 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   if (pathname === ROUTES.REGISTRAR_CURRICULUM_FACILITIES) {
     app.innerHTML = renderregistrar_curriculum_facilities_page()
     cleanupCurrentRoute = setupregistrar_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.REGISTRAR_CURRICULUM_PROGRAMS) {
+    app.innerHTML = renderregistrar_curriculum_programs_page()
+    cleanupCurrentRoute = setupregistrar_curriculum_lists_shell_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.REGISTRAR_CURRICULUM_DEPARTMENTS) {
+    app.innerHTML = renderregistrar_curriculum_departments_page()
+    cleanupCurrentRoute = setupregistrar_curriculum_lists_shell_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.REGISTRAR_CURRICULUM_BUILDINGS) {
+    app.innerHTML = renderregistrar_curriculum_buildings_page()
+    cleanupCurrentRoute = setupregistrar_curriculum_lists_shell_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.REGISTRAR_CURRICULUM_ROOMS) {
+    app.innerHTML = renderregistrar_curriculum_rooms_page()
+    cleanupCurrentRoute = setupregistrar_curriculum_lists_shell_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.REGISTRAR_CURRICULUM_SETS) {
+    app.innerHTML = renderregistrar_curriculum_sets_page()
+    cleanupCurrentRoute = setupregistrar_curriculum_lists_shell_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.REGISTRAR_CURRICULUM_SUBJECTS) {
+    app.innerHTML = renderregistrar_curriculum_subjects_page()
+    cleanupCurrentRoute = setupregistrar_curriculum_lists_shell_page(app)
     return
   }
 

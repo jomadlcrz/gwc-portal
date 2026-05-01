@@ -2,6 +2,7 @@ import '../../styles/registrar.css'
 import { registrar_SHELL_CONFIG, setupPortalShell } from '../../components/layout/_layout'
 import { setupclass_scheduling_form } from './schedule/schedule_create_page'
 import { setupschedule_manage_page } from './schedule/schedule_manage_page'
+import { setupregistrar_curriculum_lists_page } from './curriculum_facilities/lists/curriculum_facilities_lists_page'
 
 export { renderregistrar_dashboard_page } from './dashboard/dashboard_page'
 export { renderregistrar_student_records_page } from './student_records/student_records_page'
@@ -16,6 +17,14 @@ export {
 } from './admission/admission_page'
 export { renderregistrar_requests_page } from './requests/requests_page'
 export { renderregistrar_curriculum_facilities_page } from './curriculum_facilities/curriculum_facilities_page'
+export {
+  renderregistrar_curriculum_programs_page,
+  renderregistrar_curriculum_departments_page,
+  renderregistrar_curriculum_buildings_page,
+  renderregistrar_curriculum_rooms_page,
+  renderregistrar_curriculum_sets_page,
+  renderregistrar_curriculum_subjects_page,
+} from './curriculum_facilities/lists/curriculum_facilities_lists_page'
 export { renderregistrar_schedule_page } from './schedule/schedule_page'
 export { renderregistrar_schedule_manage_page } from './schedule/schedule_manage_page'
 export { renderregistrar_schedule_create_page } from './schedule/schedule_create_page'
@@ -143,6 +152,16 @@ export function setupregistrar_schedule_create_page(root: HTMLElement): () => vo
 
   return () => {
     cleanupSchedule()
+    cleanupShell()
+  }
+}
+
+export function setupregistrar_curriculum_lists_shell_page(root: HTMLElement): () => void {
+  const cleanupShell = setupPortalShell(root, registrar_SHELL_CONFIG)
+  const cleanupLists = setupregistrar_curriculum_lists_page(root)
+
+  return () => {
+    cleanupLists()
     cleanupShell()
   }
 }
