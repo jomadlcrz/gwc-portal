@@ -1079,6 +1079,10 @@
   width: min(100%, 480px);
 }
 
+.registrar-admission-toolbar-search .admin-directory-search input {
+  border-radius: var(--radius-md);
+}
+
 .registrar-schedule-manage-panel .admin-directory-search input {
   border-radius: var(--radius-md);
 }
@@ -1101,6 +1105,7 @@
 
 .registrar-admission-toolbar-controls .form-select {
   min-width: 190px;
+  border-radius: var(--radius-md);
 }
 
 .registrar-admission-export-btn {
@@ -1109,6 +1114,11 @@
   gap: 0.35rem;
   font-weight: 700;
   white-space: nowrap;
+  border-radius: var(--radius-md);
+}
+
+.registrar-admission-pagination {
+  margin-top: 0.8rem;
 }
 
 .registrar-admission-total {

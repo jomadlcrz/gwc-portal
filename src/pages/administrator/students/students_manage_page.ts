@@ -97,18 +97,6 @@ type DetailField = {
 const escapeHtml = (value: string): string =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
-function renderStudentKpiCard(label: string, count: number, icon: string, tone: string): string {
-  return `
-    <article class="admin-student-total admin-student-kpi-card-${tone}" aria-label="Total students summary">
-      <span class="admin-student-total-icon" aria-hidden="true"><i class="bi ${icon}"></i></span>
-      <span class="admin-student-total-copy">
-        <small>${label}</small>
-        <strong>${count}</strong>
-      </span>
-    </article>
-  `
-}
-
 function renderDetailField(field: DetailField): string {
   const valueHtml = field.pillClass
     ? `<span class="admin-pill ${field.pillClass}">${escapeHtml(field.value)}</span>`
@@ -241,7 +229,6 @@ export function renderstudents_manage_page(): string {
         <article class="admin-student-page-shell">
           <header class="admin-student-head admin-student-list-head">
             <h2>Student List</h2>
-            ${renderStudentKpiCard('Total Students', STUDENTS.length, 'bi-people-fill', 'total')}
           </header>
 
           <section class="admin-student-toolbar">
@@ -249,7 +236,7 @@ export function renderstudents_manage_page(): string {
               <span class="admin-search-icon" aria-hidden="true"><i class="bi bi-search"></i></span>
               <input
                 type="search"
-                placeholder="Search by student no, name, course, email"
+                placeholder="Search students..."
                 aria-label="Search students"
                 data-student-search
               />
@@ -267,8 +254,8 @@ export function renderstudents_manage_page(): string {
                   aria-haspopup="menu"
                   aria-expanded="false"
                 >
+                  <i class="bi bi-funnel" aria-hidden="true"></i>
                   <span>Filters</span>
-                  <i class="bi bi-caret-down-fill" aria-hidden="true"></i>
                 </button>
                 <div class="actions-menu admin-student-filter-menu" data-actions-menu role="menu" aria-label="Student Filters">
                   <label class="admin-student-filter-field">
@@ -313,6 +300,7 @@ export function renderstudents_manage_page(): string {
           </div>
 
           <div class="admin-student-pagination" data-student-pagination>
+            <p class="admin-student-pagination-meta" data-student-pagination-meta>Showing 0 to 0 of 0</p>
             ${renderSharedPagination()}
           </div>
         </article>
@@ -331,6 +319,7 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
   const allRows = Array.from(root.querySelectorAll<HTMLTableRowElement>('[data-student-row]'))
   const emptyRow = root.querySelector<HTMLTableRowElement>('[data-student-empty-row]')
   const paginationRoot = root.querySelector<HTMLElement>('[data-student-pagination]')
+  const paginationMeta = root.querySelector<HTMLElement>('[data-student-pagination-meta]')
   const pageSize = 10
   let currentPage = 1
   let filteredRows = [...allRows]
@@ -356,6 +345,11 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
     const start = (currentPage - 1) * pageSize
     const end = start + pageSize
     filteredRows.slice(start, end).forEach((row) => row.classList.remove('d-none'))
+    const showingStart = totalItems === 0 ? 0 : start + 1
+    const showingEnd = Math.min(end, totalItems)
+    if (paginationMeta) {
+      paginationMeta.textContent = `Showing ${showingStart} to ${showingEnd} of ${totalItems}`
+    }
     emptyRow?.classList.toggle('d-none', totalItems > 0)
     pagination?.update({ totalItems, currentPage })
   }

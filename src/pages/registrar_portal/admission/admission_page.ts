@@ -3,6 +3,7 @@ import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/l
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderSectionTitle } from '../../../components/ui/section_title_heading'
 import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
+import { renderSharedPagination, setupSharedPagination } from '../../../components/ui/pagination'
 import { type AdmissionApplicationStatus } from '../../../data/admission'
 import { admissionService } from '../../../features/admission/service'
 import { createAdmissionRequirement, getAdmissionRequirements } from '../../../api/v1/admissions/admissions'
@@ -382,13 +383,6 @@ export function renderregistrar_admission_review_page(): string {
         <article class="admin-student-page-shell">
           <header class="admin-student-head registrar-admission-head">
             <h2>Admission Queue</h2>
-            <article class="registrar-admission-total" aria-label="Total applications summary">
-              <span class="registrar-admission-total-icon" aria-hidden="true"><i class="bi bi-people-fill"></i></span>
-              <span class="registrar-admission-total-copy">
-                <small>Total Applications</small>
-                <strong>${admissionService.getStats().total}</strong>
-              </span>
-            </article>
           </header>
 
           <section class="admin-student-toolbar registrar-admission-toolbar">
@@ -434,6 +428,10 @@ export function renderregistrar_admission_review_page(): string {
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div class="admin-student-pagination registrar-admission-pagination" data-admission-pagination>
+            <p class="admin-student-pagination-meta" data-admission-pagination-meta>Showing 0 to 0 of 0</p>
+            ${renderSharedPagination()}
           </div>
         </article>
       </section>
@@ -562,8 +560,25 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
   const statusFilter = root.querySelector<HTMLSelectElement>('[data-admission-status-filter]')
   const rows = Array.from(root.querySelectorAll<HTMLTableRowElement>('[data-admission-row]'))
   const emptyRow = root.querySelector<HTMLTableRowElement>('[data-admission-empty-row]')
+  const paginationRoot = root.querySelector<HTMLElement>('[data-admission-pagination]')
+  const paginationMeta = root.querySelector<HTMLElement>('[data-admission-pagination-meta]')
+  const pageSize = 10
+  let currentPage = 1
+  let filteredRows = [...rows]
   let activeApplicationNo: string | null = null
   let shouldRestoreManageModal = false
+
+  const pagination = paginationRoot
+    ? setupSharedPagination(paginationRoot, {
+        pageSize,
+        totalItems: filteredRows.length,
+        currentPage,
+        onPageChange: (page): void => {
+          currentPage = page
+          renderVisibleRows()
+        },
+      })
+    : null
 
   documentModal.setOnClose(() => {
     if (!shouldRestoreManageModal) return
@@ -628,20 +643,35 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
     URL.revokeObjectURL(url)
   }
 
+  const renderVisibleRows = (): void => {
+    rows.forEach((row) => row.classList.add('d-none'))
+    const totalItems = filteredRows.length
+    const totalPages = Math.max(1, Math.ceil(totalItems / pageSize))
+    if (currentPage > totalPages) currentPage = totalPages
+
+    const start = (currentPage - 1) * pageSize
+    const end = start + pageSize
+    filteredRows.slice(start, end).forEach((row) => row.classList.remove('d-none'))
+    const showingStart = totalItems === 0 ? 0 : start + 1
+    const showingEnd = Math.min(end, totalItems)
+    if (paginationMeta) {
+      paginationMeta.textContent = `Showing ${showingStart} to ${showingEnd} of ${totalItems}`
+    }
+    emptyRow?.classList.toggle('d-none', totalItems > 0)
+    pagination?.update({ totalItems, currentPage })
+  }
+
   const applyFilters = (): void => {
     const query = (searchInput?.value ?? '').trim().toLowerCase()
     const status = (statusFilter?.value ?? '').trim()
 
-    let visibleCount = 0
-    rows.forEach((row) => {
+    filteredRows = rows.filter((row) => {
       const matchesSearch = (row.dataset.searchValue ?? '').includes(query)
       const matchesStatus = !status || row.dataset.statusValue === status
-      const visible = matchesSearch && matchesStatus
-      row.classList.toggle('d-none', !visible)
-      if (visible) visibleCount += 1
+      return matchesSearch && matchesStatus
     })
-
-    emptyRow?.classList.toggle('d-none', visibleCount > 0)
+    currentPage = 1
+    renderVisibleRows()
   }
 
   const onRootClick = (event: Event): void => {
@@ -732,6 +762,7 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
   return () => {
     manageModal.destroy()
     documentModal.destroy()
+    pagination?.destroy()
     searchInput?.removeEventListener('input', applyFilters)
     statusFilter?.removeEventListener('change', applyFilters)
     root.removeEventListener('click', onRootClick)

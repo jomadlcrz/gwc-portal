@@ -65,6 +65,7 @@
 
 .admin-student-page-shell {
   border: var(--border-width-1) solid var(--color-surface-500);
+  border-radius: var(--radius-md);
   background: var(--color-white);
   padding: var(--space-sm);
 }
@@ -172,6 +173,7 @@
   padding: 0.25rem 0.5rem;
   font-size: 0.78rem;
   line-height: 1.15;
+  border-radius: var(--radius-md);
 }
 
 .admin-student-filter-trigger {
@@ -196,6 +198,7 @@
   min-width: 220px;
   padding: 0.5rem;
   gap: 0.45rem;
+  border-radius: var(--radius-md);
 }
 
 .admin-student-filter-field {
@@ -224,7 +227,15 @@
 .admin-student-pagination {
   margin-top: 0.75rem;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+
+.admin-student-pagination-meta {
+  margin: 0;
+  color: var(--color-slate-600);
+  font-size: 0.82rem;
 }
 
 .admin-student-section {
@@ -378,6 +389,11 @@
 
   .admin-student-search {
     min-width: 100%;
+  }
+
+  .admin-student-pagination {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .admin-student-form-grid,
