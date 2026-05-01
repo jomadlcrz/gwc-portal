@@ -94,6 +94,7 @@ import {
   setupregistrar_admission_details_page,
   renderregistrar_student_records_page,
   renderregistrar_requests_page,
+  renderregistrar_curriculum_facilities_page,
   renderregistrar_schedule_page,
   renderregistrar_schedule_manage_page,
   renderregistrar_schedule_create_page,
@@ -392,6 +393,12 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
 
   if (pathname === ROUTES.REGISTRAR_REQUESTS) {
     app.innerHTML = renderregistrar_requests_page()
+    cleanupCurrentRoute = setupregistrar_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.REGISTRAR_CURRICULUM_FACILITIES) {
+    app.innerHTML = renderregistrar_curriculum_facilities_page()
     cleanupCurrentRoute = setupregistrar_page(app)
     return
   }

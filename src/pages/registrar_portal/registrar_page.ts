@@ -15,6 +15,7 @@ export {
   setupregistrar_admission_details_page,
 } from './admission/admission_page'
 export { renderregistrar_requests_page } from './requests/requests_page'
+export { renderregistrar_curriculum_facilities_page } from './curriculum_facilities/curriculum_facilities_page'
 export { renderregistrar_schedule_page } from './schedule/schedule_page'
 export { renderregistrar_schedule_manage_page } from './schedule/schedule_manage_page'
 export { renderregistrar_schedule_create_page } from './schedule/schedule_create_page'

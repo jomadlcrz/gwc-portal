@@ -27,6 +27,7 @@ export const ROUTES = {
   REGISTRAR_ADMISSION_REVIEW: '/registrar/admission/review',
   REGISTRAR_ADMISSION_DETAILS: '/registrar/admission/details',
   REGISTRAR_REQUESTS: '/registrar/requests',
+  REGISTRAR_CURRICULUM_FACILITIES: '/registrar/curriculum-facilities',
   REGISTRAR_SCHEDULE: '/registrar/schedule',
   REGISTRAR_SCHEDULE_MANAGE: '/registrar/schedule/manage',
   REGISTRAR_SCHEDULE_CREATE: '/registrar/schedule/create',

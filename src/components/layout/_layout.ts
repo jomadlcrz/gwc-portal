@@ -21,6 +21,7 @@ export type RegistrarSection =
   | 'enrollments'
   | 'admission'
   | 'requests'
+  | 'curriculum_facilities'
   | 'schedule'
   | 'settings'
 
@@ -139,6 +140,12 @@ export const registrar_SHELL_CONFIG: ShellConfig<RegistrarSection> = {
     { label: 'Enrollments', icon: 'bi-file-earmark-text', href: ROUTES.REGISTRAR_ENROLLMENTS, section: 'enrollments' },
     { label: 'Admission', icon: 'bi-person-check', href: ROUTES.REGISTRAR_ADMISSION, section: 'admission' },
     { label: 'Requests', icon: 'bi-clipboard-check', href: ROUTES.REGISTRAR_REQUESTS, section: 'requests' },
+    {
+      label: 'Curriculum & Facilities',
+      icon: 'bi-journal-richtext',
+      href: ROUTES.REGISTRAR_CURRICULUM_FACILITIES,
+      section: 'curriculum_facilities',
+    },
     { label: 'Schedule', icon: 'bi-calendar3', href: ROUTES.REGISTRAR_SCHEDULE, section: 'schedule' },
     { label: 'Settings', icon: 'bi-gear', href: ROUTES.REGISTRAR_SETTINGS, section: 'settings' },
   ],
