@@ -1915,7 +1915,7 @@
 }
 
 .cf-list-top-head .cf-head {
-  flex: 1 1 16rem;
+  flex: 1 1 auto;
   min-width: 0;
 }
 
