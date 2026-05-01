@@ -23,6 +23,7 @@ export type RegistrarSection =
   | 'requests'
   | 'curriculum_facilities'
   | 'schedule'
+  | 'schedule_v2'
   | 'settings'
 
 export type FacultySection = 'dashboard' | 'schedule' | 'classes' | 'gradebook' | 'settings'
@@ -147,6 +148,7 @@ export const registrar_SHELL_CONFIG: ShellConfig<RegistrarSection> = {
       section: 'curriculum_facilities',
     },
     { label: 'Schedule', icon: 'bi-calendar3', href: ROUTES.REGISTRAR_SCHEDULE, section: 'schedule' },
+    { label: 'Schedule V2', icon: 'bi-grid-3x3-gap', href: ROUTES.REGISTRAR_SCHEDULE_V2, section: 'schedule_v2' },
     { label: 'Settings', icon: 'bi-gear', href: ROUTES.REGISTRAR_SETTINGS, section: 'settings' },
   ],
 }

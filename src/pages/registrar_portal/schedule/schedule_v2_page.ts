@@ -27,7 +27,7 @@ function renderCell(label = '', meta = '', tone = 'neutral'): string {
 export function renderregistrar_schedule_v2_page(): string {
   return renderPortalShell(
     registrar_SHELL_CONFIG,
-    'schedule',
+    'schedule_v2',
     `
       <section class="registrar-content">
         <article class="registrar-panel registrar-schedule-v2-panel">
