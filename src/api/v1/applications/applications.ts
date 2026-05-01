@@ -15,10 +15,33 @@ export type RegistrationStudentPayload = {
   gender: string
   birth_date: string
   registration_status: 'Pending' | 'Approved' | 'Disqualified'
-  applicant_contact_info_id: number
-  applicant_emergency_contact_id?: number
-  applicant_curr_addr_id: number
-  applicant_perm_addr_id: number
+  personal_contact: {
+    email: string
+    mobile: string
+    telephone?: string
+  }
+  emergency_contact?: {
+    first_name: string
+    mid_name?: string
+    last_name: string
+    mobile: string
+    email?: string
+    telephone?: string
+  }
+  permanent_address: {
+    street: string
+    barangay: string
+    city: string
+    province: string
+    postal_code: string
+  }
+  current_address: {
+    street: string
+    barangay: string
+    city: string
+    province: string
+    postal_code: string
+  }
 }
 
 type RegistrationStudentResponse = {

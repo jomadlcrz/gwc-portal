@@ -150,23 +150,56 @@ export function renderadmission_registration_page(): string {
                 </div>
 
                 <div class="form-floating">
-                  <input id="admission-contact-info-id" class="form-control" type="number" min="1" placeholder=" " />
-                  <label for="admission-contact-info-id">Contact Info ID</label>
+                  <input id="admission-contact-email" class="form-control" type="email" placeholder=" " />
+                  <label for="admission-contact-email">Personal Contact Email</label>
                 </div>
-
                 <div class="form-floating">
-                  <input id="admission-emergency-contact-id" class="form-control" type="number" min="1" placeholder=" " />
-                  <label for="admission-emergency-contact-id">Emergency Contact ID</label>
+                  <input id="admission-contact-mobile" class="form-control" type="text" placeholder=" " />
+                  <label for="admission-contact-mobile">Personal Contact Mobile</label>
                 </div>
-
                 <div class="form-floating">
-                  <input id="admission-current-address-id" class="form-control" type="number" min="1" placeholder=" " />
-                  <label for="admission-current-address-id">Current Address ID</label>
+                  <input id="admission-contact-telephone" class="form-control" type="text" placeholder=" " />
+                  <label for="admission-contact-telephone">Personal Contact Telephone (Optional)</label>
                 </div>
-
                 <div class="form-floating">
-                  <input id="admission-permanent-address-id" class="form-control" type="number" min="1" placeholder=" " />
-                  <label for="admission-permanent-address-id">Permanent Address ID</label>
+                  <input id="admission-current-street" class="form-control" type="text" placeholder=" " />
+                  <label for="admission-current-street">Current Address Street</label>
+                </div>
+                <div class="form-floating">
+                  <input id="admission-current-barangay" class="form-control" type="text" placeholder=" " />
+                  <label for="admission-current-barangay">Current Address Barangay</label>
+                </div>
+                <div class="form-floating">
+                  <input id="admission-current-city" class="form-control" type="text" placeholder=" " />
+                  <label for="admission-current-city">Current Address City</label>
+                </div>
+                <div class="form-floating">
+                  <input id="admission-current-province" class="form-control" type="text" placeholder=" " />
+                  <label for="admission-current-province">Current Address Province</label>
+                </div>
+                <div class="form-floating">
+                  <input id="admission-current-postal-code" class="form-control" type="text" placeholder=" " />
+                  <label for="admission-current-postal-code">Current Address Postal Code</label>
+                </div>
+                <div class="form-floating">
+                  <input id="admission-permanent-street" class="form-control" type="text" placeholder=" " />
+                  <label for="admission-permanent-street">Permanent Address Street</label>
+                </div>
+                <div class="form-floating">
+                  <input id="admission-permanent-barangay" class="form-control" type="text" placeholder=" " />
+                  <label for="admission-permanent-barangay">Permanent Address Barangay</label>
+                </div>
+                <div class="form-floating">
+                  <input id="admission-permanent-city" class="form-control" type="text" placeholder=" " />
+                  <label for="admission-permanent-city">Permanent Address City</label>
+                </div>
+                <div class="form-floating">
+                  <input id="admission-permanent-province" class="form-control" type="text" placeholder=" " />
+                  <label for="admission-permanent-province">Permanent Address Province</label>
+                </div>
+                <div class="form-floating">
+                  <input id="admission-permanent-postal-code" class="form-control" type="text" placeholder=" " />
+                  <label for="admission-permanent-postal-code">Permanent Address Postal Code</label>
                 </div>
               </div>
             </article>
@@ -181,10 +214,9 @@ export function renderadmission_registration_page(): string {
                 <p><span>Name</span><strong id="admission-review-name"></strong></p>
                 <p><span>Gender</span><strong id="admission-review-gender"></strong></p>
                 <p><span>Birth Date</span><strong id="admission-review-birth-date"></strong></p>
-                <p><span>Contact Info ID</span><strong id="admission-review-contact-id"></strong></p>
-                <p><span>Emergency Contact ID</span><strong id="admission-review-emergency-id"></strong></p>
-                <p><span>Current Address ID</span><strong id="admission-review-current-address-id"></strong></p>
-                <p><span>Permanent Address ID</span><strong id="admission-review-permanent-address-id"></strong></p>
+                <p><span>Personal Contact</span><strong id="admission-review-personal-contact"></strong></p>
+                <p><span>Current Address</span><strong id="admission-review-current-address"></strong></p>
+                <p><span>Permanent Address</span><strong id="admission-review-permanent-address"></strong></p>
               </div>
             </article>
           </section>
@@ -298,19 +330,27 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
   const reviewName = root.querySelector<HTMLElement>('#admission-review-name')
   const reviewGender = root.querySelector<HTMLElement>('#admission-review-gender')
   const reviewBirthDate = root.querySelector<HTMLElement>('#admission-review-birth-date')
-  const reviewContactId = root.querySelector<HTMLElement>('#admission-review-contact-id')
-  const reviewEmergencyId = root.querySelector<HTMLElement>('#admission-review-emergency-id')
-  const reviewCurrentAddressId = root.querySelector<HTMLElement>('#admission-review-current-address-id')
-  const reviewPermanentAddressId = root.querySelector<HTMLElement>('#admission-review-permanent-address-id')
+  const reviewPersonalContact = root.querySelector<HTMLElement>('#admission-review-personal-contact')
+  const reviewCurrentAddress = root.querySelector<HTMLElement>('#admission-review-current-address')
+  const reviewPermanentAddress = root.querySelector<HTMLElement>('#admission-review-permanent-address')
   const firstNameInput = root.querySelector<HTMLInputElement>('#admission-first-name')
   const middleNameInput = root.querySelector<HTMLInputElement>('#admission-middle-name')
   const lastNameInput = root.querySelector<HTMLInputElement>('#admission-last-name')
   const genderInput = root.querySelector<HTMLSelectElement>('#admission-gender')
   const birthDateInput = root.querySelector<HTMLInputElement>('#admission-birth-date')
-  const contactInfoIdInput = root.querySelector<HTMLInputElement>('#admission-contact-info-id')
-  const emergencyContactIdInput = root.querySelector<HTMLInputElement>('#admission-emergency-contact-id')
-  const currentAddressIdInput = root.querySelector<HTMLInputElement>('#admission-current-address-id')
-  const permanentAddressIdInput = root.querySelector<HTMLInputElement>('#admission-permanent-address-id')
+  const contactEmailInput = root.querySelector<HTMLInputElement>('#admission-contact-email')
+  const contactMobileInput = root.querySelector<HTMLInputElement>('#admission-contact-mobile')
+  const contactTelephoneInput = root.querySelector<HTMLInputElement>('#admission-contact-telephone')
+  const currentStreetInput = root.querySelector<HTMLInputElement>('#admission-current-street')
+  const currentBarangayInput = root.querySelector<HTMLInputElement>('#admission-current-barangay')
+  const currentCityInput = root.querySelector<HTMLInputElement>('#admission-current-city')
+  const currentProvinceInput = root.querySelector<HTMLInputElement>('#admission-current-province')
+  const currentPostalCodeInput = root.querySelector<HTMLInputElement>('#admission-current-postal-code')
+  const permanentStreetInput = root.querySelector<HTMLInputElement>('#admission-permanent-street')
+  const permanentBarangayInput = root.querySelector<HTMLInputElement>('#admission-permanent-barangay')
+  const permanentCityInput = root.querySelector<HTMLInputElement>('#admission-permanent-city')
+  const permanentProvinceInput = root.querySelector<HTMLInputElement>('#admission-permanent-province')
+  const permanentPostalCodeInput = root.querySelector<HTMLInputElement>('#admission-permanent-postal-code')
   const step1Cards = Array.from(step1Section?.querySelectorAll<HTMLElement>('.admission-registration-card') ?? [])
   const programCard = step1Cards[1] ?? null
 
@@ -331,19 +371,27 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     !reviewName ||
     !reviewGender ||
     !reviewBirthDate ||
-    !reviewContactId ||
-    !reviewEmergencyId ||
-    !reviewCurrentAddressId ||
-    !reviewPermanentAddressId ||
+    !reviewPersonalContact ||
+    !reviewCurrentAddress ||
+    !reviewPermanentAddress ||
     !firstNameInput ||
     !middleNameInput ||
     !lastNameInput ||
     !genderInput ||
     !birthDateInput ||
-    !contactInfoIdInput ||
-    !emergencyContactIdInput ||
-    !currentAddressIdInput ||
-    !permanentAddressIdInput
+    !contactEmailInput ||
+    !contactMobileInput ||
+    !contactTelephoneInput ||
+    !currentStreetInput ||
+    !currentBarangayInput ||
+    !currentCityInput ||
+    !currentProvinceInput ||
+    !currentPostalCodeInput ||
+    !permanentStreetInput ||
+    !permanentBarangayInput ||
+    !permanentCityInput ||
+    !permanentProvinceInput ||
+    !permanentPostalCodeInput
   ) {
     return () => {}
   }
@@ -382,18 +430,28 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     const firstName = firstNameInput.value.trim()
     const lastName = lastNameInput.value.trim()
     const birthDate = birthDateInput.value
-    const contactInfoId = Number(contactInfoIdInput.value)
-    const emergencyContactId = Number(emergencyContactIdInput.value)
-    const currAddrId = Number(currentAddressIdInput.value)
-    const permAddrId = Number(permanentAddressIdInput.value)
+    const personalContactComplete = Boolean(contactEmailInput.value.trim() && contactMobileInput.value.trim())
+    const currentAddressComplete = Boolean(
+      currentStreetInput.value.trim() &&
+        currentBarangayInput.value.trim() &&
+        currentCityInput.value.trim() &&
+        currentProvinceInput.value.trim() &&
+        currentPostalCodeInput.value.trim(),
+    )
+    const permanentAddressComplete = Boolean(
+      permanentStreetInput.value.trim() &&
+        permanentBarangayInput.value.trim() &&
+        permanentCityInput.value.trim() &&
+        permanentProvinceInput.value.trim() &&
+        permanentPostalCodeInput.value.trim(),
+    )
     return Boolean(
       firstName &&
         lastName &&
         birthDate &&
-        Number.isFinite(contactInfoId) &&
-        Number.isFinite(emergencyContactId) &&
-        Number.isFinite(currAddrId) &&
-        Number.isFinite(permAddrId),
+        personalContactComplete &&
+        currentAddressComplete &&
+        permanentAddressComplete,
     )
   }
 
@@ -473,19 +531,29 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     const firstName = firstNameInput.value.trim()
     const lastName = lastNameInput.value.trim()
     const birthDate = birthDateInput.value
-    const contactInfoId = Number(contactInfoIdInput.value)
-    const emergencyContactId = Number(emergencyContactIdInput.value)
-    const currAddrId = Number(currentAddressIdInput.value)
-    const permAddrId = Number(permanentAddressIdInput.value)
+    const personalContactComplete = Boolean(contactEmailInput.value.trim() && contactMobileInput.value.trim())
+    const currentAddressComplete = Boolean(
+      currentStreetInput.value.trim() &&
+        currentBarangayInput.value.trim() &&
+        currentCityInput.value.trim() &&
+        currentProvinceInput.value.trim() &&
+        currentPostalCodeInput.value.trim(),
+    )
+    const permanentAddressComplete = Boolean(
+      permanentStreetInput.value.trim() &&
+        permanentBarangayInput.value.trim() &&
+        permanentCityInput.value.trim() &&
+        permanentProvinceInput.value.trim() &&
+        permanentPostalCodeInput.value.trim(),
+    )
 
     if (
       !firstName ||
       !lastName ||
       !birthDate ||
-      !Number.isFinite(contactInfoId) ||
-      !Number.isFinite(emergencyContactId) ||
-      !Number.isFinite(currAddrId) ||
-      !Number.isFinite(permAddrId)
+      !personalContactComplete ||
+      !currentAddressComplete ||
+      !permanentAddressComplete
     ) {
       setMessage(messageEl, 'Complete all required personal information fields.', true)
       return false
@@ -516,10 +584,9 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     reviewName.textContent = `${firstNameInput.value.trim()} ${middleName ? `${middleName} ` : ''}${lastNameInput.value.trim()}`.trim()
     reviewGender.textContent = genderInput.value
     reviewBirthDate.textContent = birthDateInput.value || '-'
-    reviewContactId.textContent = contactInfoIdInput.value || '-'
-    reviewEmergencyId.textContent = emergencyContactIdInput.value || '-'
-    reviewCurrentAddressId.textContent = currentAddressIdInput.value || '-'
-    reviewPermanentAddressId.textContent = permanentAddressIdInput.value || '-'
+    reviewPersonalContact.textContent = `${contactEmailInput.value.trim()} / ${contactMobileInput.value.trim()}`
+    reviewCurrentAddress.textContent = `${currentStreetInput.value.trim()}, ${currentBarangayInput.value.trim()}, ${currentCityInput.value.trim()}, ${currentProvinceInput.value.trim()}, ${currentPostalCodeInput.value.trim()}`
+    reviewPermanentAddress.textContent = `${permanentStreetInput.value.trim()}, ${permanentBarangayInput.value.trim()}, ${permanentCityInput.value.trim()}, ${permanentProvinceInput.value.trim()}, ${permanentPostalCodeInput.value.trim()}`
   }
 
   const onSubmit = async (): Promise<void> => {
@@ -535,10 +602,8 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     const midName = middleNameInput.value.trim()
     const lastName = lastNameInput.value.trim()
     const birthDate = birthDateInput.value
-    const contactInfoId = Number(contactInfoIdInput.value)
-    const emergencyContactId = Number(emergencyContactIdInput.value)
-    const currAddrId = Number(currentAddressIdInput.value)
-    const permAddrId = Number(permanentAddressIdInput.value)
+    const contactEmail = contactEmailInput.value.trim()
+    const contactMobile = contactMobileInput.value.trim()
 
     if (
       !admissionType ||
@@ -547,10 +612,18 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
       !firstName ||
       !lastName ||
       !birthDate ||
-      !Number.isFinite(contactInfoId) ||
-      !Number.isFinite(emergencyContactId) ||
-      !Number.isFinite(currAddrId) ||
-      !Number.isFinite(permAddrId)
+      !contactEmail ||
+      !contactMobile ||
+      !currentStreetInput.value.trim() ||
+      !currentBarangayInput.value.trim() ||
+      !currentCityInput.value.trim() ||
+      !currentProvinceInput.value.trim() ||
+      !currentPostalCodeInput.value.trim() ||
+      !permanentStreetInput.value.trim() ||
+      !permanentBarangayInput.value.trim() ||
+      !permanentCityInput.value.trim() ||
+      !permanentProvinceInput.value.trim() ||
+      !permanentPostalCodeInput.value.trim()
     ) {
       setMessage(messageEl, 'Complete all required fields before submitting.', true)
       return
@@ -568,10 +641,25 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
         last_name: lastName,
         gender: genderInput.value,
         birth_date: birthDate,
-        applicant_contact_info_id: contactInfoId,
-        applicant_emergency_contact_id: emergencyContactId,
-        applicant_curr_addr_id: currAddrId,
-        applicant_perm_addr_id: permAddrId,
+        personal_contact: {
+          email: contactEmail,
+          mobile: contactMobile,
+          telephone: contactTelephoneInput.value.trim() || undefined,
+        },
+        current_address: {
+          street: currentStreetInput.value.trim(),
+          barangay: currentBarangayInput.value.trim(),
+          city: currentCityInput.value.trim(),
+          province: currentProvinceInput.value.trim(),
+          postal_code: currentPostalCodeInput.value.trim(),
+        },
+        permanent_address: {
+          street: permanentStreetInput.value.trim(),
+          barangay: permanentBarangayInput.value.trim(),
+          city: permanentCityInput.value.trim(),
+          province: permanentProvinceInput.value.trim(),
+          postal_code: permanentPostalCodeInput.value.trim(),
+        },
         registration_status: 'Pending',
       })
       setMessage(messageEl, '')
@@ -623,10 +711,19 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     '#admission-last-name',
     '#admission-gender',
     '#admission-birth-date',
-    '#admission-contact-info-id',
-    '#admission-emergency-contact-id',
-    '#admission-current-address-id',
-    '#admission-permanent-address-id',
+    '#admission-contact-email',
+    '#admission-contact-mobile',
+    '#admission-contact-telephone',
+    '#admission-current-street',
+    '#admission-current-barangay',
+    '#admission-current-city',
+    '#admission-current-province',
+    '#admission-current-postal-code',
+    '#admission-permanent-street',
+    '#admission-permanent-barangay',
+    '#admission-permanent-city',
+    '#admission-permanent-province',
+    '#admission-permanent-postal-code',
   ]
   const watchedInputs = inputWatchSelectors
     .flatMap((selector) => Array.from(root.querySelectorAll<HTMLInputElement | HTMLSelectElement>(selector)))
