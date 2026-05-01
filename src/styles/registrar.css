@@ -2068,6 +2068,11 @@
   vertical-align: middle;
 }
 
+.cf-list-page .cf-table th,
+.cf-list-page .cf-table td {
+  white-space: nowrap;
+}
+
 .cf-actions-cell {
   width: 1%;
   white-space: nowrap;

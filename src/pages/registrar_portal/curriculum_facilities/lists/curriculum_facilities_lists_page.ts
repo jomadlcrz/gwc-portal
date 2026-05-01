@@ -275,7 +275,7 @@ export function renderregistrar_curriculum_sets_page(): string {
 }
 
 export function renderregistrar_curriculum_subjects_page(): string {
-  return renderListPage('Subjects', ['Subject Code', 'Descriptive Ttitle', 'Program', 'Units'], [
+  return renderListPage('Subjects', ['Subject Code', 'Descriptive Title', 'Program', 'Units'], [
     ['IT101', 'Introduction to Computing', 'BSIT', '3'],
     ['IT102', 'Programming 1 (C++)', 'BSIT', '3'],
     ['ED201', 'Principles of Teaching', 'BSED', '3'],

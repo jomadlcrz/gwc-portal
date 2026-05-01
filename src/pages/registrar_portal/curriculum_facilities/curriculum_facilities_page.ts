@@ -69,7 +69,7 @@ export function renderregistrar_curriculum_facilities_page(): string {
             ['BSA-4A', 'BSA 4th Year - A', 'BSA', '4th Year', '2024-2025'],
           ], 'View All', ROUTES.REGISTRAR_CURRICULUM_SETS, 'cf-sets')}
 
-          ${renderTableCard('Subjects', ['Subject Code', 'Descriptive Ttitle', 'Program', 'Units'], [
+          ${renderTableCard('Subjects', ['Subject Code', 'Descriptive Title', 'Program', 'Units'], [
             ['IT101', 'Introduction to Computing', 'BSIT', '3'],
             ['IT102', 'Programming 1 (C++)', 'BSIT', '3'],
             ['ED201', 'Principles of Teaching', 'BSED', '3'],
