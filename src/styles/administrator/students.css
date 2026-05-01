@@ -1,6 +1,7 @@
 .admin-students-home {
   border: var(--border-width-1) solid var(--color-surface-500);
   background: var(--color-white);
+  border-radius: var(--radius-md);
   padding: 1.4rem;
 }
 
@@ -24,7 +25,7 @@
 }
 
 .admin-students-home-actions .btn {
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-md);
   min-width: 200px;
   font-weight: 700;
 }
@@ -214,10 +215,6 @@
 
 .admin-student-search {
   min-width: min(100%, 330px);
-}
-
-.admin-student-searchbar input {
-  border-radius: var(--radius-md);
 }
 
 .admin-student-actions {

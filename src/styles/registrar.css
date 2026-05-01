@@ -217,7 +217,7 @@
 
 .registrar-kpi-card {
   border: 1px solid #dbe6f1;
-  border-radius: 0.62rem;
+  border-radius: var(--radius-md);
   background: #f8fbff;
   padding: 0.52rem 0.58rem;
   display: flex;
@@ -250,7 +250,7 @@
 .registrar-kpi-icon {
   width: 1.95rem;
   height: 1.95rem;
-  border-radius: 0.56rem;
+  border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;

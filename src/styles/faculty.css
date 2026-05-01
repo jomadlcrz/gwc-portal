@@ -178,7 +178,7 @@
 .faculty-kpi-card {
   border: 1px solid #dbe6f1;
   background: #f8fbff;
-  border-radius: 0.62rem;
+  border-radius: var(--radius-md);
   padding: 0.52rem 0.58rem;
   display: flex;
   align-items: center;
@@ -210,7 +210,7 @@
 .faculty-kpi-icon {
   width: 1.95rem;
   height: 1.95rem;
-  border-radius: 0.56rem;
+  border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -251,7 +251,7 @@
 
 .faculty-dashboard-card {
   border: 1px solid var(--color-surface-300);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-md);
   background: var(--color-white);
   padding: 0.75rem;
 }
@@ -349,7 +349,7 @@
   border: 1px solid #cde0f4;
   background: linear-gradient(130deg, #18456d 0%, #256197 100%);
   color: #f6fbff;
-  border-radius: 0.65rem;
+  border-radius: var(--radius-md);
   padding: 0.75rem;
   display: grid;
   gap: 0.16rem;
@@ -372,7 +372,7 @@
 .faculty-schedule-table-section {
   border: 1px solid var(--color-surface-300);
   background: #ffffff;
-  border-radius: 0.6rem;
+  border-radius: var(--radius-md);
   padding: 0.68rem;
 }
 

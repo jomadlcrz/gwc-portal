@@ -30,7 +30,7 @@
   display: block;
   width: 100%;
   border: var(--border-width-1) solid #b9c9de;
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-md);
   background: var(--color-white);
   padding: 0.48rem 0.62rem 0.48rem 1.8rem;
   font-size: 0.88rem;
@@ -82,7 +82,7 @@
 .admin-pill {
   display: inline-block;
   padding: 0.2rem 0.48rem;
-  border-radius: var(--radius-none);
+  border-radius: 999px;
   font-size: 0.74rem;
   font-weight: 700;
 }
@@ -148,7 +148,7 @@
   min-width: 130px;
   padding: 0.28rem;
   border: var(--border-width-1) solid #d4dce8;
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-md);
   background: var(--color-white);
   box-shadow: 0 10px 24px rgb(15 23 42 / 16%);
   z-index: 5;
@@ -171,7 +171,7 @@
   border: 0;
   background: transparent;
   color: var(--color-slate-700);
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-sm);
   font-size: 0.74rem;
   font-weight: 700;
   padding: 0.32rem 0.4rem;

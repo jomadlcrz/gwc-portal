@@ -178,7 +178,7 @@
 .hr-kpi-card {
   border: 1px solid #dbe6f1;
   background: #f8fbff;
-  border-radius: 0.62rem;
+  border-radius: var(--radius-md);
   padding: 0.52rem 0.58rem;
   display: flex;
   align-items: center;
@@ -210,7 +210,7 @@
 .hr-kpi-icon {
   width: 1.95rem;
   height: 1.95rem;
-  border-radius: 0.56rem;
+  border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -251,7 +251,7 @@
 
 .hr-dashboard-card {
   border: 1px solid var(--color-surface-300);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-md);
   background: var(--color-white);
   padding: 0.75rem;
 }
@@ -365,6 +365,7 @@
 .hr-faculty-home {
   border: var(--border-width-1) solid var(--color-surface-500);
   background: var(--color-white);
+  border-radius: var(--radius-md);
   padding: 1.4rem;
 }
 
@@ -388,7 +389,7 @@
 }
 
 .hr-faculty-home-actions .btn {
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-md);
   min-width: 200px;
   font-weight: 700;
 }
@@ -396,6 +397,7 @@
 .hr-faculty-page-shell {
   border: var(--border-width-1) solid var(--color-surface-500);
   background: var(--color-white);
+  border-radius: var(--radius-md);
   padding: var(--space-sm);
 }
 
@@ -470,7 +472,7 @@
 .hr-faculty-page-shell .form-control,
 .hr-faculty-page-shell .form-select {
   border: var(--border-width-1) solid #8fa1bc;
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-md);
   background-color: var(--color-white);
   color: var(--color-slate-800);
 }
