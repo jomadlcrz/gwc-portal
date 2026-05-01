@@ -103,7 +103,7 @@
   width: fit-content;
   padding: 0.35rem 0.65rem 0.35rem 0.35rem;
   border: 1px solid #cfe0f2;
-  border-radius: 0.72rem;
+  border-radius: var(--radius-sm);
   background: linear-gradient(160deg, #f8fbff 0%, #edf4fc 100%);
   color: #2f4157;
   box-shadow: 0 6px 14px rgb(15 47 100 / 8%);
@@ -112,7 +112,7 @@
 .admin-student-total-icon {
   width: 2.1rem;
   height: 2.1rem;
-  border-radius: 0.58rem;
+  border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -433,6 +433,7 @@
   }
 
 }
+
 
 
 

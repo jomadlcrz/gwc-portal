@@ -315,7 +315,7 @@
 
 .registrar-dashboard-card {
   border: 1px solid var(--color-surface-300);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-sm);
   background: var(--color-white);
   padding: 0.75rem;
 }
@@ -348,7 +348,7 @@
 
 .registrar-enrollment-status {
   font-weight: 800;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 0.2rem 0.55rem;
   border: 1px solid transparent;
 }
@@ -369,7 +369,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 0.22rem 0.62rem;
   font-size: 0.72rem;
   font-weight: 800;
@@ -408,7 +408,7 @@
   justify-content: center;
   align-items: center;
   border: 1px solid #c7d8e8;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 0.38rem 0.72rem;
   background: linear-gradient(180deg, #f8fbff 0%, #edf4fb 100%);
   color: var(--color-slate-700);
@@ -473,7 +473,7 @@
   align-items: center;
   gap: 0.5rem;
   border: 1px solid #dbe5f1;
-  border-radius: 0.45rem;
+  border-radius: var(--radius-sm);
   min-height: 1.95rem;
   padding: 0 0.65rem;
   color: #2f63a6;
@@ -493,7 +493,7 @@
 .registrar-schedule-select-wrap .form-select {
   display: block;
   border: 0;
-  border-radius: 0.45rem;
+  border-radius: var(--radius-sm);
   box-shadow: none;
   width: 100%;
   min-width: 0;
@@ -522,7 +522,7 @@
   justify-content: center;
   gap: 0.48rem;
   min-height: 1.95rem;
-  border-radius: 0.38rem;
+  border-radius: var(--radius-sm);
   padding-inline: 0.7rem;
   font-weight: 700;
   white-space: nowrap;
@@ -560,7 +560,7 @@
 
 .registrar-schedule-empty-state {
   border: 1px dashed #cbd9e7;
-  border-radius: 0.6rem;
+  border-radius: var(--radius-sm);
   padding: 0.9rem;
   background: #f8fbff;
   color: var(--color-slate-700);
@@ -591,7 +591,7 @@
   gap: 0.9rem;
   min-height: 5.15rem;
   border: 1px solid #dbe5f1;
-  border-radius: 0.62rem;
+  border-radius: var(--radius-sm);
   background: #fff;
   padding: 0.85rem 0.9rem;
   box-shadow: 0 8px 20px rgba(15, 35, 64, 0.04);
@@ -604,7 +604,7 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  border-radius: 0.55rem;
+  border-radius: var(--radius-sm);
   font-size: 1.38rem;
 }
 
@@ -673,7 +673,7 @@
   border: 1px solid #194b83;
   background: linear-gradient(135deg, #082d63 0%, #1d5b9f 100%);
   color: #f6fbff;
-  border-radius: 0.55rem;
+  border-radius: var(--radius-sm);
   padding: 0.78rem 0.82rem;
   box-shadow: 0 10px 22px rgba(8, 45, 99, 0.18);
   width: 100%;
@@ -753,7 +753,7 @@
 .registrar-schedule-table-section {
   border: 1px solid #d8e5f2;
   background: #ffffff;
-  border-radius: 0.55rem;
+  border-radius: var(--radius-sm);
   padding: 0.75rem 0.82rem;
   box-shadow: 0 8px 18px rgba(15, 35, 64, 0.035);
   scroll-margin-top: calc(var(--site-topbar-height) + 1rem);
@@ -814,7 +814,7 @@
   border-spacing: 0;
   overflow: hidden;
   border: 1px solid #d7e3f0;
-  border-radius: 0.22rem;
+  border-radius: var(--radius-sm);
 }
 
 .registrar-schedule-grid th,
@@ -871,7 +871,7 @@
   color: #0b2f64;
   background: transparent;
   border: 0;
-  border-radius: 0;
+  border-radius: var(--radius-none);
   font-size: 0.72rem;
   font-weight: 800;
   padding: 0;
@@ -901,7 +901,7 @@
 .registrar-schedule-no-results {
   margin: 0;
   border: 1px dashed #cbd9e7;
-  border-radius: 0.55rem;
+  border-radius: var(--radius-sm);
   background: #f8fbff;
   padding: 0.85rem;
   color: #53687f;
@@ -1143,7 +1143,7 @@
   width: fit-content;
   padding: 0.35rem 0.65rem 0.35rem 0.35rem;
   border: 1px solid #cfe0f2;
-  border-radius: 0.72rem;
+  border-radius: var(--radius-sm);
   background: linear-gradient(160deg, #f8fbff 0%, #edf4fc 100%);
   color: #2f4157;
   box-shadow: 0 6px 14px rgb(15 47 100 / 8%);
@@ -1152,7 +1152,7 @@
 .registrar-admission-total-icon {
   width: 2.1rem;
   height: 2.1rem;
-  border-radius: 0.58rem;
+  border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1215,7 +1215,7 @@
 
 .registrar-admission-req-group {
   border: 1px solid #cfdded;
-  border-radius: 0.8rem;
+  border-radius: var(--radius-sm);
   background: linear-gradient(180deg, #ffffff 0%, #f3f8ff 100%);
   padding: 0.72rem 0.82rem;
   box-shadow: 0 8px 16px rgb(15 47 100 / 6%);
@@ -1348,7 +1348,7 @@
 
 .schedule-card {
   border: var(--border-width-1) solid #d6e4ef;
-  border-radius: 0.95rem;
+  border-radius: var(--radius-sm);
   background: var(--color-white);
   padding: clamp(0.9rem, 2.2vw, 1.2rem);
   box-shadow: 0 10px 20px rgb(15 23 42 / 5%);
@@ -1392,7 +1392,7 @@
   border: var(--border-width-1) solid #c9d9e6;
   background: #fdfefe;
   color: var(--color-ink-900);
-  border-radius: 0.62rem;
+  border-radius: var(--radius-sm);
   padding: 0.58rem 0.66rem;
   font-size: 0.84rem;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -1421,7 +1421,7 @@
   border: var(--border-width-1) solid #b7d7e8;
   background: #effbff;
   color: var(--color-text-primary);
-  border-radius: 0.65rem;
+  border-radius: var(--radius-sm);
   padding: 0.45rem 0.65rem;
   font-size: 0.75rem;
   font-weight: 700;
@@ -1430,7 +1430,7 @@
 .time-slot {
   margin-top: 0.75rem;
   border: 1px dashed #b8cfde;
-  border-radius: 0.8rem;
+  border-radius: var(--radius-sm);
   background: #fbfeff;
   padding: 0.78rem;
 }
@@ -1453,7 +1453,7 @@
   border: var(--border-width-1) solid #fecaca;
   background: #fef2f2;
   color: #991b1b;
-  border-radius: 0.55rem;
+  border-radius: var(--radius-sm);
   padding: 0.36rem 0.58rem;
   font-size: 0.72rem;
   font-weight: 700;
@@ -1466,7 +1466,7 @@
 
 .schedule-summary {
   border: var(--border-width-1) solid #bde7dc;
-  border-radius: 0.95rem;
+  border-radius: var(--radius-sm);
   background: linear-gradient(180deg, #f4fffb 0%, #ecfdf5 100%);
   padding: 0.9rem 1rem;
 }
@@ -1497,7 +1497,7 @@
 
 .schedule-actions button {
   border: var(--border-width-1) solid transparent;
-  border-radius: 0.65rem;
+  border-radius: var(--radius-sm);
   padding: 0.54rem 0.84rem;
   font-size: 0.78rem;
   font-weight: 700;
@@ -1702,7 +1702,7 @@
 
   .registrar-schedule-mobile-card {
     border: 1px solid #d5e3f1;
-    border-radius: 0.55rem;
+    border-radius: var(--radius-sm);
     background: #fbfdff;
     padding: 0.6rem;
     display: grid;
@@ -1723,7 +1723,7 @@
   .registrar-schedule-mobile-item {
     display: grid;
     gap: 0.12rem;
-    border-radius: 0.45rem;
+    border-radius: var(--radius-sm);
     padding: 0.4rem 0.45rem;
     justify-content: start;
     text-align: left;
@@ -1749,7 +1749,7 @@
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
     border: 1px solid #d8e2ee;
-    border-radius: 0.55rem;
+    border-radius: var(--radius-sm);
     overflow: hidden;
     background: #fff;
   }
@@ -1769,7 +1769,7 @@
 
   .registrar-schedule-mobile-day-board {
     border: 1px solid #d6e1ed;
-    border-radius: 0.9rem;
+    border-radius: var(--radius-sm);
     background: #fff;
     padding: 0.58rem;
     display: grid;
@@ -1778,12 +1778,12 @@
 
   .registrar-schedule-mobile-day-board > header { display: flex; justify-content: space-between; align-items: center; }
   .registrar-schedule-mobile-day-board h6 { margin: 0; font-size: 0.82rem; color: #0f2d43; }
-  .registrar-schedule-mobile-day-board small { border: 1px solid #c8d8ea; border-radius: 999px; padding: 0.12rem 0.42rem; font-size: 0.67rem; font-weight: 700; }
+  .registrar-schedule-mobile-day-board small { border: 1px solid #c8d8ea; border-radius: var(--radius-pill); padding: 0.12rem 0.42rem; font-size: 0.67rem; font-weight: 700; }
   .registrar-schedule-mobile-day-board > p { margin: 0; font-size: 0.8rem; color: #4b6076; }
 
   .registrar-schedule-mobile-block {
     border: 1px solid #e2e8f0;
-    border-radius: 0.55rem;
+    border-radius: var(--radius-sm);
     background: #fff;
     padding: 0.42rem 0.45rem;
     display: grid;
@@ -1816,7 +1816,7 @@
   }
 
   .registrar-schedule-mobile-course {
-    border-radius: 0.46rem;
+    border-radius: var(--radius-sm);
     padding: 0.26rem 0.35rem;
     display: grid;
     gap: 0.08rem;
@@ -1830,7 +1830,7 @@
 
   .registrar-schedule-mobile-stats {
     margin-top: 0.28rem;
-    border-radius: 0.62rem;
+    border-radius: var(--radius-sm);
     background: #ffffff;
     padding: 0.5rem;
     display: grid;
@@ -1844,7 +1844,7 @@
     font-family: 'Bootstrap-icons';
     width: 2.2rem;
     height: 2.2rem;
-    border-radius: 0.5rem;
+    border-radius: var(--radius-sm);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1856,7 +1856,7 @@
 
   .registrar-schedule-mobile-stats > div {
     border: 1px solid #d8e2ed;
-    border-radius: 0.5rem;
+    border-radius: var(--radius-sm);
     padding: 0.4rem 0.5rem;
     background: #f8fbff;
     text-align: center;
@@ -1931,7 +1931,7 @@
 
 .cf-stat-card {
   border: 1px solid #dfe6f1;
-  border-radius: 0.62rem;
+  border-radius: var(--radius-sm);
   background: #fff;
   display: grid;
   gap: 0.45rem;
@@ -1947,7 +1947,7 @@
 .cf-stat-icon {
   width: 3.1rem;
   height: 3.1rem;
-  border-radius: 0.75rem;
+  border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1980,7 +1980,7 @@
   margin-top: 0;
   padding: 0.36rem 0.62rem;
   border: 1px solid #d2deee;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-sm);
   background: #f8fbff;
   color: #1b4f9f;
   text-decoration: none;
@@ -2005,7 +2005,7 @@
 
 .cf-table-card {
   border: 1px solid #dfe6f1;
-  border-radius: 0.62rem;
+  border-radius: var(--radius-sm);
   background: #fff;
   padding: 0.75rem;
   display: grid;
@@ -2089,7 +2089,7 @@
   color: #334764;
   width: 1.5rem;
   height: 1.5rem;
-  border-radius: 0.35rem;
+  border-radius: var(--radius-sm);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2120,7 +2120,7 @@
   border: 1px solid #bde6c8;
   background: #eaf9ef;
   color: #1d7a35;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 0.18rem 0.5rem;
   font-size: 0.72rem;
   font-weight: 700;
@@ -2131,7 +2131,7 @@
   border: 1px solid #cfe4d4;
   background: #edf8f0;
   color: #2b7f46;
-  border-radius: 0.35rem;
+  border-radius: var(--radius-sm);
   padding: 0.14rem 0.35rem;
   font-size: 0.7rem;
   font-weight: 700;
@@ -2155,4 +2155,5 @@
     grid-template-columns: 1fr;
   }
 }
+
 

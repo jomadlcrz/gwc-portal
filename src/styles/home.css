@@ -469,7 +469,7 @@
   position: relative;
   background: transparent;
   border: 0;
-  border-radius: 32px;
+  border-radius: var(--radius-sm);
   padding: clamp(1.2rem, 2.5vw, 2rem) clamp(1rem, 2.5vw, 1.8rem) clamp(1.3rem, 2.5vw, 1.8rem);
   display: flex;
   flex-direction: column;
@@ -588,7 +588,7 @@
 .site-feature-card {
   background: var(--color-white);
   color: var(--color-text-primary);
-  border-radius: 14px;
+  border-radius: var(--radius-sm);
   padding: 1.2rem 1.25rem;
   box-shadow: 0 8px 32px rgba(7, 18, 52, 0.2);
 }
@@ -621,7 +621,7 @@
 .site-tile,
 .site-news-card {
   height: 100%;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   padding: var(--space-xl);
 }
 
@@ -711,7 +711,7 @@
   }
 
   .site-testimonial-quote {
-    border-radius: 20px;
+    border-radius: var(--radius-sm);
   }
 
   .site-testimonial-control {
@@ -793,6 +793,7 @@
     font-size: 2rem;
   }
 }
+
 
 
 

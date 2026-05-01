@@ -74,7 +74,7 @@
 .admin-post-form textarea {
   width: 100%;
   border: 1px solid #c5d0de;
-  border-radius: 7px;
+  border-radius: var(--radius-sm);
   padding: 0.62rem 0.7rem;
   font-size: 0.92rem;
   color: var(--color-ink-900);
@@ -109,7 +109,7 @@
 }
 
 .admin-post-btn {
-  border-radius: 7px;
+  border-radius: var(--radius-sm);
   font-size: 0.88rem;
   font-weight: 700;
   padding: 0.5rem 0.65rem;
@@ -169,7 +169,7 @@
   justify-content: center;
   gap: 0.38rem;
   border: 1px solid #d4deeb;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   background: #fff;
   color: #334155;
   font-weight: 700;
@@ -207,7 +207,7 @@
   margin-top: 0.62rem;
   width: 100%;
   border: 1px solid #c5d0de;
-  border-radius: 7px;
+  border-radius: var(--radius-sm);
   padding: 0.5rem 0.6rem;
   font-size: 0.88rem;
 }
@@ -238,7 +238,7 @@
 
 .admin-post-tags-controls input {
   border: 1px solid #c5d0de;
-  border-radius: 7px;
+  border-radius: var(--radius-sm);
   padding: 0.5rem 0.62rem;
   font-size: 0.88rem;
 }
@@ -261,7 +261,7 @@
   border: 1px solid #cfd8e6;
   background: #f8fafc;
   color: #1f2d3f;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 0.18rem 0.5rem;
   font-size: 0.78rem;
   display: inline-flex;
@@ -293,7 +293,7 @@
 
 .admin-post-image-dropzone {
   border: 1px dashed #b7c6da;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: #fafcff;
   min-height: 150px;
   display: grid;
@@ -333,7 +333,7 @@
   border: 1px solid #cfd8e6;
   background: #fff;
   color: #334155;
-  border-radius: 7px;
+  border-radius: var(--radius-sm);
   font-weight: 700;
   font-size: 0.85rem;
   padding: 0.42rem 0.82rem;
@@ -405,4 +405,5 @@
     width: 100%;
   }
 }
+
 

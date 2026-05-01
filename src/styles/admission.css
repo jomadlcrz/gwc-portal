@@ -1024,7 +1024,7 @@
   height: var(--confetti-h);
   margin-left: calc(var(--confetti-w) * -0.5);
   margin-top: calc(var(--confetti-h) * -0.5);
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
   background: linear-gradient(180deg, #ffffff 0%, var(--confetti-color) 36%, #d68e00 100%);
   opacity: 0;
   transform: translate(0, 0) rotate(0deg) scale(0.5);
@@ -2023,4 +2023,5 @@
     gap: 0.35rem;
   }
 }
+
 

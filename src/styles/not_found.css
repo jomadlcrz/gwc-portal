@@ -1,4 +1,4 @@
-.fallback-page {
+﻿.fallback-page {
   min-height: var(--layout-page-min-height);
   background: var(--layout-page-bg-soft);
   display: grid;
@@ -33,7 +33,7 @@
   justify-content: center;
   min-height: 56px;
   min-width: 260px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 0 1.4rem;
   background: #081836;
   color: var(--color-white);
@@ -47,6 +47,7 @@
   background: #122955;
   color: var(--color-white);
 }
+
 
 
 

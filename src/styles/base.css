@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --font-body: 'Century Gothic';
   --font-display: 'Bebas Neue';
   --font-display-letter-spacing: 0.03em;
@@ -343,7 +343,7 @@ body.overlay-open {
 .dept-code-badge {
   display: inline-block;
   padding: 0.1rem 0.4rem;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.03em;
@@ -371,3 +371,4 @@ body.overlay-open {
   color: #ffffff;
   background: #1d4ed8;
 }
+
