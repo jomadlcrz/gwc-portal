@@ -9,16 +9,15 @@ import { admissionService } from '../../../features/admission/service'
 import { createAdmissionRequirement, getAdmissionRequirements } from '../../../api/v1/admissions/admissions'
 
 const ADMISSION_STATUSES: AdmissionApplicationStatus[] = [
-  'Application Received',
-  'Under Review',
+  'Pending',
   'Approved',
-  'Not Selected',
+  'Disqualified',
 ]
 
 function getStatusBadgeClass(status: AdmissionApplicationStatus): string {
   if (status === 'Approved') return 'is-approved'
-  if (status === 'Not Selected') return 'is-rejected'
-  if (status === 'Under Review') return 'is-pending'
+  if (status === 'Disqualified') return 'is-rejected'
+  if (status === 'Pending') return 'is-pending'
   return 'is-pending'
 }
 
@@ -317,10 +316,9 @@ export function renderregistrar_admission_page(): string {
 
           <section class="registrar-kpi-grid mt-3">
             ${renderAdmissionKpiCard('Total Applications', stats.total, 'bi-people', 'total')}
-            ${renderAdmissionKpiCard('Application Received', stats.applicationReceived, 'bi-inbox', 'draft')}
-            ${renderAdmissionKpiCard('Under Review', stats.underReview, 'bi-search', 'published')}
+            ${renderAdmissionKpiCard('Pending', stats.pending, 'bi-inbox', 'draft')}
             ${renderAdmissionKpiCard('Approved', stats.approved, 'bi-patch-check', 'approved')}
-            ${renderAdmissionKpiCard('Not Selected', stats.notSelected, 'bi-x-circle', 'cancelled')}
+            ${renderAdmissionKpiCard('Disqualified', stats.disqualified, 'bi-x-circle', 'cancelled')}
           </section>
 
           <section class="mt-3">

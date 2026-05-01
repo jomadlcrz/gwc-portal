@@ -83,25 +83,17 @@ function getAdmissionDetailReminders(application: AdmissionApplication): string[
     return getAdmissionRequirementReminders(application.admissionType)
   }
 
-  if (application.status === 'Under Review') {
+  if (application.status === 'Pending') {
     return [
-      'Your application is currently under evaluation by the admissions office.',
-      'Please monitor this page regularly for status changes and announcements.',
+      'Your application is currently pending review by the admissions office.',
+      'Please monitor this page regularly for status updates and announcements.',
       'Keep your contact details active in case additional verification is needed.',
     ]
   }
 
-  if (application.status === 'Application Received') {
+  if (application.status === 'Disqualified') {
     return [
-      'Your application has been received and queued for initial checking.',
-      'Ensure all submitted details and uploaded files are complete and readable.',
-      'Wait for the next status update once document checking is finished.',
-    ]
-  }
-
-  if (application.status === 'Not Selected') {
-    return [
-      'Your application was not selected for this intake period.',
+      'Your application was disqualified for this intake period.',
       'You may contact the admissions office for guidance on your next application.',
       'You may apply again in the next available admission cycle.',
     ]
@@ -156,8 +148,8 @@ function getAdmissionUploadedDocumentItems(
 
 function getAdmissionStatusBadgeClass(status: AdmissionApplication['status']): string {
   if (status === 'Approved') return 'is-approved'
-  if (status === 'Not Selected') return 'is-rejected'
-  if (status === 'Under Review') return 'is-pending'
+  if (status === 'Disqualified') return 'is-rejected'
+  if (status === 'Pending') return 'is-pending'
   return 'is-pending'
 }
 

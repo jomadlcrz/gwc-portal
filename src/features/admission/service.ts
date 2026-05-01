@@ -7,10 +7,9 @@ import { createAdmissionSession, getAdmissionSessionStatus } from '../../api/v1/
 
 type AdmissionStats = {
   total: number
-  applicationReceived: number
-  underReview: number
+  pending: number
   approved: number
-  notSelected: number
+  disqualified: number
 }
 
 const ENROLLMENT_OPEN_STORAGE_KEY = 'gwc:admission:enrollment-open'
@@ -150,10 +149,9 @@ export const admissionService = {
     const applications = this.list()
     return {
       total: applications.length,
-      applicationReceived: applications.filter((entry) => entry.status === 'Application Received').length,
-      underReview: applications.filter((entry) => entry.status === 'Under Review').length,
+      pending: applications.filter((entry) => entry.status === 'Pending').length,
       approved: applications.filter((entry) => entry.status === 'Approved').length,
-      notSelected: applications.filter((entry) => entry.status === 'Not Selected').length,
+      disqualified: applications.filter((entry) => entry.status === 'Disqualified').length,
     }
   },
 

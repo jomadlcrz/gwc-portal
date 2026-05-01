@@ -342,6 +342,7 @@ export function setuphr_dean_manage_page(root: HTMLElement): () => void {
             current.status = input.value as DeanRecord['status']
             return
           }
+          if (field === 'role') return
           if (field in current) {
             current[field] = input.value
           }

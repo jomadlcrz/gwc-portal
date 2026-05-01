@@ -343,6 +343,7 @@ export function setuphr_faculty_manage_page(root: HTMLElement): () => void {
             current.status = input.value as FacultyRecord['status']
             return
           }
+          if (field === 'role') return
           if (field in current) {
             current[field] = input.value
           }
