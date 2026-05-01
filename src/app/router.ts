@@ -102,11 +102,13 @@ import {
   renderregistrar_curriculum_sets_page,
   renderregistrar_curriculum_subjects_page,
   renderregistrar_schedule_page,
+  renderregistrar_schedule_v2_page,
   renderregistrar_schedule_manage_page,
   renderregistrar_schedule_create_page,
   renderregistrar_settings_page,
   setupregistrar_page,
   setupregistrar_schedule_page,
+  setupregistrar_schedule_v2_page,
   setupregistrar_schedule_manage_page,
   setupregistrar_schedule_create_page,
   setupregistrar_curriculum_lists_shell_page,
@@ -449,6 +451,12 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   if (pathname === ROUTES.REGISTRAR_SCHEDULE) {
     app.innerHTML = renderregistrar_schedule_page()
     cleanupCurrentRoute = setupregistrar_schedule_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.REGISTRAR_SCHEDULE_V2) {
+    app.innerHTML = renderregistrar_schedule_v2_page()
+    cleanupCurrentRoute = setupregistrar_schedule_v2_page(app)
     return
   }
 

@@ -3,6 +3,7 @@ import { registrar_SHELL_CONFIG, setupPortalShell } from '../../components/layou
 import { setupclass_scheduling_form } from './schedule/schedule_create_page'
 import { setupschedule_manage_page } from './schedule/schedule_manage_page'
 import { setupregistrar_curriculum_lists_page } from './curriculum_facilities/lists/curriculum_facilities_lists_page'
+import { setupregistrar_schedule_v2_page as setupschedule_v2_page } from './schedule/schedule_v2_page'
 
 export { renderregistrar_dashboard_page } from './dashboard/dashboard_page'
 export { renderregistrar_student_records_page } from './student_records/student_records_page'
@@ -26,6 +27,7 @@ export {
   renderregistrar_curriculum_subjects_page,
 } from './curriculum_facilities/lists/curriculum_facilities_lists_page'
 export { renderregistrar_schedule_page } from './schedule/schedule_page'
+export { renderregistrar_schedule_v2_page } from './schedule/schedule_v2_page'
 export { renderregistrar_schedule_manage_page } from './schedule/schedule_manage_page'
 export { renderregistrar_schedule_create_page } from './schedule/schedule_create_page'
 export { renderregistrar_settings_page } from './settings/settings_page'
@@ -142,6 +144,16 @@ export function setupregistrar_schedule_manage_page(root: HTMLElement): () => vo
 
   return () => {
     cleanupManage()
+    cleanupShell()
+  }
+}
+
+export function setupregistrar_schedule_v2_page(root: HTMLElement): () => void {
+  const cleanupShell = setupPortalShell(root, registrar_SHELL_CONFIG)
+  const cleanupV2 = setupschedule_v2_page(root)
+
+  return () => {
+    cleanupV2()
     cleanupShell()
   }
 }

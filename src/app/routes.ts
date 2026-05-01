@@ -35,6 +35,7 @@ export const ROUTES = {
   REGISTRAR_CURRICULUM_SETS: '/registrar/curriculum-facilities/sets',
   REGISTRAR_CURRICULUM_SUBJECTS: '/registrar/curriculum-facilities/subjects',
   REGISTRAR_SCHEDULE: '/registrar/schedule',
+  REGISTRAR_SCHEDULE_V2: '/registrar/schedule-v2',
   REGISTRAR_SCHEDULE_MANAGE: '/registrar/schedule/manage',
   REGISTRAR_SCHEDULE_CREATE: '/registrar/schedule/create',
   REGISTRAR_SETTINGS: '/registrar/settings',
