@@ -368,7 +368,7 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
         <div class="admission-detail-surface">
           ${
             application.status === 'Approved'
-              ? '<p>For <strong>ENROLLMENT REQUIREMENTS</strong>, please submit the following documents to the Registrarâ€™s Office.</p>'
+              ? '<p>For <strong>ENROLLMENT REQUIREMENTS</strong>, please submit the following documents to the Registrar\'s Office.</p>'
               : ''
           }
           <ol class="admission-reminders-list ${application.status === 'Approved' ? 'has-approved-header' : ''}">
