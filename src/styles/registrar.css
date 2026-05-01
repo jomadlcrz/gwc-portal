@@ -422,7 +422,7 @@
   gap: 1.1rem;
   background: #ffffff;
   border-color: #d9e4f0;
-  border-radius: 0.75rem;
+  border-radius: var(--radius-lg);
   box-shadow: 0 14px 34px rgba(15, 35, 64, 0.08);
 }
 
