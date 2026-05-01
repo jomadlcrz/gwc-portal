@@ -85,7 +85,7 @@ const STUDENTS: StudentRecord[] = Array.from({ length: 30 }, (_, index) => {
 })
 
 const STUDENTS_BY_NO = new Map(STUDENTS.map((student) => [student.studentNo, student]))
-const COURSE_OPTIONS = Array.from(new Set(STUDENTS.map((student) => student.course))).sort()
+const PROGRAM_OPTIONS = Array.from(new Set(STUDENTS.map((student) => student.course))).sort()
 const YEAR_LEVEL_OPTIONS = Array.from(new Set(STUDENTS.map((student) => student.year))).sort((a, b) => Number(a) - Number(b))
 
 type DetailField = {
@@ -194,16 +194,15 @@ function renderStudentFullDetails(student: StudentRecord): string {
 
 function renderRows(): string {
   return STUDENTS.map((student) => {
-    const statusClass = student.status === 'Active' ? 'is-active' : 'is-inactive'
+    const statusClass = student.studentType === 'Regular' ? 'is-active' : 'is-inactive'
     const searchValue = `${student.studentNo} ${student.name} ${student.course} ${student.email}`.toLowerCase()
     return `
       <tr data-student-row data-search-value="${searchValue}" data-course="${student.course}" data-year="${student.year}">
         <td>${student.studentNo}</td>
         <td>${student.name}</td>
         <td>${student.course}</td>
-        <td>${student.year}</td>
-        <td>${student.email}</td>
-        <td><span class="admin-pill ${statusClass}">${student.status}</span></td>
+        <td class="text-center">${student.year}</td>
+        <td><span class="admin-pill ${statusClass}">${student.studentType}</span></td>
         <td class="admin-student-actions">
           ${renderSharedPopover({
             ariaLabel: 'Student row actions',
@@ -259,10 +258,10 @@ export function renderstudents_manage_page(): string {
                 </button>
                 <div class="actions-menu admin-student-filter-menu" data-actions-menu role="menu" aria-label="Student Filters">
                   <label class="admin-student-filter-field">
-                    <span>Course</span>
-                    <select class="form-select form-select-sm" data-student-filter-course>
-                      <option value="">All Courses</option>
-                      ${COURSE_OPTIONS.map((course) => `<option value="${course}">${course}</option>`).join('')}
+                    <span>Program</span>
+                    <select class="form-select form-select-sm" data-student-filter-program>
+                      <option value="">All Programs</option>
+                      ${PROGRAM_OPTIONS.map((course) => `<option value="${course}">${course}</option>`).join('')}
                     </select>
                   </label>
                   <label class="admin-student-filter-field">
@@ -283,9 +282,8 @@ export function renderstudents_manage_page(): string {
                 <tr>
                   <th>Student No.</th>
                   <th>Name</th>
-                  <th>Course</th>
-                  <th>Year</th>
-                  <th>Email</th>
+                  <th>Program</th>
+                  <th class="text-center">Year Level</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
@@ -293,7 +291,7 @@ export function renderstudents_manage_page(): string {
               <tbody>
                 ${renderRows()}
                 <tr class="d-none" data-student-empty-row>
-                  <td colspan="7" class="text-center py-3">No students found.</td>
+                  <td colspan="6" class="text-center py-3">No students found.</td>
                 </tr>
               </tbody>
             </table>
@@ -314,7 +312,7 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
   const cleanupShell = setupPortalShell(root, ADMIN_SHELL_CONFIG)
   const modal = setupSharedModal(root, { modalSelector: '#students-manage-modal' })
   const searchInput = root.querySelector<HTMLInputElement>('[data-student-search]')
-  const courseFilter = root.querySelector<HTMLSelectElement>('[data-student-filter-course]')
+  const programFilter = root.querySelector<HTMLSelectElement>('[data-student-filter-program]')
   const yearFilter = root.querySelector<HTMLSelectElement>('[data-student-filter-year]')
   const allRows = Array.from(root.querySelectorAll<HTMLTableRowElement>('[data-student-row]'))
   const emptyRow = root.querySelector<HTMLTableRowElement>('[data-student-empty-row]')
@@ -356,14 +354,14 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
 
   const applyFilters = (): void => {
     const query = (searchInput?.value ?? '').trim().toLowerCase()
-    const selectedCourse = (courseFilter?.value ?? '').trim()
+    const selectedProgram = (programFilter?.value ?? '').trim()
     const selectedYear = (yearFilter?.value ?? '').trim()
 
     filteredRows = allRows.filter((row) => {
       const matchesSearch = (row.dataset.searchValue ?? '').includes(query)
-      const matchesCourse = !selectedCourse || row.dataset.course === selectedCourse
+      const matchesProgram = !selectedProgram || row.dataset.course === selectedProgram
       const matchesYear = !selectedYear || row.dataset.year === selectedYear
-      return matchesSearch && matchesCourse && matchesYear
+      return matchesSearch && matchesProgram && matchesYear
     })
 
     currentPage = 1
@@ -374,17 +372,16 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
     const target = event.target as HTMLElement | null
     const exportBtn = target?.closest<HTMLButtonElement>('[data-student-export]')
     if (exportBtn) {
-      const csvHeader = ['Student No.', 'Name', 'Course', 'Year', 'Email', 'Status']
+      const csvHeader = ['Student No.', 'Name', 'Program', 'Year Level', 'Status']
       const visibleRows = filteredRows
       const csvRows = visibleRows.map((row) => {
         const cells = Array.from(row.querySelectorAll<HTMLTableCellElement>('td'))
         const studentNo = cells[0]?.textContent?.trim() ?? ''
         const name = cells[1]?.textContent?.trim() ?? ''
-        const course = cells[2]?.textContent?.trim() ?? ''
+        const program = cells[2]?.textContent?.trim() ?? ''
         const year = cells[3]?.textContent?.trim() ?? ''
-        const email = cells[4]?.textContent?.trim() ?? ''
-        const status = cells[5]?.textContent?.trim() ?? ''
-        return [studentNo, name, course, year, email, status]
+        const status = cells[4]?.textContent?.trim() ?? ''
+        return [studentNo, name, program, year, status]
       })
       const csvContent = [csvHeader, ...csvRows]
         .map((row) => row.map((cell) => `"${cell.replace(/"/g, '""')}"`).join(','))
@@ -442,7 +439,7 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
   }
 
   searchInput?.addEventListener('input', applyFilters)
-  courseFilter?.addEventListener('change', applyFilters)
+  programFilter?.addEventListener('change', applyFilters)
   yearFilter?.addEventListener('change', applyFilters)
   root.addEventListener('click', onActionClick)
   renderVisibleRows()
@@ -452,7 +449,7 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
     modal.destroy()
     pagination?.destroy()
     searchInput?.removeEventListener('input', applyFilters)
-    courseFilter?.removeEventListener('change', applyFilters)
+    programFilter?.removeEventListener('change', applyFilters)
     yearFilter?.removeEventListener('change', applyFilters)
     root.removeEventListener('click', onActionClick)
   }
