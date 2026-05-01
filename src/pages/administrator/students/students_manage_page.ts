@@ -231,7 +231,7 @@ export function renderstudents_manage_page(): string {
           </header>
 
           <section class="admin-student-toolbar">
-            <label class="admin-directory-search admin-student-search">
+            <label class="admin-directory-search admin-student-search admin-student-searchbar">
               <span class="admin-search-icon" aria-hidden="true"><i class="bi bi-search"></i></span>
               <input
                 type="search"

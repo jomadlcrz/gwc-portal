@@ -216,6 +216,10 @@
   min-width: min(100%, 330px);
 }
 
+.admin-student-searchbar input {
+  border-radius: var(--radius-md);
+}
+
 .admin-student-actions {
   white-space: nowrap;
 }

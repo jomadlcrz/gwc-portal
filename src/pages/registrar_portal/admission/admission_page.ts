@@ -368,7 +368,9 @@ export function renderregistrar_admission_page(): string {
 }
 
 export function renderregistrar_admission_review_page(): string {
-  const statusOptions = ADMISSION_STATUSES.map((status) => `<option value="${status}">${status}</option>`).join('')
+  const statusOptions = ADMISSION_STATUSES.map(
+    (status) => `<button type="button" role="menuitem" data-admission-status-option="${status}">${status}</button>`,
+  ).join('')
 
   return renderPortalShell(
     registrar_SHELL_CONFIG,
@@ -402,10 +404,22 @@ export function renderregistrar_admission_review_page(): string {
                 <i class="bi bi-download" aria-hidden="true"></i>
                 <span>Export CSV</span>
               </button>
-              <select class="form-select form-select-sm" data-admission-status-filter aria-label="Filter by status">
-                <option value="">All Statuses</option>
-                ${statusOptions}
-              </select>
+              <div class="actions-popover registrar-admission-status-filter">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary btn-sm registrar-admission-status-trigger"
+                  data-actions-trigger
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                >
+                  <i class="bi bi-filter" aria-hidden="true"></i>
+                  <span data-admission-status-label>All Statuses</span>
+                </button>
+                <div class="actions-menu registrar-admission-status-menu" data-actions-menu role="menu" aria-label="Filter by status">
+                  <button type="button" role="menuitem" data-admission-status-option="">All Statuses</button>
+                  ${statusOptions}
+                </div>
+              </div>
             </div>
           </section>
 
@@ -557,7 +571,7 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
   const manageModal = setupSharedModal(root, { modalSelector: '#registrar-admission-manage-modal' })
   const documentModal = setupSharedModal(root, { modalSelector: '#registrar-admission-document-modal' })
   const searchInput = root.querySelector<HTMLInputElement>('[data-admission-search]')
-  const statusFilter = root.querySelector<HTMLSelectElement>('[data-admission-status-filter]')
+  const statusLabel = root.querySelector<HTMLElement>('[data-admission-status-label]')
   const rows = Array.from(root.querySelectorAll<HTMLTableRowElement>('[data-admission-row]'))
   const emptyRow = root.querySelector<HTMLTableRowElement>('[data-admission-empty-row]')
   const paginationRoot = root.querySelector<HTMLElement>('[data-admission-pagination]')
@@ -567,6 +581,7 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
   let filteredRows = [...rows]
   let activeApplicationNo: string | null = null
   let shouldRestoreManageModal = false
+  let activeStatusFilter = ''
 
   const pagination = paginationRoot
     ? setupSharedPagination(paginationRoot, {
@@ -588,7 +603,7 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
 
   const getFilteredApplications = () => {
     const query = (searchInput?.value ?? '').trim().toLowerCase()
-    const status = (statusFilter?.value ?? '').trim()
+    const status = activeStatusFilter.trim()
     return admissionService.list().filter((application) => {
       const fullName = `${application.lastName}, ${application.firstName}${application.middleName ? ` ${application.middleName}` : ''}`
       const searchValue = [
@@ -663,7 +678,7 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
 
   const applyFilters = (): void => {
     const query = (searchInput?.value ?? '').trim().toLowerCase()
-    const status = (statusFilter?.value ?? '').trim()
+    const status = activeStatusFilter.trim()
 
     filteredRows = rows.filter((row) => {
       const matchesSearch = (row.dataset.searchValue ?? '').includes(query)
@@ -679,6 +694,22 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
     const exportBtn = target.closest<HTMLButtonElement>('[data-admission-export]')
     if (exportBtn) {
       exportAdmissionQueueCsv()
+      return
+    }
+
+    const statusOption = target.closest<HTMLButtonElement>('[data-admission-status-option]')
+    if (statusOption) {
+      const value = statusOption.dataset.admissionStatusOption ?? ''
+      const label = statusOption.textContent?.trim() || 'All Statuses'
+      activeStatusFilter = value
+      if (statusLabel) statusLabel.textContent = label
+
+      const popover = statusOption.closest<HTMLElement>('.actions-popover')
+      const trigger = popover?.querySelector<HTMLButtonElement>('[data-actions-trigger]')
+      popover?.classList.remove('is-open')
+      trigger?.setAttribute('aria-expanded', 'false')
+
+      applyFilters()
       return
     }
 
@@ -755,7 +786,6 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
   }
 
   searchInput?.addEventListener('input', applyFilters)
-  statusFilter?.addEventListener('change', applyFilters)
   root.addEventListener('click', onRootClick)
   applyFilters()
 
@@ -764,7 +794,6 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
     documentModal.destroy()
     pagination?.destroy()
     searchInput?.removeEventListener('input', applyFilters)
-    statusFilter?.removeEventListener('change', applyFilters)
     root.removeEventListener('click', onRootClick)
   }
 }
