@@ -81,10 +81,11 @@
   --space-xl: 1rem;
 
   --radius-none: 0;
-  --radius-sm: 0.35rem;
-  --radius-md: 0.42rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 10px;
+  --radius-xs: 0.25rem;
+  --radius-sm: var(--radius-xs);
+  --radius-md: var(--radius-xs);
+  --radius-lg: var(--radius-xs);
+  --radius-xl: var(--radius-xs);
   --radius-pill: 999px;
 
   --border-width-1: 1px;
