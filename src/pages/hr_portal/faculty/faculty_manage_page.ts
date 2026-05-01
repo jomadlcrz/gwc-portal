@@ -1,4 +1,4 @@
-import { ROUTES } from '../../../app/routes'
+﻿import { ROUTES } from '../../../app/routes'
 import { HR_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../../components/layout/_layout'
 import { renderActionView } from '../../../components/ui/action_view'
 import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
@@ -375,3 +375,4 @@ export function setuphr_faculty_manage_page(root: HTMLElement): () => void {
     cleanupShell()
   }
 }
+

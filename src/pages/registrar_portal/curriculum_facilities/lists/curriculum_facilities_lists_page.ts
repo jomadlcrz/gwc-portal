@@ -1,4 +1,4 @@
-import { ROUTES } from '../../../../app/routes'
+﻿import { ROUTES } from '../../../../app/routes'
 import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../../components/layout/_layout'
 import { renderSharedModal, setupSharedModal } from '../../../../components/ui/modal'
 import { renderBreadcrumbNav } from '../../../../components/ui/nav_breadcrumb'
@@ -285,3 +285,4 @@ export function renderregistrar_curriculum_subjects_page(): string {
     ['GE001', 'Purposive Communication', 'All', '3'],
   ])
 }
+

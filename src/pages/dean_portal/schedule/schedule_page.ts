@@ -1,4 +1,4 @@
-import { DEAN_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
+﻿import { DEAN_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { getDepartmentDisplayName } from '../../../data/departments'
 import { INSTRUCTOR_SCHEDULES, SCHEDULE_DAY_ORDER, type InstructorSchedule } from '../../../data/schedule'
@@ -225,3 +225,4 @@ export function renderdean_schedule_page(): string {
     `,
   )
 }
+

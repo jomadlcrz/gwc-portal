@@ -1,4 +1,4 @@
-import { ROUTES } from '../../../app/routes'
+﻿import { ROUTES } from '../../../app/routes'
 import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 
@@ -125,3 +125,4 @@ function renderTableCard(
     </article>
   `
 }
+

@@ -1,4 +1,4 @@
-import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../../components/layout/_layout'
+﻿import { ADMIN_SHELL_CONFIG, renderPortalShell, setupPortalShell } from '../../../components/layout/_layout'
 import { renderSharedModal, setupSharedModal } from '../../../components/ui/modal'
 import { renderSharedPagination, setupSharedPagination } from '../../../components/ui/pagination'
 import { renderSharedPopover } from '../../../components/ui/popover'
@@ -456,5 +456,6 @@ export function setupstudents_manage_page(root: HTMLElement): () => void {
     root.removeEventListener('click', onActionClick)
   }
 }
+
 
 

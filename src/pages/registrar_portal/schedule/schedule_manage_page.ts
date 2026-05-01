@@ -1,4 +1,4 @@
-import { ROUTES } from '../../../app/routes'
+﻿import { ROUTES } from '../../../app/routes'
 import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderSharedPagination, setupSharedPagination } from '../../../components/ui/pagination'
@@ -371,3 +371,4 @@ export function setupschedule_manage_page(root: HTMLElement): () => void {
     root.removeEventListener('click', onActionClick)
   }
 }
+

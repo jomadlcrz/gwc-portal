@@ -1,4 +1,4 @@
-import { ROUTES } from '../../../app/routes'
+ï»¿import { ROUTES } from '../../../app/routes'
 import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderSectionTitle } from '../../../components/ui/section_title_heading'
@@ -867,7 +867,7 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
   const sanitizeDocs = (docs: string[]): string[] => {
     const unique: string[] = []
     docs
-      .map((entry) => entry.trim().replace(/^[-*•]\s*/, ''))
+      .map((entry) => entry.trim().replace(/^[-*â€¢]\s*/, ''))
       .filter((entry) => entry.length > 0)
       .forEach((entry) => {
         if (!unique.some((existing) => existing.toLowerCase() === entry.toLowerCase())) unique.push(entry)
@@ -940,8 +940,8 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
   const onRequirementTypeChange = (): void => {
     const type = reqType.value.trim()
     const docs = requirementMap.get(type) ?? []
-    reqDocs.value = docs.map((entry) => `• ${entry}`).join('\n')
-    if (!reqDocs.value.trim()) reqDocs.value = '• '
+    reqDocs.value = docs.map((entry) => `â€¢ ${entry}`).join('\n')
+    if (!reqDocs.value.trim()) reqDocs.value = 'â€¢ '
     autoResizeReqDocs()
   }
 
@@ -950,8 +950,8 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
     const normalized = rawLines.map((line) => {
       const trimmed = line.trim()
       if (!trimmed) return ''
-      const withoutBullet = trimmed.replace(/^[-*•]\s*/, '')
-      return `• ${withoutBullet}`
+      const withoutBullet = trimmed.replace(/^[-*â€¢]\s*/, '')
+      return `â€¢ ${withoutBullet}`
     })
     const nextValue = normalized.join('\n')
     if (nextValue === reqDocs.value) return
@@ -962,8 +962,8 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
     const lines = reqDocs.value.split('\n')
     const normalized = lines.map((line) => {
       if (!line.trim()) return ''
-      const content = line.replace(/^[-*•]?\s*/, '')
-      return `• ${content}`
+      const content = line.replace(/^[-*â€¢]?\s*/, '')
+      return `â€¢ ${content}`
     })
     const nextValue = normalized.join('\n')
     if (nextValue !== reqDocs.value) {
@@ -983,7 +983,7 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
         const lineStart = value.lastIndexOf('\n', Math.max(0, start - 1)) + 1
         const linePrefix = value.slice(lineStart, lineStart + 2)
         const caretInPrefix = start <= lineStart + 2
-        if (linePrefix === '• ' && caretInPrefix) {
+        if (linePrefix === 'â€¢ ' && caretInPrefix) {
           event.preventDefault()
           return
         }
@@ -992,7 +992,7 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
 
     if (event.key !== 'Enter') return
     event.preventDefault()
-    const insert = '\n• '
+    const insert = '\nâ€¢ '
     reqDocs.value = `${reqDocs.value.slice(0, start)}${insert}${reqDocs.value.slice(end)}`
     const nextCaret = start + insert.length
     reqDocs.setSelectionRange(nextCaret, nextCaret)
@@ -1010,7 +1010,7 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
   reqAddBtn.addEventListener('click', () => void onAddRequirement())
   reqType.addEventListener('change', onRequirementTypeChange)
   reqDocs.addEventListener('focus', () => {
-    if (!reqDocs.value.trim()) reqDocs.value = '• '
+    if (!reqDocs.value.trim()) reqDocs.value = 'â€¢ '
     autoResizeReqDocs()
   })
   reqDocs.addEventListener('blur', formatBulletLines)
@@ -1060,5 +1060,6 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
     saveButton.removeEventListener('click', onSave)
   }
 }
+
 
 

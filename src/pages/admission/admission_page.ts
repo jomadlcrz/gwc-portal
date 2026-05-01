@@ -1,4 +1,4 @@
-import '../../styles/admission.css'
+﻿import '../../styles/admission.css'
 const gwcLogo = '/images/gwc_logo.avif'
 const gwcLogoWhite = '/images/gwc_logo_white.avif'
 const coverImage = '/images/cover.avif'
@@ -649,7 +649,7 @@ export function setupadmission_page(app: HTMLDivElement): () => void {
 
   const sanitizeDocs = (docs: string[]): string[] =>
     docs
-      .map((entry) => entry.trim().replace(/^([-*�]|•)\s*/, ''))
+      .map((entry) => entry.trim().replace(/^([-*•]|â€¢)\s*/, ''))
       .filter((entry) => entry.length > 0)
 
   const renderRequirements = async (): Promise<void> => {
@@ -894,6 +894,7 @@ export function setupadmission_status_details_page(app: HTMLDivElement): () => v
 export function renderadmission_contact_page(): string {
   return renderadmission_shell('contact')
 }
+
 
 
 

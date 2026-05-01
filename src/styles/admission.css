@@ -1,4 +1,4 @@
-.admission-page {
+﻿.admission-page {
   min-height: var(--layout-page-min-height);
   background: linear-gradient(180deg, #f4f7fc 0%, #eef3fb 100%);
   color: var(--color-text-primary);
@@ -192,7 +192,7 @@
   margin-top: 1rem;
   background: var(--color-white);
   border: 1px solid #d1dceb;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-sm);
   overflow: hidden;
 }
 
@@ -302,7 +302,7 @@
 
 .admission-timeline-content {
   border: 1px solid #d9e2ef;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   padding: 0.9rem 0.88rem 0.82rem;
   background: #f8fbff;
 }
@@ -310,7 +310,7 @@
 .accordion-button {
   padding: 0.9rem 1.1rem;
   border: 1px solid #d3ddec;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   background: #f8fafc;
   color: var(--dark-blue);
 }
@@ -347,7 +347,7 @@
 .admission-note-panel {
   border: 1px solid #eadba9;
   background: #fff9e8;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   padding: 0.9rem 0.88rem;
 }
 
@@ -420,7 +420,7 @@
 
 .admission-process-list li {
   border: 1px solid #d6dfec;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   padding: 0.74rem 0.68rem;
   min-height: 100%;
 }
@@ -864,7 +864,7 @@
   margin-top: 0.8rem;
   background: #f8fafc;
   border: 1px solid #d4dce9;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   padding: 1rem;
   width: min(100%, 700px);
 }
@@ -962,7 +962,7 @@
   width: min(100%, 700px);
   margin-top: 0.8rem;
   border: 1px solid #d4dce9;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   background: #f8fafc;
   padding: 2rem 1.25rem;
   display: grid;
@@ -2023,3 +2023,4 @@
     gap: 0.35rem;
   }
 }
+

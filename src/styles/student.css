@@ -1,4 +1,4 @@
-.student-shell-page {
+﻿.student-shell-page {
   min-height: var(--layout-page-min-height);
   padding-top: var(--layout-page-top-offset);
   background: var(--layout-page-bg);
@@ -85,7 +85,7 @@
   position: relative;
   color: var(--color-slate-200);
   text-decoration: none;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   font-weight: 700;
   font-size: 0.82rem;
 }
@@ -119,7 +119,7 @@
   width: 2px;
   height: 65%;
   transform: translateY(-50%);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-sm);
   background: var(--gold);
 }
 
@@ -130,7 +130,7 @@
 
 .student-panel {
   border: var(--border-width-1) solid var(--color-surface-300);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-sm);
   background: var(--color-white);
   padding: clamp(0.85rem, 2vw, 1.1rem);
 }
@@ -268,7 +268,7 @@
 .student-schedule-table-wrap {
   overflow-x: auto;
   border: 1px solid #d2deeb;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
 }
 
 .student-schedule-mobile-list {
@@ -280,7 +280,7 @@
   table-layout: auto;
   border-collapse: collapse;
   background: #fff;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   min-width: 760px;
 }
 
@@ -406,7 +406,7 @@
 
 .student-kpi-card {
   border: 1px solid #dbe6f1;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   background: #f8fbff;
   padding: 0.52rem 0.58rem;
   display: flex;
@@ -480,7 +480,7 @@
 
 .student-dashboard-card {
   border: 1px solid var(--color-surface-300);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   background: var(--color-white);
   padding: 0.75rem;
 }
@@ -809,6 +809,7 @@
     display: none !important;
   }
 }
+
 
 
 

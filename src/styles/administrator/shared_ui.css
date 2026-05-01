@@ -1,4 +1,4 @@
-.admin-directory-search {
+﻿.admin-directory-search {
   position: relative;
   display: block;
   min-width: min(40vw, 240px);
@@ -30,7 +30,7 @@
   display: block;
   width: 100%;
   border: var(--border-width-1) solid #b9c9de;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   background: var(--color-white);
   padding: 0.48rem 0.62rem 0.48rem 1.8rem;
   font-size: 0.88rem;
@@ -148,7 +148,7 @@
   min-width: 130px;
   padding: 0.28rem;
   border: var(--border-width-1) solid #d4dce8;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   background: var(--color-white);
   box-shadow: 0 10px 24px rgb(15 23 42 / 16%);
   z-index: 5;
@@ -213,3 +213,4 @@
     font-size: 0.78rem;
   }
 }
+

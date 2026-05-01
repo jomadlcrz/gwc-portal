@@ -1,4 +1,4 @@
-import { STUDENT_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
+﻿import { STUDENT_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { resolveStudentScheduleById } from '../../../data/student_schedule'
 import { resolveStudentScheduleRows } from '../../../data/student_schedule_entries'
@@ -263,3 +263,4 @@ export function setupstudent_schedule_page(root: HTMLElement): () => void {
     window.removeEventListener('keydown', onPrintShortcut)
   }
 }
+

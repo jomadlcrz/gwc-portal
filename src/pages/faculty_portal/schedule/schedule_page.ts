@@ -1,4 +1,4 @@
-import { FACULTY_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
+﻿import { FACULTY_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { INSTRUCTOR_SCHEDULES, SCHEDULE_DAY_ORDER, type InstructorSchedule } from '../../../data/schedule'
 
@@ -187,3 +187,4 @@ export function renderfaculty_schedule_page(): string {
     `,
   )
 }
+

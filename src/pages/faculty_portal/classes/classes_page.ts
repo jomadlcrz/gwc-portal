@@ -1,4 +1,4 @@
-import { FACULTY_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
+﻿import { FACULTY_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderSharedModal } from '../../../components/ui/modal'
 import { schedulingService } from '../../../features/scheduling/service'
@@ -63,3 +63,4 @@ export function renderfaculty_classes_page(): string {
     `,
   )
 }
+
