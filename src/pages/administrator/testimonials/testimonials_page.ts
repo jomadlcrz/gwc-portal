@@ -46,7 +46,8 @@ export function rendertestimonials_page(): string {
             <a class="admin-posts-create-link" href="${ROUTES.ADMINISTRATOR_TESTIMONIALS_CREATE}">Add New</a>
           </header>
           <div class="admin-post-table-wrap">
-            <table class="admin-post-table">
+            <div class="table-responsive">
+            <table class="table table-striped table-hover admin-post-table">
               <thead>
                 <tr>
                   <th>Name</th>
@@ -57,6 +58,7 @@ export function rendertestimonials_page(): string {
               </thead>
               <tbody>${renderRows()}</tbody>
             </table>
+            </div>
           </div>
         </article>
       </section>

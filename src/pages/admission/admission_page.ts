@@ -1,4 +1,4 @@
-﻿import '../../styles/admission.css'
+import '../../styles/admission.css'
 const gwcLogo = '/images/gwc_logo.avif'
 const gwcLogoWhite = '/images/gwc_logo_white.avif'
 const coverImage = '/images/cover.avif'
@@ -513,7 +513,8 @@ function renderAdmissionContent(active: AdmissionSection): string {
         <section class="admission-section-card admission-section-card-no-margin">
           <div class="admission-content-block">
             <div class="admission-table-wrap">
-              <table class="admission-table">
+              <div class="table-responsive">
+              <table class="table table-striped table-hover admission-table">
                 <thead>
                   <tr>
                     <th>Campus</th>
@@ -527,6 +528,7 @@ function renderAdmissionContent(active: AdmissionSection): string {
                   </tr>
                 </tbody>
               </table>
+              </div>
             </div>
           </div>
         </section>
@@ -647,7 +649,7 @@ export function setupadmission_page(app: HTMLDivElement): () => void {
 
   const sanitizeDocs = (docs: string[]): string[] =>
     docs
-      .map((entry) => entry.trim().replace(/^([-*•]|â€¢)\s*/, ''))
+      .map((entry) => entry.trim().replace(/^([-*�]|•)\s*/, ''))
       .filter((entry) => entry.length > 0)
 
   const renderRequirements = async (): Promise<void> => {

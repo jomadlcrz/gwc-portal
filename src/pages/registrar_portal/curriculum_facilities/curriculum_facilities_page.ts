@@ -111,7 +111,8 @@ function renderTableCard(
         <a href="${footerHref}" class="cf-card-link">${footerLink}</a>
       </header>
       <div class="cf-table-wrap">
-        <table class="cf-table">
+        <div class="table-responsive">
+        <table class="table table-striped table-hover cf-table">
           <thead>
             <tr>${headers.map((header) => `<th>${header}</th>`).join('')}</tr>
           </thead>
@@ -119,6 +120,7 @@ function renderTableCard(
             ${rows.map((row) => `<tr>${row.map((col) => `<td>${col}</td>`).join('')}</tr>`).join('')}
           </tbody>
         </table>
+        </div>
       </div>
     </article>
   `

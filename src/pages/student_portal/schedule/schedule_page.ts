@@ -144,7 +144,8 @@ export function renderstudent_schedule_page(): string {
           <h3 class="student-schedule-title">${studentProfile.semesterLabel}</h3>
 
           <div class="student-schedule-table-wrap">
-            <table class="student-schedule-table">
+            <div class="table-responsive">
+            <table class="table table-striped table-hover student-schedule-table">
               <colgroup>
                 <col class="student-schedule-col-code" />
                 <col class="student-schedule-col-title" />
@@ -190,6 +191,7 @@ export function renderstudent_schedule_page(): string {
                 }
               </tbody>
             </table>
+            </div>
           </div>
           <div class="student-schedule-mobile-list" data-student-schedule-mobile>
             ${

@@ -46,7 +46,8 @@ export function renderposts_page(): string {
             <a class="admin-posts-create-link" href="${ROUTES.ADMINISTRATOR_POSTS_CREATE}">Create Post</a>
           </header>
           <div class="admin-post-table-wrap">
-            <table class="admin-post-table">
+            <div class="table-responsive">
+            <table class="table table-striped table-hover admin-post-table">
               <thead>
                 <tr>
                   <th>Title</th>
@@ -57,6 +58,7 @@ export function renderposts_page(): string {
               </thead>
               <tbody>${renderPostsRows()}</tbody>
             </table>
+            </div>
           </div>
         </article>
       </section>

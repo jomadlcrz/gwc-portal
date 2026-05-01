@@ -151,7 +151,8 @@ function renderScheduleGrid(instructor: InstructorSchedule): string {
   const activeDay = getCurrentScheduleDay()
   return `
     <div class="registrar-schedule-grid-wrap">
-      <table class="registrar-schedule-grid">
+      <div class="table-responsive">
+      <table class="table table-striped table-hover registrar-schedule-grid">
         <thead>
           <tr>
             <th>Time</th>
@@ -185,6 +186,7 @@ function renderScheduleGrid(instructor: InstructorSchedule): string {
           </tr>
         </tfoot>
       </table>
+      </div>
     </div>
     <div class="registrar-schedule-mobile-shell" data-mobile-schedule>
       <div class="registrar-schedule-mobile-day-tabs" role="tablist" aria-label="Schedule days">

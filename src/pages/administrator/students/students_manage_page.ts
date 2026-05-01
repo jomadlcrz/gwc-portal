@@ -277,7 +277,8 @@ export function renderstudents_manage_page(): string {
           </section>
 
           <div class="admin-table-wrap">
-            <table class="admin-table">
+            <div class="table-responsive">
+            <table class="table table-striped table-hover admin-table">
               <thead>
                 <tr>
                   <th>Student No.</th>
@@ -295,6 +296,7 @@ export function renderstudents_manage_page(): string {
                 </tr>
               </tbody>
             </table>
+            </div>
           </div>
 
           <div class="admin-student-pagination" data-student-pagination>

@@ -189,7 +189,8 @@ export function renderregistrar_schedule_manage_page(): string {
           </section>
 
           <div class="admin-table-wrap mt-2">
-            <table class="admin-table">
+            <div class="table-responsive">
+            <table class="table table-striped table-hover admin-table">
               <thead>
                 <tr>
                   <th>Term</th>
@@ -207,6 +208,7 @@ export function renderregistrar_schedule_manage_page(): string {
                 </tr>
               </tbody>
             </table>
+            </div>
           </div>
 
           <div class="admin-student-pagination" data-schedule-pagination>

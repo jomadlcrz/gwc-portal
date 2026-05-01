@@ -201,7 +201,8 @@ export function renderhr_faculty_manage_page(): string {
           </section>
 
           <div class="admin-table-wrap">
-            <table class="admin-table">
+            <div class="table-responsive">
+            <table class="table table-striped table-hover admin-table">
               <thead>
                 <tr>
                   <th>School ID</th>
@@ -219,6 +220,7 @@ export function renderhr_faculty_manage_page(): string {
                 </tr>
               </tbody>
             </table>
+            </div>
           </div>
 
           <div class="admin-student-pagination" data-hr-faculty-pagination>
