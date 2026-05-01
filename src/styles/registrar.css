@@ -2005,6 +2005,8 @@
   border-color: var(--color-surface-500);
   border-radius: var(--radius-md);
   display: block;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .cf-table-head {
@@ -2025,8 +2027,15 @@
 
 .cf-table-wrap {
   overflow-x: auto;
+  max-width: 100%;
   -webkit-overflow-scrolling: touch;
   scrollbar-gutter: stable;
+}
+
+.cf-list-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .cf-table {

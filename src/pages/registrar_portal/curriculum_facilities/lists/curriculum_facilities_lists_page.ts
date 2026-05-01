@@ -26,7 +26,7 @@ function renderListPage(title: string, headers: string[], rows: Row[]): string {
             </div>
             <button type="button" class="btn btn-sm btn-primary" data-cf-add-item="${itemLabel}">+ Add ${itemLabel}</button>
           </header>
-          <div class="cf-table-wrap">
+          <div class="cf-table-wrap cf-list-table-wrap">
             <table class="cf-table">
               <thead>
                 <tr>${tableHeaders.map((header) => `<th>${header}</th>`).join('')}</tr>
