@@ -36,9 +36,9 @@ export function renderregistrar_schedule_v2_page(): string {
               <h3>Schedule Builder</h3>
             </div>
             <div class="registrar-schedule-v2-head-actions">
-              <button type="button" class="btn btn-sm btn-outline-secondary" data-schedule-v2-open-details><i class="bi bi-layout-sidebar-inset"></i> Details</button>
               <button type="button" class="btn btn-sm btn-primary"><i class="bi bi-stars"></i> Auto Generate</button>
-              <button type="button" class="btn btn-sm btn-success"><i class="bi bi-plus-lg"></i> Add Schedule</button>
+              <button type="button" class="btn btn-sm btn-success" data-schedule-v2-open-add><i class="bi bi-plus-lg"></i> Add Schedule</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary" data-schedule-v2-open-edit><i class="bi bi-pencil-square"></i> Edit Schedule</button>
               <button type="button" class="btn btn-sm btn-outline-danger"><i class="bi bi-exclamation-octagon"></i> Detect Conflicts</button>
             </div>
           </header>
@@ -179,15 +179,12 @@ export function renderregistrar_schedule_v2_page(): string {
             data-schedule-v2-details
           >
             <div class="offcanvas-header">
-              <h4 id="schedule-v2-details-label" class="offcanvas-title">Schedule Details</h4>
+              <h4 id="schedule-v2-details-label" class="offcanvas-title" data-schedule-v2-details-title>Add Schedule</h4>
               <button type="button" class="btn-close" aria-label="Close" data-schedule-v2-close-details></button>
             </div>
             <div class="offcanvas-body">
-              <div class="registrar-schedule-v2-tabs">
-                <button type="button" class="is-active" data-schedule-v2-tab="add">Add Schedule</button>
-                <button type="button" data-schedule-v2-tab="edit">Edit Selection</button>
-              </div>
               <div class="registrar-schedule-v2-form">
+                <p class="registrar-schedule-v2-duration" data-schedule-v2-form-hint>Set up a new schedule slot.</p>
                 <div class="registrar-schedule-v2-two">
                   <label><span>Program</span><select class="form-select form-select-sm"><option>BS Information Technology</option></select></label>
                   <label><span>Section</span><select class="form-select form-select-sm"><option>2A</option></select></label>
@@ -225,11 +222,11 @@ export function renderregistrar_schedule_v2_page(): string {
                 <p class="registrar-schedule-v2-duration">Duration: <strong>5 hrs</strong></p>
                 <div class="registrar-schedule-v2-form-actions">
                   <button type="button" class="btn btn-sm btn-light" data-schedule-v2-close-details>Cancel</button>
-                  <button type="button" class="btn btn-sm btn-primary">Save Schedule</button>
+                  <button type="button" class="btn btn-sm btn-primary" data-schedule-v2-submit-btn>Save Schedule</button>
                 </div>
               </div>
 
-              <div class="registrar-schedule-v2-load">
+              <div class="registrar-schedule-v2-load" data-schedule-v2-load-panel hidden>
                 <h5>Instructor Load</h5>
                 <p><span>Dela. Daka Cruz</span><strong></strong></p>
                 <p><span>Max Hours / Week</span><strong>30 hrs</strong></p>
@@ -259,8 +256,34 @@ export function renderregistrar_schedule_v2_page(): string {
 }
 
 export function setupregistrar_schedule_v2_page(root: HTMLElement): () => void {
+  type SchedulePanelMode = 'add' | 'edit'
+
   const detailsOffcanvas = root.querySelector<HTMLElement>('[data-schedule-v2-details]')
   const backdrop = root.querySelector<HTMLElement>('[data-schedule-v2-backdrop]')
+  const detailsTitle = root.querySelector<HTMLElement>('[data-schedule-v2-details-title]')
+  const formHint = root.querySelector<HTMLElement>('[data-schedule-v2-form-hint]')
+  const submitButton = root.querySelector<HTMLButtonElement>('[data-schedule-v2-submit-btn]')
+  const loadPanel = root.querySelector<HTMLElement>('[data-schedule-v2-load-panel]')
+  let mode: SchedulePanelMode = 'add'
+
+  const applyMode = (nextMode: SchedulePanelMode): void => {
+    mode = nextMode
+    if (detailsTitle) {
+      detailsTitle.textContent = mode === 'add' ? 'Add Schedule' : 'Edit Schedule'
+    }
+    if (formHint) {
+      formHint.innerHTML =
+        mode === 'add'
+          ? 'Set up a new schedule slot.'
+          : 'Update an existing schedule slot. <strong>Instructor Load</strong> is shown for conflict checks.'
+    }
+    if (submitButton) {
+      submitButton.textContent = mode === 'add' ? 'Save Schedule' : 'Update Schedule'
+    }
+    if (loadPanel) {
+      loadPanel.hidden = mode !== 'edit'
+    }
+  }
 
   const closeDetails = (): void => {
     if (!detailsOffcanvas || !backdrop) return
@@ -270,8 +293,9 @@ export function setupregistrar_schedule_v2_page(root: HTMLElement): () => void {
     document.body.classList.remove('registrar-schedule-v2-offcanvas-open')
   }
 
-  const openDetails = (): void => {
+  const openDetails = (nextMode: SchedulePanelMode): void => {
     if (!detailsOffcanvas || !backdrop) return
+    applyMode(nextMode)
     detailsOffcanvas.classList.add('show')
     backdrop.removeAttribute('hidden')
     window.requestAnimationFrame(() => {
@@ -290,20 +314,14 @@ export function setupregistrar_schedule_v2_page(root: HTMLElement): () => void {
     button.classList.add('is-active')
   }
 
-  const onTabClick = (event: Event): void => {
-    const target = event.target as HTMLElement | null
-    const button = target?.closest<HTMLButtonElement>('[data-schedule-v2-tab]')
-    if (!button) return
-    const group = button.parentElement
-    if (!group) return
-    Array.from(group.querySelectorAll('button')).forEach((item) => item.classList.remove('is-active'))
-    button.classList.add('is-active')
-  }
-
   const onDetailsClick = (event: Event): void => {
     const target = event.target as HTMLElement | null
-    if (target?.closest('[data-schedule-v2-open-details]')) {
-      openDetails()
+    if (target?.closest('[data-schedule-v2-open-add]')) {
+      openDetails('add')
+      return
+    }
+    if (target?.closest('[data-schedule-v2-open-edit]')) {
+      openDetails('edit')
       return
     }
     if (target?.closest('[data-schedule-v2-close-details]')) {
@@ -318,13 +336,12 @@ export function setupregistrar_schedule_v2_page(root: HTMLElement): () => void {
   }
 
   root.addEventListener('click', onViewClick)
-  root.addEventListener('click', onTabClick)
   root.addEventListener('click', onDetailsClick)
   document.addEventListener('keydown', onEsc)
+  applyMode('add')
   return () => {
     closeDetails()
     root.removeEventListener('click', onViewClick)
-    root.removeEventListener('click', onTabClick)
     root.removeEventListener('click', onDetailsClick)
     document.removeEventListener('keydown', onEsc)
   }
