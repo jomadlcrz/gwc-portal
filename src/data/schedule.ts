@@ -215,7 +215,13 @@ export function listInstructorSchedules(scope: ScheduleBoardScope = 'All'): Inst
         const existingSlot = slotMap.get(time) ?? { time, values: {} }
         const existingValue = existingSlot.values[dayKey]
         const nextValue = buildBoardLabel(item)
-        existingSlot.values[dayKey] = existingValue ? `${existingValue} / ${nextValue}` : nextValue
+        if (!existingValue) {
+          existingSlot.values[dayKey] = nextValue
+        } else {
+          const labels = new Set(existingValue.split('/').map((value) => value.trim()).filter(Boolean))
+          labels.add(nextValue)
+          existingSlot.values[dayKey] = Array.from(labels).join(' / ')
+        }
         slotMap.set(time, existingSlot)
       })
 
