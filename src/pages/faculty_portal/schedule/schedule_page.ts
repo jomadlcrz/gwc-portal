@@ -116,7 +116,7 @@ function renderScheduleGrid(schedule: InstructorSchedule): string {
                       const value = slot.values[day.key]
                       if (!value) return '<td><span class="registrar-schedule-empty-mark">-</span></td>'
                       const chipClass = getScheduleChipClass(value, schedule.room)
-                      return `<td><span class="registrar-schedule-chip ${chipClass}">${schedule.name} - ${value}</span></td>`
+                      return `<td><span class="registrar-schedule-chip ${chipClass}">${value}</span></td>`
                     })
                     .join('')}
                 </tr>
