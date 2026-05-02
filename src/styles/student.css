@@ -795,6 +795,7 @@
 
   .student-schedule-table-wrap {
     overflow: visible !important;
+    border: 0 !important;
   }
 
   .student-schedule-table {
