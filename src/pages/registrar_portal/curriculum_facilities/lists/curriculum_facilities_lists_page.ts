@@ -61,6 +61,20 @@ function renderListPage(title: string, headers: string[], rows: Row[]): string {
           </div>
         </article>
       </section>
+      <div class="offcanvas-backdrop fade" data-cf-add-backdrop hidden></div>
+      <aside class="offcanvas offcanvas-end registrar-cf-list-offcanvas" tabindex="-1" aria-labelledby="registrar-cf-add-label" data-cf-add-offcanvas>
+        <div class="offcanvas-header">
+          <h4 id="registrar-cf-add-label" class="offcanvas-title" data-cf-add-title>New Item</h4>
+          <button type="button" class="btn-close" aria-label="Close" data-cf-add-close></button>
+        </div>
+        <div class="offcanvas-body">
+          <div data-cf-add-body></div>
+          <div class="registrar-cf-list-offcanvas-actions mt-3">
+            <button type="button" class="btn btn-light" data-cf-add-close>Cancel</button>
+            <button type="button" class="btn btn-primary" data-cf-add-confirm>Save</button>
+          </div>
+        </div>
+      </aside>
       ${renderSharedModal('registrar-cf-list-modal')}
       ${renderSharedToastContainer('registrar-cf-list-toast')}
     `,
@@ -70,6 +84,12 @@ function renderListPage(title: string, headers: string[], rows: Row[]): string {
 export function setupregistrar_curriculum_lists_page(root: HTMLElement): () => void {
   const modal = setupSharedModal(root, { modalSelector: '#registrar-cf-list-modal' })
   const toast = setupSharedToast(root, '#registrar-cf-list-toast')
+  const addOffcanvas = root.querySelector<HTMLElement>('[data-cf-add-offcanvas]')
+  const addBackdrop = root.querySelector<HTMLElement>('[data-cf-add-backdrop]')
+  const addTitle = root.querySelector<HTMLElement>('[data-cf-add-title]')
+  const addBody = root.querySelector<HTMLElement>('[data-cf-add-body]')
+  const addConfirm = root.querySelector<HTMLButtonElement>('[data-cf-add-confirm]')
+  let addConfirmHandler: (() => void) | null = null
 
   const getRowFromActionButton = (button: HTMLButtonElement): HTMLTableRowElement | null =>
     button.closest<HTMLTableRowElement>('tr[data-cf-row]')
@@ -119,10 +139,57 @@ export function setupregistrar_curriculum_lists_page(root: HTMLElement): () => v
       </div>
     `
 
+  const renderAddFields = (labels: string[]): string =>
+    `
+      <div class="shared-modal-grid shared-modal-grid-2">
+        ${labels
+          .map(
+            (label, index) => `
+              <div class="form-floating">
+                <input class="form-control" placeholder=" " value="" data-cf-add-field="${index}" />
+                <label>${label}</label>
+              </div>
+            `,
+          )
+          .join('')}
+      </div>
+    `
+
+  const closeAddOffcanvas = (): void => {
+    if (!addOffcanvas || !addBackdrop) return
+    addOffcanvas.classList.remove('show')
+    addBackdrop.classList.remove('show')
+    addBackdrop.setAttribute('hidden', '')
+    document.body.classList.remove('registrar-cf-list-offcanvas-open')
+  }
+
+  const openAddOffcanvas = (title: string, bodyHtml: string, onConfirm: () => void): void => {
+    if (!addOffcanvas || !addBackdrop || !addTitle || !addBody || !addConfirm) return
+    addTitle.textContent = title
+    addBody.innerHTML = bodyHtml
+    addConfirmHandler = onConfirm
+    addOffcanvas.classList.add('show')
+    addBackdrop.removeAttribute('hidden')
+    window.requestAnimationFrame(() => addBackdrop.classList.add('show'))
+    document.body.classList.add('registrar-cf-list-offcanvas-open')
+  }
+
   const onActionClick = (event: Event): void => {
     const target = event.target as HTMLElement | null
     const actionButton = target?.closest<HTMLButtonElement>('[data-cf-row-action]')
     const addButton = target?.closest<HTMLButtonElement>('[data-cf-add-item]')
+    const addCloseButton = target?.closest<HTMLElement>('[data-cf-add-close]')
+    const addConfirmButton = target?.closest<HTMLElement>('[data-cf-add-confirm]')
+
+    if (addCloseButton || target?.closest('[data-cf-add-backdrop]')) {
+      closeAddOffcanvas()
+      return
+    }
+
+    if (addConfirmButton) {
+      addConfirmHandler?.()
+      return
+    }
 
     if (addButton) {
       const itemLabel = addButton.dataset.cfAddItem || 'Item'
@@ -131,15 +198,9 @@ export function setupregistrar_curriculum_lists_page(root: HTMLElement): () => v
         .slice(0, -1)
         .map((header) => header.textContent?.trim() || '')
 
-      modal.setMode('form')
-      modal.setOnConfirm(() => {
+      openAddOffcanvas(`Add ${itemLabel}`, renderAddFields(headers), () => {
         toast.show(`${itemLabel} saved successfully.`)
-        modal.close()
-      })
-      modal.open({
-        title: `Add ${itemLabel}`,
-        bodyHtml: renderEditableFields(headers, Array.from({ length: headers.length }, () => '')),
-        confirmLabel: 'Save',
+        closeAddOffcanvas()
       })
       return
     }
@@ -220,6 +281,7 @@ export function setupregistrar_curriculum_lists_page(root: HTMLElement): () => v
   root.addEventListener('click', onActionClick)
 
   return () => {
+    closeAddOffcanvas()
     toast.destroy()
     modal.destroy()
     root.removeEventListener('click', onActionClick)

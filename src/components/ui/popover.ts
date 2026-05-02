@@ -94,6 +94,14 @@ export function setupSharedPopover(root: HTMLElement): () => void {
   const onDocumentClick = (event: MouseEvent): void => {
     const target = event.target as Node | null
     if (!target) return
+    const elementTarget = target as HTMLElement
+
+    const clickedInsideModal =
+      Boolean(elementTarget.closest?.('[data-shared-modal]')) ||
+      Boolean(elementTarget.closest?.('.modal-backdrop')) ||
+      Boolean(elementTarget.closest?.('[data-cf-add-offcanvas]')) ||
+      Boolean(elementTarget.closest?.('[data-cf-add-backdrop]'))
+    if (clickedInsideModal) return
 
     const clickedInside = actionMenus.some((menu) => menu.contains(target)) || actionTriggers.some((trigger) => trigger.contains(target))
     if (!clickedInside) closeAllActions()
@@ -108,9 +116,16 @@ export function setupSharedPopover(root: HTMLElement): () => void {
   }
 
   const onEscape = (event: KeyboardEvent): void => {
-    if (event.key === 'Escape') {
-      closeAllActions()
-    }
+    if (event.key !== 'Escape') return
+
+    const modalOrPanelOpen =
+      Boolean(document.querySelector('[data-shared-modal].show')) ||
+      Boolean(document.querySelector('.modal-backdrop.show')) ||
+      Boolean(document.querySelector('[data-cf-add-offcanvas].show')) ||
+      Boolean(document.querySelector('[data-cf-add-backdrop].show'))
+    if (modalOrPanelOpen) return
+
+    closeAllActions()
   }
 
   actionTriggers.forEach((trigger) => trigger.addEventListener('click', onActionTriggerClick))
