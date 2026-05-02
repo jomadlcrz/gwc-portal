@@ -55,7 +55,7 @@ export type BsitCurriculumTerm = {
   subjects: BsitSeedSubject[]
 }
 
-export const BSIT_CURRICULUM_MOCK: BsitCurriculumTerm[] = [
+export const BSIT_CURRICULUM_DATA: BsitCurriculumTerm[] = [
   {
     yearLabel: 'First Year',
     semesterLabel: '1st Semester',

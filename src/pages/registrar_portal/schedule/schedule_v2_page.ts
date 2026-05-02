@@ -1,112 +1,89 @@
-﻿import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
+import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
+import {
+  SCHEDULE_DAY_ORDER,
+  getScheduleDayLabel,
+  listScheduleConflicts,
+  listSchedulePlannerEntries,
+  listSchedulePrograms,
+  listScheduleRoomSummaries,
+  listScheduleSections,
+  listScheduleSubjectSummaries,
+  listScheduleTimeRows,
+  toScheduleDisplayTime,
+  type SchedulePlannerEntry,
+} from '../../../data/schedule'
 
-const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as const
-const HOURS = [
-  { start: '7:00 AM', end: '8:00 AM' },
-  { start: '8:00 AM', end: '9:00 AM' },
-  { start: '9:00 AM', end: '10:00 AM' },
-  { start: '10:00 AM', end: '11:00 AM' },
-  { start: '11:00 AM', end: '12:00 PM' },
-  { start: '12:00 PM', end: '1:00 PM' },
-  { start: '1:00 PM', end: '2:00 PM' },
-  { start: '2:00 PM', end: '3:00 PM' },
-  { start: '3:00 PM', end: '4:00 PM' },
-  { start: '4:00 PM', end: '5:00 PM' },
-] as const
+const ENTRIES = listSchedulePlannerEntries()
+const TIME_ROWS = listScheduleTimeRows()
+const PROGRAMS = listSchedulePrograms()
+const SECTIONS = listScheduleSections()
+const SUBJECTS = listScheduleSubjectSummaries()
+const ROOMS = listScheduleRoomSummaries()
+const CONFLICTS = listScheduleConflicts()
+const FIRST_ENTRY = ENTRIES[0]
 
-type ScheduleListEntry = {
-  day: string
-  time: string
-  subject: string
-  meta: string
-  instructor: string
-  room: string
-  program: string
-  section: string
-  tone: 'blue' | 'violet' | 'yellow' | 'teal' | 'indigo'
+function getDurationHours(startTime: string, endTime: string): string {
+  const toMinutes = (value: string): number => {
+    const [hourText, minuteText = '0'] = value.split(':')
+    return Number.parseInt(hourText, 10) * 60 + Number.parseInt(minuteText, 10)
+  }
+  const duration = (toMinutes(endTime) - toMinutes(startTime)) / 60
+  return Number.isInteger(duration) ? `${duration} hrs` : `${duration.toFixed(1)} hrs`
 }
 
-const LIST_ENTRIES: ScheduleListEntry[] = [
-  {
-    day: 'Monday',
-    time: '7:00 AM - 8:00 AM',
-    subject: 'IT 204',
-    meta: 'Web Systems',
-    instructor: 'Prof. D. Dela Cruz',
-    room: 'Room 301',
-    program: 'BS Information Technology',
-    section: '2A',
-    tone: 'blue',
-  },
-  {
-    day: 'Monday',
-    time: '8:00 AM - 9:00 AM',
-    subject: 'MATH 201',
-    meta: 'Discrete Math',
-    instructor: 'Prof. N. Reyes',
-    room: 'Room 305',
-    program: 'BS Information Technology',
-    section: '2A',
-    tone: 'violet',
-  },
-  {
-    day: 'Tuesday',
-    time: '8:00 AM - 11:00 AM',
-    subject: 'PE 2',
-    meta: 'Physical Education',
-    instructor: 'Coach J. Ramos',
-    room: 'Activity Center',
-    program: 'BS Information Technology',
-    section: '2A',
-    tone: 'yellow',
-  },
-  {
-    day: 'Wednesday',
-    time: '1:00 PM - 3:00 PM',
-    subject: 'CS 201',
-    meta: 'Data Structures',
-    instructor: 'Prof. L. Santos',
-    room: 'Room 302',
-    program: 'BS Computer Science',
-    section: '2B',
-    tone: 'violet',
-  },
-  {
-    day: 'Thursday',
-    time: '2:00 PM - 5:00 PM',
-    subject: 'IT 205 LAB',
-    meta: 'Network Lab',
-    instructor: 'Engr. A. Gomez',
-    room: 'Lab 1',
-    program: 'BS Information Technology',
-    section: '2A',
-    tone: 'teal',
-  },
-  {
-    day: 'Friday',
-    time: '7:00 AM - 8:00 AM',
-    subject: 'NSTP 2',
-    meta: 'CWTS',
-    instructor: 'Lt. C. Valdez',
-    room: 'Room 201',
-    program: 'BS Information Technology',
-    section: '2A',
-    tone: 'indigo',
-  },
-]
+function getBadgeClass(category: string): string {
+  if (category === 'Major (with lab)') return 'text-bg-primary'
+  if (category === 'GE') return 'text-bg-success'
+  if (category === 'Minor') return 'text-bg-secondary'
+  return 'text-bg-info'
+}
 
-function renderCell(label = '', meta = '', tone = 'neutral'): string {
-  if (!label) return '<div class="registrar-schedule-v2-cell registrar-schedule-v2-cell-empty"></div>'
+function renderOptions(values: string[], fallback: string): string {
+  const options = values.length ? values : [fallback]
+  return options.map((value) => `<option>${value}</option>`).join('')
+}
+
+function renderCell(entries: SchedulePlannerEntry[] = []): string {
+  if (!entries.length) return '<div class="registrar-schedule-v2-cell registrar-schedule-v2-cell-empty"></div>'
+  const tone = entries[0].tone
   return `
     <div class="registrar-schedule-v2-cell registrar-schedule-v2-cell-${tone}">
-      <strong>${label}</strong>
-      <small>${meta}</small>
+      ${entries
+        .map(
+          (entry) => `
+            <strong>${entry.subject}</strong>
+            <small>${entry.section} - ${entry.room}</small>
+          `,
+        )
+        .join('')}
     </div>
   `
 }
 
-function renderList(entries: ScheduleListEntry[]): string {
-  const grouped = entries.reduce<Record<string, ScheduleListEntry[]>>((acc, entry) => {
+function renderGrid(): string {
+  return TIME_ROWS
+    .map(
+      (timeRow) => `
+        <div class="registrar-schedule-v2-time"><span>${timeRow.startLabel}</span><span>${timeRow.endLabel}</span></div>
+        ${SCHEDULE_DAY_ORDER
+          .map((day) =>
+            renderCell(
+              ENTRIES.filter(
+                (entry) =>
+                  entry.dayKey === day &&
+                  entry.startTime === timeRow.startTime &&
+                  entry.endTime === timeRow.endTime,
+              ),
+            ),
+          )
+          .join('')}
+      `,
+    )
+    .join('')
+}
+
+function renderList(entries: SchedulePlannerEntry[]): string {
+  const grouped = entries.reduce<Record<string, SchedulePlannerEntry[]>>((acc, entry) => {
     if (!acc[entry.day]) acc[entry.day] = []
     acc[entry.day].push(entry)
     return acc
@@ -128,7 +105,7 @@ function renderList(entries: ScheduleListEntry[]): string {
                     <div>
                       <strong>${entry.subject}</strong>
                       <small>${entry.meta}</small>
-                      <span>${entry.program} · ${entry.section}</span>
+                      <span>${entry.program} - ${entry.section}</span>
                     </div>
                     <div>
                       <em>${entry.time}</em>
@@ -146,7 +123,86 @@ function renderList(entries: ScheduleListEntry[]): string {
     .join('')
 }
 
+function renderConflicts(): string {
+  if (!CONFLICTS.length) {
+    return '<div class="registrar-schedule-v2-conflict-row" role="row"><strong role="cell"><i class="bi bi-check-circle-fill"></i>No conflicts</strong><span role="cell">No overlapping instructor, room, or section blocks were detected.</span><span role="cell"></span></div>'
+  }
+
+  return CONFLICTS.map(
+    (conflict) => `
+      <div class="registrar-schedule-v2-conflict-row" role="row">
+        <strong role="cell"><i class="bi ${conflict.icon}"></i>${conflict.type}</strong>
+        <span role="cell">${conflict.detail}</span>
+        <a href="#" role="cell">View Details</a>
+      </div>
+    `,
+  ).join('')
+}
+
+function renderHourSettings(): string {
+  const groups = ENTRIES.reduce<Record<string, { units: number; subjects: Set<string>; blocks: number }>>((acc, entry) => {
+    const key = `${entry.units}-unit subjects`
+    if (!acc[key]) acc[key] = { units: entry.units, subjects: new Set<string>(), blocks: 0 }
+    acc[key].subjects.add(entry.subject)
+    acc[key].blocks += 1
+    return acc
+  }, {})
+
+  return Object.entries(groups)
+    .map(
+      ([label, group]) => `
+        <tr>
+          <td>${label}</td>
+          <td>${group.subjects.size} subjects</td>
+          <td>${group.blocks} scheduled blocks</td>
+        </tr>
+      `,
+    )
+    .join('')
+}
+
+function renderInstructorLoad(): string {
+  if (!FIRST_ENTRY) return ''
+  const instructorEntries = ENTRIES.filter((entry) => entry.instructor === FIRST_ENTRY.instructor)
+  const weeklyHours = instructorEntries.reduce((sum, entry) => sum + Number.parseFloat(getDurationHours(entry.startTime, entry.endTime)), 0)
+  const loadPercent = Math.min(100, Math.round((weeklyHours / 30) * 100))
+
+  return `
+    <h5>Instructor Load</h5>
+    <p><span>${FIRST_ENTRY.instructor}</span><strong></strong></p>
+    <p><span>Max Hours / Week</span><strong>30 hrs</strong></p>
+    <p><span>Current Load</span><strong>${weeklyHours} hrs</strong></p>
+    <div class="progress" role="progressbar" aria-label="Instructor load" aria-valuenow="${loadPercent}" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress-bar bg-success" style="width: ${loadPercent}%"></div>
+    </div>
+    <p><span>${weeklyHours} / 30 hrs (${loadPercent}%)</span><strong></strong></p>
+    <div class="registrar-schedule-v2-daily-load">
+      <h6>Daily Load (Max 10 hrs/day)</h6>
+      <div class="registrar-schedule-v2-daily-grid">
+        ${SCHEDULE_DAY_ORDER
+          .map((day) => {
+            const dailyHours = instructorEntries
+              .filter((entry) => entry.dayKey === day)
+              .reduce((sum, entry) => sum + Number.parseFloat(getDurationHours(entry.startTime, entry.endTime)), 0)
+            return `<span><strong>${day}</strong><em>${dailyHours} / 10</em></span>`
+          })
+          .join('')}
+      </div>
+    </div>
+  `
+}
+
 export function renderregistrar_schedule_v2_page(): string {
+  const defaultProgram = FIRST_ENTRY?.program ?? 'BS Information Technology'
+  const defaultSection = FIRST_ENTRY?.section ?? 'BSIT-3D'
+  const defaultSubject = FIRST_ENTRY ? `${FIRST_ENTRY.subject} - ${FIRST_ENTRY.meta}` : 'PT102 - Platform-based Development'
+  const defaultInstructor = FIRST_ENTRY?.instructor ?? 'Faculty'
+  const defaultRoom = FIRST_ENTRY?.room ?? 'Room 304'
+  const defaultDay = FIRST_ENTRY ? getScheduleDayLabel(FIRST_ENTRY.dayKey) : 'Monday'
+  const defaultStart = FIRST_ENTRY ? toScheduleDisplayTime(FIRST_ENTRY.startTime) : '9:00 AM'
+  const defaultEnd = FIRST_ENTRY ? toScheduleDisplayTime(FIRST_ENTRY.endTime) : '10:00 AM'
+  const defaultDuration = FIRST_ENTRY ? getDurationHours(FIRST_ENTRY.startTime, FIRST_ENTRY.endTime) : '1 hr'
+
   return renderPortalShell(
     registrar_SHELL_CONFIG,
     'schedule_v2',
@@ -169,15 +225,13 @@ export function renderregistrar_schedule_v2_page(): string {
             <label>
               <span>Program</span>
               <select class="form-select form-select-sm">
-                <option>BS Information Technology</option>
-                <option>BS Computer Science</option>
+                ${renderOptions(PROGRAMS, defaultProgram)}
               </select>
             </label>
             <label>
               <span>Section</span>
               <select class="form-select form-select-sm">
-                <option>2A</option>
-                <option>2B</option>
+                ${renderOptions(SECTIONS, defaultSection)}
               </select>
             </label>
             <div class="registrar-schedule-v2-view-switch" role="group" aria-label="View switch">
@@ -191,24 +245,16 @@ export function renderregistrar_schedule_v2_page(): string {
               <div class="registrar-schedule-v2-grid-wrap registrar-schedule-v2-view-panel" data-schedule-v2-view-panel="grid">
                 <div class="registrar-schedule-v2-grid-head">
                   <span>Time</span>
-                  ${DAYS.map((day) => `<span>${day}</span>`).join('')}
+                  ${SCHEDULE_DAY_ORDER.map((day) => `<span>${day}</span>`).join('')}
                 </div>
                 <div class="registrar-schedule-v2-grid">
-                  ${HOURS.map((hour, rowIndex) => `
-                    <div class="registrar-schedule-v2-time"><span>${hour.start}</span><span>${hour.end}</span></div>
-                    <div>${rowIndex === 0 ? renderCell('IT 204', 'Web Systems - Room 301', 'blue') : rowIndex === 3 ? renderCell('CS 201', 'Data Structures - Room 302', 'violet') : renderCell()}</div>
-                    <div>${rowIndex === 0 ? renderCell('MATH 201', 'Discrete Math - Room 305', 'violet') : rowIndex === 5 ? renderCell('PE 2', 'Activity Center', 'yellow') : renderCell()}</div>
-                    <div>${rowIndex === 0 ? renderCell('IT 204', 'Web Systems - Room 301', 'blue') : rowIndex === 6 ? renderCell('IT 205 LAB', 'Network Lab - Lab 1', 'teal') : renderCell()}</div>
-                    <div>${rowIndex === 0 ? renderCell('MATH 201', 'Discrete Math - Room 305', 'violet') : rowIndex === 5 ? renderCell('PE 2', 'Activity Center', 'yellow') : renderCell()}</div>
-                    <div>${rowIndex === 0 ? renderCell('IT 204', 'Web Systems - Room 301', 'blue') : rowIndex === 6 ? renderCell('IT 205 LAB', 'Network Lab - Lab 1', 'teal') : renderCell()}</div>
-                    <div>${rowIndex === 1 ? renderCell('NSTP 2', 'CWTS 2 - Room 201', 'indigo') : renderCell()}</div>
-                  `).join('')}
+                  ${renderGrid()}
                 </div>
               </div>
 
               <div class="registrar-schedule-v2-view-panel" data-schedule-v2-view-panel="list" hidden>
                 <div class="registrar-schedule-v2-list">
-                  ${renderList(LIST_ENTRIES)}
+                  ${renderList(ENTRIES)}
                 </div>
               </div>
 
@@ -216,31 +262,18 @@ export function renderregistrar_schedule_v2_page(): string {
                 <span><i class="registrar-schedule-v2-dot registrar-schedule-v2-dot-blue"></i>Major (with lab)</span>
                 <span><i class="registrar-schedule-v2-dot registrar-schedule-v2-dot-violet"></i>Major</span>
                 <span><i class="registrar-schedule-v2-dot registrar-schedule-v2-dot-yellow"></i>GE</span>
-                <span><i class="registrar-schedule-v2-dot registrar-schedule-v2-dot-teal"></i>Laboratory</span>
+                <span><i class="registrar-schedule-v2-dot registrar-schedule-v2-dot-teal"></i>Research</span>
+                <span><i class="registrar-schedule-v2-dot registrar-schedule-v2-dot-indigo"></i>Minor</span>
               </div>
 
               <section class="registrar-schedule-v2-bottom">
                 <article class="registrar-schedule-v2-card registrar-schedule-v2-conflicts">
                   <header class="registrar-schedule-v2-card-head">
                     <h5>Conflicts Detected</h5>
-                    <span class="registrar-schedule-v2-card-badge">1</span>
+                    <span class="registrar-schedule-v2-card-badge">${CONFLICTS.length}</span>
                   </header>
                   <div class="registrar-schedule-v2-conflict-table" role="table" aria-label="Conflict list">
-                    <div class="registrar-schedule-v2-conflict-row" role="row">
-                      <strong role="cell"><i class="bi bi-exclamation-circle-fill"></i>Instructor Conflict</strong>
-                      <span role="cell">Nirii Reow Mil Conflict re viersted on Sun 5:00 AM - 15:00 AM</span>
-                      <a href="#" role="cell">View Details</a>
-                    </div>
-                    <div class="registrar-schedule-v2-conflict-row" role="row">
-                      <strong role="cell"><i class="bi bi-x-circle-fill"></i>Room Conflict</strong>
-                      <span role="cell">Room 201 Canused foomed on West 8:00 AM - 11:00 AM</span>
-                      <a href="#" role="cell">View Details</a>
-                    </div>
-                    <div class="registrar-schedule-v2-conflict-row" role="row">
-                      <strong role="cell"><i class="bi bi-exclamation-triangle-fill"></i>Daily Load Warning</strong>
-                      <span role="cell">Narii Tlas Conf will wand the tlsss tast at 10 hrs on Monday</span>
-                      <a href="#" role="cell">View Details</a>
-                    </div>
+                    ${renderConflicts()}
                   </div>
                   <footer class="registrar-schedule-v2-card-foot"><a href="#">View all conflicts <i class="bi bi-chevron-down"></i></a></footer>
                 </article>
@@ -250,12 +283,10 @@ export function renderregistrar_schedule_v2_page(): string {
                   </header>
                   <table class="registrar-schedule-v2-hours-table">
                     <thead>
-                      <tr><th>Type</th><th>Max Week / Week</th><th>Max: Week / Week</th></tr>
+                      <tr><th>Type</th><th>Subjects</th><th>Scheduled Blocks</th></tr>
                     </thead>
                     <tbody>
-                      <tr><td>Ninor (Aith Labi)</td><td>4 hrs</td><td>8 hrs</td></tr>
-                      <tr><td>Niger (Without Labi)</td><td>3 hrs</td><td>4 hrs</td></tr>
-                      <tr><td>Minor</td><td>1 hrs</td><td>2 hrs</td></tr>
+                      ${renderHourSettings()}
                     </tbody>
                   </table>
                   <footer class="registrar-schedule-v2-card-foot"><a href="#">Edit settings <i class="bi bi-chevron-down"></i></a></footer>
@@ -266,35 +297,31 @@ export function renderregistrar_schedule_v2_page(): string {
             <aside class="registrar-schedule-v2-side">
               <section class="registrar-schedule-v2-side-card">
                 <header class="registrar-schedule-v2-side-head">
-                  <h5>Floating Subjects</h5>
+                  <h5>Subjects</h5>
                 </header>
                 <ul>
-                  <li><span>IT 307 - Artificial Intelligence</span><em class="badge text-bg-primary">Major</em></li>
-                  <li><span>GE 103 - Purposive Communication</span><em class="badge text-bg-success">Minor</em></li>
-                  <li><span>IT ELEC 1 - Mobile Development</span><em class="badge text-bg-primary">Major</em></li>
+                  ${SUBJECTS.map((subject) => `<li><span>${subject.code} - ${subject.title}</span><em class="badge ${getBadgeClass(subject.category)}">${subject.category}</em></li>`).join('')}
                 </ul>
-                <footer><a class="registrar-schedule-v2-side-link" href="#">View all floating subjects <i class="bi bi-chevron-down"></i></a></footer>
+                <footer><a class="registrar-schedule-v2-side-link" href="#">View all subjects <i class="bi bi-chevron-down"></i></a></footer>
               </section>
               <section class="registrar-schedule-v2-side-card">
                 <header class="registrar-schedule-v2-side-head">
                   <h5>Available Rooms</h5>
                 </header>
                 <ul>
-                  <li><span>Room 101</span><small>Capacity 45</small></li>
-                  <li><span>Room 201</span><small>Capacity 40</small></li>
-                  <li><span>Lab 2 (Network)</span><small>Capacity 30</small></li>
+                  ${ROOMS.map((room) => `<li><span>${room.room}</span><small>Capacity ${room.capacity}</small></li>`).join('')}
                 </ul>
                 <footer><a class="registrar-schedule-v2-side-link" href="#">View all rooms <i class="bi bi-chevron-down"></i></a></footer>
               </section>
               <section class="registrar-schedule-v2-side-card">
                 <header class="registrar-schedule-v2-side-head">
-                  <h5>Priority Settings</h5>
+                  <h5>Schedule Coverage</h5>
                 </header>
                 <ul>
-                  <li><span>Major subjects</span><small>Min 15 hrs/week</small></li>
-                  <li><span>Minor subjects</span><small>Max 8 hrs/week</small></li>
+                  <li><span>Regular schedule</span><small>${listSchedulePlannerEntries('Regular').length} blocks</small></li>
+                  <li><span>Irregular schedule</span><small>${listSchedulePlannerEntries('Irregular').length} blocks</small></li>
                 </ul>
-                <footer><a class="registrar-schedule-v2-side-link" href="#">Manage priorities <i class="bi bi-chevron-down"></i></a></footer>
+                <footer><a class="registrar-schedule-v2-side-link" href="#">Manage coverage <i class="bi bi-chevron-down"></i></a></footer>
               </section>
             </aside>
           </section>
@@ -314,40 +341,41 @@ export function renderregistrar_schedule_v2_page(): string {
               <div class="registrar-schedule-v2-form">
                 <p class="registrar-schedule-v2-duration" data-schedule-v2-form-hint>Set up a new schedule slot.</p>
                 <div class="registrar-schedule-v2-two">
-                  <label><span>Program</span><select class="form-select form-select-sm"><option>BS Information Technology</option></select></label>
-                  <label><span>Section</span><select class="form-select form-select-sm"><option>2A</option></select></label>
+                  <label><span>Program</span><select class="form-select form-select-sm">${renderOptions(PROGRAMS, defaultProgram)}</select></label>
+                  <label><span>Section</span><select class="form-select form-select-sm">${renderOptions(SECTIONS, defaultSection)}</select></label>
                 </div>
-                <label><span>Subject</span><select class="form-select form-select-sm"><option>OS 001 - Operating Systems</option></select></label>
+                <label><span>Subject</span><select class="form-select form-select-sm">${SUBJECTS.map((subject) => `<option>${subject.code} - ${subject.title}</option>`).join('') || `<option>${defaultSubject}</option>`}</select></label>
 
                 <fieldset class="registrar-schedule-v2-inline-options">
                   <legend>Type</legend>
                   <label><input type="radio" name="sched-type" checked /> Major</label>
+                  <label><input type="radio" name="sched-type" /> GE</label>
                   <label><input type="radio" name="sched-type" /> Minor</label>
                 </fieldset>
 
                 <fieldset class="registrar-schedule-v2-inline-options">
                   <legend>Unit</legend>
-                  <label><input type="radio" name="sched-unit" checked /> With Lab</label>
-                  <label><input type="radio" name="sched-unit" /> Without Lab</label>
+                  <label><input type="radio" name="sched-unit" checked /> 3 Units</label>
+                  <label><input type="radio" name="sched-unit" /> 2 Units</label>
                 </fieldset>
 
                 <fieldset class="registrar-schedule-v2-inline-options">
                   <legend>Mode</legend>
-                  <label><input type="radio" name="sched-mode" checked /> Face-to-Core</label>
-                  <label><input type="radio" name="sched-mode" /> Linior</label>
+                  <label><input type="radio" name="sched-mode" checked /> Face-to-Face</label>
+                  <label><input type="radio" name="sched-mode" /> Online</label>
                   <label><input type="radio" name="sched-mode" /> Hybrid</label>
                 </fieldset>
 
-                <label><span>Instructor</span><select class="form-select form-select-sm"><option>Delf. Dela Cruz</option></select></label>
+                <label><span>Instructor</span><select class="form-select form-select-sm">${renderOptions(Array.from(new Set(ENTRIES.map((entry) => entry.instructor))).sort(), defaultInstructor)}</select></label>
                 <div class="registrar-schedule-v2-two">
-                  <label><span>Room</span><select class="form-select form-select-sm"><option>Room 302</option></select></label>
-                  <label><span>Day</span><select class="form-select form-select-sm"><option>Monday</option></select></label>
+                  <label><span>Room</span><select class="form-select form-select-sm">${renderOptions(ROOMS.map((room) => room.room), defaultRoom)}</select></label>
+                  <label><span>Day</span><select class="form-select form-select-sm">${SCHEDULE_DAY_ORDER.map((day) => `<option>${getScheduleDayLabel(day)}</option>`).join('') || `<option>${defaultDay}</option>`}</select></label>
                 </div>
                 <div class="registrar-schedule-v2-two">
-                  <label><span>Start</span><input class="form-control form-control-sm" value="2:00 PM" /></label>
-                  <label><span>End</span><input class="form-control form-control-sm" value="5:00 PM" /></label>
+                  <label><span>Start</span><input class="form-control form-control-sm" value="${defaultStart}" /></label>
+                  <label><span>End</span><input class="form-control form-control-sm" value="${defaultEnd}" /></label>
                 </div>
-                <p class="registrar-schedule-v2-duration">Duration: <strong>5 hrs</strong></p>
+                <p class="registrar-schedule-v2-duration">Duration: <strong>${defaultDuration}</strong></p>
                 <div class="registrar-schedule-v2-form-actions">
                   <button type="button" class="btn btn-sm btn-light" data-schedule-v2-close-details>Cancel</button>
                   <button type="button" class="btn btn-sm btn-primary" data-schedule-v2-submit-btn>Save Schedule</button>
@@ -355,25 +383,7 @@ export function renderregistrar_schedule_v2_page(): string {
               </div>
 
               <div class="registrar-schedule-v2-load" data-schedule-v2-load-panel hidden>
-                <h5>Instructor Load</h5>
-                <p><span>Dela. Daka Cruz</span><strong></strong></p>
-                <p><span>Max Hours / Week</span><strong>30 hrs</strong></p>
-                <p><span>Current Load</span><strong>24 hrs</strong></p>
-                <div class="progress" role="progressbar" aria-label="Instructor load" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100">
-                  <div class="progress-bar bg-success" style="width: 68%"></div>
-                </div>
-                <p><span>24 / 30 hrs (80%)</span><strong></strong></p>
-                <div class="registrar-schedule-v2-daily-load">
-                  <h6>Daily Load (Max 10 hrs/day)</h6>
-                  <div class="registrar-schedule-v2-daily-grid">
-                    <span><strong>MON</strong><em>0 / 10</em></span>
-                    <span><strong>TUE</strong><em>3 / 10</em></span>
-                    <span><strong>WED</strong><em>4 / 10</em></span>
-                    <span><strong>THU</strong><em>4 / 10</em></span>
-                    <span><strong>FRI</strong><em>4 / 10</em></span>
-                    <span><strong>SAT</strong><em>0 / 10</em></span>
-                  </div>
-                </div>
+                ${renderInstructorLoad()}
               </div>
             </div>
           </aside>

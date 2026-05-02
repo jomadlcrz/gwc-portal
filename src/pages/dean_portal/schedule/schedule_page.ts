@@ -18,7 +18,7 @@ const DEAN_DEPARTMENT_CODE = 'CITE'
 function getScheduleChipClass(value: string, room: string): string {
   const subjectCode = value.split('-')[0]?.trim().toUpperCase() ?? ''
   const normalizedRoom = room.trim().toUpperCase()
-  if (normalizedRoom.startsWith('CL')) return 'registrar-schedule-chip-comlab'
+  if (normalizedRoom.includes('CL')) return 'registrar-schedule-chip-comlab'
   if (!subjectCode) return 'registrar-schedule-chip-general-lecture'
   if (subjectCode.startsWith('CL') || subjectCode.includes('COMLAB')) return 'registrar-schedule-chip-comlab'
   if (subjectCode.startsWith('CAPS') || subjectCode.includes('THESIS') || subjectCode.includes('RES')) return 'registrar-schedule-chip-research'
