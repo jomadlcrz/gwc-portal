@@ -282,6 +282,7 @@
   background: #fff;
   border-radius: var(--radius-sm);
   min-width: 760px;
+  margin-bottom: 0;
 }
 
 .student-schedule-col-code { width: 11%; }
@@ -330,23 +331,18 @@
   background: #eef6ff;
 }
 
+.student-schedule-total-cell {
+  text-align: left;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 .student-schedule-day-today {
   color: #0f3f74;
 }
 
 .student-schedule-signature {
   margin-top: 0.75rem;
-}
-
-.student-schedule-total-units {
-  margin: 0.45rem 0 0;
-  text-align: right;
-  font-size: 0.85rem;
-  color: #102349;
-}
-
-.student-schedule-total-units strong {
-  font-size: 0.9rem;
 }
 
 .student-schedule-signature p {

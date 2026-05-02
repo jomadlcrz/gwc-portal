@@ -145,7 +145,7 @@ export function renderstudent_schedule_page(): string {
 
           <div class="student-schedule-table-wrap">
             <div class="table-responsive">
-            <table class="table table-striped table-hover student-schedule-table">
+            <table class="table table-hover student-schedule-table">
               <colgroup>
                 <col class="student-schedule-col-code" />
                 <col class="student-schedule-col-title" />
@@ -190,6 +190,11 @@ export function renderstudent_schedule_page(): string {
                     : '<tr><td colspan="8" class="text-center py-3">No schedules published yet.</td></tr>'
                 }
               </tbody>
+              <tfoot>
+                <tr class="student-schedule-total-row">
+                  <td colspan="8" class="student-schedule-total-cell">Total Units: <strong>${totalUnits}</strong></td>
+                </tr>
+              </tfoot>
             </table>
             </div>
           </div>
@@ -219,7 +224,6 @@ export function renderstudent_schedule_page(): string {
                 : '<p class="student-schedule-mobile-empty">No schedules published yet.</p>'
             }
           </div>
-          <p class="student-schedule-total-units">Total Units: <strong>${totalUnits}</strong></p>
 
           <footer class="student-schedule-signature">
             <p>Approved by:</p>
