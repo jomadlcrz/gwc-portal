@@ -268,10 +268,14 @@
 .student-schedule-table-wrap {
   overflow-x: auto;
   border: 1px solid #d2deeb;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-none);
 }
 
 .student-schedule-mobile-list {
+  display: none;
+}
+
+.student-schedule-mobile-total {
   display: none;
 }
 
@@ -280,7 +284,7 @@
   table-layout: auto;
   border-collapse: collapse;
   background: #fff;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-none);
   min-width: 760px;
   margin-bottom: 0;
 }
@@ -621,6 +625,15 @@
   .student-schedule-mobile-list {
     display: grid;
     gap: 0.45rem;
+  }
+
+  .student-schedule-mobile-total {
+    display: block;
+    margin: 0.5rem 0 0;
+    color: #102349;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: left;
   }
 
   .student-schedule-mobile-card {

@@ -224,6 +224,7 @@ export function renderstudent_schedule_page(): string {
                 : '<p class="student-schedule-mobile-empty">No schedules published yet.</p>'
             }
           </div>
+          <p class="student-schedule-mobile-total">Total Units: <strong>${totalUnits}</strong></p>
 
           <footer class="student-schedule-signature">
             <p>Approved by:</p>
