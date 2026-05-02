@@ -103,6 +103,38 @@ function hasOverlap(aStart: string, aEnd: string, bStart: string, bEnd: string):
   return Math.max(toMinutes(aStart), toMinutes(bStart)) < Math.min(toMinutes(aEnd), toMinutes(bEnd))
 }
 
+function normalizeScheduleValue(value: string): string {
+  return value.trim().toLowerCase()
+}
+
+function getClassAssignmentKey(item: ScheduleItem): string {
+  return [
+    item.subjectCode,
+    item.section,
+    item.faculty,
+    item.room,
+    item.day,
+    item.startTime,
+    item.endTime,
+  ]
+    .map((value) => normalizeScheduleValue(value))
+    .join('|')
+}
+
+function listUniqueClassAssignments(items: ScheduleItem[]): ScheduleItem[] {
+  const unique = new Map<string, ScheduleItem>()
+  items.forEach((item) => {
+    const key = getClassAssignmentKey(item)
+    if (unique.has(key)) return
+    unique.set(key, item)
+  })
+  return Array.from(unique.values())
+}
+
+function isSameClassAssignment(a: ScheduleItem, b: ScheduleItem): boolean {
+  return getClassAssignmentKey(a) === getClassAssignmentKey(b)
+}
+
 function compareScheduleItems(a: ScheduleItem, b: ScheduleItem): number {
   const dayA = getScheduleDayKey(a.day)
   const dayB = getScheduleDayKey(b.day)
@@ -289,13 +321,14 @@ export function listScheduleSections(scope: ScheduleBoardScope = 'All'): string[
 }
 
 export function listScheduleConflicts(scope: ScheduleBoardScope = 'All'): ScheduleConflictSummary[] {
-  const items = listScheduleItems(scope)
+  const items = listUniqueClassAssignments(listScheduleItems(scope))
   const conflicts: ScheduleConflictSummary[] = []
 
   for (let outer = 0; outer < items.length; outer += 1) {
     for (let inner = outer + 1; inner < items.length; inner += 1) {
       const first = items[outer]
       const second = items[inner]
+      if (isSameClassAssignment(first, second)) continue
       if (first.day !== second.day || !hasOverlap(first.startTime, first.endTime, second.startTime, second.endTime)) continue
       const time = `${toScheduleDisplayTime(first.startTime)} - ${toScheduleDisplayTime(first.endTime)}`
 

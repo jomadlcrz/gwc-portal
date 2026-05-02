@@ -176,6 +176,34 @@ const hasOverlap = (aStart: string, aEnd: string, bStart: string, bEnd: string):
   return Math.max(aS, bS) < Math.min(aE, bE)
 }
 
+const normalizeScheduleValue = (value: string): string => value.trim().toLowerCase()
+
+const getClassAssignmentKey = (item: ScheduleItem): string =>
+  [
+    item.subjectCode,
+    item.section,
+    item.faculty,
+    item.room,
+    item.day,
+    item.startTime,
+    item.endTime,
+  ]
+    .map((value) => normalizeScheduleValue(value))
+    .join('|')
+
+const listUniqueClassAssignments = (items: ScheduleItem[]): ScheduleItem[] => {
+  const unique = new Map<string, ScheduleItem>()
+  items.forEach((item) => {
+    const key = getClassAssignmentKey(item)
+    if (unique.has(key)) return
+    unique.set(key, item)
+  })
+  return Array.from(unique.values())
+}
+
+const isSameClassAssignment = (a: ScheduleItem, b: ScheduleItem): boolean =>
+  getClassAssignmentKey(a) === getClassAssignmentKey(b)
+
 const statusLabel: Record<ScheduleStatus, string> = {
   DRAFT: 'Draft',
   CONFLICT_DETECTED: 'Conflict Detected',
@@ -888,13 +916,14 @@ class SchedulingService {
     if (!schedule) return []
 
     const version = this.getCurrentVersion(schedule)
-    const items = version.snapshot
+    const items = listUniqueClassAssignments(version.snapshot)
     const found: ConflictRecord[] = []
 
     for (let i = 0; i < items.length; i += 1) {
       for (let j = i + 1; j < items.length; j += 1) {
         const a = items[i]
         const b = items[j]
+        if (isSameClassAssignment(a, b)) continue
         if (a.day !== b.day) continue
         if (!hasOverlap(a.startTime, a.endTime, b.startTime, b.endTime)) continue
 
