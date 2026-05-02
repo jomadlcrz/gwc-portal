@@ -5,28 +5,32 @@ import {
   listScheduleConflicts,
   listSchedulePlannerEntries,
   listScheduleRoomSummaries,
-  listScheduleSections,
   listScheduleSubjectSummaries,
-  listScheduleTimeRows,
   toScheduleDisplayTime,
   type SchedulePlannerEntry,
+  type ScheduleTimeRow,
 } from '../../../data/schedule'
-import { listProgramNames } from '../../../data/programs'
 
 const ENTRIES = listSchedulePlannerEntries()
-const TIME_ROWS = listScheduleTimeRows()
-const PROGRAMS = listProgramNames()
-const SECTIONS = listScheduleSections()
+const PROGRAMS = Array.from(new Set(ENTRIES.map((entry) => entry.program))).sort()
 const SUBJECTS = listScheduleSubjectSummaries()
 const ROOMS = listScheduleRoomSummaries()
 const CONFLICTS = listScheduleConflicts()
 const FIRST_ENTRY = ENTRIES[0]
+const SECTIONS_BY_PROGRAM = ENTRIES.reduce<Record<string, Set<string>>>((acc, entry) => {
+  if (!acc[entry.program]) {
+    acc[entry.program] = new Set<string>()
+  }
+  acc[entry.program].add(entry.section)
+  return acc
+}, {})
+
+function toMinutes(value: string): number {
+  const [hourText, minuteText = '0'] = value.split(':')
+  return Number.parseInt(hourText, 10) * 60 + Number.parseInt(minuteText, 10)
+}
 
 function getDurationHours(startTime: string, endTime: string): string {
-  const toMinutes = (value: string): number => {
-    const [hourText, minuteText = '0'] = value.split(':')
-    return Number.parseInt(hourText, 10) * 60 + Number.parseInt(minuteText, 10)
-  }
   const duration = (toMinutes(endTime) - toMinutes(startTime)) / 60
   return Number.isInteger(duration) ? `${duration} hrs` : `${duration.toFixed(1)} hrs`
 }
@@ -41,6 +45,48 @@ function getBadgeClass(category: string): string {
 function renderOptions(values: string[], fallback: string): string {
   const options = values.length ? values : [fallback]
   return options.map((value) => `<option>${value}</option>`).join('')
+}
+
+function renderUnselectedOptions(values: string[], placeholder: string): string {
+  return [`<option value="" selected>${placeholder}</option>`, ...values.map((value) => `<option>${value}</option>`)].join('')
+}
+
+function renderSelectedOptions(values: string[], selectedValue: string, emptyLabel = 'No options available'): string {
+  if (!values.length) {
+    return `<option value="">${emptyLabel}</option>`
+  }
+  return values.map((value) => `<option${value === selectedValue ? ' selected' : ''}>${value}</option>`).join('')
+}
+
+function listSectionsForProgram(program: string): string[] {
+  const sections = SECTIONS_BY_PROGRAM[program]
+  if (!sections) return []
+  return Array.from(sections).sort((a, b) => a.localeCompare(b))
+}
+
+function filterEntries(program: string, section: string): SchedulePlannerEntry[] {
+  return ENTRIES.filter((entry) => entry.program === program && entry.section === section)
+}
+
+function getEmptyStateMessage(program: string, section: string): string {
+  if (!program) return 'Select a program first to view schedules.'
+  if (!section) return 'Select a section to view schedules.'
+  return 'No schedule yet for this section. Try another section.'
+}
+
+function listTimeRowsForEntries(entries: SchedulePlannerEntry[]): ScheduleTimeRow[] {
+  const rows = new Map<string, ScheduleTimeRow>()
+  entries.forEach((entry) => {
+    const key = `${entry.startTime}|${entry.endTime}`
+    if (rows.has(key)) return
+    rows.set(key, {
+      startTime: entry.startTime,
+      endTime: entry.endTime,
+      startLabel: toScheduleDisplayTime(entry.startTime),
+      endLabel: toScheduleDisplayTime(entry.endTime),
+    })
+  })
+  return Array.from(rows.values()).sort((a, b) => toMinutes(a.startTime) - toMinutes(b.startTime) || toMinutes(a.endTime) - toMinutes(b.endTime))
 }
 
 function renderCell(entries: SchedulePlannerEntry[] = []): string {
@@ -60,15 +106,26 @@ function renderCell(entries: SchedulePlannerEntry[] = []): string {
   `
 }
 
-function renderGrid(): string {
-  return TIME_ROWS
+function renderEmptyStateCard(message: string, mode: 'grid' | 'list'): string {
+  const modeClass = mode === 'grid' ? 'registrar-schedule-v2-empty-state-grid' : ''
+  return `
+    <article class="registrar-schedule-v2-card registrar-schedule-v2-empty-state ${modeClass}">
+      <p class="mb-0">${message}</p>
+    </article>
+  `
+}
+
+function renderGrid(entries: SchedulePlannerEntry[], emptyMessage: string): string {
+  const timeRows = listTimeRowsForEntries(entries)
+  if (!timeRows.length) return renderEmptyStateCard(emptyMessage, 'grid')
+  return timeRows
     .map(
       (timeRow) => `
         <div class="registrar-schedule-v2-time"><span>${timeRow.startLabel}</span><span>${timeRow.endLabel}</span></div>
         ${SCHEDULE_DAY_ORDER
           .map((day) =>
             renderCell(
-              ENTRIES.filter(
+              entries.filter(
                 (entry) =>
                   entry.dayKey === day &&
                   entry.startTime === timeRow.startTime &&
@@ -82,7 +139,8 @@ function renderGrid(): string {
     .join('')
 }
 
-function renderList(entries: SchedulePlannerEntry[]): string {
+function renderList(entries: SchedulePlannerEntry[], emptyMessage: string): string {
+  if (!entries.length) return renderEmptyStateCard(emptyMessage, 'list')
   const grouped = entries.reduce<Record<string, SchedulePlannerEntry[]>>((acc, entry) => {
     if (!acc[entry.day]) acc[entry.day] = []
     acc[entry.day].push(entry)
@@ -193,8 +251,6 @@ function renderInstructorLoad(): string {
 }
 
 export function renderregistrar_schedule_v2_page(): string {
-  const defaultProgram = FIRST_ENTRY?.program ?? 'BS Information Technology'
-  const defaultSection = FIRST_ENTRY?.section ?? 'BSIT-3D'
   const defaultSubject = FIRST_ENTRY ? `${FIRST_ENTRY.subject} - ${FIRST_ENTRY.meta}` : 'PT102 - Platform-based Development'
   const defaultInstructor = FIRST_ENTRY?.instructor ?? 'Faculty'
   const defaultRoom = FIRST_ENTRY?.room ?? 'Room 304'
@@ -202,6 +258,8 @@ export function renderregistrar_schedule_v2_page(): string {
   const defaultStart = FIRST_ENTRY ? toScheduleDisplayTime(FIRST_ENTRY.startTime) : '9:00 AM'
   const defaultEnd = FIRST_ENTRY ? toScheduleDisplayTime(FIRST_ENTRY.endTime) : '10:00 AM'
   const defaultDuration = FIRST_ENTRY ? getDurationHours(FIRST_ENTRY.startTime, FIRST_ENTRY.endTime) : '1 hr'
+  const filteredEntries: SchedulePlannerEntry[] = []
+  const initialEmptyMessage = getEmptyStateMessage('', '')
 
   return renderPortalShell(
     registrar_SHELL_CONFIG,
@@ -224,14 +282,14 @@ export function renderregistrar_schedule_v2_page(): string {
           <section class="registrar-schedule-v2-toolbar">
             <label>
               <span>Program</span>
-              <select class="form-select form-select-sm">
-                ${renderOptions(PROGRAMS, defaultProgram)}
+              <select class="form-select form-select-sm" data-schedule-v2-toolbar-program>
+                ${renderUnselectedOptions(PROGRAMS, 'Select Program')}
               </select>
             </label>
             <label>
               <span>Section</span>
-              <select class="form-select form-select-sm">
-                ${renderOptions(SECTIONS, defaultSection)}
+              <select class="form-select form-select-sm" data-schedule-v2-toolbar-section>
+                ${renderUnselectedOptions([], 'Select Program First')}
               </select>
             </label>
             <div class="registrar-schedule-v2-view-switch" role="group" aria-label="View switch">
@@ -242,19 +300,24 @@ export function renderregistrar_schedule_v2_page(): string {
 
           <section class="registrar-schedule-v2-layout">
             <div class="registrar-schedule-v2-main">
-              <div class="registrar-schedule-v2-grid-wrap registrar-schedule-v2-view-panel" data-schedule-v2-view-panel="grid">
-                <div class="registrar-schedule-v2-grid-head">
-                  <span>Time</span>
-                  ${SCHEDULE_DAY_ORDER.map((day) => `<span>${day}</span>`).join('')}
+              <div class="registrar-schedule-v2-view-panel" data-schedule-v2-view-panel="grid">
+                <div class="registrar-schedule-v2-grid-wrap" data-schedule-v2-grid-wrap${filteredEntries.length ? '' : ' hidden'}>
+                  <div class="registrar-schedule-v2-grid-head">
+                    <span>Time</span>
+                    ${SCHEDULE_DAY_ORDER.map((day) => `<span>${day}</span>`).join('')}
+                  </div>
+                  <div class="registrar-schedule-v2-grid" data-schedule-v2-grid>
+                    ${renderGrid(filteredEntries, initialEmptyMessage)}
+                  </div>
                 </div>
-                <div class="registrar-schedule-v2-grid">
-                  ${renderGrid()}
+                <div data-schedule-v2-grid-empty${filteredEntries.length ? ' hidden' : ''}>
+                  ${renderEmptyStateCard(initialEmptyMessage, 'list')}
                 </div>
               </div>
 
               <div class="registrar-schedule-v2-view-panel" data-schedule-v2-view-panel="list" hidden>
-                <div class="registrar-schedule-v2-list">
-                  ${renderList(ENTRIES)}
+                <div class="registrar-schedule-v2-list" data-schedule-v2-list>
+                  ${renderList(filteredEntries, initialEmptyMessage)}
                 </div>
               </div>
 
@@ -341,8 +404,8 @@ export function renderregistrar_schedule_v2_page(): string {
               <div class="registrar-schedule-v2-form">
                 <p class="registrar-schedule-v2-duration" data-schedule-v2-form-hint>Set up a new schedule slot.</p>
                 <div class="registrar-schedule-v2-two">
-                  <label><span>Program</span><select class="form-select form-select-sm">${renderOptions(PROGRAMS, defaultProgram)}</select></label>
-                  <label><span>Section</span><select class="form-select form-select-sm">${renderOptions(SECTIONS, defaultSection)}</select></label>
+                  <label><span>Program</span><select class="form-select form-select-sm" data-schedule-v2-form-program>${renderUnselectedOptions(PROGRAMS, 'Select Program')}</select></label>
+                  <label><span>Section</span><select class="form-select form-select-sm" data-schedule-v2-form-section>${renderUnselectedOptions([], 'Select Program First')}</select></label>
                 </div>
                 <label><span>Subject</span><select class="form-select form-select-sm">${SUBJECTS.map((subject) => `<option>${subject.code} - ${subject.title}</option>`).join('') || `<option>${defaultSubject}</option>`}</select></label>
 
@@ -402,7 +465,69 @@ export function setupregistrar_schedule_v2_page(root: HTMLElement): () => void {
   const formHint = root.querySelector<HTMLElement>('[data-schedule-v2-form-hint]')
   const submitButton = root.querySelector<HTMLButtonElement>('[data-schedule-v2-submit-btn]')
   const loadPanel = root.querySelector<HTMLElement>('[data-schedule-v2-load-panel]')
+  const toolbarProgramSelect = root.querySelector<HTMLSelectElement>('[data-schedule-v2-toolbar-program]')
+  const toolbarSectionSelect = root.querySelector<HTMLSelectElement>('[data-schedule-v2-toolbar-section]')
+  const gridWrap = root.querySelector<HTMLElement>('[data-schedule-v2-grid-wrap]')
+  const gridPanel = root.querySelector<HTMLElement>('[data-schedule-v2-grid]')
+  const gridEmpty = root.querySelector<HTMLElement>('[data-schedule-v2-grid-empty]')
+  const listPanel = root.querySelector<HTMLElement>('[data-schedule-v2-list]')
+  const formProgramSelect = root.querySelector<HTMLSelectElement>('[data-schedule-v2-form-program]')
+  const formSectionSelect = root.querySelector<HTMLSelectElement>('[data-schedule-v2-form-section]')
   let mode: SchedulePanelMode = 'add'
+
+  const syncSectionOptions = (
+    programSelect: HTMLSelectElement | null,
+    sectionSelect: HTMLSelectElement | null,
+    preferredSection?: string,
+  ): void => {
+    if (!programSelect || !sectionSelect) return
+    if (!programSelect.value) {
+      sectionSelect.innerHTML = renderUnselectedOptions([], 'Select Program First')
+      sectionSelect.value = ''
+      return
+    }
+    const sections = listSectionsForProgram(programSelect.value)
+    if (!sections.length) {
+      sectionSelect.innerHTML = '<option value="">No sections available</option>'
+      sectionSelect.value = ''
+      return
+    }
+    const currentSection = preferredSection ?? sectionSelect.value
+    const nextSection = sections.includes(currentSection) ? currentSection : sections[0]
+    sectionSelect.innerHTML = renderSelectedOptions(sections, nextSection)
+    sectionSelect.value = nextSection
+  }
+
+  const renderSchedulesForSelection = (): void => {
+    if (!toolbarProgramSelect || !toolbarSectionSelect || !gridPanel || !listPanel) return
+    const emptyMessage = getEmptyStateMessage(toolbarProgramSelect.value, toolbarSectionSelect.value)
+    const nextEntries = filterEntries(toolbarProgramSelect.value, toolbarSectionSelect.value)
+    const hasEntries = nextEntries.length > 0
+    if (gridWrap) {
+      gridWrap.hidden = !hasEntries
+    }
+    if (gridEmpty) {
+      gridEmpty.hidden = hasEntries
+      if (!hasEntries) {
+        gridEmpty.innerHTML = renderEmptyStateCard(emptyMessage, 'list')
+      }
+    }
+    gridPanel.innerHTML = hasEntries ? renderGrid(nextEntries, emptyMessage) : ''
+    listPanel.innerHTML = renderList(nextEntries, emptyMessage)
+  }
+
+  const onToolbarProgramChange = (): void => {
+    syncSectionOptions(toolbarProgramSelect, toolbarSectionSelect)
+    renderSchedulesForSelection()
+  }
+
+  const onToolbarSectionChange = (): void => {
+    renderSchedulesForSelection()
+  }
+
+  const onFormProgramChange = (): void => {
+    syncSectionOptions(formProgramSelect, formSectionSelect)
+  }
 
   const applyMode = (nextMode: SchedulePanelMode): void => {
     mode = nextMode
@@ -486,11 +611,20 @@ export function setupregistrar_schedule_v2_page(root: HTMLElement): () => void {
   root.addEventListener('click', onViewClick)
   root.addEventListener('click', onDetailsClick)
   document.addEventListener('keydown', onEsc)
+  toolbarProgramSelect?.addEventListener('change', onToolbarProgramChange)
+  toolbarSectionSelect?.addEventListener('change', onToolbarSectionChange)
+  formProgramSelect?.addEventListener('change', onFormProgramChange)
   applyMode('add')
+  syncSectionOptions(toolbarProgramSelect, toolbarSectionSelect)
+  syncSectionOptions(formProgramSelect, formSectionSelect)
+  renderSchedulesForSelection()
   return () => {
     closeDetails()
     root.removeEventListener('click', onViewClick)
     root.removeEventListener('click', onDetailsClick)
     document.removeEventListener('keydown', onEsc)
+    toolbarProgramSelect?.removeEventListener('change', onToolbarProgramChange)
+    toolbarSectionSelect?.removeEventListener('change', onToolbarSectionChange)
+    formProgramSelect?.removeEventListener('change', onFormProgramChange)
   }
 }

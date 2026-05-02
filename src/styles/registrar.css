@@ -2671,6 +2671,27 @@
   padding: 0.58rem;
 }
 
+.registrar-schedule-v2-empty-state {
+  border-style: dashed;
+  background: #fbfdff;
+  min-height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.registrar-schedule-v2-empty-state p {
+  font-size: 0.74rem;
+  color: #58708a;
+  font-weight: 600;
+}
+
+.registrar-schedule-v2-empty-state-grid {
+  grid-column: 1 / -1;
+  margin: 0.5rem;
+}
+
 .registrar-schedule-v2-card-head {
   display: flex;
   align-items: center;
