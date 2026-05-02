@@ -16,7 +16,7 @@ export type ScheduleSlot = {
 export type InstructorSchedule = {
   department: string
   name: string
-  room: string
+  rooms: string[]
   focus: string
   slots: ScheduleSlot[]
 }
@@ -175,7 +175,7 @@ function getScheduleEntryTone(item: ScheduleItem): ScheduleCellTone {
 }
 
 function buildBoardLabel(item: ScheduleItem): string {
-  return `${item.subjectCode} - ${item.section}`
+  return `${item.subjectCode} - ${item.section} (${item.room})`
 }
 
 function buildFocus(items: ScheduleItem[]): string {
@@ -219,10 +219,10 @@ export function listScheduleItems(scope: ScheduleBoardScope = 'All'): ScheduleIt
 }
 
 export function listInstructorSchedules(scope: ScheduleBoardScope = 'All'): InstructorSchedule[] {
-  const groups = new Map<string, { department: string; name: string; room: string; items: ScheduleItem[] }>()
+  const groups = new Map<string, { department: string; name: string; items: ScheduleItem[] }>()
 
   listScheduleItems(scope).forEach((item) => {
-    const key = [item.department, item.faculty, item.room].join('|')
+    const key = [item.department, item.faculty].join('|')
     const existing = groups.get(key)
     if (existing) {
       existing.items.push(item)
@@ -232,7 +232,6 @@ export function listInstructorSchedules(scope: ScheduleBoardScope = 'All'): Inst
     groups.set(key, {
       department: item.department,
       name: item.faculty,
-      room: item.room,
       items: [item],
     })
   })
@@ -240,7 +239,9 @@ export function listInstructorSchedules(scope: ScheduleBoardScope = 'All'): Inst
   return Array.from(groups.values())
     .map((group) => {
       const slotMap = new Map<string, ScheduleSlot>()
+      const rooms = new Set<string>()
       group.items.forEach((item) => {
+        rooms.add(item.room)
         const dayKey = getScheduleDayKey(item.day)
         if (!dayKey) return
         const time = `${item.startTime} - ${item.endTime}`
@@ -250,7 +251,7 @@ export function listInstructorSchedules(scope: ScheduleBoardScope = 'All'): Inst
         if (!existingValue) {
           existingSlot.values[dayKey] = nextValue
         } else {
-          const labels = new Set(existingValue.split('/').map((value) => value.trim()).filter(Boolean))
+          const labels = new Set(existingValue.split(' / ').map((value) => value.trim()).filter(Boolean))
           labels.add(nextValue)
           existingSlot.values[dayKey] = Array.from(labels).join(' / ')
         }
@@ -258,16 +259,17 @@ export function listInstructorSchedules(scope: ScheduleBoardScope = 'All'): Inst
       })
 
       const slots = Array.from(slotMap.values()).sort((a, b) => toMinutes(a.time.split('-')[0] ?? '') - toMinutes(b.time.split('-')[0] ?? ''))
+      const sortedRooms = Array.from(rooms).sort((a, b) => a.localeCompare(b))
 
       return {
         department: group.department,
         name: group.name,
-        room: group.room,
+        rooms: sortedRooms,
         focus: buildFocus(group.items),
         slots,
       }
     })
-    .sort((a, b) => a.department.localeCompare(b.department) || a.name.localeCompare(b.name) || a.room.localeCompare(b.room))
+    .sort((a, b) => a.department.localeCompare(b.department) || a.name.localeCompare(b.name))
 }
 
 export function listSchedulePlannerEntries(scope: ScheduleBoardScope = 'All'): SchedulePlannerEntry[] {

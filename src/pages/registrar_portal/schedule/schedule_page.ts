@@ -14,10 +14,8 @@ const SCHEDULE_DISPLAY_DAYS = [
   { key: 'SUN', label: 'Sun' },
 ] as const
 
-function getScheduleChipClass(value: string, room: string): string {
+function getScheduleChipClass(value: string): string {
   const subjectCode = value.split('-')[0]?.trim().toUpperCase() ?? ''
-  const normalizedRoom = room.trim().toUpperCase()
-  if (normalizedRoom.includes('CL')) return 'registrar-schedule-chip-comlab'
   if (!subjectCode) return 'registrar-schedule-chip-general-lecture'
   if (subjectCode.startsWith('CL') || subjectCode.includes('COMLAB')) return 'registrar-schedule-chip-comlab'
   if (subjectCode.startsWith('CAPS') || subjectCode.includes('THESIS') || subjectCode.includes('RES')) {
@@ -105,6 +103,12 @@ function getInstructorWeeklyHours(instructor: InstructorSchedule): string {
   return formatHours(total)
 }
 
+function getInstructorRoomLabel(instructor: InstructorSchedule): string {
+  if (!instructor.rooms.length) return 'Room not assigned'
+  if (instructor.rooms.length === 1) return `Room ${instructor.rooms[0]}`
+  return `Rooms ${instructor.rooms.join(', ')}`
+}
+
 function getDepartmentStats(instructors: InstructorSchedule[]): {
   instructorCount: number
   roomCount: number
@@ -116,7 +120,7 @@ function getDepartmentStats(instructors: InstructorSchedule[]): {
   const subjects = new Set<string>()
 
   instructors.forEach((instructor) => {
-    rooms.add(instructor.room)
+    instructor.rooms.forEach((room) => rooms.add(room))
     instructor.slots.forEach((slot) => {
       Object.values(slot.values).forEach((value) => {
         if (!value) return
@@ -170,7 +174,7 @@ function renderScheduleGrid(instructor: InstructorSchedule): string {
                       if (day.key === 'SUN') return '<td><span class="registrar-schedule-empty-mark">-</span></td>'
                       const value = slot.values[day.key]
                       if (!value) return '<td><span class="registrar-schedule-empty-mark">-</span></td>'
-                      const chipClass = getScheduleChipClass(value, instructor.room)
+                      const chipClass = getScheduleChipClass(value)
                       return `<td><span class="registrar-schedule-chip ${chipClass}">${value}</span></td>`
                     })
                     .join('')}
@@ -197,7 +201,7 @@ function renderScheduleGrid(instructor: InstructorSchedule): string {
           .map((slot) => {
             const value = slot.values[day]
             if (!value) return ''
-            const chipClass = getScheduleChipClass(value, instructor.room)
+            const chipClass = getScheduleChipClass(value)
             return `
               <article class="registrar-schedule-mobile-block">
                 <div class="registrar-schedule-mobile-time">
@@ -209,7 +213,7 @@ function renderScheduleGrid(instructor: InstructorSchedule): string {
                 </div>
                 <div class="registrar-schedule-mobile-course registrar-schedule-chip ${chipClass}">
                   <strong>${value}</strong>
-                  <span>Room ${instructor.room}</span>
+                  <span>${getInstructorRoomLabel(instructor)}</span>
                 </div>
               </article>
             `
@@ -299,11 +303,11 @@ export function renderregistrar_schedule_page(): string {
                     ${instructors
                       .map(
                         (instructor) => `
-                          <button type="button" class="registrar-schedule-instructor" data-registrar-schedule-jump="${getInstructorTargetId(departmentCode, instructor)}" data-registrar-schedule-item data-search-value="${`${instructor.name} ${instructor.room} ${instructor.focus}`.toLowerCase()}">
+                          <button type="button" class="registrar-schedule-instructor" data-registrar-schedule-jump="${getInstructorTargetId(departmentCode, instructor)}" data-registrar-schedule-item data-search-value="${`${instructor.name} ${instructor.rooms.join(' ')} ${instructor.focus}`.toLowerCase()}">
                             <span class="registrar-schedule-instructor-avatar">${instructor.name}</span>
                             <span class="registrar-schedule-instructor-copy">
                               <strong>${instructor.name}</strong>
-                              <span>Room ${instructor.room}</span>
+                              <span>${getInstructorRoomLabel(instructor)}</span>
                               <small>${instructor.focus}</small>
                               <em><i class="bi bi-calendar3" aria-hidden="true"></i>${getInstructorWeeklyHours(instructor)} hrs/week</em>
                             </span>
@@ -317,8 +321,8 @@ export function renderregistrar_schedule_page(): string {
                   ${instructors
                     .map(
                       (instructor) => `
-                        <section id="${getInstructorTargetId(departmentCode, instructor)}" class="registrar-schedule-table-section" data-registrar-schedule-item data-search-value="${`${instructor.name} ${instructor.room} ${instructor.focus}`.toLowerCase()}">
-                          <h4><i class="bi bi-calendar3" aria-hidden="true"></i>${instructor.name} - Room ${instructor.room}</h4>
+                        <section id="${getInstructorTargetId(departmentCode, instructor)}" class="registrar-schedule-table-section" data-registrar-schedule-item data-search-value="${`${instructor.name} ${instructor.rooms.join(' ')} ${instructor.focus}`.toLowerCase()}">
+                          <h4><i class="bi bi-calendar3" aria-hidden="true"></i>${instructor.name} - ${getInstructorRoomLabel(instructor)}</h4>
                           ${renderScheduleGrid(instructor)}
                         </section>
                       `,

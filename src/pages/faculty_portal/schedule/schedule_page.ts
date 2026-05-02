@@ -12,10 +12,8 @@ const SCHEDULE_DISPLAY_DAYS = [
   { key: 'SUN', label: 'Sun' },
 ] as const
 
-function getScheduleChipClass(value: string, room: string): string {
+function getScheduleChipClass(value: string): string {
   const subjectCode = value.split('-')[0]?.trim().toUpperCase() ?? ''
-  const normalizedRoom = room.trim().toUpperCase()
-  if (normalizedRoom.includes('CL')) return 'registrar-schedule-chip-comlab'
   if (!subjectCode) return 'registrar-schedule-chip-general-lecture'
   if (subjectCode.startsWith('CL') || subjectCode.includes('COMLAB')) return 'registrar-schedule-chip-comlab'
   if (subjectCode.startsWith('CAPS') || subjectCode.includes('THESIS') || subjectCode.includes('RES')) return 'registrar-schedule-chip-research'
@@ -92,6 +90,12 @@ function getDayLabel(day: (typeof SCHEDULE_DAY_ORDER)[number]): string {
   return 'Saturday'
 }
 
+function getInstructorRoomLabel(instructor: InstructorSchedule): string {
+  if (!instructor.rooms.length) return 'Room not assigned'
+  if (instructor.rooms.length === 1) return `Room ${instructor.rooms[0]}`
+  return `Rooms ${instructor.rooms.join(', ')}`
+}
+
 function renderScheduleGrid(schedule: InstructorSchedule): string {
   const activeDay = getCurrentScheduleDay()
   return `
@@ -115,7 +119,7 @@ function renderScheduleGrid(schedule: InstructorSchedule): string {
                       if (day.key === 'SUN') return '<td><span class="registrar-schedule-empty-mark">-</span></td>'
                       const value = slot.values[day.key]
                       if (!value) return '<td><span class="registrar-schedule-empty-mark">-</span></td>'
-                      const chipClass = getScheduleChipClass(value, schedule.room)
+                      const chipClass = getScheduleChipClass(value)
                       return `<td><span class="registrar-schedule-chip ${chipClass}">${value}</span></td>`
                     })
                     .join('')}
@@ -140,8 +144,8 @@ function renderScheduleGrid(schedule: InstructorSchedule): string {
           .map((slot) => {
             const value = slot.values[day]
             if (!value) return ''
-            const chipClass = getScheduleChipClass(value, schedule.room)
-            return `<article class="registrar-schedule-mobile-block"><div class="registrar-schedule-mobile-time"><i class="bi bi-clock"></i><div class="registrar-schedule-mobile-time-values"><span>${ensureMeridiem(splitSlotTime(slot.time).start)}</span><span>${ensureMeridiem(splitSlotTime(slot.time).end)}</span></div></div><div class="registrar-schedule-mobile-course registrar-schedule-chip ${chipClass}"><strong>${value}</strong><span>Room ${schedule.room}</span></div></article>`
+            const chipClass = getScheduleChipClass(value)
+            return `<article class="registrar-schedule-mobile-block"><div class="registrar-schedule-mobile-time"><i class="bi bi-clock"></i><div class="registrar-schedule-mobile-time-values"><span>${ensureMeridiem(splitSlotTime(slot.time).start)}</span><span>${ensureMeridiem(splitSlotTime(slot.time).end)}</span></div></div><div class="registrar-schedule-mobile-course registrar-schedule-chip ${chipClass}"><strong>${value}</strong><span>${getInstructorRoomLabel(schedule)}</span></div></article>`
           })
           .join('')
 
@@ -182,7 +186,7 @@ export function renderfaculty_schedule_page(): string {
 
           ${currentInstructor
             ? `<section class="registrar-schedule-table-section">
-                <h4><i class="bi bi-calendar3" aria-hidden="true"></i>${currentInstructor.name} - Room ${currentInstructor.room}</h4>
+                <h4><i class="bi bi-calendar3" aria-hidden="true"></i>${currentInstructor.name} - ${getInstructorRoomLabel(currentInstructor)}</h4>
                 ${renderScheduleGrid(currentInstructor)}
               </section>`
             : ''}
