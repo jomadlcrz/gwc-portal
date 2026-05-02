@@ -12,6 +12,10 @@ export function renderstudent_grades_page(): string {
           { label: 'Grades', active: true },
         ])}
 
+        <article class="student-panel">
+          <h3>Grades</h3>
+        </article>
+
         <article class="student-panel student-grades-panel">
           <div class="accordion accordion-flush" id="studentGradesAccordion">
             <section class="accordion-item">
