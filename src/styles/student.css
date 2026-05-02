@@ -491,6 +491,62 @@
   font-size: 0.95rem;
 }
 
+.student-grades-panel .accordion-button {
+  font-weight: 700;
+}
+
+.student-grades-accordion-body {
+  padding-top: 0.75rem;
+}
+
+.student-grades-table-wrap {
+  overflow-x: auto;
+}
+
+.student-grades-table {
+  width: 100%;
+  margin-bottom: 0;
+  table-layout: auto;
+  font-size: 0.73rem;
+  border-collapse: collapse;
+}
+
+.student-grades-table th,
+.student-grades-table td {
+  vertical-align: middle;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: auto;
+  padding: 0.22rem 0.32rem;
+  line-height: 1.2;
+}
+
+.student-grades-table th {
+  font-weight: 700;
+  font-size: 0.72rem;
+}
+
+.student-grades-class-head {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.student-grades-table th:nth-child(1),
+.student-grades-table td:nth-child(1),
+.student-grades-table th:nth-child(2),
+.student-grades-table td:nth-child(2),
+.student-grades-table th:nth-child(3),
+.student-grades-table td:nth-child(3) {
+  white-space: nowrap;
+}
+
+.student-grades-table th:nth-child(n + 5),
+.student-grades-table td:nth-child(n + 5) {
+  text-align: center;
+  white-space: nowrap;
+}
+
 .student-list {
   margin: 0.55rem 0 0;
   padding-left: 1rem;
@@ -760,6 +816,18 @@
 
   .student-kpi-grid {
     grid-template-columns: 1fr;
+  }
+
+  .student-grades-table-wrap {
+    overflow-x: auto;
+  }
+
+  .student-grades-table th,
+  .student-grades-table td {
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
   }
 }
 
