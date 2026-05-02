@@ -27,7 +27,7 @@ export type RegistrarSection =
   | 'settings'
 
 export type FacultySection = 'dashboard' | 'schedule' | 'classes' | 'gradebook' | 'settings'
-export type StudentSection = 'dashboard' | 'subjects' | 'grades' | 'schedule' | 'settings'
+export type StudentSection = 'dashboard' | 'subjects' | 'grades' | 'schedule' | 'faculty_evaluation' | 'checklist' | 'submitted_documents' | 'settings'
 export type DeanSection = 'dashboard' | 'schedule'
 export type HrSection = 'dashboard' | 'faculty' | 'dean' | 'settings'
 
@@ -213,6 +213,19 @@ export const STUDENT_SHELL_CONFIG: ShellConfig<StudentSection> = {
     { label: 'Subjects', icon: 'bi-folder2-open', href: ROUTES.STUDENT_SUBJECTS, section: 'subjects' },
     { label: 'Grades', icon: 'bi-file-earmark-text', href: ROUTES.STUDENT_GRADES, section: 'grades' },
     { label: 'Schedule', icon: 'bi-calendar3', href: ROUTES.STUDENT_SCHEDULE, section: 'schedule' },
+    {
+      label: 'Faculty Evaluation',
+      icon: 'bi-clipboard2-check',
+      href: ROUTES.STUDENT_FACULTY_EVALUATION,
+      section: 'faculty_evaluation',
+    },
+    { label: 'Checklist', icon: 'bi-card-checklist', href: ROUTES.STUDENT_CHECKLIST, section: 'checklist' },
+    {
+      label: 'Submitted Documents',
+      icon: 'bi-folder-check',
+      href: ROUTES.STUDENT_SUBMITTED_DOCUMENTS,
+      section: 'submitted_documents',
+    },
     { label: 'Settings', icon: 'bi-gear', href: ROUTES.STUDENT_SETTINGS, section: 'settings' },
   ],
 }

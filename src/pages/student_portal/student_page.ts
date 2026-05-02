@@ -6,6 +6,9 @@ export { renderstudent_dashboard_page } from './dashboard/dashboard_page'
 export { renderstudent_subjects_page } from './subjects/subjects_page'
 export { renderstudent_grades_page } from './grades/grades_page'
 export { renderstudent_schedule_page } from './schedule/schedule_page'
+export { renderstudent_faculty_evaluation_page } from './faculty_evaluation/faculty_evaluation_page'
+export { renderstudent_checklist_page } from './checklist/checklist_page'
+export { renderstudent_submitted_documents_page } from './submitted_documents/submitted_documents_page'
 export { renderstudent_settings_page } from './settings/settings_page'
 
 export function setupstudent_page(root: HTMLElement): () => void {

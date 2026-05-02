@@ -72,6 +72,9 @@ export const ROUTES = {
   STUDENT_SUBJECTS: '/student-portal/subjects',
   STUDENT_GRADES: '/student-portal/grades',
   STUDENT_SCHEDULE: '/student-portal/schedule',
+  STUDENT_FACULTY_EVALUATION: '/student-portal/faculty-evaluation',
+  STUDENT_CHECKLIST: '/student-portal/checklist',
+  STUDENT_SUBMITTED_DOCUMENTS: '/student-portal/submitted-documents',
   STUDENT_SETTINGS: '/student-portal/settings',
 
   // Department routes

@@ -52,10 +52,13 @@ import {
 import { renderregistrar_login_page } from '../pages/login/registrar_login_page'
 import { renderstudent_login_page } from '../pages/login/student_login_page'
 import {
+  renderstudent_checklist_page,
   renderstudent_dashboard_page,
+  renderstudent_faculty_evaluation_page,
   renderstudent_grades_page,
   renderstudent_schedule_page,
   renderstudent_settings_page,
+  renderstudent_submitted_documents_page,
   renderstudent_subjects_page,
   setupstudent_page,
   setupstudent_schedule_page,
@@ -166,6 +169,24 @@ export function renderRoute(app: HTMLDivElement, pathname: string): void {
   if (pathname === ROUTES.STUDENT_SCHEDULE) {
     app.innerHTML = renderstudent_schedule_page()
     cleanupCurrentRoute = setupstudent_schedule_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.STUDENT_FACULTY_EVALUATION) {
+    app.innerHTML = renderstudent_faculty_evaluation_page()
+    cleanupCurrentRoute = setupstudent_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.STUDENT_CHECKLIST) {
+    app.innerHTML = renderstudent_checklist_page()
+    cleanupCurrentRoute = setupstudent_page(app)
+    return
+  }
+
+  if (pathname === ROUTES.STUDENT_SUBMITTED_DOCUMENTS) {
+    app.innerHTML = renderstudent_submitted_documents_page()
+    cleanupCurrentRoute = setupstudent_page(app)
     return
   }
 
