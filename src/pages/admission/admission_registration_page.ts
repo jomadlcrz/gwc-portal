@@ -4,11 +4,24 @@ import { buildMainHeaderActions, renderMainSiteHeader } from '../../components/l
 import { renderMainSiteFooter } from '../../components/layout/footer'
 import { renderHomeOverlays } from '../../components/layout/overlay'
 import { createRegistrationStudent } from '../../api/v1/applications/applications'
+import { ACADEMIC_PROGRAMS, toProgramInputId } from '../../data/programs'
 
 const gwcLogo = '/images/gwc_logo.avif'
 const gwcLogoWhite = '/images/gwc_logo_white.avif'
 const coverImage = '/images/gwc_banner.png'
 const registrationStepLabels = ['Choose Program', 'Personal Information', 'Validate Details', 'Finish'] as const
+
+function renderProgramOptions(): string {
+  return ACADEMIC_PROGRAMS.map((program) => {
+    const inputId = toProgramInputId(program.code)
+    return `
+      <label class="admission-registration-option" for="${inputId}">
+        <input id="${inputId}" name="admission-program" type="radio" value="${program.id}" />
+        <span>${program.name}</span>
+      </label>
+    `
+  }).join('')
+}
 
 function renderRegistrationSteps(): string {
   return `
@@ -86,34 +99,7 @@ export function renderadmission_registration_page(): string {
 
             <article class="admission-registration-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
               <h3>Programs:</h3>
-              <label class="admission-registration-option" for="admission-program-bscrim">
-                <input id="admission-program-bscrim" name="admission-program" type="radio" value="1" />
-                <span>Bachelor of Science in Criminology</span>
-              </label>
-              <label class="admission-registration-option" for="admission-program-bsit">
-                <input id="admission-program-bsit" name="admission-program" type="radio" value="2" />
-                <span>Bachelor of Science in Information Technology</span>
-              </label>
-              <label class="admission-registration-option" for="admission-program-bscs">
-                <input id="admission-program-bscs" name="admission-program" type="radio" value="3" />
-                <span>Bachelor of Science in Computer Science</span>
-              </label>
-              <label class="admission-registration-option" for="admission-program-ascs">
-                <input id="admission-program-ascs" name="admission-program" type="radio" value="4" />
-                <span>Associate in Computer Science (2-Years)</span>
-              </label>
-              <label class="admission-registration-option" for="admission-program-bsba">
-                <input id="admission-program-bsba" name="admission-program" type="radio" value="5" />
-                <span>Bachelor of Science in Business Administration (Major in Marketing Management)</span>
-              </label>
-              <label class="admission-registration-option" for="admission-program-beed">
-                <input id="admission-program-beed" name="admission-program" type="radio" value="6" />
-                <span>Bachelor of Elementary Education</span>
-              </label>
-              <label class="admission-registration-option" for="admission-program-bsed">
-                <input id="admission-program-bsed" name="admission-program" type="radio" value="7" />
-                <span>Bachelor of Secondary Education</span>
-              </label>
+              ${renderProgramOptions()}
             </article>
           </section>
 

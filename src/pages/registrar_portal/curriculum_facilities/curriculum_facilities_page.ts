@@ -1,8 +1,15 @@
 ﻿import { ROUTES } from '../../../app/routes'
 import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
+import { ACADEMIC_PROGRAMS } from '../../../data/programs'
 
 export function renderregistrar_curriculum_facilities_page(): string {
+  const programRows = ACADEMIC_PROGRAMS.slice(0, 5).map((program) => [
+    program.code.toUpperCase(),
+    program.name,
+    `<span class="cf-chip">${program.status}</span>`,
+  ])
+
   return renderPortalShell(
     registrar_SHELL_CONFIG,
     'curriculum_facilities',
@@ -29,13 +36,7 @@ export function renderregistrar_curriculum_facilities_page(): string {
         </section>
 
         <section class="cf-table-grid">
-          ${renderTableCard('Programs', ['Program Code', 'Program Name', 'Status'], [
-            ['BSIT', 'Bachelor of Science in Information Technology', '<span class="cf-chip">Active</span>'],
-            ['BSED', 'Bachelor of Secondary Education', '<span class="cf-chip">Active</span>'],
-            ['BSBA', 'Bachelor of Science in Business Administration', '<span class="cf-chip">Active</span>'],
-            ['BEED', 'Bachelor of Elementary Education', '<span class="cf-chip">Active</span>'],
-            ['BSA', 'Bachelor of Science in Accountancy', '<span class="cf-chip">Active</span>'],
-          ], 'View All', ROUTES.REGISTRAR_CURRICULUM_PROGRAMS, 'cf-programs')}
+          ${renderTableCard('Programs', ['Program Code', 'Program Name', 'Status'], programRows, 'View All', ROUTES.REGISTRAR_CURRICULUM_PROGRAMS, 'cf-programs')}
 
           ${renderTableCard('Departments', ['Department', 'Building', 'Programs'], [
             ['College of Computing', 'Tech Building', '<span class="cf-tag">BSIT</span>'],

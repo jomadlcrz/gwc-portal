@@ -4,7 +4,6 @@ import {
   getScheduleDayLabel,
   listScheduleConflicts,
   listSchedulePlannerEntries,
-  listSchedulePrograms,
   listScheduleRoomSummaries,
   listScheduleSections,
   listScheduleSubjectSummaries,
@@ -12,10 +11,11 @@ import {
   toScheduleDisplayTime,
   type SchedulePlannerEntry,
 } from '../../../data/schedule'
+import { listProgramNames } from '../../../data/programs'
 
 const ENTRIES = listSchedulePlannerEntries()
 const TIME_ROWS = listScheduleTimeRows()
-const PROGRAMS = listSchedulePrograms()
+const PROGRAMS = listProgramNames()
 const SECTIONS = listScheduleSections()
 const SUBJECTS = listScheduleSubjectSummaries()
 const ROOMS = listScheduleRoomSummaries()
