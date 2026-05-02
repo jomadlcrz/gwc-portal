@@ -181,7 +181,7 @@ export function setupregistrar_curriculum_lists_page(root: HTMLElement): () => v
     const addCloseButton = target?.closest<HTMLElement>('[data-cf-add-close]')
     const addConfirmButton = target?.closest<HTMLElement>('[data-cf-add-confirm]')
 
-    if (addCloseButton || target?.closest('[data-cf-add-backdrop]')) {
+    if (addCloseButton) {
       closeAddOffcanvas()
       return
     }
@@ -278,13 +278,19 @@ export function setupregistrar_curriculum_lists_page(root: HTMLElement): () => v
     }
   }
 
+  const onEsc = (event: KeyboardEvent): void => {
+    if (event.key === 'Escape') closeAddOffcanvas()
+  }
+
   root.addEventListener('click', onActionClick)
+  document.addEventListener('keydown', onEsc)
 
   return () => {
     closeAddOffcanvas()
     toast.destroy()
     modal.destroy()
     root.removeEventListener('click', onActionClick)
+    document.removeEventListener('keydown', onEsc)
   }
 }
 

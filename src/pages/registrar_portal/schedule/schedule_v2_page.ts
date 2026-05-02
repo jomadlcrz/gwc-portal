@@ -306,7 +306,7 @@ export function setupregistrar_schedule_v2_page(root: HTMLElement): () => void {
       openDetails()
       return
     }
-    if (target?.closest('[data-schedule-v2-close-details]') || target?.closest('[data-schedule-v2-backdrop]')) {
+    if (target?.closest('[data-schedule-v2-close-details]')) {
       closeDetails()
     }
   }
