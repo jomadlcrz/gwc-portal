@@ -3,9 +3,20 @@ import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/l
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { ACADEMIC_PROGRAMS } from '../../../data/programs'
 
+const PROGRAM_DEPT_CLASS_BY_CODE = new Map(
+  ACADEMIC_PROGRAMS.map((program) => [program.code.toUpperCase(), `dept-code-${program.departmentCode.toLowerCase()}`]),
+)
+
+function renderProgramColorBadge(programCode: string): string {
+  const normalizedCode = programCode.trim().toUpperCase()
+  const toneClass = PROGRAM_DEPT_CLASS_BY_CODE.get(normalizedCode)
+  const className = toneClass ? `dept-code-badge ${toneClass}` : 'dept-code-badge'
+  return `<span class="${className}">${normalizedCode}</span>`
+}
+
 export function renderregistrar_curriculum_facilities_page(): string {
   const programRows = ACADEMIC_PROGRAMS.slice(0, 5).map((program) => [
-    program.code.toUpperCase(),
+    `<span class="dept-code-badge dept-code-${program.departmentCode.toLowerCase()}">${program.code.toUpperCase()}</span>`,
     program.name,
     `<span class="cf-chip">${program.status}</span>`,
   ])
@@ -39,11 +50,11 @@ export function renderregistrar_curriculum_facilities_page(): string {
           ${renderTableCard('Programs', ['Program Code', 'Program Name', 'Status'], programRows, 'View All', ROUTES.REGISTRAR_CURRICULUM_PROGRAMS, 'cf-programs')}
 
           ${renderTableCard('Departments', ['Department', 'Building', 'Programs'], [
-            ['College of Computing', 'Tech Building', '<span class="cf-tag">BSIT</span>'],
-            ['College of Education', 'Education Building', '<span class="cf-tag">BSED</span>'],
-            ['College of Business', 'Admin Building', '<span class="cf-tag">BSBA</span>'],
-            ['General Education', 'Education Building', '<span class="cf-tag">BSBA</span>'],
-            ['Graduate School', 'Graduate Building', '<span class="cf-tag">BSBA</span>'],
+            ['College of Computing', 'Tech Building', renderProgramColorBadge('BSIT')],
+            ['College of Education', 'Education Building', renderProgramColorBadge('BSED')],
+            ['College of Business', 'Admin Building', renderProgramColorBadge('BSBA')],
+            ['General Education', 'Education Building', renderProgramColorBadge('BSED')],
+            ['Graduate School', 'Graduate Building', renderProgramColorBadge('BSED')],
           ], 'View All', ROUTES.REGISTRAR_CURRICULUM_DEPARTMENTS, 'cf-departments')}
 
           ${renderTableCard('Buildings', ['Building Name', 'Code', 'Departments'], [

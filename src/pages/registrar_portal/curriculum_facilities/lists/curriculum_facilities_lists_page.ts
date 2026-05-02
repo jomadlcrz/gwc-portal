@@ -4,8 +4,20 @@ import { renderSharedModal, setupSharedModal } from '../../../../components/ui/m
 import { renderBreadcrumbNav } from '../../../../components/ui/nav_breadcrumb'
 import { renderSharedPopover } from '../../../../components/ui/popover'
 import { renderSharedToastContainer, setupSharedToast } from '../../../../components/ui/toast'
+import { ACADEMIC_PROGRAMS } from '../../../../data/programs'
 
 type Row = string[]
+
+const PROGRAM_DEPT_CLASS_BY_CODE = new Map(
+  ACADEMIC_PROGRAMS.map((program) => [program.code.toUpperCase(), `dept-code-${program.departmentCode.toLowerCase()}`]),
+)
+
+function renderProgramColorBadge(programCode: string): string {
+  const normalizedCode = programCode.trim().toUpperCase()
+  const toneClass = PROGRAM_DEPT_CLASS_BY_CODE.get(normalizedCode)
+  const className = toneClass ? `dept-code-badge ${toneClass}` : 'dept-code-badge'
+  return `<span class="${className}">${normalizedCode}</span>`
+}
 
 function renderListPage(title: string, headers: string[], rows: Row[]): string {
   const tableHeaders = [...headers, 'Actions']
@@ -306,11 +318,11 @@ export function renderregistrar_curriculum_programs_page(): string {
 
 export function renderregistrar_curriculum_departments_page(): string {
   return renderListPage('Departments', ['Department', 'Building', 'Programs'], [
-    ['College of Computing', 'Tech Building', '<span class="cf-tag">BSIT</span>'],
-    ['College of Education', 'Education Building', '<span class="cf-tag">BSED</span>'],
-    ['College of Business', 'Admin Building', '<span class="cf-tag">BSBA</span>'],
-    ['General Education', 'Education Building', '<span class="cf-tag">BSED</span>'],
-    ['Graduate School', 'Graduate Building', '<span class="cf-tag">BSED</span>'],
+    ['College of Computing', 'Tech Building', renderProgramColorBadge('BSIT')],
+    ['College of Education', 'Education Building', renderProgramColorBadge('BSED')],
+    ['College of Business', 'Admin Building', renderProgramColorBadge('BSBA')],
+    ['General Education', 'Education Building', renderProgramColorBadge('BSED')],
+    ['Graduate School', 'Graduate Building', renderProgramColorBadge('BSED')],
   ])
 }
 
