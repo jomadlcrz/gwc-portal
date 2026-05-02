@@ -10,16 +10,18 @@
   min-height: var(--site-topbar-height);
   display: flex;
   align-items: stretch;
-  justify-content: space-between;
+  justify-content: flex-start;
   background: transparent;
   box-shadow: var(--shadow-none);
 }
 
 .site-brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   min-width: 0;
-  flex: 1 1 auto;
+  flex: 0 1 auto;
+  width: fit-content;
+  margin-right: auto;
   color: var(--color-white);
   gap: 2px;
   padding: 0 14px;
@@ -78,6 +80,7 @@
   flex: 0 0 auto;
   min-width: 0;
   width: fit-content;
+  margin-left: auto;
   height: var(--site-topbar-height);
   display: flex;
   align-items: center;
