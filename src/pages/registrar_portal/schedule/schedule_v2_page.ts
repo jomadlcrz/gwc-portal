@@ -14,6 +14,87 @@ const HOURS = [
   { start: '4:00 PM', end: '5:00 PM' },
 ] as const
 
+type ScheduleListEntry = {
+  day: string
+  time: string
+  subject: string
+  meta: string
+  instructor: string
+  room: string
+  program: string
+  section: string
+  tone: 'blue' | 'violet' | 'yellow' | 'teal' | 'indigo'
+}
+
+const LIST_ENTRIES: ScheduleListEntry[] = [
+  {
+    day: 'Monday',
+    time: '7:00 AM - 8:00 AM',
+    subject: 'IT 204',
+    meta: 'Web Systems',
+    instructor: 'Prof. D. Dela Cruz',
+    room: 'Room 301',
+    program: 'BS Information Technology',
+    section: '2A',
+    tone: 'blue',
+  },
+  {
+    day: 'Monday',
+    time: '8:00 AM - 9:00 AM',
+    subject: 'MATH 201',
+    meta: 'Discrete Math',
+    instructor: 'Prof. N. Reyes',
+    room: 'Room 305',
+    program: 'BS Information Technology',
+    section: '2A',
+    tone: 'violet',
+  },
+  {
+    day: 'Tuesday',
+    time: '8:00 AM - 11:00 AM',
+    subject: 'PE 2',
+    meta: 'Physical Education',
+    instructor: 'Coach J. Ramos',
+    room: 'Activity Center',
+    program: 'BS Information Technology',
+    section: '2A',
+    tone: 'yellow',
+  },
+  {
+    day: 'Wednesday',
+    time: '1:00 PM - 3:00 PM',
+    subject: 'CS 201',
+    meta: 'Data Structures',
+    instructor: 'Prof. L. Santos',
+    room: 'Room 302',
+    program: 'BS Computer Science',
+    section: '2B',
+    tone: 'violet',
+  },
+  {
+    day: 'Thursday',
+    time: '2:00 PM - 5:00 PM',
+    subject: 'IT 205 LAB',
+    meta: 'Network Lab',
+    instructor: 'Engr. A. Gomez',
+    room: 'Lab 1',
+    program: 'BS Information Technology',
+    section: '2A',
+    tone: 'teal',
+  },
+  {
+    day: 'Friday',
+    time: '7:00 AM - 8:00 AM',
+    subject: 'NSTP 2',
+    meta: 'CWTS',
+    instructor: 'Lt. C. Valdez',
+    room: 'Room 201',
+    program: 'BS Information Technology',
+    section: '2A',
+    tone: 'indigo',
+  },
+]
+
 function renderCell(label = '', meta = '', tone = 'neutral'): string {
   if (!label) return '<div class="registrar-schedule-v2-cell registrar-schedule-v2-cell-empty"></div>'
   return `
@@ -22,6 +103,47 @@ function renderCell(label = '', meta = '', tone = 'neutral'): string {
       <small>${meta}</small>
     </div>
   `
+}
+
+function renderList(entries: ScheduleListEntry[]): string {
+  const grouped = entries.reduce<Record<string, ScheduleListEntry[]>>((acc, entry) => {
+    if (!acc[entry.day]) acc[entry.day] = []
+    acc[entry.day].push(entry)
+    return acc
+  }, {})
+
+  return Object.entries(grouped)
+    .map(
+      ([day, dayEntries]) => `
+        <section class="registrar-schedule-v2-list-day">
+          <header>
+            <h5>${day}</h5>
+            <span>${dayEntries.length} classes</span>
+          </header>
+          <div class="registrar-schedule-v2-list-items">
+            ${dayEntries
+              .map(
+                (entry) => `
+                  <article class="registrar-schedule-v2-list-item registrar-schedule-v2-cell-${entry.tone}">
+                    <div>
+                      <strong>${entry.subject}</strong>
+                      <small>${entry.meta}</small>
+                      <span>${entry.program} · ${entry.section}</span>
+                    </div>
+                    <div>
+                      <em>${entry.time}</em>
+                      <span>${entry.instructor}</span>
+                      <span>${entry.room}</span>
+                    </div>
+                  </article>
+                `,
+              )
+              .join('')}
+          </div>
+        </section>
+      `,
+    )
+    .join('')
 }
 
 export function renderregistrar_schedule_v2_page(): string {
@@ -59,14 +181,14 @@ export function renderregistrar_schedule_v2_page(): string {
               </select>
             </label>
             <div class="registrar-schedule-v2-view-switch" role="group" aria-label="View switch">
-              <button type="button" class="is-active" data-schedule-v2-view="grid"><i class="bi bi-grid-3x3-gap"></i> Grid View</button>
-              <button type="button" data-schedule-v2-view="list"><i class="bi bi-list-ul"></i> List View</button>
+              <button type="button" class="is-active" data-schedule-v2-view="grid" aria-pressed="true"><i class="bi bi-grid-3x3-gap"></i> Grid View</button>
+              <button type="button" data-schedule-v2-view="list" aria-pressed="false"><i class="bi bi-list-ul"></i> List View</button>
             </div>
           </section>
 
           <section class="registrar-schedule-v2-layout">
             <div class="registrar-schedule-v2-main">
-              <div class="registrar-schedule-v2-grid-wrap">
+              <div class="registrar-schedule-v2-grid-wrap registrar-schedule-v2-view-panel" data-schedule-v2-view-panel="grid">
                 <div class="registrar-schedule-v2-grid-head">
                   <span>Time</span>
                   ${DAYS.map((day) => `<span>${day}</span>`).join('')}
@@ -81,6 +203,12 @@ export function renderregistrar_schedule_v2_page(): string {
                     <div>${rowIndex === 0 ? renderCell('IT 204', 'Web Systems - Room 301', 'blue') : rowIndex === 6 ? renderCell('IT 205 LAB', 'Network Lab - Lab 1', 'teal') : renderCell()}</div>
                     <div>${rowIndex === 1 ? renderCell('NSTP 2', 'CWTS 2 - Room 201', 'indigo') : renderCell()}</div>
                   `).join('')}
+                </div>
+              </div>
+
+              <div class="registrar-schedule-v2-view-panel" data-schedule-v2-view-panel="list" hidden>
+                <div class="registrar-schedule-v2-list">
+                  ${renderList(LIST_ENTRIES)}
                 </div>
               </div>
 
@@ -310,8 +438,18 @@ export function setupregistrar_schedule_v2_page(root: HTMLElement): () => void {
     if (!button) return
     const group = button.parentElement
     if (!group) return
-    Array.from(group.querySelectorAll('button')).forEach((item) => item.classList.remove('is-active'))
+    const nextView = button.dataset.scheduleV2View
+    if (!nextView) return
+    Array.from(group.querySelectorAll('button')).forEach((item) => {
+      item.classList.remove('is-active')
+      item.setAttribute('aria-pressed', 'false')
+    })
     button.classList.add('is-active')
+    button.setAttribute('aria-pressed', 'true')
+    root.querySelectorAll<HTMLElement>('[data-schedule-v2-view-panel]')
+      .forEach((panel) => {
+        panel.hidden = panel.dataset.scheduleV2ViewPanel !== nextView
+      })
   }
 
   const onDetailsClick = (event: Event): void => {

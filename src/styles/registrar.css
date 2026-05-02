@@ -2273,6 +2273,10 @@
   gap: 0;
 }
 
+.registrar-schedule-v2-view-panel[hidden] {
+  display: none;
+}
+
 .registrar-schedule-v2-time {
   font-size: 0.68rem;
   color: #49617d;
@@ -2323,6 +2327,79 @@
 .registrar-schedule-v2-cell-teal { background: #eafaf8; }
 .registrar-schedule-v2-cell-yellow { background: #fff9e8; }
 .registrar-schedule-v2-cell-indigo { background: #edf0ff; }
+
+.registrar-schedule-v2-list {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.registrar-schedule-v2-list-day {
+  border: 1px solid #e1e8f2;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  overflow: hidden;
+}
+
+.registrar-schedule-v2-list-day header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid #e7edf6;
+  background: #f8fbff;
+}
+
+.registrar-schedule-v2-list-day header h5 {
+  margin: 0;
+  font-size: 0.75rem;
+}
+
+.registrar-schedule-v2-list-day header span {
+  font-size: 0.64rem;
+  color: #56708f;
+  font-weight: 700;
+}
+
+.registrar-schedule-v2-list-items {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0.5rem 0.6rem 0.65rem;
+}
+
+.registrar-schedule-v2-list-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(140px, 180px);
+  gap: 0.6rem;
+  padding: 0.5rem 0.55rem;
+  border-radius: var(--radius-sm);
+}
+
+.registrar-schedule-v2-list-item strong {
+  display: block;
+  font-size: 0.76rem;
+  color: #10253d;
+}
+
+.registrar-schedule-v2-list-item small {
+  display: block;
+  font-size: 0.64rem;
+  color: #46607d;
+}
+
+.registrar-schedule-v2-list-item span {
+  display: block;
+  font-size: 0.6rem;
+  color: #5c738f;
+}
+
+.registrar-schedule-v2-list-item em {
+  display: block;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.64rem;
+  color: #25405f;
+  margin-bottom: 0.2rem;
+}
 
 .registrar-schedule-v2-tabs {
   margin-top: 0.2rem;
