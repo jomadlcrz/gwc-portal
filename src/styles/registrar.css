@@ -2885,3 +2885,73 @@
 body.registrar-schedule-v2-offcanvas-open {
   overflow: hidden;
 }
+
+.registrar-cf-list-offcanvas {
+  width: min(520px, 96vw);
+  top: 0;
+  height: 100dvh;
+  background: #fff;
+  border-left: 1px solid #d9e1ee;
+  box-shadow: -8px 0 24px rgb(15 23 42 / 18%);
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform 0.25s ease, visibility 0.25s ease;
+  z-index: 1061;
+}
+
+.registrar-cf-list-offcanvas.show {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.registrar-cf-list-offcanvas .offcanvas-header {
+  border-bottom: 1px solid #e4e9f2;
+  padding: 1rem 1.25rem;
+}
+
+.registrar-cf-list-offcanvas .offcanvas-title {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.registrar-cf-list-offcanvas .offcanvas-body {
+  padding: 1.25rem;
+  overflow-y: auto;
+}
+
+.registrar-cf-list-offcanvas .shared-modal-grid {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.registrar-cf-list-offcanvas .shared-modal-grid-2 {
+  grid-template-columns: 1fr;
+}
+
+.registrar-cf-list-offcanvas .form-floating {
+  min-width: 0;
+}
+
+.registrar-cf-list-offcanvas-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.1rem !important;
+}
+
+[data-cf-add-backdrop].offcanvas-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgb(15 23 42 / 42%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 1060;
+}
+
+[data-cf-add-backdrop].offcanvas-backdrop.show {
+  opacity: 1;
+}
+
+body.registrar-cf-list-offcanvas-open {
+  overflow: hidden;
+}
