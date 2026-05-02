@@ -68,6 +68,20 @@ function getInstructorRoomLabel(instructor: InstructorSchedule): string {
   return `Rooms ${instructor.rooms.join(', ')}`
 }
 
+function getInstructorAvatarInitial(name: string): string {
+  const tokens = name.trim().split(/\s+/).filter(Boolean)
+  if (!tokens.length) return '?'
+  const ignoredTitles = new Set(['mr', 'mrs', 'ms', 'miss', 'dr', 'prof', 'professor', 'asst', 'assistant'])
+  const firstNameToken =
+    tokens.find((token) => {
+      const normalized = token.toLowerCase().replace(/[^a-z]/g, '')
+      return normalized && !ignoredTitles.has(normalized)
+    }) ?? tokens[0]
+
+  const alphanumeric = firstNameToken.replace(/[^a-z0-9]/gi, '')
+  return (alphanumeric[0] ?? firstNameToken[0] ?? '?').toUpperCase()
+}
+
 function splitSlotTime(slotTime: string): { start: string; end: string } {
   const [start = '', end = ''] = slotTime.split('-').map((value) => value.trim())
   return { start, end }
@@ -200,7 +214,7 @@ export function renderdean_schedule_page(): string {
               .map(
                 (instructor) => `
                   <button type="button" class="registrar-schedule-instructor" data-dean-schedule-jump="${getInstructorTargetId(instructor)}">
-                    <span class="registrar-schedule-instructor-avatar">${instructor.name}</span>
+                    <span class="registrar-schedule-instructor-avatar">${getInstructorAvatarInitial(instructor.name)}</span>
                     <span class="registrar-schedule-instructor-copy">
                       <strong>${instructor.name}</strong>
                       <span>${getInstructorRoomLabel(instructor)}</span>
