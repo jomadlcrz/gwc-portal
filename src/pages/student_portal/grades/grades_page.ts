@@ -67,7 +67,7 @@ export function renderstudent_grades_page(): string {
                           <td>92</td>
                           <td>93</td>
                           <td>92</td>
-                          <td>PASSED</td>
+                          <td class="student-grades-remark is-passed">PASSED</td>
                         </tr>
                         <tr>
                           <td>2</td>
@@ -79,7 +79,7 @@ export function renderstudent_grades_page(): string {
                           <td>90</td>
                           <td>92</td>
                           <td>91</td>
-                          <td>PASSED</td>
+                          <td class="student-grades-remark is-passed">PASSED</td>
                         </tr>
                         <tr>
                           <td>3</td>
@@ -91,7 +91,7 @@ export function renderstudent_grades_page(): string {
                           <td>90</td>
                           <td>90</td>
                           <td>89</td>
-                          <td>PASSED</td>
+                          <td class="student-grades-remark is-passed">PASSED</td>
                         </tr>
                         <tr>
                           <td>4</td>
@@ -103,7 +103,7 @@ export function renderstudent_grades_page(): string {
                           <td>94</td>
                           <td>95</td>
                           <td>94</td>
-                          <td>PASSED</td>
+                          <td class="student-grades-remark is-passed">PASSED</td>
                         </tr>
                         <tr>
                           <td>5</td>
@@ -115,7 +115,7 @@ export function renderstudent_grades_page(): string {
                           <td>89</td>
                           <td>90</td>
                           <td>89</td>
-                          <td>PASSED</td>
+                          <td class="student-grades-remark is-passed">PASSED</td>
                         </tr>
                       </tbody>
                     </table>
@@ -173,7 +173,7 @@ export function renderstudent_grades_page(): string {
                           <td>90</td>
                           <td>91</td>
                           <td>90</td>
-                          <td>PASSED</td>
+                          <td class="student-grades-remark is-passed">PASSED</td>
                         </tr>
                         <tr>
                           <td>2</td>
@@ -185,7 +185,7 @@ export function renderstudent_grades_page(): string {
                           <td>85</td>
                           <td>87</td>
                           <td>86</td>
-                          <td>PASSED</td>
+                          <td class="student-grades-remark is-passed">PASSED</td>
                         </tr>
                         <tr>
                           <td>3</td>
@@ -197,7 +197,7 @@ export function renderstudent_grades_page(): string {
                           <td>92</td>
                           <td>91</td>
                           <td>91</td>
-                          <td>PASSED</td>
+                          <td class="student-grades-remark is-passed">PASSED</td>
                         </tr>
                         <tr>
                           <td>4</td>
@@ -209,7 +209,7 @@ export function renderstudent_grades_page(): string {
                           <td>92</td>
                           <td>94</td>
                           <td>93</td>
-                          <td>PASSED</td>
+                          <td class="student-grades-remark is-passed">PASSED</td>
                         </tr>
                         <tr>
                           <td>5</td>
@@ -221,7 +221,7 @@ export function renderstudent_grades_page(): string {
                           <td>95</td>
                           <td>96</td>
                           <td>95</td>
-                          <td>PASSED</td>
+                          <td class="student-grades-remark is-passed">PASSED</td>
                         </tr>
                       </tbody>
                     </table>

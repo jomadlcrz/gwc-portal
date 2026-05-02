@@ -547,6 +547,18 @@
   white-space: nowrap;
 }
 
+.student-grades-remark {
+  font-weight: 700;
+}
+
+.student-grades-remark.is-passed {
+  color: #0f7a3b;
+}
+
+.student-grades-remark.is-failed {
+  color: #b91c1c;
+}
+
 .student-list {
   margin: 0.55rem 0 0;
   padding-left: 1rem;
