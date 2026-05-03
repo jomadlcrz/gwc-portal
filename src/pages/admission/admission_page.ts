@@ -418,7 +418,13 @@ function renderAdmissionContent(active: AdmissionSection): string {
           ${renderSectionTitle(`S.Y. ${startYear} - ${endYear} | ${semesterLabel}`)}
         </header>
         <article class="admission-section-card admission-section-card-no-margin">
-          <header class="admission-section-header"><p class="admission-deadline"><i class="bi bi-calendar-event" aria-hidden="true"></i><span>Deadline of Application</span><strong>March 28, 2026</strong></p></header>
+          <header class="admission-section-header">
+            <p class="admission-deadline">
+              <i class="bi bi-calendar-event" aria-hidden="true"></i>
+              <span data-admission-headline>Deadline of Application</span>
+              <strong data-admission-deadline-value>TBA</strong>
+            </p>
+          </header>
 
           <section class="admission-content-block">
             <h3 class="mb-3">Admission Requirements</h3>
@@ -653,8 +659,10 @@ export function setupadmission_page(app: HTMLDivElement): () => void {
   const availabilitySection = app.querySelector<HTMLElement>('.admission-availability')
   const statusText = app.querySelector<HTMLElement>('.admission-status-text')
   const applyLink = app.querySelector<HTMLAnchorElement>('.admission-apply-link')
+  const headlineText = app.querySelector<HTMLElement>('[data-admission-headline]')
+  const deadlineText = app.querySelector<HTMLElement>('[data-admission-deadline-value]')
   const requirementsContainer = app.querySelector<HTMLElement>('[data-admission-requirements-container]')
-  if (!availabilitySection || !statusText || !applyLink) return () => {}
+  if (!availabilitySection || !statusText || !applyLink || !headlineText || !deadlineText) return () => {}
 
   const sanitizeDocs = (docs: string[]): string[] =>
     docs
@@ -711,10 +719,22 @@ export function setupadmission_page(app: HTMLDivElement): () => void {
   void getCurrentEnrollmentSession()
     .then((session) => {
       const isOpen = session?.status === 'OPEN'
+      const currentAcademicYear = getCurrentAcademicYear()
+      const schoolYearRaw = session?.school_year?.trim() || `${currentAcademicYear.startYear}-${currentAcademicYear.endYear}`
+      const schoolYearLabel = schoolYearRaw.replace(/\s*-\s*/g, '–')
       availabilitySection.classList.toggle('is-open', isOpen)
       availabilitySection.classList.toggle('is-closed', !isOpen)
       applyLink.classList.toggle('d-none', !isOpen)
       statusText.textContent = isOpen ? 'ONLINE ADMISSION IS NOW OPEN' : 'Application Closed'
+      if (isOpen) {
+        headlineText.textContent = ''
+        deadlineText.classList.remove('d-none')
+        deadlineText.textContent = `Admissions Are Now Open for S.Y. ${schoolYearLabel}`
+      } else {
+        headlineText.textContent = 'Deadline of Application'
+        deadlineText.classList.toggle('d-none', !session?.closing_date)
+        deadlineText.textContent = session?.closing_date ? new Date(session.closing_date).toLocaleDateString() : 'TBA'
+      }
     })
     .catch(() => {})
   void renderRequirements()
