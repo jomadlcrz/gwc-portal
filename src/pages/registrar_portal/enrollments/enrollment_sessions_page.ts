@@ -3,6 +3,7 @@ import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/l
 import { renderBreadcrumbNav } from '../../../components/ui/nav_breadcrumb'
 import { renderEnrollmentSessionForm, setupEnrollmentSessionForm } from '../../../components/forms/enrollment_session_form'
 import { renderEnrollmentSessionStatus, updateEnrollmentSessionStatus } from '../../../components/ui/enrollment_session_status'
+import { getCurrentEnrollmentSession } from '../../../api/v1/enrollment_sessions/enrollments'
 
 export function renderEnrollmentSessionsPage(): string {
   return renderPortalShell(
@@ -40,6 +41,17 @@ export function renderEnrollmentSessionsPage(): string {
 }
 
 export function setupEnrollmentSessionsPage(root: HTMLElement): () => void {
+  const statusContainer = root.querySelector<HTMLElement>('.enrollment-session-status-container')
+  if (statusContainer) {
+    void getCurrentEnrollmentSession()
+      .then((data) => {
+        if (data) {
+          updateEnrollmentSessionStatus(statusContainer, data)
+        }
+      })
+      .catch(() => {})
+  }
+
   // Setup form
   const formCleanup = setupEnrollmentSessionForm(root, (data) => {
     // Update status display after successful submission

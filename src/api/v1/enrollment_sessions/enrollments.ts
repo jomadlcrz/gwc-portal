@@ -23,12 +23,12 @@ export type EnrollmentSessionResponse = {
   error?: string
   message?: string
   data?: {
-    school_year: string
-    semester: string
-    year_level: string
+    school_year: string | null
+    semester: string | null
+    year_level: string | null
     status: string
-    opening_date: string
-    closing_date: string
+    opening_date: string | null
+    closing_date: string | null
   }
 }
 
@@ -51,4 +51,22 @@ export async function createEnrollmentSession(
   }
 
   return data
+}
+
+export async function getCurrentEnrollmentSession(): Promise<EnrollmentSessionResponse['data']> {
+  const response = await fetch(`${API_BASE_URL}/api/v1/enrollment_sessions/current`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'ngrok-skip-browser-warning': 'true',
+    },
+  })
+
+  const data = (await response.json()) as EnrollmentSessionResponse
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Unable to fetch current enrollment session.')
+  }
+
+  return data.data
 }

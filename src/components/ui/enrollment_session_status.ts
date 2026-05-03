@@ -17,12 +17,12 @@ export function renderEnrollmentSessionStatus(): string {
 }
 
 interface EnrollmentSessionData {
-  school_year: string
-  semester: string
-  year_level: string
+  school_year: string | null
+  semester: string | null
+  year_level: string | null
   status: string
-  opening_date: string
-  closing_date: string
+  opening_date: string | null
+  closing_date: string | null
 }
 
 export function updateEnrollmentSessionStatus(
@@ -31,6 +31,10 @@ export function updateEnrollmentSessionStatus(
 ): void {
   const contentEl = container.querySelector<HTMLElement>('#enrollment-status-content')
   if (!contentEl || !data) return
+
+  if (!data.school_year || !data.semester || !data.year_level || !data.opening_date || !data.closing_date) {
+    return
+  }
 
   const statusMap: Record<string, string> = {
     OPEN: 'bg-success',
