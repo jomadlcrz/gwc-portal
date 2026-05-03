@@ -12,6 +12,7 @@ import { renderSectionTitle } from '../../components/ui/section_title_heading'
 import { type AdmissionApplication } from '../../data/admission'
 import { admissionService } from '../../features/admission/service'
 import { getAdmissionRequirements } from '../../api/v1/admissions/admissions'
+import { getCurrentEnrollmentSession } from '../../api/v1/enrollment_sessions/enrollments'
 
 type AdmissionSection = 'requirements' | 'status' | 'contact'
 const REQUIREMENTS_OVERRIDE_KEY = 'gwc:admission:requirements:overrides'
@@ -410,7 +411,6 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
 
 function renderAdmissionContent(active: AdmissionSection): string {
   if (active === 'requirements') {
-    const isAdmissionOpen = admissionService.isEnrollmentOpen()
     const { startYear, endYear, semesterLabel } = getCurrentAcademicYear()
     return `
       <section class="admission-detail-section">
@@ -418,9 +418,7 @@ function renderAdmissionContent(active: AdmissionSection): string {
           ${renderSectionTitle(`S.Y. ${startYear} - ${endYear} | ${semesterLabel}`)}
         </header>
         <article class="admission-section-card admission-section-card-no-margin">
-          ${!isAdmissionOpen
-            ? '<header class="admission-section-header"><p class="admission-deadline"><i class="bi bi-calendar-event" aria-hidden="true"></i><span>Deadline of Application</span><strong>March 28, 2026</strong></p></header>'
-            : ''}
+          <header class="admission-section-header"><p class="admission-deadline"><i class="bi bi-calendar-event" aria-hidden="true"></i><span>Deadline of Application</span><strong>March 28, 2026</strong></p></header>
 
           <section class="admission-content-block">
             <h3 class="mb-3">Admission Requirements</h3>
@@ -486,9 +484,9 @@ function renderAdmissionContent(active: AdmissionSection): string {
         <p>For updates or corrections on your application details, contact the campus where you submitted your application.</p>
       </article>
 
-      <section class="admission-availability ${isAdmissionOpen ? 'is-open' : 'is-closed'}">
-        <p class="admission-status-text">${isAdmissionOpen ? 'ONLINE ADMISSION IS NOW OPEN' : 'Application Closed'}</p>
-        ${isAdmissionOpen ? `<a href="${ROUTES.ADMISSION_REGISTRATION}" class="admission-apply-link">Apply Now <i class="bi bi-arrow-right-circle-fill" aria-hidden="true"></i></a>` : ''}
+      <section class="admission-availability is-closed">
+        <p class="admission-status-text">Application Closed</p>
+        <a href="${ROUTES.ADMISSION_REGISTRATION}" class="admission-apply-link d-none">Apply Now <i class="bi bi-arrow-right-circle-fill" aria-hidden="true"></i></a>
       </section>
     `
   }
@@ -654,8 +652,9 @@ export function renderadmission_page(): string {
 export function setupadmission_page(app: HTMLDivElement): () => void {
   const availabilitySection = app.querySelector<HTMLElement>('.admission-availability')
   const statusText = app.querySelector<HTMLElement>('.admission-status-text')
+  const applyLink = app.querySelector<HTMLAnchorElement>('.admission-apply-link')
   const requirementsContainer = app.querySelector<HTMLElement>('[data-admission-requirements-container]')
-  if (!availabilitySection || !statusText) return () => {}
+  if (!availabilitySection || !statusText || !applyLink) return () => {}
 
   const sanitizeDocs = (docs: string[]): string[] =>
     docs
@@ -709,11 +708,12 @@ export function setupadmission_page(app: HTMLDivElement): () => void {
     }
   }
 
-  void admissionService
-    .refreshEnrollmentOpenFromBackend()
-    .then((isOpen) => {
+  void getCurrentEnrollmentSession()
+    .then((session) => {
+      const isOpen = session?.status === 'OPEN'
       availabilitySection.classList.toggle('is-open', isOpen)
       availabilitySection.classList.toggle('is-closed', !isOpen)
+      applyLink.classList.toggle('d-none', !isOpen)
       statusText.textContent = isOpen ? 'ONLINE ADMISSION IS NOW OPEN' : 'Application Closed'
     })
     .catch(() => {})

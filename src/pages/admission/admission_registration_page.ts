@@ -252,7 +252,7 @@ export function renderadmission_registration_page(): string {
                 Your application has been submitted successfully. Please wait for admissions confirmation.
               </p>
               <a class="admission-registration-dashboard-link" href="${ROUTES.HOME}">
-                <span>Go to Home</span>
+                <span>Go to Homepage</span>
               </a>
             </article>
           </section>

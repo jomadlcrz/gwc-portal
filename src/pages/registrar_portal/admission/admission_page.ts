@@ -292,7 +292,6 @@ function renderAdmissionQueueRows(): string {
 
 export function renderregistrar_admission_page(): string {
   const stats = admissionService.getStats()
-  const enrollmentOpen = admissionService.isEnrollmentOpen()
 
   return renderPortalShell(
     registrar_SHELL_CONFIG,
@@ -321,17 +320,6 @@ export function renderregistrar_admission_page(): string {
             ${renderAdmissionKpiCard('Disqualified', stats.disqualified, 'bi-x-circle', 'cancelled')}
           </section>
 
-          <section class="mt-3">
-            <article class="registrar-dashboard-card" data-enrollment-controls>
-              <h4>Enrollment Control</h4>
-              <p class="mb-2">Current Status: <strong class="registrar-enrollment-status ${enrollmentOpen ? 'is-open' : 'is-closed'}" data-enrollment-status-text>${enrollmentOpen ? 'OPEN' : 'CLOSED'}</strong></p>
-              <div class="registrar-dashboard-actions">
-                <button type="button" class="btn btn-sm ${enrollmentOpen ? 'btn-outline-secondary' : 'btn-primary'}" data-enrollment-toggle>
-                  ${enrollmentOpen ? 'Close Enrollment' : 'Open Enrollment'}
-                </button>
-              </div>
-            </article>
-          </section>
           <section class="mt-3">
             <article class="registrar-dashboard-card registrar-admission-req-card">
               <div class="registrar-admission-req-head">
@@ -799,15 +787,13 @@ export function setupregistrar_admission_review_page(root: HTMLElement): () => v
 }
 
 export function setupregistrar_admission_page(root: HTMLElement): () => void {
-  const toggleButton = root.querySelector<HTMLButtonElement>('[data-enrollment-toggle]')
-  const statusText = root.querySelector<HTMLElement>('[data-enrollment-status-text]')
   const reqType = root.querySelector<HTMLSelectElement>('[data-admission-req-type]')
   const reqDocs = root.querySelector<HTMLTextAreaElement>('[data-admission-req-docs]')
   const reqAddBtn = root.querySelector<HTMLButtonElement>('[data-admission-req-add]')
   const reqMessage = root.querySelector<HTMLElement>('[data-admission-req-message]')
   const reqList = root.querySelector<HTMLElement>('[data-admission-req-list]')
 
-  if (!toggleButton || !statusText || !reqType || !reqDocs || !reqAddBtn || !reqMessage || !reqList) return () => {}
+  if (!reqType || !reqDocs || !reqAddBtn || !reqMessage || !reqList) return () => {}
 
   const REQUIREMENTS_OVERRIDE_KEY = 'gwc:admission:requirements:overrides'
   const requirementOverrides = new Map<string, string[]>(
@@ -817,52 +803,6 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
   const persistOverrides = (): void => {
     window.localStorage.setItem(REQUIREMENTS_OVERRIDE_KEY, JSON.stringify(Array.from(requirementOverrides.entries())))
   }
-
-  const syncState = (): void => {
-    const isOpen = admissionService.isEnrollmentOpen()
-    statusText.textContent = isOpen ? 'OPEN' : 'CLOSED'
-    statusText.classList.toggle('is-open', isOpen)
-    statusText.classList.toggle('is-closed', !isOpen)
-    toggleButton.textContent = isOpen ? 'Close Enrollment' : 'Open Enrollment'
-    toggleButton.classList.toggle('btn-primary', !isOpen)
-    toggleButton.classList.toggle('btn-outline-secondary', isOpen)
-  }
-
-  const onOpen = (): void => {
-    const confirmed = window.confirm('Open enrollment now? Applicants will be able to submit online admission forms.')
-    if (!confirmed) return
-    void admissionService
-      .setEnrollmentOpenFromBackend(true)
-      .then(() => syncState())
-      .catch((error) => {
-        const message = error instanceof Error ? error.message : 'Unable to open enrollment.'
-        window.alert(message)
-      })
-  }
-
-  const onClose = (): void => {
-    const confirmed = window.confirm('Close enrollment now? Applicants will no longer be able to submit online admission forms.')
-    if (!confirmed) return
-    void admissionService
-      .setEnrollmentOpenFromBackend(false)
-      .then(() => syncState())
-      .catch((error) => {
-        const message = error instanceof Error ? error.message : 'Unable to close enrollment.'
-        window.alert(message)
-      })
-  }
-
-  const onToggle = (): void => {
-    if (admissionService.isEnrollmentOpen()) {
-      onClose()
-      return
-    }
-    onOpen()
-  }
-
-  toggleButton.addEventListener('click', onToggle)
-  syncState()
-  void admissionService.refreshEnrollmentOpenFromBackend().then(() => syncState()).catch(() => {})
 
   const sanitizeDocs = (docs: string[]): string[] => {
     const unique: string[] = []
@@ -1023,7 +963,6 @@ export function setupregistrar_admission_page(root: HTMLElement): () => void {
   void loadRequirements()
 
   return () => {
-    toggleButton.removeEventListener('click', onToggle)
     reqType.removeEventListener('change', onRequirementTypeChange)
     reqDocs.removeEventListener('blur', formatBulletLines)
     reqDocs.removeEventListener('keydown', onReqDocsKeydown)
