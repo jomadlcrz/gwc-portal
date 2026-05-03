@@ -37,9 +37,12 @@ function getDurationHours(startTime: string, endTime: string): string {
 
 function getBadgeClass(category: string): string {
   if (category === 'Major (with lab)') return 'text-bg-primary'
-  if (category === 'GE') return 'text-bg-success'
   if (category === 'Minor') return 'text-bg-secondary'
   return 'text-bg-info'
+}
+
+function normalizeCategory(category: string): string {
+  return category === 'GE' ? 'Minor' : category
 }
 
 function renderOptions(values: string[], fallback: string): string {
@@ -324,7 +327,6 @@ export function renderregistrar_schedule_v2_page(): string {
               <div class="registrar-schedule-v2-legend">
                 <span><i class="registrar-schedule-v2-dot registrar-schedule-v2-dot-blue"></i>Major (with lab)</span>
                 <span><i class="registrar-schedule-v2-dot registrar-schedule-v2-dot-violet"></i>Major</span>
-                <span><i class="registrar-schedule-v2-dot registrar-schedule-v2-dot-yellow"></i>GE</span>
                 <span><i class="registrar-schedule-v2-dot registrar-schedule-v2-dot-teal"></i>Research</span>
                 <span><i class="registrar-schedule-v2-dot registrar-schedule-v2-dot-indigo"></i>Minor</span>
               </div>
@@ -363,7 +365,7 @@ export function renderregistrar_schedule_v2_page(): string {
                   <h5>Subjects</h5>
                 </header>
                 <ul>
-                  ${SUBJECTS.map((subject) => `<li><span>${subject.code} - ${subject.title}</span><em class="badge ${getBadgeClass(subject.category)}">${subject.category}</em></li>`).join('')}
+                  ${SUBJECTS.map((subject) => `<li><span>${subject.code} - ${subject.title}</span><em class="badge ${getBadgeClass(normalizeCategory(subject.category))}">${normalizeCategory(subject.category)}</em></li>`).join('')}
                 </ul>
                 <footer><a class="registrar-schedule-v2-side-link" href="#">View all subjects <i class="bi bi-chevron-down"></i></a></footer>
               </section>
@@ -402,7 +404,6 @@ export function renderregistrar_schedule_v2_page(): string {
                 <fieldset class="registrar-schedule-v2-inline-options">
                   <legend>Type</legend>
                   <label><input type="radio" name="sched-type" checked /> Major</label>
-                  <label><input type="radio" name="sched-type" /> GE</label>
                   <label><input type="radio" name="sched-type" /> Minor</label>
                 </fieldset>
 
