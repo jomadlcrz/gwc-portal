@@ -16,6 +16,14 @@ import { getAdmissionRequirements } from '../../api/v1/admissions/admissions'
 type AdmissionSection = 'requirements' | 'status' | 'contact'
 const REQUIREMENTS_OVERRIDE_KEY = 'gwc:admission:requirements:overrides'
 
+function getCurrentAcademicYear(): { startYear: number; endYear: number; semesterLabel: string } {
+  const now = new Date()
+  const startYear = now.getFullYear()
+  const endYear = startYear + 1
+  const semesterLabel = 'First Semester'
+  return { startYear, endYear, semesterLabel }
+}
+
 function renderAdmissionTabs(active: AdmissionSection): string {
   return `
     <nav class="admission-tabs" aria-label="Admission sections">
@@ -403,10 +411,11 @@ function renderAdmissionStatusDetailsContent(applicationNo: string): string {
 function renderAdmissionContent(active: AdmissionSection): string {
   if (active === 'requirements') {
     const isAdmissionOpen = admissionService.isEnrollmentOpen()
+    const { startYear, endYear, semesterLabel } = getCurrentAcademicYear()
     return `
       <section class="admission-detail-section">
         <header class="admission-detail-heading">
-          ${renderSectionTitle('S.Y. 2026 - 2027 | First Semester')}
+          ${renderSectionTitle(`S.Y. ${startYear} - ${endYear} | ${semesterLabel}`)}
         </header>
         <article class="admission-section-card admission-section-card-no-margin">
           ${!isAdmissionOpen
@@ -546,7 +555,8 @@ function renderadmission_shell(active: AdmissionSection): string {
       : active === 'contact'
         ? 'Contact Us'
         : 'College Admission'
-  const heroSchoolYear = active === 'requirements' ? '2026 - 2027' : ''
+  const { startYear, endYear } = getCurrentAcademicYear()
+  const heroSchoolYear = active === 'requirements' ? `${startYear} - ${endYear}` : ''
 
   return `
     <main class="admission-page">
