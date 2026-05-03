@@ -1,4 +1,5 @@
 import { registrar_SHELL_CONFIG, renderPortalShell } from '../../../components/layout/_layout'
+import { setupSearchableSelects } from '../../../components/ui/searchable_select'
 import {
   SCHEDULE_DAY_ORDER,
   getScheduleDayLabel,
@@ -53,13 +54,8 @@ function toLegendCategory(subjectCode: string, category: string): string {
   return normalizeCategory(category)
 }
 
-function renderOptions(values: string[], fallback: string): string {
-  const options = values.length ? values : [fallback]
-  return options.map((value) => `<option>${value}</option>`).join('')
-}
-
 function renderUnselectedOptions(values: string[], placeholder: string): string {
-  return [`<option value="" selected>${placeholder}</option>`, ...values.map((value) => `<option>${value}</option>`)].join('')
+  return [`<option value="" selected>${placeholder}</option>`, ...values.map((value) => `<option value="${value}">${value}</option>`)].join('')
 }
 
 function renderSelectedOptions(values: string[], selectedValue: string, emptyLabel = 'No options available'): string {
@@ -262,13 +258,7 @@ function renderInstructorLoad(): string {
 }
 
 export function renderregistrar_schedule_v2_page(): string {
-  const defaultSubject = FIRST_ENTRY ? `${FIRST_ENTRY.subject} - ${FIRST_ENTRY.meta}` : 'PT102 - Platform-based Development'
-  const defaultInstructor = FIRST_ENTRY?.instructor ?? 'Faculty'
-  const defaultRoom = FIRST_ENTRY?.room ?? 'Room 304'
-  const defaultDay = FIRST_ENTRY ? getScheduleDayLabel(FIRST_ENTRY.dayKey) : 'Monday'
-  const defaultStart = FIRST_ENTRY ? toScheduleDisplayTime(FIRST_ENTRY.startTime) : '9:00 AM'
-  const defaultEnd = FIRST_ENTRY ? toScheduleDisplayTime(FIRST_ENTRY.endTime) : '10:00 AM'
-  const defaultDuration = FIRST_ENTRY ? getDurationHours(FIRST_ENTRY.startTime, FIRST_ENTRY.endTime) : '1 hr'
+  const defaultDuration = '--'
   const filteredEntries: SchedulePlannerEntry[] = []
   const initialEmptyMessage = getEmptyStateMessage('', '')
 
@@ -293,13 +283,13 @@ export function renderregistrar_schedule_v2_page(): string {
           <section class="registrar-schedule-v2-toolbar">
             <label>
               <span>Program</span>
-              <select class="form-select form-select-sm" data-schedule-v2-toolbar-program>
+              <select class="form-select form-select-sm" data-schedule-v2-toolbar-program data-searchable-select data-search-placeholder="Search program">
                 ${renderUnselectedOptions(PROGRAMS, 'Select Program')}
               </select>
             </label>
             <label>
               <span>Section</span>
-              <select class="form-select form-select-sm" data-schedule-v2-toolbar-section>
+              <select class="form-select form-select-sm" data-schedule-v2-toolbar-section data-searchable-select data-search-placeholder="Search section">
                 ${renderUnselectedOptions([], 'Select Program First')}
               </select>
             </label>
@@ -407,10 +397,10 @@ export function renderregistrar_schedule_v2_page(): string {
               <div class="registrar-schedule-v2-form">
                 <p class="registrar-schedule-v2-duration" data-schedule-v2-form-hint>Set up a new schedule slot.</p>
                 <div class="registrar-schedule-v2-two">
-                  <label><span>Program</span><select class="form-select form-select-sm" data-schedule-v2-form-program>${renderUnselectedOptions(PROGRAMS, 'Select Program')}</select></label>
-                  <label><span>Section</span><select class="form-select form-select-sm" data-schedule-v2-form-section>${renderUnselectedOptions([], 'Select Program First')}</select></label>
+                  <label><span>Program</span><select class="form-select form-select-sm" data-schedule-v2-form-program data-searchable-select data-search-placeholder="Search program">${renderUnselectedOptions(PROGRAMS, 'Select Program')}</select></label>
+                  <label><span>Section</span><select class="form-select form-select-sm" data-schedule-v2-form-section data-searchable-select data-search-placeholder="Search section">${renderUnselectedOptions([], 'Select Program First')}</select></label>
                 </div>
-                <label><span>Subject</span><select class="form-select form-select-sm">${SUBJECTS.map((subject) => `<option>${subject.code} - ${subject.title}</option>`).join('') || `<option>${defaultSubject}</option>`}</select></label>
+                <label><span>Subject</span><select class="form-select form-select-sm" data-searchable-select data-search-placeholder="Search subject">${renderUnselectedOptions(SUBJECTS.map((subject) => `${subject.code} - ${subject.title}`), 'Select Subject')}</select></label>
 
                 <fieldset class="registrar-schedule-v2-inline-options">
                   <legend>Type</legend>
@@ -431,14 +421,14 @@ export function renderregistrar_schedule_v2_page(): string {
                   <label><input type="radio" name="sched-mode" /> Hybrid</label>
                 </fieldset>
 
-                <label><span>Instructor</span><select class="form-select form-select-sm">${renderOptions(Array.from(new Set(ENTRIES.map((entry) => entry.instructor))).sort(), defaultInstructor)}</select></label>
+                <label><span>Instructor</span><select class="form-select form-select-sm" data-searchable-select data-search-placeholder="Search instructor">${renderUnselectedOptions(Array.from(new Set(ENTRIES.map((entry) => entry.instructor))).sort(), 'Select Instructor')}</select></label>
                 <div class="registrar-schedule-v2-two">
-                  <label><span>Room</span><select class="form-select form-select-sm">${renderOptions(ROOMS.map((room) => room.room), defaultRoom)}</select></label>
-                  <label><span>Day</span><select class="form-select form-select-sm">${SCHEDULE_DAY_ORDER.map((day) => `<option>${getScheduleDayLabel(day)}</option>`).join('') || `<option>${defaultDay}</option>`}</select></label>
+                  <label><span>Room</span><select class="form-select form-select-sm" data-searchable-select data-search-placeholder="Search room">${renderUnselectedOptions(ROOMS.map((room) => room.room), 'Select Room')}</select></label>
+                  <label><span>Day</span><select class="form-select form-select-sm" data-searchable-select data-search-placeholder="Search day">${renderUnselectedOptions(SCHEDULE_DAY_ORDER.map((day) => getScheduleDayLabel(day)), 'Select Day')}</select></label>
                 </div>
                 <div class="registrar-schedule-v2-two">
-                  <label><span>Start</span><input class="form-control form-control-sm" value="${defaultStart}" /></label>
-                  <label><span>End</span><input class="form-control form-control-sm" value="${defaultEnd}" /></label>
+                  <label><span>Start</span><input class="form-control form-control-sm" value="" placeholder="Start time" /></label>
+                  <label><span>End</span><input class="form-control form-control-sm" value="" placeholder="End time" /></label>
                 </div>
                 <p class="registrar-schedule-v2-duration">Duration: <strong>${defaultDuration}</strong></p>
                 <div class="registrar-schedule-v2-form-actions">
@@ -477,10 +467,13 @@ export function setupregistrar_schedule_v2_page(root: HTMLElement): () => void {
   const formSectionSelect = root.querySelector<HTMLSelectElement>('[data-schedule-v2-form-section]')
   let mode: SchedulePanelMode = 'add'
 
+  const searchableSelect = setupSearchableSelects(root)
+
   const syncSectionOptions = (
     programSelect: HTMLSelectElement | null,
     sectionSelect: HTMLSelectElement | null,
     preferredSection?: string,
+    autoSelectFirst = true,
   ): void => {
     if (!programSelect || !sectionSelect) return
     if (!programSelect.value) {
@@ -494,8 +487,13 @@ export function setupregistrar_schedule_v2_page(root: HTMLElement): () => void {
       sectionSelect.value = ''
       return
     }
+    if (!autoSelectFirst && !preferredSection) {
+      sectionSelect.innerHTML = renderUnselectedOptions(sections, 'Select Section')
+      sectionSelect.value = ''
+      return
+    }
     const currentSection = preferredSection ?? sectionSelect.value
-    const nextSection = sections.includes(currentSection) ? currentSection : sections[0]
+    const nextSection = sections.includes(currentSection) ? currentSection : autoSelectFirst ? sections[0] : ''
     sectionSelect.innerHTML = renderSelectedOptions(sections, nextSection)
     sectionSelect.value = nextSection
   }
@@ -528,7 +526,7 @@ export function setupregistrar_schedule_v2_page(root: HTMLElement): () => void {
   }
 
   const onFormProgramChange = (): void => {
-    syncSectionOptions(formProgramSelect, formSectionSelect)
+    syncSectionOptions(formProgramSelect, formSectionSelect, undefined, false)
   }
 
   const applyMode = (nextMode: SchedulePanelMode): void => {
@@ -618,10 +616,11 @@ export function setupregistrar_schedule_v2_page(root: HTMLElement): () => void {
   formProgramSelect?.addEventListener('change', onFormProgramChange)
   applyMode('add')
   syncSectionOptions(toolbarProgramSelect, toolbarSectionSelect)
-  syncSectionOptions(formProgramSelect, formSectionSelect)
+  syncSectionOptions(formProgramSelect, formSectionSelect, undefined, false)
   renderSchedulesForSelection()
   return () => {
     closeDetails()
+    searchableSelect.destroy()
     root.removeEventListener('click', onViewClick)
     root.removeEventListener('click', onDetailsClick)
     document.removeEventListener('keydown', onEsc)
