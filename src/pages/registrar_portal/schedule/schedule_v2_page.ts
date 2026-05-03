@@ -376,16 +376,6 @@ export function renderregistrar_schedule_v2_page(): string {
                 </ul>
                 <footer><a class="registrar-schedule-v2-side-link" href="#">View all rooms <i class="bi bi-chevron-down"></i></a></footer>
               </section>
-              <section class="registrar-schedule-v2-side-card">
-                <header class="registrar-schedule-v2-side-head">
-                  <h5>Schedule Coverage</h5>
-                </header>
-                <ul>
-                  <li><span>Regular schedule</span><small>${listSchedulePlannerEntries('Regular').length} blocks</small></li>
-                  <li><span>Irregular schedule</span><small>${listSchedulePlannerEntries('Irregular').length} blocks</small></li>
-                </ul>
-                <footer><a class="registrar-schedule-v2-side-link" href="#">Manage coverage <i class="bi bi-chevron-down"></i></a></footer>
-              </section>
             </aside>
           </section>
 
