@@ -2243,7 +2243,10 @@
 
 .registrar-schedule-v2-grid-wrap {
   padding: 0;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
 }
 
 .registrar-schedule-v2-grid-head {
@@ -2271,6 +2274,10 @@
   display: grid;
   grid-template-columns: 74px repeat(6, minmax(78px, 1fr));
   gap: 0;
+}
+
+.registrar-schedule-v2-view-panel {
+  min-width: 0;
 }
 
 .registrar-schedule-v2-view-panel[hidden] {
@@ -2607,10 +2614,6 @@
 
   .registrar-schedule-v2-toolbar {
     grid-template-columns: 1fr;
-  }
-
-  .registrar-schedule-v2-grid-wrap {
-    overflow-x: auto;
   }
 
   .registrar-schedule-v2-grid-head,
