@@ -1,6 +1,6 @@
 import { createEnrollmentSession } from '../../api/v1/enrollment_sessions/enrollments'
 
-function floatingInput(id: string, label: string, type = 'text', required = true): string {
+function floatingInput(id: string, label: string, type = 'text', extraAttributes = ''): string {
   return `
     <div class="form-floating">
       <input 
@@ -8,17 +8,17 @@ function floatingInput(id: string, label: string, type = 'text', required = true
         class="form-control form-control-sm" 
         id="${id}" 
         placeholder="${label}"
-        ${required ? 'required' : ''}
+        ${extraAttributes}
       />
       <label for="${id}">${label}</label>
     </div>
   `
 }
 
-function floatingSelect(id: string, label: string, options: string[], required = true): string {
+function floatingSelect(id: string, label: string, options: string[]): string {
   return `
     <div class="form-floating">
-      <select class="form-select form-select-sm" id="${id}" ${required ? 'required' : ''}>
+      <select class="form-select form-select-sm" id="${id}">
         <option value="">Select ${label}</option>
         ${options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
       </select>
@@ -35,21 +35,19 @@ export function renderEnrollmentSessionForm(): string {
           <h5 class="mb-3">Create Enrollment Session</h5>
           
           <div class="enrollment-form-grid">
-            ${floatingInput('school-year', 'School Year (YYYY-YYYY)', 'text', true)}
+            ${floatingInput('school-year', 'School Year (YYYY-YYYY)', 'text', 'inputmode="numeric" pattern="[0-9-]*"')}
             ${floatingSelect(
               'semester',
               'Semester',
-              ['1st Semester', '2nd Semester', 'Summer'],
-              true
+              ['1st Semester', '2nd Semester', 'Summer']
             )}
             ${floatingSelect(
               'year-level',
               'Year Level',
-              ['First Year', 'Second Year', 'Third Year', 'Fourth Year'],
-              true
+              ['First Year', 'Second Year', 'Third Year', 'Fourth Year']
             )}
-            ${floatingInput('opening-date', 'Opening Date', 'date', true)}
-            ${floatingInput('closing-date', 'Closing Date', 'date', true)}
+            ${floatingInput('opening-date', 'Opening Date', 'date')}
+            ${floatingInput('closing-date', 'Closing Date', 'date')}
           </div>
 
           <div class="enrollment-form-actions mt-3">
@@ -98,8 +96,14 @@ export function setupEnrollmentSessionForm(root: HTMLElement, onSuccess?: (data:
 
   const openingDateInput = form.querySelector<HTMLInputElement>('#opening-date')
   const closingDateInput = form.querySelector<HTMLInputElement>('#closing-date')
+  const schoolYearInput = form.querySelector<HTMLInputElement>('#school-year')
   const cleanupOpeningDateClick = openingDateInput ? enableFullDateInputClick(openingDateInput) : () => {}
   const cleanupClosingDateClick = closingDateInput ? enableFullDateInputClick(closingDateInput) : () => {}
+  const onSchoolYearInput = (event: Event): void => {
+    const target = event.target as HTMLInputElement
+    target.value = target.value.replace(/[^0-9-]/g, '')
+  }
+  schoolYearInput?.addEventListener('input', onSchoolYearInput)
 
   const onSubmit = async (event: Event): Promise<void> => {
     event.preventDefault()
@@ -121,6 +125,12 @@ export function setupEnrollmentSessionForm(root: HTMLElement, onSuccess?: (data:
     const yearLevel = yearLevelSelect.value
     const openingDate = openingDateInput.value
     const closingDate = closingDateInput.value
+    const hasEmptyField = !schoolYear || !semester || !yearLevel || !openingDate || !closingDate
+
+    if (hasEmptyField) {
+      setMessage('Please fill out all fields.', true)
+      return
+    }
 
     try {
       const response = await createEnrollmentSession({
@@ -158,6 +168,7 @@ export function setupEnrollmentSessionForm(root: HTMLElement, onSuccess?: (data:
 
   return () => {
     form.removeEventListener('submit', onSubmit)
+    schoolYearInput?.removeEventListener('input', onSchoolYearInput)
     cleanupOpeningDateClick()
     cleanupClosingDateClick()
   }
