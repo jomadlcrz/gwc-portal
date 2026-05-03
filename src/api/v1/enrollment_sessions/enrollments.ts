@@ -54,7 +54,7 @@ export async function createEnrollmentSession(
 }
 
 export async function getCurrentEnrollmentSession(): Promise<EnrollmentSessionResponse['data']> {
-  const response = await fetch(`${API_BASE_URL}/api/v1/enrollment_sessions/current`, {
+  const response = await fetch(`${API_BASE_URL}/api/v1/enrollment_sessions`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
