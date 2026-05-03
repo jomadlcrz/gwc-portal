@@ -2332,7 +2332,6 @@
 .registrar-schedule-v2-cell-blue { background: #edf4ff; }
 .registrar-schedule-v2-cell-violet { background: #f1edff; }
 .registrar-schedule-v2-cell-teal { background: #eafaf8; }
-.registrar-schedule-v2-cell-yellow { background: #fff9e8; }
 .registrar-schedule-v2-cell-indigo { background: #edf0ff; }
 
 .registrar-schedule-v2-list {
@@ -2654,11 +2653,30 @@
   display: inline-block;
 }
 
-.registrar-schedule-v2-dot-blue { background: #cfe2ff; }
-.registrar-schedule-v2-dot-violet { background: #ded6ff; }
-.registrar-schedule-v2-dot-yellow { background: #f8ebba; }
-.registrar-schedule-v2-dot-teal { background: #cdeee9; }
-.registrar-schedule-v2-dot-indigo { background: #dbe1ff; }
+.registrar-schedule-v2-dot-blue { background: #edf4ff; }
+.registrar-schedule-v2-dot-violet { background: #f1edff; }
+.registrar-schedule-v2-dot-teal { background: #eafaf8; }
+.registrar-schedule-v2-dot-indigo { background: #edf0ff; }
+
+.registrar-schedule-v2-badge-blue {
+  background: #edf4ff;
+  color: #274b85;
+}
+
+.registrar-schedule-v2-badge-violet {
+  background: #f1edff;
+  color: #5b3da6;
+}
+
+.registrar-schedule-v2-badge-teal {
+  background: #eafaf8;
+  color: #156b5f;
+}
+
+.registrar-schedule-v2-badge-indigo {
+  background: #edf0ff;
+  color: #374a8b;
+}
 
 .registrar-schedule-v2-bottom {
   display: grid;

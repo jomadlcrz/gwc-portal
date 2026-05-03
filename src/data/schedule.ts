@@ -25,7 +25,7 @@ export type ScheduleSubjectType = 'COMLAB' | 'RESEARCH_THESIS' | 'GENERAL_LECTUR
 
 export type ScheduleBoardScope = ScheduleEnrollmentType | 'All'
 
-export type ScheduleCellTone = 'blue' | 'violet' | 'yellow' | 'teal' | 'indigo'
+export type ScheduleCellTone = 'blue' | 'violet' | 'teal' | 'indigo'
 
 export type SchedulePlannerEntry = {
   sourceStatus: ScheduleEnrollmentType
@@ -88,8 +88,6 @@ const DAY_KEYS: Record<string, ScheduleDay> = {
   friday: 'F',
   saturday: 'S',
 }
-
-const SUBJECT_TONES: ScheduleCellTone[] = ['blue', 'violet', 'teal', 'yellow', 'indigo']
 
 function toMinutes(time: string): number {
   const [hourText, minuteText = '0'] = time.trim().split(':')
@@ -166,12 +164,12 @@ function getScheduleCategory(item: ScheduleItem): string {
 }
 
 function getScheduleEntryTone(item: ScheduleItem): ScheduleCellTone {
+  const code = item.subjectCode.toUpperCase()
   const category = getScheduleCategory(item)
   if (category === 'Major (with lab)') return 'blue'
-  if (category === 'GE') return 'yellow'
-  if (category === 'Minor') return 'indigo'
-  if (item.subjectCode.toUpperCase().startsWith('CAPS')) return 'teal'
-  return SUBJECT_TONES[Math.abs(item.subjectCode.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0)) % SUBJECT_TONES.length]
+  if (category === 'GE' || category === 'Minor') return 'indigo'
+  if (code.startsWith('CAPS') || code.includes('THESIS') || code.includes('RES')) return 'teal'
+  return 'violet'
 }
 
 function buildBoardLabel(item: ScheduleItem): string {
