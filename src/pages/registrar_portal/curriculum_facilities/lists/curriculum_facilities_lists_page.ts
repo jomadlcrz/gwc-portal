@@ -209,8 +209,12 @@ export function setupregistrar_curriculum_lists_page(root: HTMLElement): () => v
       const headers = Array.from(card?.querySelectorAll('thead th') || [])
         .slice(0, -1)
         .map((header) => header.textContent?.trim() || '')
+      const addHeaders =
+        itemLabel.toLowerCase() === 'program'
+          ? headers.filter((header) => header.toLowerCase() !== 'status')
+          : headers
 
-      openAddOffcanvas(`Add ${itemLabel}`, renderAddFields(headers), () => {
+      openAddOffcanvas(`Add ${itemLabel}`, renderAddFields(addHeaders), () => {
         toast.show(`${itemLabel} saved successfully.`)
         closeAddOffcanvas()
       })
