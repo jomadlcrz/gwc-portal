@@ -921,6 +921,19 @@
   background: #fff;
 }
 
+.admission-registration-fields .form-control[readonly] {
+  background: #f3f6fb;
+  color: #5f6c84;
+  cursor: default;
+}
+
+.admission-registration-fields .form-select {
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  appearance: auto;
+  background-image: initial;
+}
+
 .admission-registration-fields .form-control:focus,
 .admission-registration-fields .form-control:focus-visible,
 .admission-registration-fields .form-select:focus,

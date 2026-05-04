@@ -112,10 +112,26 @@ function renderRegistrationSteps(): string {
   `
 }
 
-function field(id: string, label: string, options: { type?: string; required?: boolean; readonly?: boolean; autocomplete?: string; min?: string; max?: string; step?: string; list?: string } = {}): string {
+function field(
+  id: string,
+  label: string,
+  options: {
+    type?: string
+    required?: boolean
+    readonly?: boolean
+    autocomplete?: string
+    min?: string
+    max?: string
+    step?: string
+    list?: string
+    inputMode?: string
+    pattern?: string
+    maxLength?: string
+  } = {},
+): string {
   return `
     <div class="form-floating admission-field">
-      <input id="${id}" class="form-control" type="${options.type ?? 'text'}" placeholder=" "${options.required ? ' required' : ''}${options.readonly ? ' readonly' : ''}${options.autocomplete ? ` autocomplete="${options.autocomplete}"` : ''}${options.min ? ` min="${options.min}"` : ''}${options.max ? ` max="${options.max}"` : ''}${options.step ? ` step="${options.step}"` : ''}${options.list ? ` list="${options.list}"` : ''} />
+      <input id="${id}" class="form-control" type="${options.type ?? 'text'}" placeholder=" "${options.required ? ' required' : ''}${options.readonly ? ' readonly' : ''}${options.autocomplete ? ` autocomplete="${options.autocomplete}"` : ''}${options.min ? ` min="${options.min}"` : ''}${options.max ? ` max="${options.max}"` : ''}${options.step ? ` step="${options.step}"` : ''}${options.list ? ` list="${options.list}"` : ''}${options.inputMode ? ` inputmode="${options.inputMode}"` : ''}${options.pattern ? ` pattern="${options.pattern}"` : ''}${options.maxLength ? ` maxlength="${options.maxLength}"` : ''} />
       <label for="${id}">${label}</label>
     </div>
   `
@@ -228,7 +244,7 @@ export function renderadmission_registration_page(): string {
               <div class="admission-registration-fields admission-registration-grid-4">
                 ${field('admission-application-id', 'Application ID', { readonly: true })}
                 ${field('admission-application-date', 'Application Date', { type: 'date', readonly: true })}
-                ${selectField('admission-academic-year', 'Academic Year', `<option value="">Select academic year</option><option value="${currentYear}-${currentYear + 1}">${currentYear}-${currentYear + 1}</option><option value="${currentYear + 1}-${currentYear + 2}">${currentYear + 1}-${currentYear + 2}</option>`, true)}
+                ${selectField('admission-academic-year', 'Academic Year', `<option value="">Select academic year</option><option value="${currentYear}-${currentYear + 1}">${currentYear}-${currentYear + 1}</option>`, true)}
                 ${selectField('admission-semester', 'Semester', '<option value="">Select semester</option><option value="1st Semester">1st Semester</option><option value="2nd Semester">2nd Semester</option><option value="Summer">Summer</option>', true)}
               </div>
               ${radioGroup('Entry Type', 'admission-entry-type', ['Freshman', 'Transferee', 'Returnee', 'Cross-Enrollee'])}
@@ -260,7 +276,7 @@ export function renderadmission_registration_page(): string {
               <div class="admission-card-heading"><div><span>Step 1</span><h3>Contact Information</h3></div><p>Email is used as the login username.</p></div>
               <div class="admission-registration-fields admission-registration-grid-3">
                 ${field('admission-contact-email', 'Email Address', { type: 'email', autocomplete: 'email' })}
-                ${field('admission-contact-mobile', 'Mobile Number', { type: 'tel', autocomplete: 'tel' })}
+                ${field('admission-contact-mobile', 'Mobile Number', { type: 'tel', autocomplete: 'tel', inputMode: 'numeric', pattern: '[0-9]{11}', maxLength: '11' })}
                 ${textareaField('admission-home-address', 'Home Address')}
                 ${field('admission-barangay', 'Barangay', { list: 'admission-barangay-options' })}
                 ${field('admission-city', 'Town / City', { list: 'admission-city-options' })}
@@ -273,7 +289,7 @@ export function renderadmission_registration_page(): string {
               <div class="admission-registration-fields admission-registration-grid-3">
                 ${field('admission-father-name', "Father's Name")}
                 ${field('admission-mother-maiden-name', "Mother's Maiden Name")}
-                ${field('admission-parent-contact', 'Parent / Guardian Contact Number', { type: 'tel' })}
+                ${field('admission-parent-contact', 'Parent / Guardian Contact Number', { type: 'tel', inputMode: 'numeric', pattern: '[0-9]{11}', maxLength: '11' })}
               </div>
             </article>
 
@@ -282,7 +298,7 @@ export function renderadmission_registration_page(): string {
               <div class="admission-registration-fields admission-registration-grid-3">
                 ${field('admission-emergency-name', 'Full Name')}
                 ${field('admission-emergency-relationship', 'Relationship')}
-                ${field('admission-emergency-contact', 'Contact Number', { type: 'tel' })}
+                ${field('admission-emergency-contact', 'Contact Number', { type: 'tel', inputMode: 'numeric', pattern: '[0-9]{11}', maxLength: '11' })}
                 ${textareaField('admission-emergency-address', 'Address')}
               </div>
             </article>
@@ -311,7 +327,7 @@ export function renderadmission_registration_page(): string {
               </div>
             </article>
             <article class="admission-registration-card admission-registration-card-final">
-              <div class="admission-card-heading"><div><span>Step 3</span><h3>Account Setup</h3></div><p>Your email will be used as the portal username.</p></div>
+              <div class="admission-card-heading"><div><span>Step 3</span><h3>Portal Email</h3></div><p>Your email will be used as the portal username.</p></div>
               <div class="admission-registration-fields admission-registration-grid-3">
                 ${field('admission-account-email', 'Email (used as username)', { type: 'email', autocomplete: 'username' })}
                 ${field('admission-password', 'Password', { type: 'password', autocomplete: 'new-password' })}
@@ -409,7 +425,6 @@ export function renderadmission_registration_page(): string {
 
           <div class="admission-registration-actions admission-registration-actions-final">
             <button type="button" class="admission-registration-nav-button admission-registration-step-hidden" id="admission-registration-back"><i class="bi bi-chevron-left" aria-hidden="true"></i> Previous</button>
-            <button type="button" class="admission-registration-nav-button" id="admission-registration-save-draft">Save as Draft</button>
             <button type="button" class="admission-registration-next-step" id="admission-registration-next">Next <i class="bi bi-chevron-right" aria-hidden="true"></i></button>
             <button type="button" class="admission-registration-next-step admission-registration-submit-button admission-registration-step-hidden" id="admission-registration-submit">Submit Application <i class="bi bi-send" aria-hidden="true"></i></button>
           </div>
@@ -499,7 +514,6 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     !backButton ||
     !nextButton ||
     !submitButton ||
-    !saveDraftButton ||
     !finishCheck ||
     !submittedApplicationId ||
     !birthDateInput ||
@@ -635,7 +649,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
   const updateActionState = (): void => {
     const finished = currentStep === 6
     backButton.classList.toggle('admission-registration-step-hidden', currentStep === 1 || finished)
-    saveDraftButton.classList.toggle('admission-registration-step-hidden', finished)
+    saveDraftButton?.classList.toggle('admission-registration-step-hidden', finished)
     nextButton.classList.toggle('admission-registration-step-hidden', currentStep >= 5)
     submitButton.classList.toggle('admission-registration-step-hidden', currentStep !== 5)
     nextButton.disabled = currentStep < 5 && !currentStepComplete()
@@ -809,6 +823,11 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     return true
   }
 
+  const sanitizePhoneInput = (input: HTMLInputElement | null): void => {
+    if (!input) return
+    input.value = input.value.replace(/\D/g, '').slice(0, 11)
+  }
+
   const saveDraft = (): void => {
     const fields = Object.fromEntries(draftFieldIds.map((id) => [id, getValue(id)]))
     const agreements = Object.fromEntries(agreementIds.map((id) => [id, isChecked(id)]))
@@ -823,7 +842,6 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     }
     try {
       localStorage.setItem(draftKey, JSON.stringify(draft))
-      setMessage(messageEl, 'Draft saved on this device. Uploaded files and passwords are not stored for security.')
     } catch {
       setMessage(messageEl, 'Unable to save draft on this device.', true)
     }
@@ -846,7 +864,6 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
       if (draft.radios?.entryType) setRadioValue('admission-entry-type', draft.radios.entryType)
       if (draft.radios?.pwd) setRadioValue('admission-pwd', draft.radios.pwd)
       if (draft.radios?.fourPs) setRadioValue('admission-4ps', draft.radios.fourPs)
-      setMessage(messageEl, 'Draft loaded from this device.')
     } catch {
       setMessage(messageEl, 'Saved draft could not be loaded.', true)
     }
@@ -946,12 +963,21 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     input.addEventListener('change', syncState)
     input.addEventListener('input', syncState)
   })
+  const phoneInputs = [
+    root.querySelector<HTMLInputElement>('#admission-contact-mobile'),
+    root.querySelector<HTMLInputElement>('#admission-parent-contact'),
+    root.querySelector<HTMLInputElement>('#admission-emergency-contact'),
+  ]
+  phoneInputs.forEach((input) => {
+    if (!input) return
+    input.addEventListener('input', () => sanitizePhoneInput(input))
+  })
   contactEmailInput.addEventListener('input', handleContactEmailInput)
   accountEmailInput.addEventListener('input', handleAccountEmailInput)
   nextButton.addEventListener('click', handleNextClick)
   backButton.addEventListener('click', handleBackClick)
   submitButton.addEventListener('click', handleSubmitClick)
-  saveDraftButton.addEventListener('click', saveDraft)
+  saveDraftButton?.addEventListener('click', saveDraft)
 
   setValue('admission-application-id', getValue('admission-application-id') || generateApplicationId())
   setValue('admission-application-date', getValue('admission-application-date') || localDateValue())
@@ -971,7 +997,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     nextButton.removeEventListener('click', handleNextClick)
     backButton.removeEventListener('click', handleBackClick)
     submitButton.removeEventListener('click', handleSubmitClick)
-    saveDraftButton.removeEventListener('click', saveDraft)
+    saveDraftButton?.removeEventListener('click', saveDraft)
     cleanupBirthDateClick()
     if (photoPreviewUrl) URL.revokeObjectURL(photoPreviewUrl)
   }
