@@ -105,6 +105,38 @@ function normalizeScheduleValue(value: string): string {
   return value.trim().toLowerCase()
 }
 
+function normalizeSubjectCode(value: string): string {
+  return value.trim().toUpperCase()
+}
+
+function isResearchThesisSubject(subjectCode: string): boolean {
+  const code = normalizeSubjectCode(subjectCode)
+  return code.startsWith('CAPS') || code.includes('THESIS') || code.includes('RES')
+}
+
+function isSupportOrGeneralEducationSubject(subjectCode: string): boolean {
+  const code = normalizeSubjectCode(subjectCode)
+  return (
+    code.startsWith('GE') ||
+    code.startsWith('PATHFIT') ||
+    code.startsWith('NSTP') ||
+    code.startsWith('PSYCH') ||
+    code.startsWith('SOCSCI') ||
+    code.startsWith('ENGL') ||
+    code.startsWith('SCI') ||
+    code.startsWith('PHILO') ||
+    code.startsWith('MATH') ||
+    code.startsWith('HUM') ||
+    code.startsWith('RIZAL') ||
+    code.startsWith('LIT')
+  )
+}
+
+function isLabHeavyMajorSubject(item: ScheduleItem): boolean {
+  const code = normalizeSubjectCode(item.subjectCode)
+  return item.room.toUpperCase().includes('CL') || code.startsWith('PT') || code.startsWith('ITELEC')
+}
+
 function getClassAssignmentKey(item: ScheduleItem): string {
   return [
     item.subjectCode,
@@ -156,19 +188,18 @@ function getScopeEntries(scope: ScheduleBoardScope) {
 }
 
 function getScheduleCategory(item: ScheduleItem): string {
-  const code = item.subjectCode.toUpperCase()
-  if (code.includes('PATHFIT')) return 'Minor'
-  if (code.includes('GE') || code.startsWith('LIT') || code.startsWith('MS')) return 'GE'
-  if (item.room.toUpperCase().includes('CL') || code.startsWith('PT') || code.startsWith('ITELEC')) return 'Major (with lab)'
+  const units = getScheduleUnits(item)
+  if (isResearchThesisSubject(item.subjectCode)) return 'Research / Thesis'
+  if (units <= 2 || isSupportOrGeneralEducationSubject(item.subjectCode)) return 'Minor'
+  if (isLabHeavyMajorSubject(item)) return 'Major (with lab)'
   return 'Major'
 }
 
 function getScheduleEntryTone(item: ScheduleItem): ScheduleCellTone {
-  const code = item.subjectCode.toUpperCase()
   const category = getScheduleCategory(item)
   if (category === 'Major (with lab)') return 'blue'
-  if (category === 'GE' || category === 'Minor') return 'indigo'
-  if (code.startsWith('CAPS') || code.includes('THESIS') || code.includes('RES')) return 'teal'
+  if (category === 'Research / Thesis') return 'teal'
+  if (category === 'Minor') return 'indigo'
   return 'violet'
 }
 

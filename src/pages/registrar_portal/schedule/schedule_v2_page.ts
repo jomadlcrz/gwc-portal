@@ -43,17 +43,6 @@ function getBadgeClass(category: string): string {
   return 'registrar-schedule-v2-badge-indigo'
 }
 
-function normalizeCategory(category: string): string {
-  if (category === 'GE') return 'Minor'
-  return category
-}
-
-function toLegendCategory(subjectCode: string, category: string): string {
-  const code = subjectCode.toUpperCase()
-  if (code.startsWith('CAPS') || code.includes('THESIS') || code.includes('RES')) return 'Research / Thesis'
-  return normalizeCategory(category)
-}
-
 function renderUnselectedOptions(values: string[], placeholder: string): string {
   return [`<option value="" selected>${placeholder}</option>`, ...values.map((value) => `<option value="${value}">${value}</option>`)].join('')
 }
@@ -364,7 +353,7 @@ export function renderregistrar_schedule_v2_page(): string {
                 </header>
                 <ul>
                   ${SUBJECTS.map((subject) => {
-                    const category = toLegendCategory(subject.code, subject.category)
+                    const category = subject.category
                     return `<li><span>${subject.code} - ${subject.title}</span><em class="badge ${getBadgeClass(category)}">${category}</em></li>`
                   }).join('')}
                 </ul>
