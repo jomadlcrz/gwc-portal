@@ -85,7 +85,7 @@ export function setupSearchableSelects(root: HTMLElement, selector = '[data-sear
       state.closeTimer = 0
     }
 
-    const onSelectPointer = (event: MouseEvent): void => {
+    const onSelectPointer = (event: PointerEvent): void => {
       event.preventDefault()
       openSearch(state)
     }
@@ -102,9 +102,15 @@ export function setupSearchableSelects(root: HTMLElement, selector = '[data-sear
       const item = target?.closest<HTMLElement>('[data-shared-searchable-value]')
       const value = item?.dataset.sharedSearchableValue
       if (!value) return
+      event.preventDefault()
+      event.stopPropagation()
       state.select.value = value
       state.select.dispatchEvent(new Event('change', { bubbles: true }))
       closeSearch(state)
+    }
+    const onMenuPointer = (event: PointerEvent): void => {
+      event.preventDefault()
+      clearCloseTimer()
     }
     const onInputKeyDown = (event: KeyboardEvent): void => {
       if (event.key === 'Escape') {
@@ -122,24 +128,26 @@ export function setupSearchableSelects(root: HTMLElement, selector = '[data-sear
 
     const observer = new MutationObserver(() => renderMenu(state))
     observer.observe(select, { childList: true, subtree: true })
-    select.addEventListener('mousedown', onSelectPointer)
+    select.addEventListener('pointerdown', onSelectPointer)
     select.addEventListener('focus', onSelectFocus)
     input.addEventListener('input', onInput)
     input.addEventListener('focus', onInputFocus)
     input.addEventListener('blur', onInputBlur)
     input.addEventListener('keydown', onInputKeyDown)
     menu.addEventListener('click', onMenuClick)
+    menu.addEventListener('pointerdown', onMenuPointer)
 
     ;(state as SearchableSelectState & { teardown?: () => void }).teardown = () => {
       clearCloseTimer()
       observer.disconnect()
-      select.removeEventListener('mousedown', onSelectPointer)
+      select.removeEventListener('pointerdown', onSelectPointer)
       select.removeEventListener('focus', onSelectFocus)
       input.removeEventListener('input', onInput)
       input.removeEventListener('focus', onInputFocus)
       input.removeEventListener('blur', onInputBlur)
       input.removeEventListener('keydown', onInputKeyDown)
       menu.removeEventListener('click', onMenuClick)
+      menu.removeEventListener('pointerdown', onMenuPointer)
       select.classList.remove('shared-searchable-select-native')
       wrapper.parentElement?.insertBefore(select, wrapper)
       wrapper.remove()
