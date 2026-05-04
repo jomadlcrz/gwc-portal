@@ -7,7 +7,7 @@ export function renderEnrollmentSessionStatus(): string {
           <div id="enrollment-status-content" class="enrollment-status-content">
             <div class="alert alert-info mb-0">
               <strong>Create a new enrollment session</strong>
-              <p class="mb-0 mt-2">Use the form to create a new enrollment session for your academic year.</p>
+              <p class="mb-0 mt-2">Use the form to create a new enrollment session for the academic year.</p>
             </div>
           </div>
         </div>
