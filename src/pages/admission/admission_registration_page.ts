@@ -411,7 +411,17 @@ export function renderadmission_registration_page(): string {
           </section>
 
           <section id="admission-registration-step-6" class="admission-registration-step-hidden">
-            <article class="admission-registration-finish-card admission-registration-finish-card-final">
+            <article class="admission-registration-card admission-registration-card-final" id="admission-submit-card">
+              <div class="admission-card-heading"><div><span>Step 6</span><h3>Submit Application</h3></div><p>Review your details and submit your application.</p></div>
+              <div class="admission-details-grid admission-registration-review">
+                ${reviewItem('Application ID', 'admission-submit-application-id')}
+                ${reviewItem('Academic Year', 'admission-submit-academic-year')}
+                ${reviewItem('Semester', 'admission-submit-semester')}
+                ${reviewItem('Course Applying For', 'admission-submit-course')}
+                ${reviewItem('Email', 'admission-submit-email')}
+              </div>
+            </article>
+            <article class="admission-registration-finish-card admission-registration-finish-card-final admission-registration-step-hidden" id="admission-success-card">
               <div class="admission-registration-success-check" aria-hidden="true">
                 <svg viewBox="0 0 120 120" role="presentation"><circle class="admission-success-check-circle" cx="60" cy="60" r="48" /><path class="admission-success-check-mark" d="M36 62l16 16 32-32" /></svg>
               </div>
@@ -424,9 +434,9 @@ export function renderadmission_registration_page(): string {
           </section>
 
           <div class="admission-registration-actions admission-registration-actions-final">
-            <button type="button" class="admission-registration-nav-button admission-registration-step-hidden" id="admission-registration-back"><i class="bi bi-chevron-left" aria-hidden="true"></i> Previous</button>
+            <button type="button" class="admission-registration-nav-button" id="admission-registration-back"><i class="bi bi-chevron-left" aria-hidden="true"></i> Previous</button>
             <button type="button" class="admission-registration-next-step" id="admission-registration-next">Next <i class="bi bi-chevron-right" aria-hidden="true"></i></button>
-            <button type="button" class="admission-registration-next-step admission-registration-submit-button admission-registration-step-hidden" id="admission-registration-submit">Submit Application <i class="bi bi-send" aria-hidden="true"></i></button>
+            <button type="button" class="admission-registration-next-step admission-registration-submit-button admission-registration-step-hidden" id="admission-registration-submit" hidden>Submit Application <i class="bi bi-send" aria-hidden="true"></i></button>
           </div>
           <p id="admission-registration-message" class="admission-registration-message" role="status" aria-live="polite"></p>
         </div>
@@ -500,6 +510,8 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
   const saveDraftButton = root.querySelector<HTMLButtonElement>('#admission-registration-save-draft')
   const messageEl = root.querySelector<HTMLElement>('#admission-registration-message')
   const finishCheck = root.querySelector<HTMLElement>('.admission-registration-success-check')
+  const submitCard = root.querySelector<HTMLElement>('#admission-submit-card')
+  const successCard = root.querySelector<HTMLElement>('#admission-success-card')
   const submittedApplicationId = root.querySelector<HTMLElement>('#admission-submitted-application-id')
   const birthDateInput = root.querySelector<HTMLInputElement>('#admission-birth-date')
   const ageInput = root.querySelector<HTMLInputElement>('#admission-age')
@@ -515,6 +527,8 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     !nextButton ||
     !submitButton ||
     !finishCheck ||
+    !submitCard ||
+    !successCard ||
     !submittedApplicationId ||
     !birthDateInput ||
     !ageInput ||
@@ -527,6 +541,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
 
   const stepSections = sections as HTMLElement[]
   let currentStep: RegistrationStep = 1
+  let hasSubmitted = false
   let photoPreviewUrl: string | null = null
   let photoPreviewKey = ''
   let accountEmailTouched = false
@@ -575,6 +590,14 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     'admission-emergency-address',
   ]
   const requiredStep2Fields = ['admission-previous-school', 'admission-strand-track', 'admission-school-address', 'admission-year-graduated', 'admission-gpa']
+  const stepFieldMap: Record<RegistrationStep, string[]> = {
+    1: requiredStep1Fields,
+    2: requiredStep2Fields,
+    3: ['admission-pwd-specify', 'admission-account-email', 'admission-password', 'admission-confirm-password'],
+    4: [],
+    5: [],
+    6: [],
+  }
 
   const updateAge = (): void => {
     const age = computeAge(birthDateInput.value)
@@ -647,13 +670,15 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
   }
 
   const updateActionState = (): void => {
-    const finished = currentStep === 6
-    backButton.classList.toggle('admission-registration-step-hidden', currentStep === 1 || finished)
-    saveDraftButton?.classList.toggle('admission-registration-step-hidden', finished)
-    nextButton.classList.toggle('admission-registration-step-hidden', currentStep >= 5)
-    submitButton.classList.toggle('admission-registration-step-hidden', currentStep !== 5)
-    nextButton.disabled = currentStep < 5 && !currentStepComplete()
-    submitButton.disabled = currentStep === 5 && !currentStepComplete()
+    backButton.classList.toggle('admission-registration-step-hidden', currentStep === 1)
+    backButton.hidden = currentStep === 1 || currentStep >= 6
+    saveDraftButton?.classList.toggle('admission-registration-step-hidden', currentStep === 6 && hasSubmitted)
+    nextButton.classList.toggle('admission-registration-step-hidden', currentStep >= 6)
+    submitButton.classList.toggle('admission-registration-step-hidden', currentStep !== 6 || hasSubmitted)
+    nextButton.hidden = currentStep >= 6
+    submitButton.hidden = currentStep !== 6 || hasSubmitted
+    nextButton.disabled = false
+    submitButton.disabled = currentStep === 6 && !currentStepComplete()
     nextButton.innerHTML = `${currentStep === 4 ? 'Review Application' : 'Next'} <i class="bi bi-chevron-right" aria-hidden="true"></i>`
   }
 
@@ -673,6 +698,19 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
   }
 
   const fullAddress = (): string => [getValue('admission-home-address'), getValue('admission-barangay'), getValue('admission-city'), getValue('admission-province')].filter(Boolean).join(', ')
+
+  const updateSubmitReview = (): void => {
+    setReviewText('admission-submit-application-id', getValue('admission-application-id'))
+    setReviewText('admission-submit-academic-year', getValue('admission-academic-year'))
+    setReviewText('admission-submit-semester', getValue('admission-semester'))
+    setReviewText('admission-submit-course', getValue('admission-course'))
+    setReviewText('admission-submit-email', getValue('admission-contact-email'))
+  }
+
+  const updateSubmitState = (): void => {
+    submitCard.classList.toggle('admission-registration-step-hidden', hasSubmitted)
+    successCard.classList.toggle('admission-registration-step-hidden', !hasSubmitted)
+  }
 
   const populateReview = (): void => {
     const middleName = getValue('admission-middle-name')
@@ -727,30 +765,64 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     updateActionState()
     if (step === 5) populateReview()
     if (step === 6) {
-      finishCheck.classList.remove('is-animate')
-      void finishCheck.offsetWidth
-      finishCheck.classList.add('is-animate')
-      submittedApplicationId.textContent = getValue('admission-application-id')
-      try {
-        localStorage.removeItem(draftKey)
-      } catch {
-        // Draft cleanup should not block the success state.
-      }
+      updateSubmitReview()
+      updateSubmitState()
     }
     if (shouldScroll) scrollToStep(step)
   }
 
+  const clearFieldValidation = (ids: string[]): void => {
+    ids.forEach((id) => {
+      const field = getField<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(id)
+      if (!field) return
+      field.classList.remove('is-invalid')
+      field.removeAttribute('aria-invalid')
+      const feedback = field.parentElement?.querySelector<HTMLElement>('.invalid-feedback[data-generated="true"]')
+      feedback?.remove()
+    })
+  }
+
+  const setFieldInvalid = (id: string, message: string): void => {
+    const field = getField<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(id)
+    if (!field) return
+    field.classList.add('is-invalid')
+    field.setAttribute('aria-invalid', 'true')
+    const parent = field.parentElement
+    if (!parent) return
+    let feedback = parent.querySelector<HTMLElement>('.invalid-feedback[data-generated="true"]')
+    if (!feedback) {
+      feedback = document.createElement('div')
+      feedback.className = 'invalid-feedback'
+      feedback.dataset.generated = 'true'
+      parent.appendChild(feedback)
+    }
+    feedback.textContent = message
+  }
+
+  const validateRequiredField = (id: string, message: string): boolean => {
+    const value = getValue(id)
+    if (value) return true
+    setFieldInvalid(id, message)
+    return false
+  }
+
   const validateStep1 = (): boolean => {
-    if (!getRadioValue('admission-entry-type') || !areFieldsComplete(requiredStep1Fields)) {
-      setMessage(messageEl, 'Complete all required application, course, personal, contact, guardian, and emergency fields.', true)
+    clearFieldValidation(stepFieldMap[1])
+    if (!getRadioValue('admission-entry-type')) {
+      setMessage(messageEl, 'Select an entry type to continue.', true)
       return false
     }
+    let isValid = true
+    requiredStep1Fields.forEach((id) => {
+      if (!validateRequiredField(id, 'This field is required.')) isValid = false
+    })
+    if (!isValid) return false
     if (!isValidEmail(getValue('admission-contact-email'))) {
-      setMessage(messageEl, 'Enter a valid email address.', true)
+      setFieldInvalid('admission-contact-email', 'Enter a valid email address.')
       return false
     }
     if (computeAge(getValue('admission-birth-date')) === null) {
-      setMessage(messageEl, 'Enter a valid date of birth.', true)
+      setFieldInvalid('admission-birth-date', 'Enter a valid date of birth.')
       return false
     }
     setMessage(messageEl, '')
@@ -758,18 +830,20 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
   }
 
   const validateStep2 = (): boolean => {
+    clearFieldValidation(stepFieldMap[2])
     const year = Number(getValue('admission-year-graduated'))
     const gpa = Number(getValue('admission-gpa'))
-    if (!areFieldsComplete(requiredStep2Fields)) {
-      setMessage(messageEl, 'Complete all required educational background fields.', true)
-      return false
-    }
+    let isValid = true
+    requiredStep2Fields.forEach((id) => {
+      if (!validateRequiredField(id, 'This field is required.')) isValid = false
+    })
+    if (!isValid) return false
     if (!Number.isFinite(year) || year < 1970 || year > currentYear + 1) {
-      setMessage(messageEl, 'Enter a valid year graduated.', true)
+      setFieldInvalid('admission-year-graduated', 'Enter a valid year graduated.')
       return false
     }
     if (!Number.isFinite(gpa) || gpa < 60 || gpa > 100) {
-      setMessage(messageEl, 'Enter a valid general average or GPA from 60 to 100.', true)
+      setFieldInvalid('admission-gpa', 'Enter a valid general average or GPA from 60 to 100.')
       return false
     }
     setMessage(messageEl, '')
@@ -777,6 +851,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
   }
 
   const validateStep3 = (): boolean => {
+    clearFieldValidation(stepFieldMap[3])
     const pwd = getRadioValue('admission-pwd')
     const password = getValue('admission-password')
     const confirmPassword = getValue('admission-confirm-password')
@@ -785,19 +860,19 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
       return false
     }
     if (pwd === 'Yes' && !getValue('admission-pwd-specify')) {
-      setMessage(messageEl, 'Specify the PWD details.', true)
+      setFieldInvalid('admission-pwd-specify', 'Specify the PWD details.')
       return false
     }
     if (!isValidEmail(getValue('admission-account-email'))) {
-      setMessage(messageEl, 'Enter a valid portal account email.', true)
+      setFieldInvalid('admission-account-email', 'Enter a valid portal account email.')
       return false
     }
     if (password.length < 8) {
-      setMessage(messageEl, 'Password must be at least 8 characters.', true)
+      setFieldInvalid('admission-password', 'Password must be at least 8 characters.')
       return false
     }
     if (password !== confirmPassword) {
-      setMessage(messageEl, 'Password and confirm password must match.', true)
+      setFieldInvalid('admission-confirm-password', 'Password and confirm password must match.')
       return false
     }
     setMessage(messageEl, '')
@@ -911,7 +986,18 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
         registration_status: 'Pending',
       })
       setMessage(messageEl, '')
-      setStep(6)
+      hasSubmitted = true
+      updateSubmitState()
+      finishCheck.classList.remove('is-animate')
+      void finishCheck.offsetWidth
+      finishCheck.classList.add('is-animate')
+      submittedApplicationId.textContent = getValue('admission-application-id')
+      try {
+        localStorage.removeItem(draftKey)
+      } catch {
+        // Draft cleanup should not block the success state.
+      }
+      updateActionState()
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Unable to submit application.'
       setMessage(messageEl, message, true)
@@ -928,6 +1014,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     if (currentStep === 2 && validateStep2()) return setStep(3)
     if (currentStep === 3 && validateStep3()) return setStep(4)
     if (currentStep === 4 && validateStep4()) return setStep(5)
+    if (currentStep === 5 && validateStep5()) return setStep(6)
   }
 
   const handleBackClick = (): void => {
