@@ -42,8 +42,7 @@ const draftFieldIds = [
   'admission-application-date',
   'admission-academic-year',
   'admission-semester',
-  'admission-primary-course',
-  'admission-second-choice',
+  'admission-course',
   'admission-first-name',
   'admission-middle-name',
   'admission-last-name',
@@ -221,7 +220,6 @@ export function renderadmission_registration_page(): string {
               <h2 class="admission-registration-title" data-aos="fade-up">Online Application Form</h2>
               <p>Fill out each section accurately. Required fields must be completed before submission.</p>
             </div>
-            <a class="admission-status-tracker-link" href="${ROUTES.ADMISSION_STATUS}"><i class="bi bi-search" aria-hidden="true"></i><span>Application Status Tracker</span></a>
           </article>
 
           <section id="admission-registration-step-1">
@@ -239,8 +237,7 @@ export function renderadmission_registration_page(): string {
             <article class="admission-registration-card admission-registration-card-final" data-aos="fade-up" data-aos-delay="50">
               <div class="admission-card-heading"><div><span>Step 1</span><h3>Course Selection</h3></div><p>Second choice is optional.</p></div>
               <div class="admission-registration-fields admission-registration-grid-2">
-                ${selectField('admission-primary-course', 'Course Applying For (Primary)', renderProgramOptions(), true)}
-                ${selectField('admission-second-choice', 'Second Choice (optional)', renderProgramOptions())}
+                ${selectField('admission-course', 'Course Applying For', renderProgramOptions(), true)}
               </div>
             </article>
 
@@ -252,7 +249,7 @@ export function renderadmission_registration_page(): string {
                 ${field('admission-last-name', 'Last Name', { autocomplete: 'family-name' })}
                 ${field('admission-birth-date', 'Date of Birth', { type: 'date' })}
                 ${field('admission-age', 'Age', { type: 'number', readonly: true })}
-                ${selectField('admission-gender', 'Gender', '<option value="">Select gender</option><option value="Male">Male</option><option value="Female">Female</option><option value="Other">Other</option>', true)}
+                ${selectField('admission-gender', 'Gender', '<option value="">Select gender</option><option value="Male">Male</option><option value="Female">Female</option>', true)}
                 ${field('admission-nationality', 'Nationality', { list: 'admission-nationality-options' })}
                 ${selectField('admission-civil-status', 'Civil Status', '<option value="">Select status</option><option value="Single">Single</option><option value="Married">Married</option><option value="Widowed">Widowed</option><option value="Separated">Separated</option>', true)}
                 ${field('admission-religion', 'Religion')}
@@ -354,8 +351,7 @@ export function renderadmission_registration_page(): string {
                   ${reviewItem('Academic Year', 'admission-review-academic-year')}
                   ${reviewItem('Semester', 'admission-review-semester')}
                   ${reviewItem('Entry Type', 'admission-review-entry-type')}
-                  ${reviewItem('Course Applying For', 'admission-review-primary-course')}
-                  ${reviewItem('Second Choice', 'admission-review-second-choice')}
+                  ${reviewItem('Course Applying For', 'admission-review-course')}
                 </div></section>
                 <section><h4>Personal & Contact Information</h4><div class="admission-details-grid admission-registration-review">
                   ${reviewItem('Name', 'admission-review-name')}
@@ -420,12 +416,6 @@ export function renderadmission_registration_page(): string {
           <p id="admission-registration-message" class="admission-registration-message" role="status" aria-live="polite"></p>
         </div>
       </section>
-
-      <datalist id="admission-nationality-options"><option value="Filipino"></option><option value="Dual Citizen"></option><option value="Foreign National"></option></datalist>
-      <datalist id="admission-barangay-options"><option value="Poblacion"></option><option value="San Jose"></option><option value="San Vicente"></option><option value="Lucap"></option><option value="Magsaysay"></option></datalist>
-      <datalist id="admission-city-options"><option value="Alaminos City"></option><option value="Bolinao"></option><option value="Bani"></option><option value="Anda"></option><option value="Lingayen"></option></datalist>
-      <datalist id="admission-province-options"><option value="Pangasinan"></option><option value="La Union"></option><option value="Zambales"></option><option value="Tarlac"></option></datalist>
-
       ${renderMainSiteFooter()}
     </main>
   `
@@ -548,7 +538,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
   const requiredStep1Fields = [
     'admission-academic-year',
     'admission-semester',
-    'admission-primary-course',
+    'admission-course',
     'admission-first-name',
     'admission-last-name',
     'admission-birth-date',
@@ -681,8 +671,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     setReviewText('admission-review-academic-year', getValue('admission-academic-year'))
     setReviewText('admission-review-semester', getValue('admission-semester'))
     setReviewText('admission-review-entry-type', getRadioValue('admission-entry-type'))
-    setReviewText('admission-review-primary-course', getValue('admission-primary-course'))
-    setReviewText('admission-review-second-choice', getValue('admission-second-choice') || 'None')
+    setReviewText('admission-review-course', getValue('admission-course'))
     setReviewText('admission-review-name', fullName)
     setReviewText('admission-review-birth-age', `${displayDate(getValue('admission-birth-date'))} / ${age ?? '-'} years old`)
     setReviewText('admission-review-gender', getValue('admission-gender'))
@@ -872,8 +861,7 @@ export function setupadmission_registration_page(root: HTMLElement): () => void 
     try {
       await createRegistrationStudent({
         admission_type: backendAdmissionType(getRadioValue('admission-entry-type')),
-        program_name: getValue('admission-primary-course'),
-        prev_program: getValue('admission-second-choice') || undefined,
+        program_name: getValue('admission-course'),
         first_name: getValue('admission-first-name'),
         mid_name: getValue('admission-middle-name') || undefined,
         last_name: getValue('admission-last-name'),
