@@ -213,7 +213,7 @@ export function toScheduleDisplayTime(time: string): string {
 }
 
 export function listScheduleItems(scope: ScheduleBoardScope = 'All'): ScheduleItem[] {
-  return getScopeEntries(scope).map((entry) => entry.row).sort(compareScheduleItems)
+  return listUniqueClassAssignments(getScopeEntries(scope).map((entry) => entry.row)).sort(compareScheduleItems)
 }
 
 export function listInstructorSchedules(scope: ScheduleBoardScope = 'All'): InstructorSchedule[] {
@@ -271,7 +271,9 @@ export function listInstructorSchedules(scope: ScheduleBoardScope = 'All'): Inst
 }
 
 export function listSchedulePlannerEntries(scope: ScheduleBoardScope = 'All'): SchedulePlannerEntry[] {
-  return getScopeEntries(scope)
+  const seen = new Map<string, SchedulePlannerEntry>()
+  
+  getScopeEntries(scope)
     .map((entry) => {
       const dayKey = getScheduleDayKey(entry.row.day)
       if (!dayKey) return null
@@ -293,7 +295,15 @@ export function listSchedulePlannerEntries(scope: ScheduleBoardScope = 'All'): S
       } satisfies SchedulePlannerEntry
     })
     .filter((entry): entry is SchedulePlannerEntry => Boolean(entry))
-    .sort(comparePlannerEntries)
+    .forEach((entry) => {
+      // Deduplicate based on class assignment: subject + section + day + time
+      const key = `${entry.subject}|${entry.section}|${entry.day}|${entry.startTime}|${entry.endTime}`
+      if (!seen.has(key)) {
+        seen.set(key, entry)
+      }
+    })
+
+  return Array.from(seen.values()).sort(comparePlannerEntries)
 }
 
 export function listScheduleTimeRows(scope: ScheduleBoardScope = 'All'): ScheduleTimeRow[] {
